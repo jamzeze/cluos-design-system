@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cluos — Official Design Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Brand — OFFICIAL palette (from Paleta de Cores_CluOs.pdf) */
+    --cluos-teal:       #008080;
+    --cluos-navy:       #1B2F36;
+    --cluos-black:      #1D1D1B;
+    --cluos-champagne:  #C8C1AE;
+    --cluos-silver:     #B5B4B5;
+    --cluos-white:      #FFFFFF;
+
+    /* Derived */
+    --cluos-teal-deep:  #006666;
+    --cluos-teal-soft:  #4DA3A3;
+
+    /* Neutrals */
+    --cluos-bg:         #FFFFFF;
+    --cluos-bg-subtle:  #FAFAF8;
+    --cluos-bg-muted:   #F3F4F1;
+    --cluos-border:     #E7E8E3;
+    --cluos-border-strong: #CFD1CA;
+
+    /* Text */
+    --cluos-text:        #1B2F36;
+    --cluos-text-muted:  #5A6570;
+    --cluos-text-subtle: #8A939B;
+
+    /* Status */
+    --cluos-status-success: #008080;
+    --cluos-status-success-bg: #E6F2F2;
+    --cluos-status-info:    #3E6E82;
+    --cluos-status-info-bg: #EDF1F4;
+    --cluos-status-warn:    #BD7845;
+    --cluos-status-warn-bg: #F8EBDF;
+    --cluos-status-error:   #8A3A3A;
+    --cluos-status-error-bg: #F5EAEA;
+
+    /* Gradients — official wordmark gradient reconstructed from SVG */
+    --cluos-gradient-primary:
+      linear-gradient(135deg, #1D1D1B 0%, #1B2F36 18%, #C8C1AE 67%, #B5B4B5 100%);
+    --cluos-gradient-soft:
+      linear-gradient(135deg, #1B2F36 0%, #C8C1AE 100%);
+    --cluos-gradient-mono:
+      linear-gradient(135deg, #1B2F36 0%, #B5B4B5 100%);
+    --cluos-bg-brand-hero:
+      radial-gradient(ellipse at 85% 25%, #C8C1AE 0%, #008080 55%, #006666 100%);
+
+    --font-sans: "Inter", "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 24px;
+
+    --ring-focus: 0 0 0 3px rgba(0, 128, 128, 0.30);
+    --shadow-sm: 0 1px 3px rgba(27, 47, 54, 0.06), 0 1px 2px rgba(27, 47, 54, 0.04);
+    --shadow-md: 0 4px 12px rgba(27, 47, 54, 0.07), 0 2px 4px rgba(27, 47, 54, 0.04);
+    --shadow-lg: 0 12px 32px rgba(27, 47, 54, 0.10), 0 4px 8px rgba(27, 47, 54, 0.04);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--cluos-text);
+    background: var(--cluos-bg);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  /* TOP NAV */
+  .topnav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center;
+    height: 64px;
+    padding: 0 40px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: saturate(180%) blur(10px);
+    border-bottom: 1px solid var(--cluos-border);
+  }
+  .topnav-brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: -0.015em;
+    color: var(--cluos-navy);
+  }
+  .topnav-brand svg { width: 26px; height: 26px; }
+  .topnav-sub {
+    margin-left: 14px;
+    padding-left: 14px;
+    border-left: 1px solid var(--cluos-border);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--cluos-text-muted);
+  }
+  .topnav-links {
+    margin-left: auto;
+    display: flex; gap: 28px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .topnav-links a {
+    color: var(--cluos-text-muted);
+    text-decoration: none;
+    transition: color 120ms;
+  }
+  .topnav-links a:hover { color: var(--cluos-navy); }
+
+  /* HERO */
+  .hero {
+    padding: 96px 40px 80px;
+    text-align: center;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .hero-title {
+    font-weight: 600;
+    font-size: clamp(44px, 6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: var(--cluos-navy);
+    margin: 0 0 20px 0;
+  }
+  .hero-title .accent {
+    display: block;
+    background: linear-gradient(135deg, #1D1D1B 0%, #1B2F36 18%, #C8C1AE 67%, #B5B4B5 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero-sub {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--cluos-text-muted);
+    max-width: 620px;
+    margin: 0 auto 32px;
+  }
+  .hero-note {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cluos-text-subtle);
+    margin: 20px 0 0;
+  }
+  .hero-actions { display: flex; justify-content: center; gap: 12px; }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1;
+    padding: 12px 20px;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 140ms cubic-bezier(0.2,0.8,0.2,1);
+  }
+  .btn-dark { background: var(--cluos-navy); color: #FFFFFF; }
+  .btn-dark:hover { background: #0F1F26; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-ghost { background: transparent; color: var(--cluos-navy); border-color: var(--cluos-border-strong); }
+  .btn-ghost:hover { border-color: var(--cluos-navy); background: var(--cluos-bg-subtle); }
+  .btn-accent { background: var(--cluos-teal); color: #FFFFFF; }
+  .btn-accent:hover { background: var(--cluos-teal-deep); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,128,128,0.30); }
+  .btn-pill { border-radius: 9999px; padding: 10px 20px; }
+
+  /* SECTIONS */
+  .section {
+    padding: 80px 40px;
+    border-top: 1px solid var(--cluos-border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cluos-teal);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    color: var(--cluos-navy);
+    margin: 0 0 48px 0;
+  }
+
+  /* GRADIENT SHOWCASE */
+  .gradient-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .gradient-card {
+    border: 1px solid var(--cluos-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .gradient-strip { height: 110px; }
+  .gradient-meta { padding: 14px 16px; }
+  .gradient-name { font-size: 14px; font-weight: 600; color: var(--cluos-navy); margin-bottom: 2px; }
+  .gradient-desc { font-size: 12px; color: var(--cluos-text-subtle); line-height: 1.5; }
+
+  /* COLORS */
+  .color-group-title {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--cluos-text-subtle);
+    margin: 32px 0 16px 0;
+  }
+  .color-group-title:first-child { margin-top: 0; }
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .color-card {
+    background: var(--cluos-bg);
+    border: 1px solid var(--cluos-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform 200ms, box-shadow 200ms, border-color 200ms;
+  }
+  .color-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--cluos-border-strong);
+  }
+  .color-swatch { height: 96px; }
+  .color-meta { padding: 14px 16px 16px; }
+  .color-name { font-size: 14px; font-weight: 600; color: var(--cluos-navy); margin-bottom: 2px; }
+  .color-hex { font-family: var(--font-mono); font-size: 12px; color: var(--cluos-text-muted); margin-bottom: 6px; }
+  .color-note { font-size: 12px; color: var(--cluos-text-subtle); line-height: 1.4; }
+  .color-official-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cluos-teal-deep);
+    background: rgba(0, 128, 128, 0.10);
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* TYPOGRAPHY */
+  .type-list { display: flex; flex-direction: column; gap: 28px; }
+  .type-row { padding-bottom: 24px; border-bottom: 1px solid var(--cluos-border); }
+  .type-row:last-child { border-bottom: none; }
+  .type-sample { color: var(--cluos-navy); margin-bottom: 8px; }
+  .type-spec {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--cluos-text-subtle);
+    letter-spacing: 0.02em;
+  }
+  .t-display-hero { font-size: 56px; font-weight: 600; line-height: 1.05; letter-spacing: -0.035em; }
+  .t-section-h   { font-size: 40px; font-weight: 600; line-height: 1.1;  letter-spacing: -0.025em; }
+  .t-sub-h       { font-size: 24px; font-weight: 500; line-height: 1.3;  letter-spacing: -0.01em; }
+  .t-card-title  { font-size: 20px; font-weight: 600; line-height: 1.3;  letter-spacing: -0.01em; }
+  .t-body-lg     { font-size: 18px; font-weight: 400; line-height: 1.6; }
+  .t-body        { font-size: 16px; font-weight: 400; line-height: 1.6; }
+  .t-body-m      { font-size: 16px; font-weight: 500; line-height: 1.6; }
+  .t-button      { font-size: 15px; font-weight: 500; line-height: 1.5; }
+  .t-caption     { font-size: 14px; font-weight: 500; line-height: 1.5; }
+  .t-label-up    { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+  .t-mono-tech   { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+  .t-mono-micro  { font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; }
+
+  /* BUTTONS SHOWCASE */
+  .button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .button-demo {
+    padding: 28px;
+    background: var(--cluos-bg);
+    border: 1px solid var(--cluos-border);
+    border-radius: var(--radius-lg);
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    text-align: center;
+  }
+  .button-demo-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--cluos-text-subtle);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* BADGES */
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 9999px;
+  }
+  .badge-info    { background: var(--cluos-status-info-bg);    color: var(--cluos-status-info); }
+  .badge-success { background: var(--cluos-status-success-bg); color: var(--cluos-status-success); }
+  .badge-warn    { background: var(--cluos-status-warn-bg);    color: var(--cluos-status-warn); }
+  .badge-error   { background: var(--cluos-status-error-bg);   color: var(--cluos-status-error); }
+  .badge-brand   { background: rgba(0,128,128,0.10); color: var(--cluos-teal-deep); }
+  .badge-dot     { width: 6px; height: 6px; border-radius: 9999px; background: currentColor; }
+
+  /* CARDS */
+  .card-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 860px) { .card-row { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--cluos-bg);
+    border: 1px solid var(--cluos-border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    transition: all 200ms;
+    cursor: pointer;
+  }
+  .card:hover {
+    border-color: var(--cluos-teal);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+  }
+  .card-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cluos-teal-deep);
+    background: rgba(0,128,128,0.08);
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--cluos-navy);
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+  .card-text {
+    font-size: 14px;
+    color: var(--cluos-text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .featured-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+    padding: 56px 48px;
+    background: var(--cluos-bg-brand-hero);
+    color: #FFFFFF;
+  }
+  .featured-card::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 85% 20%, rgba(255,255,255,0.18), transparent 55%);
+    pointer-events: none;
+  }
+  .featured-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background: rgba(255,255,255,0.15);
+    padding: 5px 12px;
+    border-radius: 9999px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(6px);
+  }
+  .featured-title {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: #FFFFFF;
+    margin: 0 0 16px 0;
+    max-width: 620px;
+  }
+  .featured-text {
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.92);
+    max-width: 620px;
+    margin: 0;
+  }
+
+  /* FORMS */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 720px) { .form-grid { grid-template-columns: 1fr; } }
+  .form-field { display: flex; flex-direction: column; gap: 8px; }
+  .form-label { font-size: 14px; font-weight: 500; color: var(--cluos-navy); }
+  .input {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    padding: 12px 16px;
+    border: 1px solid var(--cluos-border);
+    border-radius: var(--radius-md);
+    background: var(--cluos-bg);
+    color: var(--cluos-text);
+    transition: border-color 140ms, box-shadow 140ms;
+    outline: none;
+  }
+  .input::placeholder { color: var(--cluos-text-subtle); }
+  .input:focus { border-color: var(--cluos-teal); box-shadow: var(--ring-focus); }
+  .input.pill { border-radius: 9999px; padding: 12px 20px; }
+  .input.is-focused { border-color: var(--cluos-teal); box-shadow: var(--ring-focus); }
+  .input.is-error { border-color: var(--cluos-status-error); box-shadow: 0 0 0 3px rgba(138,58,58,0.18); }
+  .input-hint {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--cluos-text-subtle);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  textarea.input { resize: vertical; min-height: 96px; font-family: var(--font-sans); }
+
+  /* CALLOUTS */
+  .callout-row { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+  .callout {
+    display: flex; gap: 10px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .callout svg { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; }
+  .callout p { margin: 0; color: var(--cluos-text); }
+  .callout strong { font-weight: 600; color: var(--cluos-navy); }
+  .callout-info    { background: var(--cluos-status-info-bg);    border-color: rgba(62,110,130,0.25); }
+  .callout-info    svg { color: var(--cluos-status-info); }
+  .callout-success { background: var(--cluos-status-success-bg); border-color: rgba(0,128,128,0.28); }
+  .callout-success svg { color: var(--cluos-status-success); }
+  .callout-warn    { background: var(--cluos-status-warn-bg);    border-color: rgba(189,120,69,0.30); }
+  .callout-warn    svg { color: var(--cluos-status-warn); }
+  .callout-error   { background: var(--cluos-status-error-bg);   border-color: rgba(138,58,58,0.25); }
+  .callout-error   svg { color: var(--cluos-status-error); }
+
+  /* SPACING */
+  .spacing-row { display: flex; flex-direction: column; gap: 16px; }
+  .spacing-item { display: flex; align-items: center; gap: 24px; }
+  .spacing-num { font-family: var(--font-mono); font-size: 13px; color: var(--cluos-text-muted); width: 48px; flex-shrink: 0; }
+  .spacing-bar { height: 16px; background: var(--cluos-teal); border-radius: 4px; }
+
+  /* RADIUS */
+  .radius-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+  }
+  .radius-item { text-align: center; }
+  .radius-box {
+    width: 100%;
+    aspect-ratio: 1.3 / 1;
+    background: linear-gradient(135deg, var(--cluos-teal) 0%, var(--cluos-teal-deep) 100%);
+    margin-bottom: 12px;
+  }
+  .radius-value { font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--cluos-navy); margin-bottom: 2px; }
+  .radius-note { font-size: 12px; color: var(--cluos-text-subtle); }
+
+  /* ELEVATION */
+  .elev-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+  }
+  .elev-card {
+    padding: 28px;
+    background: var(--cluos-bg);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    min-height: 140px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .elev-0 { border: 1px solid var(--cluos-border); }
+  .elev-1 { border: 1px solid var(--cluos-border); box-shadow: var(--shadow-sm); }
+  .elev-2 { border: 1px solid var(--cluos-border); box-shadow: var(--shadow-md); }
+  .elev-3 { border: 1px solid var(--cluos-border); box-shadow: var(--shadow-lg); }
+  .elev-focus { border: 1px solid var(--cluos-teal); box-shadow: var(--ring-focus); }
+  .elev-level { font-size: 14px; font-weight: 600; color: var(--cluos-navy); margin-bottom: 4px; }
+  .elev-desc { font-size: 12px; color: var(--cluos-text-muted); }
+
+  /* FOOTER */
+  footer {
+    padding: 48px 40px;
+    border-top: 1px solid var(--cluos-border);
+    text-align: center;
+    font-size: 13px;
+    color: var(--cluos-text-subtle);
+  }
+  footer a { color: var(--cluos-teal-deep); text-decoration: none; }
+  footer a:hover { color: var(--cluos-teal); }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<header class="topnav">
+  <div class="topnav-brand">
+    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <path d="M 78 22 A 36 36 0 1 0 78 78" />
+      <path d="M 72 30 A 28 28 0 1 0 72 70" opacity="0.75" />
+      <path d="M 66 38 A 20 20 0 1 0 66 62" opacity="0.55" />
+      <path d="M 60 46 A 12 12 0 1 0 60 54" opacity="0.35" />
+    </svg>
+    Cluos
+  </div>
+  <div class="topnav-sub">official-preview · v0.1.1</div>
+  <nav class="topnav-links">
+    <a href="#colors">Colors</a>
+    <a href="#typography">Typography</a>
+    <a href="#buttons">Buttons</a>
+    <a href="#cards">Cards</a>
+    <a href="#forms">Forms</a>
+    <a href="#spacing">Spacing</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="hero-title">
+    Design System
+    <span class="accent">Cluos</span>
+  </h1>
+  <p class="hero-sub">
+    The canonical visual reference for the Cluos system. Refactors should
+    match this preview first, then synchronize DESIGN.md,
+    DESIGN-WORKFLOW.md, and the token files.
+  </p>
+  <div class="hero-actions">
+    <a class="btn btn-accent" href="#colors">Jump To Palette</a>
+    <a class="btn btn-ghost" href="./DESIGN.md">Open DESIGN.md</a>
+  </div>
+  <p class="hero-note">Official preview. Keep it in lockstep with DESIGN.md and DESIGN-WORKFLOW.md.</p>
+</section>
+
+<!-- 01 COLORS -->
+<section class="section" id="colors">
+  <div class="section-label">01 / Colors</div>
+  <h2 class="section-title">Color Palette</h2>
+
+  <div class="color-group-title">Official brand palette<span class="color-official-badge">from brand manual</span></div>
+  <div class="color-grid">
+    <div class="color-card"><div class="color-swatch" style="background: #008080;"></div><div class="color-meta"><div class="color-name">Teal</div><div class="color-hex">#008080</div><div class="color-note">Primary accent, CTAs, links, focus rings</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #1B2F36;"></div><div class="color-meta"><div class="color-name">Navy</div><div class="color-hex">#1B2F36</div><div class="color-note">Primary text, headings, dark surfaces</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #1D1D1B;"></div><div class="color-meta"><div class="color-name">Black</div><div class="color-hex">#1D1D1B</div><div class="color-note">Mono variant, highest contrast</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #C8C1AE;"></div><div class="color-meta"><div class="color-name">Champagne</div><div class="color-hex">#C8C1AE</div><div class="color-note">Warm secondary, gradient terminus</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #B5B4B5;"></div><div class="color-meta"><div class="color-name">Silver</div><div class="color-hex">#B5B4B5</div><div class="color-note">Cool secondary, alternate gradient terminus</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #FFFFFF; border-bottom: 1px solid var(--cluos-border);"></div><div class="color-meta"><div class="color-name">White</div><div class="color-hex">#FFFFFF</div><div class="color-note">Page background</div></div></div>
+  </div>
+
+  <div class="color-group-title">Derived — UI states</div>
+  <div class="color-grid">
+    <div class="color-card"><div class="color-swatch" style="background: #006666;"></div><div class="color-meta"><div class="color-name">Teal Deep</div><div class="color-hex">#006666</div><div class="color-note">Hover, pressed, link default</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #4DA3A3;"></div><div class="color-meta"><div class="color-name">Teal Soft</div><div class="color-hex">#4DA3A3</div><div class="color-note">Subtle emphasis, secondary accents</div></div></div>
+  </div>
+
+  <div class="color-group-title">Approved gradients</div>
+  <div class="gradient-row">
+    <div class="gradient-card">
+      <div class="gradient-strip" style="background: linear-gradient(135deg, #1D1D1B 0%, #1B2F36 18%, #C8C1AE 67%, #B5B4B5 100%);"></div>
+      <div class="gradient-meta"><div class="gradient-name">Primary</div><div class="gradient-desc">Official wordmark gradient — black → navy → champagne → silver</div></div>
+    </div>
+    <div class="gradient-card">
+      <div class="gradient-strip" style="background: linear-gradient(135deg, #1B2F36 0%, #C8C1AE 100%);"></div>
+      <div class="gradient-meta"><div class="gradient-name">Soft</div><div class="gradient-desc">Navy to champagne — warmer, simpler hero variant</div></div>
+    </div>
+    <div class="gradient-card">
+      <div class="gradient-strip" style="background: linear-gradient(135deg, #1B2F36 0%, #B5B4B5 100%);"></div>
+      <div class="gradient-meta"><div class="gradient-name">Mono</div><div class="gradient-desc">Navy to silver — cooler, editorial variant</div></div>
+    </div>
+    <div class="gradient-card">
+      <div class="gradient-strip" style="background: radial-gradient(ellipse at 85% 25%, #C8C1AE 0%, #008080 55%, #006666 100%);"></div>
+      <div class="gradient-meta"><div class="gradient-name">Brand Hero</div><div class="gradient-desc">Radial teal field with champagne halo (brand page 20)</div></div>
+    </div>
+  </div>
+
+  <div class="color-group-title">Semantic</div>
+  <div class="color-grid">
+    <div class="color-card"><div class="color-swatch" style="background: #3E6E82;"></div><div class="color-meta"><div class="color-name">Info</div><div class="color-hex">#3E6E82</div><div class="color-note">Informational callouts, tags</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #008080;"></div><div class="color-meta"><div class="color-name">Success</div><div class="color-hex">#008080</div><div class="color-note">Positive state (reuses teal)</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #BD7845;"></div><div class="color-meta"><div class="color-name">Warn</div><div class="color-hex">#BD7845</div><div class="color-note">Light copper — metallic, warm</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #8A3A3A;"></div><div class="color-meta"><div class="color-name">Error</div><div class="color-hex">#8A3A3A</div><div class="color-note">Muted oxblood — quiet, not scarlet</div></div></div>
+  </div>
+
+  <div class="color-group-title">Neutral scale</div>
+  <div class="color-grid">
+    <div class="color-card"><div class="color-swatch" style="background: #5A6570;"></div><div class="color-meta"><div class="color-name">Text Muted</div><div class="color-hex">#5A6570</div><div class="color-note">Secondary text, captions</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #8A939B;"></div><div class="color-meta"><div class="color-name">Text Subtle</div><div class="color-hex">#8A939B</div><div class="color-note">Placeholders, disabled</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #CFD1CA;"></div><div class="color-meta"><div class="color-name">Border Strong</div><div class="color-hex">#CFD1CA</div><div class="color-note">Emphasized dividers</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #E7E8E3;"></div><div class="color-meta"><div class="color-name">Border</div><div class="color-hex">#E7E8E3</div><div class="color-note">Default dividers</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #F3F4F1;"></div><div class="color-meta"><div class="color-name">Bg Muted</div><div class="color-hex">#F3F4F1</div><div class="color-note">Code blocks, inert surfaces</div></div></div>
+    <div class="color-card"><div class="color-swatch" style="background: #FAFAF8;"></div><div class="color-meta"><div class="color-name">Bg Subtle</div><div class="color-hex">#FAFAF8</div><div class="color-note">Alternate sections, cards</div></div></div>
+  </div>
+
+  <div class="callout-row">
+    <div class="callout callout-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><p><strong>Info.</strong> Your documentation workspace is ready to configure.</p></div>
+    <div class="callout callout-success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><p><strong>Success.</strong> Your deploy is live. It took 2.4 seconds to propagate.</p></div>
+    <div class="callout callout-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><p><strong>Heads up.</strong> You're approaching 85% of your monthly event quota.</p></div>
+    <div class="callout callout-error"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg><p><strong>Authentication failed.</strong> The API key is missing or expired.</p></div>
+  </div>
+</section>
+
+<!-- 02 TYPOGRAPHY -->
+<section class="section" id="typography">
+  <div class="section-label">02 / Typography</div>
+  <h2 class="section-title">Typography Scale</h2>
+
+  <div class="type-list">
+    <div class="type-row"><div class="type-sample t-display-hero">Display Hero</div><div class="type-spec">Display Hero — 56px / 600 / 1.05 / -0.035em / Inter</div></div>
+    <div class="type-row"><div class="type-sample t-section-h">Section Heading</div><div class="type-spec">Section Heading — 40px / 600 / 1.10 / -0.025em / Inter</div></div>
+    <div class="type-row"><div class="type-sample t-sub-h">Sub-heading</div><div class="type-spec">Sub-heading — 24px / 500 / 1.30 / -0.01em / Inter</div></div>
+    <div class="type-row"><div class="type-sample t-card-title">Card Title</div><div class="type-spec">Card Title — 20px / 600 / 1.30 / -0.01em / Inter</div></div>
+    <div class="type-row"><div class="type-sample t-body-lg">Body Large — The quiet, resonant platform that powers your product, documentation, and brand surfaces.</div><div class="type-spec">Body Large — 18px / 400 / 1.60 / normal / Inter</div></div>
+    <div class="type-row"><div class="type-sample t-body">Body — Standard reading text for documentation and long-form content.</div><div class="type-spec">Body — 16px / 400 / 1.60 / normal / Inter</div></div>
+    <div class="type-row"><div class="type-sample t-body-m">Body Medium — Navigation items and emphasized UI text</div><div class="type-spec">Body Medium — 16px / 500 / 1.60 / Inter</div></div>
+    <div class="type-row"><div class="type-sample t-button">Button Label</div><div class="type-spec">Button — 15px / 500 / 1.50 / Inter</div></div>
+    <div class="type-row"><div class="type-sample t-caption">Link / Caption</div><div class="type-spec">Link / Caption — 14px / 500 / 1.50 / Inter</div></div>
+    <div class="type-row"><div class="type-sample t-label-up">Section Label</div><div class="type-spec">Label Uppercase — 13px / 500 / 0.08em / Inter</div></div>
+    <div class="type-row"><div class="type-sample t-mono-tech">Mono Technical Label</div><div class="type-spec">Mono Code — 12px / 500 / 0.08em / JetBrains Mono</div></div>
+    <div class="type-row"><div class="type-sample t-mono-micro">Micro Label</div><div class="type-spec">Mono Micro — 10px / 500 / 0.10em / JetBrains Mono</div></div>
+  </div>
+</section>
+
+<!-- 03 BUTTONS -->
+<section class="section" id="buttons">
+  <div class="section-label">03 / Buttons</div>
+  <h2 class="section-title">Button Variants</h2>
+
+  <div class="button-grid">
+    <div class="button-demo"><button class="btn btn-dark">Get Started</button><div class="button-demo-label">Primary Dark (navy)</div></div>
+    <div class="button-demo"><button class="btn btn-ghost">Documentation</button><div class="button-demo-label">Ghost / Outline</div></div>
+    <div class="button-demo"><button class="btn btn-accent">Start Building</button><div class="button-demo-label">Brand Accent (teal)</div></div>
+    <div class="button-demo"><button class="btn btn-ghost btn-pill">Documentation</button><div class="button-demo-label">Pill (Ghost)</div></div>
+    <div class="button-demo"><span class="badge badge-info"><span class="badge-dot"></span>Info</span><div class="button-demo-label">Info Badge</div></div>
+    <div class="button-demo"><span class="badge badge-success"><span class="badge-dot"></span>Success</span><div class="button-demo-label">Success Badge</div></div>
+    <div class="button-demo"><span class="badge badge-warn"><span class="badge-dot"></span>Warning</span><div class="button-demo-label">Warning (copper)</div></div>
+    <div class="button-demo"><span class="badge badge-error"><span class="badge-dot"></span>Error</span><div class="button-demo-label">Error (oxblood)</div></div>
+    <div class="button-demo"><span class="badge badge-brand"><span class="badge-dot"></span>Cluos</span><div class="button-demo-label">Brand Badge</div></div>
+  </div>
+</section>
+
+<!-- 04 CARDS -->
+<section class="section" id="cards">
+  <div class="section-label">04 / Cards</div>
+  <h2 class="section-title">Card Examples</h2>
+
+  <div class="card-row">
+    <div class="card"><div class="card-tag">Docs</div><h3 class="card-title">Intelligent Search</h3><p class="card-text">AI-powered search that understands your documentation and returns precise answers to user questions.</p></div>
+    <div class="card"><div class="card-tag">API</div><h3 class="card-title">API Reference</h3><p class="card-text">Auto-generated API docs with interactive examples, auth flows, and language-specific snippets.</p></div>
+    <div class="card"><div class="card-tag">Analytics</div><h3 class="card-title">Usage Analytics</h3><p class="card-text">Track what your users search for, which pages perform best, and where they get stuck.</p></div>
+  </div>
+
+  <div style="margin-top: 28px;">
+    <div class="type-spec" style="margin-bottom: 10px;">Featured Card — 24px radius · brand hero gradient (radial teal + champagne halo)</div>
+    <div class="featured-card">
+      <span class="featured-tag">Featured</span>
+      <h3 class="featured-title">The Quiet Platform for Modern Products</h3>
+      <p class="featured-text">Build surfaces that feel intentional — documentation, product UI, marketing — all coherent through a single design system, calm by default and precise where it matters.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 FORMS -->
+<section class="section" id="forms">
+  <div class="section-label">05 / Forms</div>
+  <h2 class="section-title">Form Elements</h2>
+
+  <div class="form-grid">
+    <div class="form-field"><label class="form-label">Email address</label><input class="input" type="email" placeholder="name@company.com" /><div class="input-hint">Default state</div></div>
+    <div class="form-field"><label class="form-label">Organization</label><input class="input pill" type="text" placeholder="Acme Inc." /><div class="input-hint">Pill shape (optional)</div></div>
+    <div class="form-field"><label class="form-label">API key</label><input class="input is-focused" type="text" value="sk_live_···················" /><div class="input-hint">Focus — teal ring</div></div>
+    <div class="form-field"><label class="form-label">Project slug</label><input class="input is-error" type="text" value="invalid slug" /><div class="input-hint" style="color: var(--cluos-status-error);">Error — muted oxblood ring</div></div>
+    <div class="form-field" style="grid-column: 1 / -1;"><label class="form-label">Description</label><textarea class="input" placeholder="Tell us what you're building…"></textarea><div class="input-hint">Textarea</div></div>
+  </div>
+</section>
+
+<!-- 06 SPACING -->
+<section class="section" id="spacing">
+  <div class="section-label">06 / Spacing</div>
+  <h2 class="section-title">Spacing Scale</h2>
+
+  <div class="spacing-row">
+    <div class="spacing-item"><div class="spacing-num">4px</div><div class="spacing-bar" style="width: 4px;"></div></div>
+    <div class="spacing-item"><div class="spacing-num">8px</div><div class="spacing-bar" style="width: 8px;"></div></div>
+    <div class="spacing-item"><div class="spacing-num">12px</div><div class="spacing-bar" style="width: 12px;"></div></div>
+    <div class="spacing-item"><div class="spacing-num">16px</div><div class="spacing-bar" style="width: 16px;"></div></div>
+    <div class="spacing-item"><div class="spacing-num">24px</div><div class="spacing-bar" style="width: 24px;"></div></div>
+    <div class="spacing-item"><div class="spacing-num">32px</div><div class="spacing-bar" style="width: 32px;"></div></div>
+    <div class="spacing-item"><div class="spacing-num">48px</div><div class="spacing-bar" style="width: 48px;"></div></div>
+    <div class="spacing-item"><div class="spacing-num">64px</div><div class="spacing-bar" style="width: 64px;"></div></div>
+    <div class="spacing-item"><div class="spacing-num">96px</div><div class="spacing-bar" style="width: 96px;"></div></div>
+  </div>
+</section>
+
+<!-- 07 RADIUS -->
+<section class="section" id="radius">
+  <div class="section-label">07 / Radius</div>
+  <h2 class="section-title">Border Radius Scale</h2>
+
+  <div class="radius-grid">
+    <div class="radius-item"><div class="radius-box" style="border-radius: 6px;"></div><div class="radius-value">6px</div><div class="radius-note">Code tags, inline</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius: 8px;"></div><div class="radius-value">8px</div><div class="radius-note">Buttons, inputs</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius: 12px;"></div><div class="radius-value">12px</div><div class="radius-note">Cards, panels</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius: 16px;"></div><div class="radius-value">16px</div><div class="radius-note">Feature cards, modals</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius: 24px;"></div><div class="radius-value">24px</div><div class="radius-note">Featured / hero</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius: 9999px;"></div><div class="radius-value">9999px</div><div class="radius-note">Pill badges, toggles</div></div>
+  </div>
+</section>
+
+<!-- 08 ELEVATION -->
+<section class="section" id="elevation">
+  <div class="section-label">08 / Elevation</div>
+  <h2 class="section-title">Elevation &amp; Depth</h2>
+
+  <div class="elev-grid">
+    <div class="elev-card elev-0"><div class="elev-level">Level 0 · Flat</div><div class="elev-desc">No shadow — border only</div></div>
+    <div class="elev-card elev-1"><div class="elev-level">Level 1 · Subtle</div><div class="elev-desc">Border + soft ambient</div></div>
+    <div class="elev-card elev-2"><div class="elev-level">Level 2 · Medium</div><div class="elev-desc">Popovers, dropdowns</div></div>
+    <div class="elev-card elev-3"><div class="elev-level">Level 3 · Raised</div><div class="elev-desc">Modals, dialogs</div></div>
+    <div class="elev-card elev-focus"><div class="elev-level">Focus Ring</div><div class="elev-desc">Teal @ 30% opacity</div></div>
+  </div>
+</section>
+
+<footer>
+  Cluos · Official Preview v0.1.1 · Refactors start here · Sync changes with DESIGN.md and DESIGN-WORKFLOW.md
+</footer>
+
+</body>
+</html>

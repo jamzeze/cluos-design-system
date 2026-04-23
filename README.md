@@ -5,12 +5,16 @@ Tokens, logos, and rules — consumed by every Cluos repository.
 
 ## What lives here
 
-- **`DESIGN.md`** — the full design system spec. LLMs read this to
-  refactor UI. Humans read this to understand the system.
+- **`DESIGN-preview.html`** — the canonical visual reference. Any UI
+  refactor should match this file first.
+- **`DESIGN.md`** — the full narrative spec. It explains the preview
+  and must stay in sync with it.
+- **`DESIGN-WORKFLOW.md`** — the preview-first refactor workflow for
+  humans and agents.
 - **`tokens/`** — machine-readable tokens in three formats:
   `tokens.css`, `tokens.ts` / `tokens.js`, `tailwind-preset.js`.
-- **`brand-assets/`** — canonical logo files (drop them in manually;
-  see `brand-assets/README.md`).
+- **`brand-assets/`** — shipped SVG assets for the stacked lockup,
+  symbol, favicon, and convenience mono variants.
 
 ## Install
 
@@ -61,7 +65,7 @@ const Button = styled.button`
 `;
 ```
 
-## Pointing LLMs at DESIGN.md
+## Pointing Agents At The System
 
 So Claude Code / Cursor / any agent picks up the rules when working in
 a consuming repo:
@@ -70,6 +74,12 @@ a consuming repo:
 # From your project root, create a symlink to the installed DESIGN.md
 ln -s node_modules/@cluos/design-system/DESIGN.md ./DESIGN.md
 ```
+
+Open `node_modules/@cluos/design-system/DESIGN-preview.html` side by
+side with the code whenever the task is visual or component-focused.
+The preview is the canonical visual source of truth; `DESIGN.md`
+explains it, and `DESIGN-WORKFLOW.md` describes how to keep everything
+in sync.
 
 Or, for teams that prefer a copy (easier to review in PRs), add this to
 your `package.json`:
@@ -84,11 +94,15 @@ your `package.json`:
 
 ## Updating the system
 
-1. Edit `DESIGN.md` and the relevant token file(s) in this repo.
-2. Bump `version` in `package.json` (semver).
-3. Update `CHANGELOG.md`.
-4. Tag and push: `git tag v0.x.y && git push --tags`.
-5. The release workflow publishes automatically to GitHub Packages.
+1. Edit `DESIGN-preview.html` first.
+2. Sync `DESIGN.md`, `DESIGN-WORKFLOW.md`, and any affected token or
+  asset docs in the same change.
+3. Update SVGs in `brand-assets/` if the brand artwork changed.
+4. Run `npm pack --dry-run`.
+5. Bump `version` in `package.json` (semver).
+6. Update `CHANGELOG.md`.
+7. Tag and push: `git tag v0.x.y && git push --tags`.
+8. The release workflow publishes automatically to GitHub Packages.
 
 ## Consuming repos stay in sync
 

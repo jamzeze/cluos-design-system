@@ -1,55 +1,61 @@
 # Brand Assets
 
-Logo files for the Cluos brand. The consuming LLMs (in downstream
-repositories) read this folder directly — so **filenames matter**.
+These files now ship with the package. Consumers should use the SVGs in
+this folder directly instead of manually downloading and renaming assets.
 
-## Required filenames
+## Shipped files
 
-Drop your SVG files into this folder using **exactly** these names:
+| Filename                    | Type                                  | Provenance |
+| --------------------------- | ------------------------------------- | ---------- |
+| `cluos-logo-gradient.svg`   | Stacked lockup, primary gradient      | direct     |
+| `cluos-logo-duo.svg`        | Stacked lockup, navy + teal           | direct     |
+| `cluos-logo-black.svg`      | Stacked lockup, mono black            | direct     |
+| `cluos-logo-white.svg`      | Stacked lockup, mono white            | direct     |
+| `cluos-logo-navy.svg`       | Stacked lockup, mono navy             | derived     |
+| `cluos-logo-teal.svg`       | Stacked lockup, mono teal             | derived     |
+| `cluos-symbol-gradient.svg` | Symbol only, primary gradient         | direct     |
+| `cluos-symbol-black.svg`    | Symbol only, mono black               | direct     |
+| `cluos-symbol-white.svg`    | Symbol only, mono white               | direct     |
+| `cluos-symbol-navy.svg`     | Symbol only, mono navy                | derived     |
+| `cluos-symbol-teal.svg`     | Symbol only, mono teal                | direct     |
+| `favicon.svg`               | Symbol on the brand gradient tile     | direct     |
 
-| Filename                       | What it is                                      |
-| ------------------------------ | ----------------------------------------------- |
-| `cluos-logo-gradient.svg`      | Horizontal lockup (C + wordmark), brand gradient|
-| `cluos-logo-teal.svg`          | Horizontal lockup, solid teal (#008080)         |
-| `cluos-logo-navy.svg`          | Horizontal lockup, solid navy (#1B2F36)         |
-| `cluos-logo-white.svg`         | Horizontal lockup, solid white                  |
-| `cluos-logo-black.svg`         | Horizontal lockup, solid black (#1D1D1B)        |
-| `cluos-symbol-gradient.svg`    | Symbol only (C-ripple), brand gradient          |
-| `cluos-symbol-navy.svg`        | Symbol only, solid navy                         |
-| `cluos-symbol-teal.svg`        | Symbol only, solid teal                         |
-| `cluos-symbol-white.svg`       | Symbol only, solid white                        |
-| `favicon.svg`                  | Square icon (symbol only, 32×32 viewBox ideal)  |
+## Important note on the artwork
 
-## Source files
+The current official source pack contains a **stacked lockup**
+(symbol above the wordmark). It does **not** contain a horizontal
+lockup. Do not reconstruct a horizontal version by hand.
 
-The raw SVGs are in the Cluos Drive folder, subdirectory `SVG/`:
-https://drive.google.com/drive/folders/1rdCIaQaynvDb80Tpb6Py0fhOIWnCHGjj
+## Source mapping
 
-The source files there have generic names (`CLUOS_FINAL_SVG_Prancheta 1 cópia 8.svg`,
-etc.). You must open them in a browser or vector editor and **rename
-them to match the table above** based on what you see.
+The direct source files live in `../guides/SVG/`.
 
-Mapping cues:
-- If the SVG contains multiple `<linearGradient>` definitions with
-	stops on `#1b2f36`, `#c8c1ae`, `#b5b5b5` → it's a **gradient** variant.
-- If a solid `fill="#008080"` appears throughout → it's the **teal** variant.
-- If fill is `#1b2f36` → **navy** variant.
-- If fill is `#ffffff` → **white** variant.
-- If fill is `#1d1d1b` or `#000000` → **black** variant.
-- If the SVG shows only the circular ripple (no "CLUOS" text) → it's
-	a **symbol** variant (not a full logo).
-- If it shows both circle AND "CLUOS" text → it's a full **logo** variant.
+| Source file                                 | Published file |
+| ------------------------------------------- | -------------- |
+| `CLUOS_FINAL_SVG_Prancheta 1 cópia 8.svg`   | `cluos-logo-gradient.svg` |
+| `CLUOS_FINAL_SVG_Prancheta 1 cópia 12.svg`  | `cluos-logo-duo.svg` |
+| `CLUOS_FINAL_SVG_Prancheta 1 cópia 20.svg`  | `cluos-logo-black.svg` |
+| `CLUOS_FINAL_SVG_Prancheta 1 cópia 23.svg`  | `cluos-logo-white.svg` |
+| `CLUOS_FINAL_SVG_Prancheta 1 cópia 14.svg`  | `cluos-symbol-gradient.svg` |
+| `CLUOS_FINAL_SVG_Prancheta 1 cópia 16.svg`  | `cluos-symbol-teal.svg` |
+| `CLUOS_FINAL_SVG_Prancheta 1 cópia 22.svg`  | `cluos-symbol-black.svg` |
+| `CLUOS_FINAL_SVG_Prancheta 1 cópia 25.svg`  | `cluos-symbol-white.svg` |
+| `CLUOS_FINAL_SVG_Prancheta 1 cópia 29.svg`  | `favicon.svg` |
 
-## Export rules (if re-exporting from Illustrator / Figma)
+`cluos-logo-navy.svg`, `cluos-logo-teal.svg`, and
+`cluos-symbol-navy.svg` are convenience mono variants derived from the
+black masters using the official Cluos palette.
+
+## Export rules
 
 - Format: SVG 1.1
-- Styling: presentation attributes (not embedded CSS classes with `url(#id)`
-	unless unavoidable for gradients)
-- Responsive: yes — no fixed `width` / `height`, only `viewBox`
-- Optimize: optional (svgo helps, but keep gradient stops intact)
-- Do NOT embed raster images — pure vector only
+- Responsive: keep `viewBox`; avoid fixed `width` / `height`
+- Preserve gradients exactly as exported from the source pack
+- Do not embed raster images
+- If a new asset is added, update `DESIGN.md`, `DESIGN-WORKFLOW.md`, and
+  this file in the same PR
 
 ## Usage rules
 
-See `../DESIGN.md` §2 for the full decision table on which variant to
-use in which context.
+See `../DESIGN.md` §2 for the decision table and `../DESIGN-WORKFLOW.md`
+for the preview-first sync process.

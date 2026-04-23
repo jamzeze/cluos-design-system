@@ -3,6 +3,24 @@
 All notable changes to the Cluos design system are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com).
 
+## [0.1.1] — Preview-first workflow and shipped assets
+
+### Added
+- Official `DESIGN-preview.html` as the canonical visual reference for
+  refactors.
+- `DESIGN-WORKFLOW.md` to define the sync order between preview,
+  markdown spec, tokens, and assets.
+- Shipped SVG assets in `brand-assets/`, including the official stacked
+  lockups, symbol marks, favicon, and mono convenience variants.
+- Repository-level agent instructions so UI refactors start from the
+  preview instead of inventing new patterns.
+
+### Changed
+- `DESIGN.md` now documents the preview-first workflow and the actual
+  stacked logo assets that ship in the package.
+- `README.md` and package exports now expose the preview and workflow
+  docs alongside the tokens.
+
 ## [0.1.0] — Initial release
 
 ### Added

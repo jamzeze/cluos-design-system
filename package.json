@@ -1,13 +1,15 @@
 {
   "name": "@cluos/design-system",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Cluos brand design system — tokens, assets, and DESIGN.md for all Cluos repositories",
   "main": "tokens/tokens.js",
   "types": "tokens/index.ts",
   "files": [
     "tokens/",
     "brand-assets/",
+    "DESIGN-preview.html",
     "DESIGN.md",
+    "DESIGN-WORKFLOW.md",
     "README.md",
     "LICENSE"
   ],
@@ -20,7 +22,9 @@
     "./tokens.css": "./tokens/tokens.css",
     "./tailwind-preset": "./tokens/tailwind-preset.js",
     "./brand-assets/*": "./brand-assets/*",
+    "./DESIGN-preview.html": "./DESIGN-preview.html",
     "./DESIGN.md": "./DESIGN.md"
+    ,"./DESIGN-WORKFLOW.md": "./DESIGN-WORKFLOW.md"
   },
   "keywords": ["cluos", "design-system", "design-tokens", "brand"],
   "repository": {

@@ -10,6 +10,16 @@ Every color here comes directly from the official Cluos brand manual
 
 Mode: **light only**. No dark-mode tokens are defined.
 
+For refactors, the source-of-truth order is:
+
+1. `DESIGN-preview.html` — canonical visual reference.
+2. `DESIGN.md` — narrative contract.
+3. `tokens/` — machine-readable values.
+4. `brand-assets/` — shipped SVG artwork.
+
+If the preview and this file disagree on visuals, the preview wins first.
+Update this file immediately after to remove the divergence.
+
 ---
 
 ## 1. Brand essence
@@ -56,37 +66,44 @@ The canonical filenames are:
 
 ```
 brand-assets/
-├── cluos-logo-gradient.svg     # horizontal lockup, default gradient
-├── cluos-logo-teal.svg         # horizontal lockup, solid teal
-├── cluos-logo-navy.svg         # horizontal lockup, solid navy
-├── cluos-logo-white.svg        # horizontal lockup, solid white
-├── cluos-logo-black.svg        # horizontal lockup, solid black
-├── cluos-symbol-gradient.svg   # symbol only, default gradient
-├── cluos-symbol-navy.svg       # symbol only, solid navy
-├── cluos-symbol-teal.svg       # symbol only, solid teal
-├── cluos-symbol-white.svg      # symbol only, solid white
-└── favicon.svg                 # square, optimized for small sizes
+├── cluos-logo-gradient.svg     # stacked lockup, official gradient
+├── cluos-logo-duo.svg          # stacked lockup, official navy + teal
+├── cluos-logo-black.svg        # stacked lockup, mono black
+├── cluos-logo-white.svg        # stacked lockup, mono white
+├── cluos-logo-navy.svg         # stacked lockup, mono navy utility variant
+├── cluos-logo-teal.svg         # stacked lockup, mono teal utility variant
+├── cluos-symbol-gradient.svg   # symbol only, official gradient
+├── cluos-symbol-black.svg      # symbol only, mono black
+├── cluos-symbol-white.svg      # symbol only, mono white
+├── cluos-symbol-navy.svg       # symbol only, mono navy utility variant
+├── cluos-symbol-teal.svg       # symbol only, mono teal
+└── favicon.svg                 # symbol on the brand gradient tile
 ```
+
+Important: the official source pack currently ships a **stacked** mark
+(symbol above the wordmark). There is no official horizontal lockup in
+this repository.
 
 ### 2.2 When to use which (decision table)
 
 | Context                                     | Use                          |
 | ------------------------------------------- | ----------------------------- |
 | Default header, light background            | `cluos-logo-gradient.svg`    |
+| Lighter editorial surfaces                  | `cluos-logo-duo.svg`         |
 | Any solid dark / teal / gradient background | `cluos-logo-white.svg`       |
-| Surface that already has a gradient         | `cluos-logo-navy.svg` or `-teal.svg` |
-| Footer on muted/subtle background           | `cluos-logo-navy.svg`        |
-| Marketing collateral on warm/champagne bg   | `cluos-logo-black.svg`       |
+| Footer on muted/subtle background           | `cluos-logo-black.svg` or `cluos-logo-navy.svg` |
+| Mono UI where gradients feel too rich       | `cluos-logo-black.svg`, `cluos-logo-navy.svg`, or `cluos-logo-teal.svg` |
 | Size below 96px wide                        | a `cluos-symbol-*` variant   |
 | Favicon, avatar slot, app icon              | `favicon.svg`                |
 | Loading indicators, empty-state decoration  | `cluos-symbol-gradient.svg`  |
 
 ### 2.3 Hard rules
 
-- Never recolor the gradient lockup. If a solid color is needed, use
-  one of the pre-prepared solid variants.
-- Below 96px horizontal width, drop the wordmark and use the symbol
-  alone — the wordmark becomes unreadable.
+- Never rebuild the mark into a horizontal lockup by hand. Use the
+  stacked mark as shipped.
+- Never recolor the gradient lockup. If a mono color is needed, use
+  one of the prepared mono variants.
+- Below 96px total width, drop the wordmark and use the symbol alone.
 - Never stretch, skew, or rotate any variant.
 - Maintain clearspace equal to the height of the "C" around the mark.
 - Never apply drop shadows or outlines to the logo.
