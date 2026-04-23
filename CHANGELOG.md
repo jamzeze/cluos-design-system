@@ -12,6 +12,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com).
   markdown spec, tokens, and assets.
 - Shipped SVG assets in `brand-assets/`, including the official stacked
   lockups, symbol marks, favicon, and mono convenience variants.
+- Versioned `guides/` source material so the raw SVG board and palette
+  references remain in the repository and published package.
 - Repository-level agent instructions so UI refactors start from the
   preview instead of inventing new patterns.
 

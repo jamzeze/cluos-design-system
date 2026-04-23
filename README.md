@@ -15,6 +15,8 @@ Tokens, logos, and rules — consumed by every Cluos repository.
   `tokens.css`, `tokens.ts` / `tokens.js`, `tailwind-preset.js`.
 - **`brand-assets/`** — shipped SVG assets for the stacked lockup,
   symbol, favicon, and convenience mono variants.
+- **`guides/`** — versioned source material used to derive the shipped
+  assets, including the raw SVG board and palette PDF.
 
 ## Install
 
@@ -97,7 +99,7 @@ your `package.json`:
 1. Edit `DESIGN-preview.html` first.
 2. Sync `DESIGN.md`, `DESIGN-WORKFLOW.md`, and any affected token or
   asset docs in the same change.
-3. Update SVGs in `brand-assets/` if the brand artwork changed.
+3. Update `guides/` and `brand-assets/` if the source artwork changed.
 4. Run `npm pack --dry-run`.
 5. Bump `version` in `package.json` (semver).
 6. Update `CHANGELOG.md`.

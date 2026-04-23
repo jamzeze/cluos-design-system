@@ -12,6 +12,9 @@ refactors should not start from memory or from prose alone.
 
 If two layers disagree, resolve the conflict in that order.
 
+`guides/` stores raw source artifacts for traceability, but it does not
+override the official source-of-truth order above.
+
 ## Required refactor flow
 
 1. Open `DESIGN-preview.html` and inspect the closest matching section
@@ -36,6 +39,7 @@ a demo tweak. The same change must update, when relevant:
 - `tokens/tailwind-preset.js`
 - `brand-assets/README.md`
 - `CHANGELOG.md`
+- `guides/` when the upstream source files themselves changed
 
 ## Hard rules
 
@@ -54,4 +58,4 @@ a demo tweak. The same change must update, when relevant:
 - Token values still match the preview.
 - Asset filenames and usage notes still match `brand-assets/README.md`.
 - `npm pack --dry-run` includes `DESIGN-preview.html`, `DESIGN.md`,
-  `DESIGN-WORKFLOW.md`, `tokens/`, and `brand-assets/`.
+  `DESIGN-WORKFLOW.md`, `tokens/`, `brand-assets/`, and `guides/`.

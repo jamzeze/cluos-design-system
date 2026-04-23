@@ -7,6 +7,7 @@
   "files": [
     "tokens/",
     "brand-assets/",
+    "guides/",
     "DESIGN-preview.html",
     "DESIGN.md",
     "DESIGN-WORKFLOW.md",
@@ -22,6 +23,7 @@
     "./tokens.css": "./tokens/tokens.css",
     "./tailwind-preset": "./tokens/tailwind-preset.js",
     "./brand-assets/*": "./brand-assets/*",
+    "./guides/*": "./guides/*",
     "./DESIGN-preview.html": "./DESIGN-preview.html",
     "./DESIGN.md": "./DESIGN.md"
     ,"./DESIGN-WORKFLOW.md": "./DESIGN-WORKFLOW.md"
