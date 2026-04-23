@@ -8,38 +8,38 @@
  *     content: ['./src/**\/*.{js,ts,jsx,tsx,html}'],
  *   };
  */
-
 module.exports = {
   theme: {
     extend: {
       colors: {
         cluos: {
-          navy:       "#1A252D",
-          teal:       "#2E8A82",
-          "teal-deep":"#1F6F6A",
-          "teal-soft":"#5A9F98",
-          champagne:  "#B2B0A0",
-          sage:       "#6A9888",
-          pearl:      "#C6CDBC",
+          teal:       "#008080",
+          "teal-deep":"#006666",
+          "teal-soft":"#4DA3A3",
+          navy:       "#1B2F36",
+          black:      "#1D1D1B",
+          champagne:  "#C8C1AE",
+          silver:     "#B5B4B5",
+          white:      "#FFFFFF",
 
-          bg:           "#FFFFFF",
-          "bg-subtle":  "#FAFAF8",
-          "bg-muted":   "#F3F4F1",
-          border:       "#E7E8E3",
+          bg:              "#FFFFFF",
+          "bg-subtle":     "#FAFAF8",
+          "bg-muted":      "#F3F4F1",
+          border:          "#E7E8E3",
           "border-strong": "#CFD1CA",
 
-          text:          "#1A252D",
+          text:          "#1B2F36",
           "text-muted":  "#5A6570",
           "text-subtle": "#8A939B",
 
-          success:    "#2E8A82",
-          "success-bg":"#E8F2F0",
+          success:      "#008080",
+          "success-bg": "#E6F2F2",
           info:       "#3E6E82",
-          "info-bg":  "#EDF1F4",
+          "info-bg":    "#EDF1F4",
           warn:       "#BD7845",
-          "warn-bg":  "#F8EBDF",
+          "warn-bg":    "#F8EBDF",
           error:      "#8A3A3A",
-          "error-bg": "#F5EAEA",
+          "error-bg":   "#F5EAEA",
         },
       },
       fontFamily: {
@@ -54,19 +54,21 @@ module.exports = {
         "cluos-2xl": "24px",
       },
       boxShadow: {
-        "cluos-xs": "0 1px 2px rgba(26, 37, 45, 0.04)",
-        "cluos-sm": "0 1px 3px rgba(26, 37, 45, 0.06), 0 1px 2px rgba(26, 37, 45, 0.04)",
-        "cluos-md": "0 4px 12px rgba(26, 37, 45, 0.07), 0 2px 4px rgba(26, 37, 45, 0.04)",
-        "cluos-lg": "0 12px 32px rgba(26, 37, 45, 0.10), 0 4px 8px rgba(26, 37, 45, 0.04)",
-        "cluos-focus": "0 0 0 3px rgba(46, 138, 130, 0.30)",
+        "cluos-xs":    "0 1px 2px rgba(27, 47, 54, 0.04)",
+        "cluos-sm":    "0 1px 3px rgba(27, 47, 54, 0.06), 0 1px 2px rgba(27, 47, 54, 0.04)",
+        "cluos-md":    "0 4px 12px rgba(27, 47, 54, 0.06), 0 2px 4px rgba(27, 47, 54, 0.04)",
+        "cluos-lg":    "0 12px 32px rgba(27, 47, 54, 0.08), 0 4px 8px rgba(27, 47, 54, 0.04)",
+        "cluos-focus": "0 0 0 3px rgba(0, 128, 128, 0.30)",
       },
       backgroundImage: {
         "cluos-gradient-primary":
-          "linear-gradient(135deg, #1A252D 0%, #2E8A82 55%, #B2B0A0 100%)",
+          "linear-gradient(135deg, #1D1D1B 0%, #1B2F36 18%, #C8C1AE 67%, #B5B4B5 100%)",
         "cluos-gradient-soft":
-          "linear-gradient(135deg, #1A252D 0%, #6A9888 100%)",
+          "linear-gradient(135deg, #1B2F36 0%, #C8C1AE 100%)",
+        "cluos-gradient-mono":
+          "linear-gradient(135deg, #1B2F36 0%, #B5B4B5 100%)",
         "cluos-brand-hero":
-          "radial-gradient(ellipse at 85% 25%, #C6CDBC 0%, #6A9888 30%, #2E8A82 70%, #1F6F6A 100%)",
+          "radial-gradient(ellipse at 85% 25%, #C8C1AE 0%, #008080 55%, #006666 100%)",
       },
     },
   },

@@ -3,14 +3,13 @@
 ## 1. Install
 
 ```bash
-npm install @cluos/design-system
+npm install github:jamzeze/cluos-design-system
 ```
 
 ## 2. Configure
 
-Update `tailwind.config.js`:
-
 ```js
+// tailwind.config.js
 module.exports = {
   presets: [require("@cluos/design-system/tailwind-preset")],
   content: ["./src/**/*.{js,ts,jsx,tsx,html}"],
@@ -18,8 +17,6 @@ module.exports = {
 ```
 
 ## 3. Load fonts
-
-Inter and JetBrains Mono. Add to your HTML `<head>` or via `next/font`:
 
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,16 +32,26 @@ Inter and JetBrains Mono. Add to your HTML `<head>` or via `next/font`:
 </button>
 
 <div className="bg-cluos-brand-hero rounded-cluos-2xl p-12 text-white">
-  Hero block with the on-brand radial gradient
+  Hero block with on-brand radial gradient
 </div>
+
+<span className="inline-flex items-center gap-1.5 bg-cluos-warn-bg text-cluos-warn text-xs font-medium px-3 py-1 rounded-full">
+  Warning — copper
+</span>
 ```
 
-## 5. Point your LLM at the rules
+## 5. Use the logo
+
+```jsx
+import logo from "@cluos/design-system/brand-assets/cluos-logo-gradient.svg";
+// or in HTML: <img src="/node_modules/@cluos/design-system/brand-assets/cluos-logo-gradient.svg">
+```
+
+## 6. Point your LLM at the rules
 
 ```bash
 ln -s node_modules/@cluos/design-system/DESIGN.md ./DESIGN.md
 ```
 
-Open Cursor / Claude Code in the project. Say:
-"Refactor this repository to follow the rules in DESIGN.md, using only
-the token classes defined in the Cluos Tailwind preset."
+Then in Cursor / Claude Code: *"Refactor this repo to follow DESIGN.md,
+using only the token classes from the Cluos Tailwind preset."*

@@ -3,14 +3,13 @@
 ## 1. Install
 
 ```bash
-npm install @cluos/design-system
+npm install github:jamzeze/cluos-design-system
 ```
 
 ## 2. Import tokens
 
-In your global stylesheet (e.g. `src/styles/globals.css`):
-
 ```css
+/* globals.css */
 @import "@cluos/design-system/tokens.css";
 ```
 
@@ -33,16 +32,20 @@ In your global stylesheet (e.g. `src/styles/globals.css`):
   font-family: var(--cluos-font-sans);
   transition: background var(--cluos-dur-fast) var(--cluos-ease-out);
 }
-.btn-primary:hover {
-  background: var(--cluos-teal-deep);
-}
+.btn-primary:hover { background: var(--cluos-teal-deep); }
 .btn-primary:focus-visible {
-  box-shadow: var(--cluos-ring-focus);
   outline: none;
+  box-shadow: var(--cluos-ring-focus);
 }
 ```
 
-## 5. Point your LLM at the rules
+## 5. Use the logo
+
+```html
+<img src="/path/to/node_modules/@cluos/design-system/brand-assets/cluos-logo-gradient.svg" alt="Cluos">
+```
+
+## 6. Point your LLM at the rules
 
 ```bash
 ln -s node_modules/@cluos/design-system/DESIGN.md ./DESIGN.md

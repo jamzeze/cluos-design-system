@@ -3,10 +3,10 @@
 ## 1. Install
 
 ```bash
-npm install @cluos/design-system
+npm install github:jamzeze/cluos-design-system
 ```
 
-## 2. Wrap your app in a ThemeProvider
+## 2. Wrap your app
 
 ```tsx
 import { ThemeProvider } from "styled-components";
@@ -30,9 +30,7 @@ export const Button = styled.button`
   font-family: ${({ theme }) => theme.font.sans};
   transition: background ${({ theme }) => theme.motion.durFast} ${({ theme }) => theme.motion.easeOut};
 
-  &:hover {
-    background: ${({ theme }) => theme.color.tealDeep};
-  }
+  &:hover { background: ${({ theme }) => theme.color.tealDeep}; }
 `;
 ```
 

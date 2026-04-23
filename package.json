@@ -2,7 +2,7 @@
   "name": "@cluos/design-system",
   "version": "0.1.0",
   "description": "Cluos brand design system — tokens, assets, and DESIGN.md for all Cluos repositories",
-  "main": "tokens/index.ts",
+  "main": "tokens/tokens.js",
   "types": "tokens/index.ts",
   "files": [
     "tokens/",

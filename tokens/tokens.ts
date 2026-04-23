@@ -1,32 +1,35 @@
 /**
  * Cluos Design System — TypeScript tokens
- * Single source of truth for color, type, spacing, radius, shadow, motion.
- * Use in CSS-in-JS projects (styled-components, emotion, vanilla-extract).
+ * Single source of truth. Use in CSS-in-JS projects.
+ * Core color values are the official Cluos brand palette.
  */
-
 export const tokens = {
   color: {
-    navy:          "#1A252D",
-    teal:          "#2E8A82",
-    tealDeep:      "#1F6F6A",
-    tealSoft:      "#5A9F98",
-    champagne:     "#B2B0A0",
-    sage:          "#6A9888",
-    pearl:         "#C6CDBC",
-    bg:            "#FFFFFF",
-    bgSubtle:      "#FAFAF8",
-    bgMuted:       "#F3F4F1",
-    border:        "#E7E8E3",
+    teal:       "#008080",
+    navy:       "#1B2F36",
+    black:      "#1D1D1B",
+    champagne:  "#C8C1AE",
+    silver:     "#B5B4B5",
+    white:      "#FFFFFF",
+
+    tealDeep:  "#006666",
+    tealSoft:  "#4DA3A3",
+
+    bg:           "#FFFFFF",
+    bgSubtle:     "#FAFAF8",
+    bgMuted:      "#F3F4F1",
+    border:       "#E7E8E3",
     borderStrong: "#CFD1CA",
-    text:          "#1A252D",
-    textMuted:     "#5A6570",
-    textSubtle:    "#8A939B",
-    textOnTeal:    "#FFFFFF",
-    textOnNavy:    "#FAFAF8",
+
+    text:         "#1B2F36",
+    textMuted:    "#5A6570",
+    textSubtle:   "#8A939B",
+    textOnTeal:   "#FFFFFF",
+    textOnNavy:   "#FAFAF8",
   },
   status: {
-    success:    "#2E8A82",
-    successBg:  "#E8F2F0",
+    success:    "#008080",
+    successBg:  "#E6F2F2",
     info:       "#3E6E82",
     infoBg:     "#EDF1F4",
     warn:       "#BD7845",
@@ -36,22 +39,24 @@ export const tokens = {
   },
   gradient: {
     primary:
-      "linear-gradient(135deg, #1A252D 0%, #2E8A82 55%, #B2B0A0 100%)",
+      "linear-gradient(135deg, #1D1D1B 0%, #1B2F36 18%, #C8C1AE 67%, #B5B4B5 100%)",
     soft:
-      "linear-gradient(135deg, #1A252D 0%, #6A9888 100%)",
+      "linear-gradient(135deg, #1B2F36 0%, #C8C1AE 100%)",
+    mono:
+      "linear-gradient(135deg, #1B2F36 0%, #B5B4B5 100%)",
     brandHero:
-      "radial-gradient(ellipse at 85% 25%, #C6CDBC 0%, #6A9888 30%, #2E8A82 70%, #1F6F6A 100%)",
+      "radial-gradient(ellipse at 85% 25%, #C8C1AE 0%, #008080 55%, #006666 100%)",
   },
   font: {
     sans: '"Inter", "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
     mono: '"JetBrains Mono", "SF Mono", Menlo, Consolas, monospace',
   },
   fontSize: {
-    xs:   "0.75rem",
-    sm:   "0.875rem",
-    base: "1rem",
-    lg:   "1.125rem",
-    xl:   "1.25rem",
+    xs:    "0.75rem",
+    sm:    "0.875rem",
+    base:  "1rem",
+    lg:    "1.125rem",
+    xl:    "1.25rem",
     "2xl": "1.5rem",
     "3xl": "1.875rem",
     "4xl": "2.25rem",
@@ -82,18 +87,18 @@ export const tokens = {
     wide:    "80rem",
   },
   radius: {
-    sm:   "6px",
-    md:   "8px",
-    lg:   "12px",
-    xl:   "16px",
-    "2xl":"24px",
+    sm:    "6px",
+    md:    "8px",
+    lg:    "12px",
+    xl:    "16px",
+    "2xl": "24px",
   },
   shadow: {
-    xs: "0 1px 2px rgba(26, 37, 45, 0.04)",
-    sm: "0 1px 3px rgba(26, 37, 45, 0.06), 0 1px 2px rgba(26, 37, 45, 0.04)",
-    md: "0 4px 12px rgba(26, 37, 45, 0.07), 0 2px 4px rgba(26, 37, 45, 0.04)",
-    lg: "0 12px 32px rgba(26, 37, 45, 0.10), 0 4px 8px rgba(26, 37, 45, 0.04)",
-    ringFocus: "0 0 0 3px rgba(46, 138, 130, 0.30)",
+    xs: "0 1px 2px rgba(27, 47, 54, 0.04)",
+    sm: "0 1px 3px rgba(27, 47, 54, 0.06), 0 1px 2px rgba(27, 47, 54, 0.04)",
+    md: "0 4px 12px rgba(27, 47, 54, 0.06), 0 2px 4px rgba(27, 47, 54, 0.04)",
+    lg: "0 12px 32px rgba(27, 47, 54, 0.08), 0 4px 8px rgba(27, 47, 54, 0.04)",
+    ringFocus: "0 0 0 3px rgba(0, 128, 128, 0.30)",
   },
   motion: {
     easeOut:   "cubic-bezier(0.2, 0.8, 0.2, 1)",

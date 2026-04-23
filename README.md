@@ -8,8 +8,8 @@ Tokens, logos, and rules — consumed by every Cluos repository.
 - **`DESIGN.md`** — the full design system spec. LLMs read this to
   refactor UI. Humans read this to understand the system.
 - **`tokens/`** — machine-readable tokens in three formats:
-  `tokens.css`, `tokens.ts`/`tokens.js`, `tailwind-preset.js`.
-- **`brand-assets/`** — the canonical logo files (drop them in manually;
+  `tokens.css`, `tokens.ts` / `tokens.js`, `tailwind-preset.js`.
+- **`brand-assets/`** — canonical logo files (drop them in manually;
   see `brand-assets/README.md`).
 
 ## Install
@@ -17,11 +17,11 @@ Tokens, logos, and rules — consumed by every Cluos repository.
 In any Cluos project:
 
 ```bash
-# If you're using GitHub Packages (recommended for private use)
-npm install @cluos/design-system
-
-# Or via direct GitHub URL
+# Option A — install from GitHub (simplest, no registry setup)
 npm install github:jamzeze/cluos-design-system
+
+# Option B — install from GitHub Packages (requires auth setup)
+npm install @cluos/design-system
 ```
 
 ## Use
@@ -37,12 +37,12 @@ module.exports = {
 ```
 
 Then use classes like `bg-cluos-teal`, `text-cluos-navy`,
-`rounded-cluos-md`, `shadow-cluos-sm`.
+`rounded-cluos-md`, `shadow-cluos-sm`, `bg-cluos-brand-hero`.
 
 ### Option B — CSS / SCSS
 
 ```css
-/* In your global stylesheet, e.g. globals.css */
+/* globals.css */
 @import "@cluos/design-system/tokens.css";
 ```
 
@@ -63,14 +63,16 @@ const Button = styled.button`
 
 ## Pointing LLMs at DESIGN.md
 
-So Claude Code, Cursor, or any agent can pick up the rules:
+So Claude Code / Cursor / any agent picks up the rules when working in
+a consuming repo:
 
 ```bash
 # From your project root, create a symlink to the installed DESIGN.md
 ln -s node_modules/@cluos/design-system/DESIGN.md ./DESIGN.md
 ```
 
-Or, for teams that prefer a copy, add this to your CI / postinstall:
+Or, for teams that prefer a copy (easier to review in PRs), add this to
+your `package.json`:
 
 ```json
 {
@@ -82,11 +84,11 @@ Or, for teams that prefer a copy, add this to your CI / postinstall:
 
 ## Updating the system
 
-1. Edit `DESIGN.md` and the relevant token file(s).
-2. Bump the version in `package.json` (semver).
+1. Edit `DESIGN.md` and the relevant token file(s) in this repo.
+2. Bump `version` in `package.json` (semver).
 3. Update `CHANGELOG.md`.
-4. Tag the commit: `git tag v0.x.y && git push --tags`.
-5. The release workflow publishes automatically.
+4. Tag and push: `git tag v0.x.y && git push --tags`.
+5. The release workflow publishes automatically to GitHub Packages.
 
 ## Consuming repos stay in sync
 
@@ -100,3 +102,12 @@ npm update @cluos/design-system
 - [`examples/tailwind-setup.md`](examples/tailwind-setup.md)
 - [`examples/css-setup.md`](examples/css-setup.md)
 - [`examples/css-in-js-setup.md`](examples/css-in-js-setup.md)
+
+## The Cluos brand in one paragraph
+
+Cluos is **quiet confidence**. A single accent color (teal), a single
+typeface (Inter), restrained weights, generous whitespace, and two
+status colors that belong with the palette (muted oxblood for error,
+light copper for warning). The wordmark gradient drifts from black →
+navy → champagne → silver. Mintlify-like in its reading rhythm, but
+with Cluos's own teal-and-navy temperature.
