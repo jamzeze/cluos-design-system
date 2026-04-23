@@ -1,0 +1,34 @@
+{
+  "name": "@cluos/design-system",
+  "version": "0.1.0",
+  "description": "Cluos brand design system — tokens, assets, and DESIGN.md for all Cluos repositories",
+  "main": "tokens/index.ts",
+  "types": "tokens/index.ts",
+  "files": [
+    "tokens/",
+    "brand-assets/",
+    "DESIGN.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./tokens/index.ts",
+      "import": "./tokens/tokens.js",
+      "require": "./tokens/tokens.js"
+    },
+    "./tokens.css": "./tokens/tokens.css",
+    "./tailwind-preset": "./tokens/tailwind-preset.js",
+    "./brand-assets/*": "./brand-assets/*",
+    "./DESIGN.md": "./DESIGN.md"
+  },
+  "keywords": ["cluos", "design-system", "design-tokens", "brand"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamzeze/cluos-design-system.git"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

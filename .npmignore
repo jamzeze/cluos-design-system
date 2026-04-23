@@ -1,0 +1,5 @@
+.github/
+examples/
+.gitignore
+.DS_Store
+*.log
