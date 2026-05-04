@@ -469,3 +469,43 @@ Lowercase labels are fine. Never shout.
 1. **Teal is the only accent.** No second accent to "add pop".
 2. **Restraint in weight.** 400–500 default, 600 for headings, no more.
 3. **Gradients are brand moments, not decoration.**
+
+---
+
+## 13. Product UX layer
+
+CluOS now has an official product UX layer, documented separately from
+the visual identity to keep this file focused on the visual contract.
+
+**Core rule:** Every screen must be simple, focused, and intuitive.
+Every screen has one primary action. Technical complexity is progressively
+disclosed. The user should understand the next step in 3 seconds.
+
+### Principles
+
+- One screen, one dominant intention.
+- One primary action per visual region.
+- Progressive disclosure for all advanced options, logs, and technical detail.
+- Loading, empty, and error states are mandatory for every dynamic component.
+- Every long action needs feedback. Every failure needs a recovery path.
+- Dashboards must help the user decide, not just display data.
+- Technical details must be collapsed by default.
+- The interface must feel calm, clear, minimal, and precise.
+- The aesthetic is CluOS — not generic colorful SaaS.
+
+### Where to read
+
+- **`APPLE-INSPIRED-PRODUCT-UX.md`** — full UX principles, per-product guidelines, anti-patterns.
+- **`PRODUCT-PATTERNS.md`** — reusable patterns for each product type (Hub, CRM, AEO, etc.).
+- **`patterns/`** — component specs, page templates, states, accessibility, content guidelines.
+
+### What this means for implementers
+
+Before building any screen:
+1. Read `APPLE-INSPIRED-PRODUCT-UX.md`.
+2. Check `PRODUCT-PATTERNS.md` for the relevant product type.
+3. Check `patterns/page-templates.md` for the closest template.
+4. Use components from `patterns/components.md`.
+5. Implement all required states from `patterns/states.md`.
+6. Verify copy with `patterns/content-guidelines.md`.
+7. Check accessibility with `patterns/accessibility.md`.

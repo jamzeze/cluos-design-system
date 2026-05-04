@@ -1,22 +1,25 @@
 # @cluos/design-system
 
-The single source of truth for the Cluos visual language.
-Tokens, logos, and rules — consumed by every Cluos repository.
+The single source of truth for the CluOS visual language, UX principles, product patterns, and agent governance.
+Tokens, logos, patterns, and rules — consumed by every CluOS repository.
+
+> **v0.2.0** — Added Apple-inspired product UX layer: principles, component patterns, page templates, state specs, accessibility, content guidelines, and implementation examples.
+
+---
 
 ## What lives here
 
-- **`DESIGN-preview.html`** — the canonical visual reference. Any UI
-  refactor should match this file first.
-- **`DESIGN.md`** — the full narrative spec. It explains the preview
-  and must stay in sync with it.
-- **`DESIGN-WORKFLOW.md`** — the preview-first refactor workflow for
-  humans and agents.
-- **`tokens/`** — machine-readable tokens in three formats:
-  `tokens.css`, `tokens.ts` / `tokens.js`, `tailwind-preset.js`.
-- **`brand-assets/`** — shipped SVG assets for the stacked lockup,
-  symbol, favicon, and convenience mono variants.
-- **`guides/`** — versioned source material used to derive the shipped
-  assets, including the raw SVG board and palette PDF.
+- **`DESIGN-preview.html`** — the canonical visual reference (v0.2.0 includes Product UX Patterns section).
+- **`DESIGN.md`** — the full narrative spec. Explains the preview and must stay in sync with it.
+- **`DESIGN-WORKFLOW.md`** — the preview-first refactor workflow for humans and agents.
+- **`APPLE-INSPIRED-PRODUCT-UX.md`** — UX principles: progressive disclosure, clarity, focus, motion, per-product guidelines.
+- **`PRODUCT-PATTERNS.md`** — reusable patterns for every CluOS product type (Hub, Dashboard, CRM, AEO, Editor, Suporte, Settings, Login, Upload, etc.).
+- **`patterns/`** — detailed specs: `components.md`, `page-templates.md`, `states.md`, `accessibility.md`, `content-guidelines.md`.
+- **`examples/apple-inspired-product-ui/`** — implementation examples: Next.js+Tailwind, React components, plain HTML, CSS tokens, Hub, Upload flow, Settings, Dashboard, Error/Empty/Loading states.
+- **`tokens/`** — machine-readable tokens in three formats: `tokens.css`, `tokens.ts` / `tokens.js`, `tailwind-preset.js`.
+- **`brand-assets/`** — shipped SVG assets for the stacked lockup, symbol, favicon, and mono variants.
+- **`guides/`** — versioned source material used to derive the shipped assets.
+- **`MIGRATION-AUDIT.md`** — audit report of the legacy `cluos-design` repo unification.
 
 ## Install
 
@@ -115,9 +118,48 @@ npm update @cluos/design-system
 
 ## Examples
 
-- [`examples/tailwind-setup.md`](examples/tailwind-setup.md)
-- [`examples/css-setup.md`](examples/css-setup.md)
-- [`examples/css-in-js-setup.md`](examples/css-in-js-setup.md)
+- [`examples/apple-inspired-product-ui/README.md`](examples/apple-inspired-product-ui/README.md)
+- [`examples/apple-inspired-product-ui/next-tailwind.md`](examples/apple-inspired-product-ui/next-tailwind.md)
+- [`examples/apple-inspired-product-ui/react-components.md`](examples/apple-inspired-product-ui/react-components.md)
+- [`examples/apple-inspired-product-ui/plain-html.md`](examples/apple-inspired-product-ui/plain-html.md)
+- [`examples/apple-inspired-product-ui/css-tokens.md`](examples/apple-inspired-product-ui/css-tokens.md)
+- [`examples/apple-inspired-product-ui/hub-systems.md`](examples/apple-inspired-product-ui/hub-systems.md)
+- [`examples/apple-inspired-product-ui/upload-video-flow.md`](examples/apple-inspired-product-ui/upload-video-flow.md)
+- [`examples/apple-inspired-product-ui/settings-page.md`](examples/apple-inspired-product-ui/settings-page.md)
+- [`examples/apple-inspired-product-ui/dashboard.md`](examples/apple-inspired-product-ui/dashboard.md)
+- [`examples/apple-inspired-product-ui/error-empty-loading.md`](examples/apple-inspired-product-ui/error-empty-loading.md)
+
+---
+
+## Product UX Layer (v0.2.0)
+
+### UX Principles
+See [`APPLE-INSPIRED-PRODUCT-UX.md`](APPLE-INSPIRED-PRODUCT-UX.md) for the full philosophy:
+- Progressive disclosure (advanced options hidden by default)
+- One primary action per region
+- 3-second clarity test
+- All dynamic states defined (loading, empty, error, success)
+- Honest feedback, semantic HTML, accessible focus
+
+### Product Patterns
+See [`PRODUCT-PATTERNS.md`](PRODUCT-PATTERNS.md) for patterns per product type:
+Hub · Dashboard · CRM · AEO · Editor de vídeo · Suporte · Configurações · Login · Upload · Empty/Error states · Tabelas · Formulários
+
+### Component & Pattern Specs
+- [`patterns/components.md`](patterns/components.md) — 23 component specs with tokens, states, accessibility
+- [`patterns/page-templates.md`](patterns/page-templates.md) — 9 page layout templates
+- [`patterns/states.md`](patterns/states.md) — loading, skeleton, empty, error, processing, success, offline states
+- [`patterns/accessibility.md`](patterns/accessibility.md) — WCAG 2.1 AA requirements
+- [`patterns/content-guidelines.md`](patterns/content-guidelines.md) — writing rules for UI copy
+
+---
+
+## Legacy Note
+
+`cluos-design` (private repo `jamzeze/cluos-design`) has been retired as an active design source.
+It is now legacy-only. Its AGENTS.md prohibits agents from treating it as a design reference.
+This repository is the **only valid design authority** for all CluOS systems.
+See [`MIGRATION-AUDIT.md`](MIGRATION-AUDIT.md) for the full unification audit.
 
 ## The Cluos brand in one paragraph
 

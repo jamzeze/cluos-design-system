@@ -59,3 +59,32 @@ a demo tweak. The same change must update, when relevant:
 - Asset filenames and usage notes still match `brand-assets/README.md`.
 - `npm pack --dry-run` includes `DESIGN-preview.html`, `DESIGN.md`,
   `DESIGN-WORKFLOW.md`, `tokens/`, `brand-assets/`, and `guides/`.
+
+---
+
+## Product UI changes
+
+When the change involves product UI, screens, or interaction patterns:
+
+1. Read `DESIGN.md` — visual identity contract.
+2. Read `APPLE-INSPIRED-PRODUCT-UX.md` — UX principles and per-product guidelines.
+3. Read `PRODUCT-PATTERNS.md` — patterns for the relevant product type.
+4. Check `patterns/` — component specs, templates, states, accessibility.
+5. Update `DESIGN-preview.html` if the visual pattern changes.
+6. Update tokens only if a new semantic is needed (rare).
+7. Update examples if the pattern is new.
+8. Update `CHANGELOG.md`.
+
+### Implementation gate
+
+Do not implement a UI screen if it violates any of the following:
+
+- One dominant intention per screen.
+- One primary action per visual region.
+- Clarity in 3 seconds (user knows: where am I, what is the state, what is next).
+- Few buttons — no 4+ primary buttons competing.
+- Progressive disclosure — advanced options, logs, and technical detail are collapsed.
+- Defined states — loading, empty, and error are mandatory for dynamic components.
+- Official tokens — no new hardcoded colors outside `tokens/tokens.css`.
+
+If the screen violates any of these, return to design before implementing.

@@ -1,16 +1,21 @@
 {
   "name": "@cluos/design-system",
-  "version": "0.1.1",
-  "description": "Cluos brand design system — tokens, assets, and DESIGN.md for all Cluos repositories",
+  "version": "0.2.0",
+  "description": "Cluos brand design system — tokens, assets, UX principles, product patterns, and documentation for all Cluos repositories",
   "main": "tokens/tokens.js",
   "types": "tokens/index.ts",
   "files": [
     "tokens/",
     "brand-assets/",
     "guides/",
+    "patterns/",
+    "examples/",
     "DESIGN-preview.html",
     "DESIGN.md",
     "DESIGN-WORKFLOW.md",
+    "APPLE-INSPIRED-PRODUCT-UX.md",
+    "PRODUCT-PATTERNS.md",
+    "MIGRATION-AUDIT.md",
     "README.md",
     "LICENSE"
   ],
@@ -24,9 +29,13 @@
     "./tailwind-preset": "./tokens/tailwind-preset.js",
     "./brand-assets/*": "./brand-assets/*",
     "./guides/*": "./guides/*",
+    "./patterns/*": "./patterns/*",
+    "./examples/*": "./examples/*",
     "./DESIGN-preview.html": "./DESIGN-preview.html",
-    "./DESIGN.md": "./DESIGN.md"
-    ,"./DESIGN-WORKFLOW.md": "./DESIGN-WORKFLOW.md"
+    "./DESIGN.md": "./DESIGN.md",
+    "./DESIGN-WORKFLOW.md": "./DESIGN-WORKFLOW.md",
+    "./APPLE-INSPIRED-PRODUCT-UX.md": "./APPLE-INSPIRED-PRODUCT-UX.md",
+    "./PRODUCT-PATTERNS.md": "./PRODUCT-PATTERNS.md"
   },
   "keywords": ["cluos", "design-system", "design-tokens", "brand"],
   "repository": {

@@ -765,8 +765,191 @@
 </section>
 
 <footer>
-  Cluos · Official Preview v0.1.1 · Refactors start here · Sync changes with DESIGN.md and DESIGN-WORKFLOW.md
+  Cluos · Official Preview v0.2.0 · Refactors start here · Sync changes with DESIGN.md and DESIGN-WORKFLOW.md
 </footer>
+
+<!-- 07 PRODUCT UX PATTERNS -->
+<section class="section" id="product-ux-patterns" style="background: var(--cluos-bg-subtle);">
+  <div class="section-label">07 / Product UX Patterns</div>
+  <h2 class="section-title">Product UX Patterns</h2>
+  <p style="color: var(--cluos-text-muted); margin-bottom: 2.5rem; max-width: 48rem;">
+    Every CluOS screen is simple, focused, and intuitive. One primary action per region.
+    Technical complexity is progressively disclosed. The user understands the next step in 3 seconds.
+  </p>
+
+  <!-- 7.1 System Hub Card -->
+  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.1 · Hub — System Card</h3>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
+    <!-- Online -->
+    <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem;">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.5rem;">
+        <span style="width:8px; height:8px; border-radius:50%; background: var(--cluos-status-success); flex-shrink:0;"></span>
+        <span style="font-size: 0.75rem; font-weight: 500; color: var(--cluos-status-success);">Online</span>
+      </div>
+      <div style="font-weight: 600; color: var(--cluos-navy); margin-bottom: 0.25rem;">CRM CluOS</div>
+      <div style="font-size: 0.8125rem; color: var(--cluos-text-subtle); margin-bottom: 1rem;">crm.cluos.online</div>
+      <div style="display: flex; gap: 0.5rem;">
+        <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Abrir</button>
+        <button style="background: transparent; color: var(--cluos-teal-deep); border: none; font-size: 0.875rem; font-weight: 500; cursor: pointer; padding: 0.5rem 0.75rem;">Ver detalhes</button>
+      </div>
+    </div>
+    <!-- Warning -->
+    <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem;">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.5rem;">
+        <span style="width:8px; height:8px; border-radius:50%; background: var(--cluos-status-warn); flex-shrink:0;"></span>
+        <span style="font-size: 0.75rem; font-weight: 500; color: var(--cluos-status-warn);">Atenção</span>
+      </div>
+      <div style="font-weight: 600; color: var(--cluos-navy); margin-bottom: 0.25rem;">Automatic-AEO</div>
+      <div style="font-size: 0.8125rem; color: var(--cluos-text-subtle); margin-bottom: 0.5rem;">aeo.cluos.online</div>
+      <div style="font-size: 0.8125rem; color: var(--cluos-status-warn); margin-bottom: 1rem;">Alta latência detectada</div>
+      <div style="display: flex; gap: 0.5rem;">
+        <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Abrir</button>
+        <button style="background: transparent; color: var(--cluos-teal-deep); border: none; font-size: 0.875rem; font-weight: 500; cursor: pointer; padding: 0.5rem 0.75rem;">Ver detalhes</button>
+      </div>
+    </div>
+    <!-- Offline -->
+    <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem; opacity: 0.75;">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.5rem;">
+        <span style="width:8px; height:8px; border-radius:50%; background: var(--cluos-status-error); flex-shrink:0;"></span>
+        <span style="font-size: 0.75rem; font-weight: 500; color: var(--cluos-status-error);">Offline</span>
+      </div>
+      <div style="font-weight: 600; color: var(--cluos-navy); margin-bottom: 0.25rem;">B3</div>
+      <div style="font-size: 0.8125rem; color: var(--cluos-text-subtle); margin-bottom: 0.5rem;">b3.cluos.online</div>
+      <div style="font-size: 0.8125rem; color: var(--cluos-status-error); margin-bottom: 1rem;">Serviço indisponível</div>
+      <div style="display: flex; gap: 0.5rem;">
+        <button disabled style="background: var(--cluos-bg-muted); color: var(--cluos-text-subtle); border: none; border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; cursor: not-allowed;">Abrir</button>
+        <button style="background: transparent; color: var(--cluos-teal-deep); border: none; font-size: 0.875rem; font-weight: 500; cursor: pointer; padding: 0.5rem 0.75rem;">Ver detalhes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7.2 Upload Flow -->
+  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.2 · Upload Flow</h3>
+  <div style="max-width: 520px; margin-bottom: 2.5rem;">
+    <!-- Dropzone idle -->
+    <div style="border: 2px dashed var(--cluos-border); border-radius: 12px; padding: 2rem; text-align: center; background: var(--cluos-bg); margin-bottom: 1rem;">
+      <div style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--cluos-text-subtle);">↑</div>
+      <div style="font-weight: 500; color: var(--cluos-navy); margin-bottom: 0.25rem;">Arraste o vídeo aqui</div>
+      <div style="font-size: 0.8125rem; color: var(--cluos-text-muted); margin-bottom: 1rem;">ou</div>
+      <button style="background: transparent; color: var(--cluos-navy); border: 1px solid var(--cluos-border-strong); border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.875rem; cursor: pointer;">Selecionar arquivo</button>
+      <div style="font-size: 0.75rem; color: var(--cluos-text-subtle); margin-top: 0.75rem;">MP4, MOV, AVI · máx. 500MB</div>
+    </div>
+    <!-- Progress state -->
+    <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1rem;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+        <span style="font-size: 0.875rem; font-weight: 500; color: var(--cluos-navy);">intro-produto.mp4</span>
+        <span style="font-size: 0.875rem; color: var(--cluos-text-muted);">67%</span>
+      </div>
+      <div style="height: 4px; background: var(--cluos-bg-muted); border-radius: 2px; overflow: hidden;">
+        <div style="height: 100%; width: 67%; background: var(--cluos-teal); border-radius: 2px;"></div>
+      </div>
+      <div style="font-size: 0.75rem; color: var(--cluos-text-subtle); margin-top: 0.5rem;">Enviando... 201MB de 300MB</div>
+    </div>
+  </div>
+
+  <!-- 7.3 Minimal Dashboard -->
+  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.3 · Dashboard Minimalista</h3>
+  <div style="max-width: 680px; margin-bottom: 2.5rem;">
+    <!-- Metrics -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+      <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem;">
+        <div style="font-size: 0.75rem; font-weight: 500; color: var(--cluos-text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem;">Conteúdos publicados</div>
+        <div style="font-size: 2rem; font-weight: 600; color: var(--cluos-navy);">47</div>
+      </div>
+      <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem;">
+        <div style="font-size: 0.75rem; font-weight: 500; color: var(--cluos-text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem;">Aguardando revisão</div>
+        <div style="font-size: 2rem; font-weight: 600; color: var(--cluos-status-warn);">3</div>
+      </div>
+      <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem;">
+        <div style="font-size: 0.75rem; font-weight: 500; color: var(--cluos-text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem;">Leads ativos</div>
+        <div style="font-size: 2rem; font-weight: 600; color: var(--cluos-navy);">12</div>
+      </div>
+    </div>
+    <!-- Pending action -->
+    <div style="background: var(--cluos-status-warn-bg); border: 1px solid #e8c49a; border-radius: 12px; padding: 1rem; display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <div style="font-weight: 500; color: var(--cluos-navy); font-size: 0.9375rem;">3 conteúdos aguardando revisão</div>
+        <div style="font-size: 0.8125rem; color: var(--cluos-text-muted); margin-top: 0.25rem;">Revise antes de publicar</div>
+      </div>
+      <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; white-space: nowrap;">Revisar agora</button>
+    </div>
+  </div>
+
+  <!-- 7.4 Empty State -->
+  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.4 · Empty State</h3>
+  <div style="max-width: 400px; text-align: center; padding: 3rem 2rem; border: 1px solid var(--cluos-border); border-radius: 12px; background: var(--cluos-bg); margin-bottom: 2.5rem;">
+    <div style="font-size: 2.5rem; color: var(--cluos-text-subtle); margin-bottom: 1rem;">◎</div>
+    <div style="font-weight: 600; color: var(--cluos-navy); font-size: 1.0625rem; margin-bottom: 0.5rem;">Nenhum conteúdo ainda</div>
+    <div style="font-size: 0.875rem; color: var(--cluos-text-muted); margin-bottom: 1.5rem;">Gere seu primeiro conteúdo para começar a publicar no AEO.</div>
+    <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.625rem 1.25rem; font-size: 0.9375rem; font-weight: 500; cursor: pointer;">Gerar conteúdo</button>
+  </div>
+
+  <!-- 7.5 Error State -->
+  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.5 · Error State</h3>
+  <div style="max-width: 480px; margin-bottom: 2.5rem;">
+    <div style="background: var(--cluos-status-error-bg); border: 1px solid #dcb8b8; border-radius: 12px; padding: 1.25rem;">
+      <div style="font-weight: 600; color: var(--cluos-navy); margin-bottom: 0.375rem;">Não foi possível gerar o vídeo</div>
+      <div style="font-size: 0.875rem; color: var(--cluos-text-muted); margin-bottom: 1rem;">Verifique o formato do arquivo e tente novamente. MP4 e MOV são suportados.</div>
+      <div style="display: flex; gap: 0.75rem; align-items: center;">
+        <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Tentar novamente</button>
+        <button style="background: transparent; color: var(--cluos-text-muted); border: none; font-size: 0.8125rem; cursor: pointer; padding: 0.5rem 0.5rem;">Detalhes técnicos ↓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7.6 Settings Screen -->
+  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.6 · Settings Screen</h3>
+  <div style="max-width: 520px; margin-bottom: 2.5rem;">
+    <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; overflow: hidden;">
+      <!-- Section: Perfil -->
+      <div style="padding: 1.25rem; border-bottom: 1px solid var(--cluos-border);">
+        <div style="font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cluos-text-subtle); margin-bottom: 0.75rem;">Perfil</div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <div><label style="font-size: 0.8125rem; font-weight: 500; color: var(--cluos-navy); display: block; margin-bottom: 0.25rem;">Nome</label><input style="width: 100%; border: 1px solid var(--cluos-border); border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.875rem; color: var(--cluos-text); font-family: inherit;" type="text" value="Rafael Costa" /></div>
+          <div><label style="font-size: 0.8125rem; font-weight: 500; color: var(--cluos-navy); display: block; margin-bottom: 0.25rem;">E-mail</label><input style="width: 100%; border: 1px solid var(--cluos-border); border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.875rem; color: var(--cluos-text-muted); font-family: inherit; background: var(--cluos-bg-subtle);" type="email" value="costarafaelhr@gmail.com" disabled /></div>
+        </div>
+      </div>
+      <!-- Section: Avançado (collapsed) -->
+      <div style="padding: 1rem 1.25rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.8125rem; font-weight: 500; color: var(--cluos-text-muted);">Configurações avançadas</span>
+        <span style="font-size: 0.75rem; color: var(--cluos-text-subtle);">▸</span>
+      </div>
+      <!-- Save button -->
+      <div style="padding: 1rem 1.25rem; border-top: 1px solid var(--cluos-border); display: flex; justify-content: flex-end;">
+        <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.5625rem 1.25rem; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Salvar alterações</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7.7 Review / Publish Flow -->
+  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.7 · Revisão e Publicação</h3>
+  <div style="max-width: 680px; margin-bottom: 2.5rem;">
+    <!-- Progress steps -->
+    <div style="display: flex; align-items: center; gap: 0; margin-bottom: 1.5rem;">
+      <div style="display: flex; align-items: center; gap: 6px; color: var(--cluos-status-success); font-size: 0.8125rem; font-weight: 500;">✓ Gerado</div>
+      <div style="flex: 1; height: 1px; background: var(--cluos-status-success); margin: 0 12px;"></div>
+      <div style="display: flex; align-items: center; gap: 6px; color: var(--cluos-teal-deep); font-size: 0.8125rem; font-weight: 600; border-bottom: 2px solid var(--cluos-teal);">● Em revisão</div>
+      <div style="flex: 1; height: 1px; background: var(--cluos-border); margin: 0 12px;"></div>
+      <div style="display: flex; align-items: center; gap: 6px; color: var(--cluos-text-subtle); font-size: 0.8125rem;">○ Publicar</div>
+    </div>
+    <!-- Content preview + action -->
+    <div style="display: grid; grid-template-columns: 1fr 180px; gap: 1rem;">
+      <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem;">
+        <div style="font-weight: 600; color: var(--cluos-navy); margin-bottom: 0.5rem;">Como o CluOS simplifica a gestão de processos médicos</div>
+        <div style="font-size: 0.875rem; color: var(--cluos-text-muted); line-height: 1.6;">Neste artigo, exploramos como o CluOS integra triagem, diagnóstico e acompanhamento em uma única plataforma...</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.625rem 1rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; width: 100%;">Publicar</button>
+        <button style="background: transparent; color: var(--cluos-navy); border: 1px solid var(--cluos-border-strong); border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.8125rem; cursor: pointer; width: 100%;">Agendar</button>
+        <button style="background: transparent; color: var(--cluos-text-muted); border: none; font-size: 0.8125rem; cursor: pointer; padding: 0.5rem 0; width: 100%;">Rejeitar</button>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size: 0.8125rem; color: var(--cluos-text-subtle); border-top: 1px solid var(--cluos-border); padding-top: 1.5rem;">
+    All patterns above use official CluOS tokens only. See <code style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--cluos-bg-muted); padding: 0.1em 0.3em; border-radius: 4px;">APPLE-INSPIRED-PRODUCT-UX.md</code> and <code style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--cluos-bg-muted); padding: 0.1em 0.3em; border-radius: 4px;">PRODUCT-PATTERNS.md</code> for full specifications.
+  </p>
+</section>
 
 </body>
 </html>
