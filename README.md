@@ -3,7 +3,7 @@
 The single source of truth for the CluOS visual language, UX principles, product patterns, and agent governance.
 Tokens, logos, patterns, and rules — consumed by every CluOS repository.
 
-> **v0.2.0** — Added Apple-inspired product UX layer: principles, component patterns, page templates, state specs, accessibility, content guidelines, and implementation examples.
+> **v0.2.1** — Added the Product Simplicity Canon as mandatory product/design governance for all CluOS apps and refactors.
 
 ---
 
@@ -12,6 +12,7 @@ Tokens, logos, patterns, and rules — consumed by every CluOS repository.
 - **`DESIGN-preview.html`** — the canonical visual reference (v0.2.0 includes Product UX Patterns section).
 - **`DESIGN.md`** — the full narrative spec. Explains the preview and must stay in sync with it.
 - **`DESIGN-WORKFLOW.md`** — the preview-first refactor workflow for humans and agents.
+- **`PRODUCT-SIMPLICITY-CANON.md`** — mandatory product simplicity canon: reduce cognitive load, remove unnecessary complexity, improve perceived quality, and make the main user action obvious.
 - **`APPLE-INSPIRED-PRODUCT-UX.md`** — UX principles: progressive disclosure, clarity, focus, motion, per-product guidelines.
 - **`PRODUCT-PATTERNS.md`** — reusable patterns for every CluOS product type (Hub, Dashboard, CRM, AEO, Editor, Suporte, Settings, Login, Upload, etc.).
 - **`patterns/`** — detailed specs: `components.md`, `page-templates.md`, `states.md`, `accessibility.md`, `content-guidelines.md`.
@@ -80,10 +81,17 @@ a consuming repo:
 ln -s node_modules/@cluos/design-system/DESIGN.md ./DESIGN.md
 ```
 
+For product or UX work, also expose the Product Simplicity Canon:
+
+```bash
+ln -s node_modules/@cluos/design-system/PRODUCT-SIMPLICITY-CANON.md ./PRODUCT-SIMPLICITY-CANON.md
+```
+
 Open `node_modules/@cluos/design-system/DESIGN-preview.html` side by
 side with the code whenever the task is visual or component-focused.
 The preview is the canonical visual source of truth; `DESIGN.md`
-explains it, and `DESIGN-WORKFLOW.md` describes how to keep everything
+explains it, `PRODUCT-SIMPLICITY-CANON.md` defines the mandatory product
+simplicity rules, and `DESIGN-WORKFLOW.md` describes how to keep everything
 in sync.
 
 Or, for teams that prefer a copy (easier to review in PRs), add this to
@@ -92,22 +100,22 @@ your `package.json`:
 ```json
 {
   "scripts": {
-    "postinstall": "cp node_modules/@cluos/design-system/DESIGN.md ./DESIGN.md"
+    "postinstall": "cp node_modules/@cluos/design-system/DESIGN.md ./DESIGN.md && cp node_modules/@cluos/design-system/PRODUCT-SIMPLICITY-CANON.md ./PRODUCT-SIMPLICITY-CANON.md"
   }
 }
 ```
 
 ## Updating the system
 
-1. Edit `DESIGN-preview.html` first.
-2. Sync `DESIGN.md`, `DESIGN-WORKFLOW.md`, and any affected token or
-  asset docs in the same change.
-3. Update `guides/` and `brand-assets/` if the source artwork changed.
-4. Run `npm pack --dry-run`.
-5. Bump `version` in `package.json` (semver).
-6. Update `CHANGELOG.md`.
-7. Tag and push: `git tag v0.x.y && git push --tags`.
-8. The release workflow publishes automatically to GitHub Packages.
+1. Edit `DESIGN-preview.html` first for visual changes.
+2. For product-governance changes, edit `PRODUCT-SIMPLICITY-CANON.md` first.
+3. Sync `DESIGN.md`, `DESIGN-WORKFLOW.md`, `APPLE-INSPIRED-PRODUCT-UX.md`, and any affected token or asset docs in the same change.
+4. Update `guides/` and `brand-assets/` if the source artwork changed.
+5. Run `npm pack --dry-run`.
+6. Bump `version` in `package.json` (semver).
+7. Update `CHANGELOG.md`.
+8. Tag and push: `git tag v0.x.y && git push --tags`.
+9. The release workflow publishes automatically to GitHub Packages.
 
 ## Consuming repos stay in sync
 
@@ -131,7 +139,22 @@ npm update @cluos/design-system
 
 ---
 
-## Product UX Layer (v0.2.0)
+## Product UX Layer (v0.2.1)
+
+### Product Simplicity Canon
+See [`PRODUCT-SIMPLICITY-CANON.md`](PRODUCT-SIMPLICITY-CANON.md) for the mandatory product rule used by every CluOS project:
+
+> Reduce cognitive load, remove unnecessary complexity, improve perceived quality, and make the main user action obvious.
+
+Every screen must answer:
+
+1. What is this screen for?
+2. What should the user do next?
+3. What information is essential now?
+4. What can be hidden, moved, collapsed, delayed, or removed?
+5. What can break if this is simplified?
+
+If a screen cannot answer these questions, it must be redesigned, merged, or removed.
 
 ### UX Principles
 See [`APPLE-INSPIRED-PRODUCT-UX.md`](APPLE-INSPIRED-PRODUCT-UX.md) for the full philosophy:
