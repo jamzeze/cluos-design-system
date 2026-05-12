@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+# Validate CEO Agent configuration without making network calls.
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; NC='\033[0m'
+
+ok()   { echo -e "  ${GREEN}✓${NC} $*"; }
+warn() { echo -e "  ${YELLOW}⚠${NC}  $*"; }
+fail() { echo -e "  ${RED}✗${NC} $*"; }
+
+ERRORS=0
+
+echo "=== CEO Agent Validation ==="
+echo ""
+
+# ─── 1. Required env vars ────────────────────────────────────────────────────
+echo "Environment variables:"
+REQUIRED_VARS=(
+  TELEGRAM_BOT_TOKEN
+  TELEGRAM_ALLOWED_USER_IDS
+  HERMES_API_URL
+  HERMES_API_KEY
+  CEO_AGENT_MODE
+  CEO_AGENT_APPROVAL_REQUIRED
+)
+
+for var in "${REQUIRED_VARS[@]}"; do
+  if [[ -n "${!var:-}" ]]; then
+    ok "$var is set"
+  else
+    fail "$var is NOT set"
+    ((ERRORS++))
+  fi
+done
+
+# ─── 2. CEO_AGENT_MODE valid value ───────────────────────────────────────────
+echo ""
+echo "Mode check:"
+VALID_MODES=("approval" "auto" "dry-run")
+MODE="${CEO_AGENT_MODE:-}"
+if [[ " ${VALID_MODES[*]} " =~ " $MODE " ]]; then
+  ok "CEO_AGENT_MODE=$MODE (valid)"
+  [[ "$MODE" == "auto" ]] && warn "Mode 'auto' is not recommended for production"
+else
+  fail "CEO_AGENT_MODE='$MODE' is invalid. Must be: approval | auto | dry-run"
+  ((ERRORS++))
+fi
+
+# ─── 3. TELEGRAM_BOT_TOKEN format check (no value printed) ───────────────────
+echo ""
+echo "Telegram token format:"
+TOKEN="${TELEGRAM_BOT_TOKEN:-}"
+if [[ "$TOKEN" =~ ^[0-9]+:[a-zA-Z0-9_-]{35,}$ ]]; then
+  ok "TELEGRAM_BOT_TOKEN format looks valid"
+else
+  fail "TELEGRAM_BOT_TOKEN format invalid (expected: <numbers>:<alphanum>)"
+  ((ERRORS++))
+fi
+
+# ─── 4. TELEGRAM_ALLOWED_USER_IDS is numeric ─────────────────────────────────
+IDS="${TELEGRAM_ALLOWED_USER_IDS:-}"
+if [[ "$IDS" =~ ^[0-9]+(,[0-9]+)*$ ]]; then
+  ID_COUNT=$(echo "$IDS" | tr ',' '\n' | wc -l)
+  ok "TELEGRAM_ALLOWED_USER_IDS: $ID_COUNT ID(s) configured"
+else
+  fail "TELEGRAM_ALLOWED_USER_IDS must be comma-separated numeric IDs"
+  ((ERRORS++))
+fi
+
+# ─── 5. Agent config files present ───────────────────────────────────────────
+echo ""
+echo "Agent config files:"
+AGENT_FILES=(
+  "agents/ceo/agent.yaml"
+  "agents/ceo/README.md"
+  "agents/ceo/prompts/system.md"
+  "agents/ceo/prompts/router.md"
+  "agents/ceo/prompts/approval.md"
+  "agents/ceo/prompts/risk-policy.md"
+)
+
+for f in "${AGENT_FILES[@]}"; do
+  if [[ -f "$REPO_ROOT/$f" ]]; then
+    ok "$f"
+  else
+    fail "$f not found"
+    ((ERRORS++))
+  fi
+done
+
+# ─── 6. Telegram files present ───────────────────────────────────────────────
+echo ""
+echo "Telegram integration files:"
+TELEGRAM_FILES=(
+  "telegram/README.md"
+  "telegram/webhook.example"
+  "telegram/message-router.example"
+)
+
+for f in "${TELEGRAM_FILES[@]}"; do
+  if [[ -f "$REPO_ROOT/$f" ]]; then
+    ok "$f"
+  else
+    fail "$f not found"
+    ((ERRORS++))
+  fi
+done
+
+# ─── Summary ─────────────────────────────────────────────────────────────────
+echo ""
+echo "─────────────────────────────────────────"
+if [[ "$ERRORS" -eq 0 ]]; then
+  echo -e "${GREEN}CEO Agent config valid${NC}"
+  exit 0
+else
+  echo -e "${RED}${ERRORS} error(s) found${NC}"
+  exit 1
+fi
