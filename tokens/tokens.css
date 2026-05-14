@@ -115,4 +115,68 @@
   --cluos-dur-fast:    120ms;
   --cluos-dur-base:    200ms;
   --cluos-dur-slow:    400ms;
+
+  /* ----- Action theme — base values --------------------------------- */
+  --cluos-action-teal:            #008080;
+  --cluos-action-teal-deep:       #006666;
+  --cluos-action-teal-soft:       rgba(0, 128, 128, 0.10);
+
+  --cluos-action-copper:          #BD7845;
+  --cluos-action-copper-deep:     #965D34;
+  --cluos-action-copper-soft:     rgba(189, 120, 69, 0.12);
+
+  --cluos-action-champagne:       #C8C1AE;
+  --cluos-action-champagne-deep:  #AFA58E;
+  --cluos-action-champagne-soft:  rgba(200, 193, 174, 0.22);
+
+  --cluos-action-oxblood:         #8A3A3A;
+  --cluos-action-oxblood-deep:    #662828;
+  --cluos-action-oxblood-soft:    rgba(138, 58, 58, 0.11);
+}
+
+/* ==========================================================================
+   Action theme variants — [data-theme] attribute on <html> or <body>
+   ========================================================================== */
+
+[data-theme="teal"] {
+  --cluos-action:       var(--cluos-action-teal);
+  --cluos-action-deep:  var(--cluos-action-teal-deep);
+  --cluos-action-soft:  var(--cluos-action-teal-soft);
+  --cluos-action-text:  #FFFFFF;
+}
+
+[data-theme="copper"] {
+  --cluos-action:       var(--cluos-action-copper);
+  --cluos-action-deep:  var(--cluos-action-copper-deep);
+  --cluos-action-soft:  var(--cluos-action-copper-soft);
+  --cluos-action-text:  #FFFFFF;
+}
+
+[data-theme="champagne"] {
+  --cluos-action:       var(--cluos-action-champagne);
+  --cluos-action-deep:  var(--cluos-action-champagne-deep);
+  --cluos-action-soft:  var(--cluos-action-champagne-soft);
+  --cluos-action-text:  var(--cluos-navy);
+}
+
+[data-theme="oxblood"] {
+  --cluos-action:       var(--cluos-action-oxblood);
+  --cluos-action-deep:  var(--cluos-action-oxblood-deep);
+  --cluos-action-soft:  var(--cluos-action-oxblood-soft);
+  --cluos-action-text:  #FFFFFF;
+}
+
+/* ==========================================================================
+   Dark / navy appearance — [data-appearance="dark"] on <html> or <body>
+   ========================================================================== */
+
+[data-appearance="dark"] {
+  --cluos-bg:            #1B2F36;
+  --cluos-bg-subtle:     #13252C;
+  --cluos-bg-muted:      #0F1B20;
+  --cluos-border:        rgba(255, 255, 255, 0.10);
+  --cluos-border-strong: rgba(255, 255, 255, 0.18);
+  --cluos-text:          #F7F8F5;
+  --cluos-text-muted:    rgba(247, 248, 245, 0.68);
+  --cluos-text-subtle:   rgba(247, 248, 245, 0.46);
 }

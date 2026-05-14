@@ -107,6 +107,54 @@ const tokens = {
     durBase:   "200ms",
     durSlow:   "400ms",
   },
+  action: {
+    teal: {
+      base:  "#008080",
+      deep:  "#006666",
+      soft:  "rgba(0, 128, 128, 0.10)",
+      text:  "#FFFFFF",
+    },
+    copper: {
+      base:  "#BD7845",
+      deep:  "#965D34",
+      soft:  "rgba(189, 120, 69, 0.12)",
+      text:  "#FFFFFF",
+    },
+    champagne: {
+      base:  "#C8C1AE",
+      deep:  "#AFA58E",
+      soft:  "rgba(200, 193, 174, 0.22)",
+      text:  "#1B2F36",
+    },
+    oxblood: {
+      base:  "#8A3A3A",
+      deep:  "#662828",
+      soft:  "rgba(138, 58, 58, 0.11)",
+      text:  "#FFFFFF",
+    },
+  },
+  appearance: {
+    light: {
+      bg:          "#FAFAF8",
+      bgSubtle:    "#FFFFFF",
+      bgMuted:     "#F3F4F1",
+      border:      "#E7E8E3",
+      borderStrong:"#CFD1CA",
+      text:        "#1B2F36",
+      textMuted:   "#5A6570",
+      textSubtle:  "#8A939B",
+    },
+    dark: {
+      bg:          "#1B2F36",
+      bgSubtle:    "#13252C",
+      bgMuted:     "#0F1B20",
+      border:      "rgba(255, 255, 255, 0.10)",
+      borderStrong:"rgba(255, 255, 255, 0.18)",
+      text:        "#F7F8F5",
+      textMuted:   "rgba(247, 248, 245, 0.68)",
+      textSubtle:  "rgba(247, 248, 245, 0.46)",
+    },
+  },
 };
 
 module.exports = { tokens, default: tokens };
