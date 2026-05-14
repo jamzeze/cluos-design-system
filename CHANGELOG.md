@@ -3,6 +3,26 @@
 All notable changes to the Cluos design system are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com).
 
+## [0.3.0] — Product action color variants
+
+### Added
+
+- `DESIGN-preview.html` — rebuilt as a fully interactive light/dark preview with action color selector (teal, copper, champagne, oxblood). Previous version preserved as `DESIGN-preview-legacy-v0.2.1.html`.
+- `PRODUCT-THEME-VARIANTS.md` — documents the 8 approved product visual variants, recommended variant per product, and semantic rules for each action color.
+- Action color system with 4 themes: teal (default), copper (priority), champagne (premium), oxblood (risk/critical).
+- 8 named product variants: `claro-teal`, `claro-copper`, `claro-champagne`, `claro-oxblood`, `dark-teal`, `dark-copper`, `dark-champagne`, `dark-oxblood`.
+- Dark / navy appearance layer (`data-appearance="dark"`): navy `#1B2F36` base, not pure black.
+- Additive action theme tokens in `tokens/tokens.css`: `[data-theme]` and `[data-appearance="dark"]` selectors.
+- `action` and `appearance` keys in `tokens/tokens.ts` and `tokens/tokens.js` for CSS-in-JS consumers.
+
+### Changed
+
+- `DESIGN.md` — updated section 12 (action color is semantic, not just teal); added section 13 "Action color system" with the four action temperatures, dark mode spec, and link to `PRODUCT-THEME-VARIANTS.md`; updated mode declaration from "light only" to "light and dark".
+- `README.md` — added "Product theme variants" section with the 8 variants and product map; updated brand paragraph.
+- `package.json` — bumped version to 0.3.0; added `PRODUCT-THEME-VARIANTS.md` to `files` and `exports`.
+
+---
+
 ## [0.2.0] — Apple-inspired Product UX Layer
 
 ### Added

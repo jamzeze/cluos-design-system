@@ -8,7 +8,7 @@ Cluos: marketing pages, product/dashboard, documentation, or collateral.
 Every color here comes directly from the official Cluos brand manual
 (`Paleta de Cores_CluOs.pdf`).
 
-Mode: **light only**. No dark-mode tokens are defined.
+Mode: **light and dark**. Dark mode uses navy as base. Action color is semantic and varies per product.
 
 For refactors, the source-of-truth order is:
 
@@ -466,13 +466,55 @@ Lowercase labels are fine. Never shout.
 
 ## 12. Three hard rules
 
-1. **Teal is the only accent.** No second accent to "add pop".
+1. **Action color is semantic, not decorative.** Teal is the default. Copper signals priority. Champagne signals premium. Oxblood signals risk. Choose the correct temperature for the product — don't default everything to teal.
 2. **Restraint in weight.** 400–500 default, 600 for headings, no more.
 3. **Gradients are brand moments, not decoration.**
 
 ---
 
-## 13. Product UX layer
+## 13. Action color system
+
+CluOS uses one shared identity with multiple product temperatures. The action color is semantic, not decorative.
+
+### What the action color governs
+
+The action color may be applied to:
+- Primary button / CTA
+- Active navigation state
+- Focus ring
+- Status pills relevant to the product
+- Subtle halos on highlight cards
+- Confirmation microinteractions
+- Operational highlights
+
+The action color must **not** be applied to:
+- All cards indiscriminately
+- All icons
+- All borders
+- All backgrounds
+- All text
+- Decoration without function
+
+### The four action temperatures
+
+| Color | Token | Temperature | Use |
+| --- | --- | --- | --- |
+| Teal | `#008080` | Default | Platform, Hub, neutral actions, system health |
+| Copper | `#BD7845` | Priority | CRM, operations, commercial, human decisions |
+| Champagne | `#C8C1AE` | Premium | Editorial, institutional, onboarding, reports |
+| Oxblood | `#8A3A3A` | Risk / attention | Audit, critical states, risk dashboards |
+
+### Dark mode
+
+Dark mode uses navy `#1B2F36` as the base surface — never pure black. The action color continues to operate in dark mode with the same semantic meaning. Text in dark mode uses `#F7F8F5` for primary content.
+
+### Product variant map
+
+See `PRODUCT-THEME-VARIANTS.md` for the full recommended variant per product and the complete token reference.
+
+---
+
+## 14. Product UX layer
 
 CluOS now has an official product UX layer, documented separately from
 the visual identity to keep this file focused on the visual contract.

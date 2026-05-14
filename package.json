@@ -1,6 +1,6 @@
 {
   "name": "@cluos/design-system",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Cluos brand design system — tokens, assets, UX principles, product patterns, and documentation for all Cluos repositories",
   "main": "tokens/tokens.js",
   "types": "tokens/index.ts",
@@ -17,6 +17,8 @@
     "APPLE-INSPIRED-PRODUCT-UX.md",
     "PRODUCT-PATTERNS.md",
     "MIGRATION-AUDIT.md",
+    "PRODUCT-THEME-VARIANTS.md",
+    "DESIGN-preview-legacy-v0.2.1.html",
     "README.md",
     "LICENSE"
   ],
@@ -37,7 +39,8 @@
     "./DESIGN-WORKFLOW.md": "./DESIGN-WORKFLOW.md",
     "./PRODUCT-SIMPLICITY-CANON.md": "./PRODUCT-SIMPLICITY-CANON.md",
     "./APPLE-INSPIRED-PRODUCT-UX.md": "./APPLE-INSPIRED-PRODUCT-UX.md",
-    "./PRODUCT-PATTERNS.md": "./PRODUCT-PATTERNS.md"
+    "./PRODUCT-PATTERNS.md": "./PRODUCT-PATTERNS.md",
+    "./PRODUCT-THEME-VARIANTS.md": "./PRODUCT-THEME-VARIANTS.md"
   },
   "keywords": ["cluos", "design-system", "design-tokens", "brand"],
   "repository": {

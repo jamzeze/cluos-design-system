@@ -1,955 +1,1303 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Cluos — Official Design Preview</title>
+<title>CluOS — Design Preview v0.3.0</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    /* Brand — OFFICIAL palette (from Paleta de Cores_CluOs.pdf) */
-    --cluos-teal:       #008080;
-    --cluos-navy:       #1B2F36;
-    --cluos-black:      #1D1D1B;
-    --cluos-champagne:  #C8C1AE;
-    --cluos-silver:     #B5B4B5;
-    --cluos-white:      #FFFFFF;
+/* ============================================================
+   BASE TOKENS
+   ============================================================ */
+:root {
+  /* Brand palette — official */
+  --teal:          #008080;
+  --teal-deep:     #006666;
+  --teal-soft:     #4DA3A3;
+  --navy:          #1B2F36;
+  --black:         #1D1D1B;
+  --champagne:     #C8C1AE;
+  --champagne-deep:#AFA58E;
+  --silver:        #B5B4B5;
+  --white:         #FFFFFF;
+  --copper:        #BD7845;
+  --copper-deep:   #965D34;
+  --oxblood:       #8A3A3A;
+  --oxblood-deep:  #662828;
 
-    /* Derived */
-    --cluos-teal-deep:  #006666;
-    --cluos-teal-soft:  #4DA3A3;
+  /* Light mode surfaces */
+  --bg:            #FAFAF8;
+  --surface:       #FFFFFF;
+  --surface-soft:  #F3F4F1;
+  --line:          #E7E8E3;
+  --line-strong:   #CFD1CA;
+  --text:          #1B2F36;
+  --muted:         #5A6570;
+  --subtle:        #8A939B;
+  --dark:          #0F1B20;
+  --dark-2:        #13252C;
+  --grid:          rgba(27,47,54,0.05);
 
-    /* Neutrals */
-    --cluos-bg:         #FFFFFF;
-    --cluos-bg-subtle:  #FAFAF8;
-    --cluos-bg-muted:   #F3F4F1;
-    --cluos-border:     #E7E8E3;
-    --cluos-border-strong: #CFD1CA;
+  /* Typography */
+  --font-sans:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono:    "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
 
-    /* Text */
-    --cluos-text:        #1B2F36;
-    --cluos-text-muted:  #5A6570;
-    --cluos-text-subtle: #8A939B;
+  /* Radius */
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
 
-    /* Status */
-    --cluos-status-success: #008080;
-    --cluos-status-success-bg: #E6F2F2;
-    --cluos-status-info:    #3E6E82;
-    --cluos-status-info-bg: #EDF1F4;
-    --cluos-status-warn:    #BD7845;
-    --cluos-status-warn-bg: #F8EBDF;
-    --cluos-status-error:   #8A3A3A;
-    --cluos-status-error-bg: #F5EAEA;
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur:  200ms;
+}
 
-    /* Gradients — official wordmark gradient reconstructed from SVG */
-    --cluos-gradient-primary:
-      linear-gradient(135deg, #1D1D1B 0%, #1B2F36 18%, #C8C1AE 67%, #B5B4B5 100%);
-    --cluos-gradient-soft:
-      linear-gradient(135deg, #1B2F36 0%, #C8C1AE 100%);
-    --cluos-gradient-mono:
-      linear-gradient(135deg, #1B2F36 0%, #B5B4B5 100%);
-    --cluos-bg-brand-hero:
-      radial-gradient(ellipse at 85% 25%, #C8C1AE 0%, #008080 55%, #006666 100%);
+/* ============================================================
+   ACTION THEME VARIANTS
+   ============================================================ */
+body[data-theme="teal"] {
+  --action:       var(--teal);
+  --action-deep:  var(--teal-deep);
+  --action-soft:  rgba(0,128,128,.10);
+  --action-line:  rgba(0,128,128,.20);
+  --action-text:  #FFFFFF;
+  --theme-halo:   rgba(0,128,128,.18);
+}
+body[data-theme="copper"] {
+  --action:       var(--copper);
+  --action-deep:  var(--copper-deep);
+  --action-soft:  rgba(189,120,69,.12);
+  --action-line:  rgba(189,120,69,.25);
+  --action-text:  #FFFFFF;
+  --theme-halo:   rgba(189,120,69,.20);
+}
+body[data-theme="champagne"] {
+  --action:       var(--champagne);
+  --action-deep:  var(--champagne-deep);
+  --action-soft:  rgba(200,193,174,.22);
+  --action-line:  rgba(200,193,174,.48);
+  --action-text:  var(--navy);
+  --theme-halo:   rgba(200,193,174,.34);
+}
+body[data-theme="oxblood"] {
+  --action:       var(--oxblood);
+  --action-deep:  var(--oxblood-deep);
+  --action-soft:  rgba(138,58,58,.11);
+  --action-line:  rgba(138,58,58,.22);
+  --action-text:  #FFFFFF;
+  --theme-halo:   rgba(138,58,58,.18);
+}
 
-    --font-sans: "Inter", "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+/* ============================================================
+   DARK / NAVY APPEARANCE
+   ============================================================ */
+body[data-appearance="dark"] {
+  --bg:          #1B2F36;
+  --surface:     #13252C;
+  --surface-soft:#0F1B20;
+  --line:        rgba(255,255,255,.10);
+  --line-strong: rgba(255,255,255,.18);
+  --text:        #F7F8F5;
+  --muted:       rgba(247,248,245,.68);
+  --subtle:      rgba(247,248,245,.46);
+  --grid:        rgba(255,255,255,.045);
+  background:
+    radial-gradient(circle at 82% 2%, var(--theme-halo), transparent 30%),
+    radial-gradient(circle at 10% 12%, rgba(200,193,174,.14), transparent 26%),
+    linear-gradient(180deg, #1B2F36 0%, #0F1B20 100%);
+}
 
-    --radius-sm: 6px;
-    --radius-md: 8px;
-    --radius-lg: 12px;
-    --radius-xl: 16px;
-    --radius-2xl: 24px;
+/* Dark mode — h1 accent gradient */
+body[data-appearance="dark"] h1 .accent {
+  background: linear-gradient(135deg, #F7F8F5 0%, var(--action) 48%, #C8C1AE 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
-    --ring-focus: 0 0 0 3px rgba(0, 128, 128, 0.30);
-    --shadow-sm: 0 1px 3px rgba(27, 47, 54, 0.06), 0 1px 2px rgba(27, 47, 54, 0.04);
-    --shadow-md: 0 4px 12px rgba(27, 47, 54, 0.07), 0 2px 4px rgba(27, 47, 54, 0.04);
-    --shadow-lg: 0 12px 32px rgba(27, 47, 54, 0.10), 0 4px 8px rgba(27, 47, 54, 0.04);
-  }
+/* Dark mode — h1 base color */
+body[data-appearance="dark"] h1 {
+  color: #F7F8F5;
+}
 
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
-  body {
-    font-family: var(--font-sans);
-    color: var(--cluos-text);
-    background: var(--cluos-bg);
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.5;
-  }
+/* Dark mode — champagne action text on dark bg */
+body[data-appearance="dark"][data-theme="champagne"] .btn-primary {
+  color: var(--navy);
+}
 
-  /* TOP NAV */
-  .topnav {
-    position: sticky; top: 0; z-index: 50;
-    display: flex; align-items: center;
-    height: 64px;
-    padding: 0 40px;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: saturate(180%) blur(10px);
-    border-bottom: 1px solid var(--cluos-border);
-  }
-  .topnav-brand {
-    display: flex; align-items: center; gap: 10px;
-    font-weight: 600;
-    font-size: 17px;
-    letter-spacing: -0.015em;
-    color: var(--cluos-navy);
-  }
-  .topnav-brand svg { width: 26px; height: 26px; }
-  .topnav-sub {
-    margin-left: 14px;
-    padding-left: 14px;
-    border-left: 1px solid var(--cluos-border);
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--cluos-text-muted);
-  }
-  .topnav-links {
-    margin-left: auto;
-    display: flex; gap: 28px;
-    font-size: 14px;
-    font-weight: 500;
-  }
-  .topnav-links a {
-    color: var(--cluos-text-muted);
-    text-decoration: none;
-    transition: color 120ms;
-  }
-  .topnav-links a:hover { color: var(--cluos-navy); }
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* HERO */
-  .hero {
-    padding: 96px 40px 80px;
-    text-align: center;
-    max-width: 860px;
-    margin: 0 auto;
-  }
-  .hero-title {
-    font-weight: 600;
-    font-size: clamp(44px, 6vw, 64px);
-    line-height: 1.05;
-    letter-spacing: -0.035em;
-    color: var(--cluos-navy);
-    margin: 0 0 20px 0;
-  }
-  .hero-title .accent {
-    display: block;
-    background: linear-gradient(135deg, #1D1D1B 0%, #1B2F36 18%, #C8C1AE 67%, #B5B4B5 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .hero-sub {
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--cluos-text-muted);
-    max-width: 620px;
-    margin: 0 auto 32px;
-  }
-  .hero-note {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--cluos-text-subtle);
-    margin: 20px 0 0;
-  }
-  .hero-actions { display: flex; justify-content: center; gap: 12px; }
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  min-height: 100vh;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  /* BUTTONS */
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--font-sans);
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 1;
-    padding: 12px 20px;
-    border-radius: var(--radius-md);
-    border: 1px solid transparent;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 140ms cubic-bezier(0.2,0.8,0.2,1);
-  }
-  .btn-dark { background: var(--cluos-navy); color: #FFFFFF; }
-  .btn-dark:hover { background: #0F1F26; transform: translateY(-1px); box-shadow: var(--shadow-md); }
-  .btn-ghost { background: transparent; color: var(--cluos-navy); border-color: var(--cluos-border-strong); }
-  .btn-ghost:hover { border-color: var(--cluos-navy); background: var(--cluos-bg-subtle); }
-  .btn-accent { background: var(--cluos-teal); color: #FFFFFF; }
-  .btn-accent:hover { background: var(--cluos-teal-deep); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,128,128,0.30); }
-  .btn-pill { border-radius: 9999px; padding: 10px 20px; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
 
-  /* SECTIONS */
-  .section {
-    padding: 80px 40px;
-    border-top: 1px solid var(--cluos-border);
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .section-label {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--cluos-teal);
-    margin-bottom: 12px;
-  }
-  .section-title {
-    font-size: 40px;
-    font-weight: 600;
-    letter-spacing: -0.025em;
-    line-height: 1.1;
-    color: var(--cluos-navy);
-    margin: 0 0 48px 0;
-  }
+:focus-visible {
+  outline: 2px solid var(--action);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+.theme-btn:focus-visible,
+.appearance-toggle:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--action);
+  outline-offset: 2px;
+}
 
-  /* GRADIENT SHOWCASE */
-  .gradient-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 16px;
-    margin: 24px 0;
-  }
-  .gradient-card {
-    border: 1px solid var(--cluos-border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-  }
-  .gradient-strip { height: 110px; }
-  .gradient-meta { padding: 14px 16px; }
-  .gradient-name { font-size: 14px; font-weight: 600; color: var(--cluos-navy); margin-bottom: 2px; }
-  .gradient-desc { font-size: 12px; color: var(--cluos-text-subtle); line-height: 1.5; }
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px;
+  background: rgba(250,250,248,.86);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  border-bottom: 1px solid var(--line);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+body[data-appearance="dark"] .topbar {
+  background: rgba(19,37,44,.88);
+}
 
-  /* COLORS */
-  .color-group-title {
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--cluos-text-subtle);
-    margin: 32px 0 16px 0;
-  }
-  .color-group-title:first-child { margin-top: 0; }
-  .color-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
-  }
-  .color-card {
-    background: var(--cluos-bg);
-    border: 1px solid var(--cluos-border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    transition: transform 200ms, box-shadow 200ms, border-color 200ms;
-  }
-  .color-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--cluos-border-strong);
-  }
-  .color-swatch { height: 96px; }
-  .color-meta { padding: 14px 16px 16px; }
-  .color-name { font-size: 14px; font-weight: 600; color: var(--cluos-navy); margin-bottom: 2px; }
-  .color-hex { font-family: var(--font-mono); font-size: 12px; color: var(--cluos-text-muted); margin-bottom: 6px; }
-  .color-note { font-size: 12px; color: var(--cluos-text-subtle); line-height: 1.4; }
-  .color-official-badge {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--cluos-teal-deep);
-    background: rgba(0, 128, 128, 0.10);
-    padding: 2px 6px;
-    border-radius: 3px;
-    margin-left: 6px;
-    vertical-align: middle;
-  }
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.topbar-symbol {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: var(--action);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--dur) var(--ease);
+}
+.topbar-symbol svg { width: 14px; height: 14px; fill: none; }
+.topbar-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.topbar-subtitle {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--subtle);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
 
-  /* TYPOGRAPHY */
-  .type-list { display: flex; flex-direction: column; gap: 28px; }
-  .type-row { padding-bottom: 24px; border-bottom: 1px solid var(--cluos-border); }
-  .type-row:last-child { border-bottom: none; }
-  .type-sample { color: var(--cluos-navy); margin-bottom: 8px; }
-  .type-spec {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--cluos-text-subtle);
-    letter-spacing: 0.02em;
-  }
-  .t-display-hero { font-size: 56px; font-weight: 600; line-height: 1.05; letter-spacing: -0.035em; }
-  .t-section-h   { font-size: 40px; font-weight: 600; line-height: 1.1;  letter-spacing: -0.025em; }
-  .t-sub-h       { font-size: 24px; font-weight: 500; line-height: 1.3;  letter-spacing: -0.01em; }
-  .t-card-title  { font-size: 20px; font-weight: 600; line-height: 1.3;  letter-spacing: -0.01em; }
-  .t-body-lg     { font-size: 18px; font-weight: 400; line-height: 1.6; }
-  .t-body        { font-size: 16px; font-weight: 400; line-height: 1.6; }
-  .t-body-m      { font-size: 16px; font-weight: 500; line-height: 1.6; }
-  .t-button      { font-size: 15px; font-weight: 500; line-height: 1.5; }
-  .t-caption     { font-size: 14px; font-weight: 500; line-height: 1.5; }
-  .t-label-up    { font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
-  .t-mono-tech   { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
-  .t-mono-micro  { font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; }
+.topbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
 
-  /* BUTTONS SHOWCASE */
-  .button-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 20px;
-  }
-  .button-demo {
-    padding: 28px;
-    background: var(--cluos-bg);
-    border: 1px solid var(--cluos-border);
-    border-radius: var(--radius-lg);
-    display: flex; flex-direction: column; align-items: center; gap: 12px;
-    text-align: center;
-  }
-  .button-demo-label {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--cluos-text-subtle);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
+.theme-selector {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 7px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all var(--dur) var(--ease);
+  white-space: nowrap;
+}
+.theme-btn:hover { color: var(--text); background: var(--surface); }
+.theme-btn.active {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(27,47,54,.10), 0 1px 2px rgba(27,47,54,.06);
+}
+body[data-appearance="dark"] .theme-btn.active {
+  background: rgba(255,255,255,.08);
+  box-shadow: none;
+}
+.theme-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-teal      { background: #008080; }
+.dot-copper    { background: #BD7845; }
+.dot-champagne { background: #C8C1AE; border: 1px solid rgba(0,0,0,.12); }
+.dot-oxblood   { background: #8A3A3A; }
 
-  /* BADGES */
-  .badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 5px 12px;
-    border-radius: 9999px;
-  }
-  .badge-info    { background: var(--cluos-status-info-bg);    color: var(--cluos-status-info); }
-  .badge-success { background: var(--cluos-status-success-bg); color: var(--cluos-status-success); }
-  .badge-warn    { background: var(--cluos-status-warn-bg);    color: var(--cluos-status-warn); }
-  .badge-error   { background: var(--cluos-status-error-bg);   color: var(--cluos-status-error); }
-  .badge-brand   { background: rgba(0,128,128,0.10); color: var(--cluos-teal-deep); }
-  .badge-dot     { width: 6px; height: 6px; border-radius: 9999px; background: currentColor; }
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
 
-  /* CARDS */
-  .card-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-bottom: 24px;
-  }
-  @media (max-width: 860px) { .card-row { grid-template-columns: 1fr; } }
-  .card {
-    background: var(--cluos-bg);
-    border: 1px solid var(--cluos-border);
-    border-radius: var(--radius-lg);
-    padding: 28px;
-    transition: all 200ms;
-    cursor: pointer;
-  }
-  .card:hover {
-    border-color: var(--cluos-teal);
-    box-shadow: var(--shadow-sm);
-    transform: translateY(-2px);
-  }
-  .card-tag {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--cluos-teal-deep);
-    background: rgba(0,128,128,0.08);
-    padding: 3px 10px;
-    border-radius: 4px;
-    margin-bottom: 16px;
-  }
-  .card-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--cluos-navy);
-    margin: 0 0 10px 0;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-  }
-  .card-text {
-    font-size: 14px;
-    color: var(--cluos-text-muted);
-    line-height: 1.6;
-    margin: 0;
-  }
+.appearance-toggle {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  transition: all var(--dur) var(--ease);
+}
+.appearance-toggle:hover { color: var(--text); border-color: var(--line-strong); }
+.appearance-toggle svg { width: 15px; height: 15px; }
+.icon-sun, .icon-moon { pointer-events: none; }
+body[data-appearance="light"] .icon-moon { display: none; }
+body[data-appearance="dark"]  .icon-sun  { display: none; }
 
-  .featured-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius-2xl);
-    padding: 56px 48px;
-    background: var(--cluos-bg-brand-hero);
-    color: #FFFFFF;
-  }
-  .featured-card::after {
-    content: "";
-    position: absolute; inset: 0;
-    background: radial-gradient(circle at 85% 20%, rgba(255,255,255,0.18), transparent 55%);
-    pointer-events: none;
-  }
-  .featured-tag {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #FFFFFF;
-    background: rgba(255,255,255,0.15);
-    padding: 5px 12px;
-    border-radius: 9999px;
-    margin-bottom: 20px;
-    backdrop-filter: blur(6px);
-  }
-  .featured-title {
-    font-weight: 600;
-    font-size: 40px;
-    line-height: 1.1;
-    letter-spacing: -0.025em;
-    color: #FFFFFF;
-    margin: 0 0 16px 0;
-    max-width: 620px;
-  }
-  .featured-text {
-    font-size: 16px;
-    line-height: 1.65;
-    color: rgba(255,255,255,0.92);
-    max-width: 620px;
-    margin: 0;
-  }
+.live-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  border: 1px solid var(--action-line);
+  background: var(--action-soft);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--action);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: all var(--dur) var(--ease);
+}
+.live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--action);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .4; }
+}
 
-  /* FORMS */
-  .form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-  @media (max-width: 720px) { .form-grid { grid-template-columns: 1fr; } }
-  .form-field { display: flex; flex-direction: column; gap: 8px; }
-  .form-label { font-size: 14px; font-weight: 500; color: var(--cluos-navy); }
-  .input {
-    font-family: var(--font-sans);
-    font-size: 15px;
-    padding: 12px 16px;
-    border: 1px solid var(--cluos-border);
-    border-radius: var(--radius-md);
-    background: var(--cluos-bg);
-    color: var(--cluos-text);
-    transition: border-color 140ms, box-shadow 140ms;
-    outline: none;
-  }
-  .input::placeholder { color: var(--cluos-text-subtle); }
-  .input:focus { border-color: var(--cluos-teal); box-shadow: var(--ring-focus); }
-  .input.pill { border-radius: 9999px; padding: 12px 20px; }
-  .input.is-focused { border-color: var(--cluos-teal); box-shadow: var(--ring-focus); }
-  .input.is-error { border-color: var(--cluos-status-error); box-shadow: 0 0 0 3px rgba(138,58,58,0.18); }
-  .input-hint {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--cluos-text-subtle);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-  textarea.input { resize: vertical; min-height: 96px; font-family: var(--font-sans); }
+/* ============================================================
+   PAGE WRAPPER
+   ============================================================ */
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
 
-  /* CALLOUTS */
-  .callout-row { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
-  .callout {
-    display: flex; gap: 10px;
-    padding: 12px 14px;
-    border-radius: 8px;
-    border: 1px solid;
-    font-size: 14px;
-    line-height: 1.55;
-  }
-  .callout svg { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; }
-  .callout p { margin: 0; color: var(--cluos-text); }
-  .callout strong { font-weight: 600; color: var(--cluos-navy); }
-  .callout-info    { background: var(--cluos-status-info-bg);    border-color: rgba(62,110,130,0.25); }
-  .callout-info    svg { color: var(--cluos-status-info); }
-  .callout-success { background: var(--cluos-status-success-bg); border-color: rgba(0,128,128,0.28); }
-  .callout-success svg { color: var(--cluos-status-success); }
-  .callout-warn    { background: var(--cluos-status-warn-bg);    border-color: rgba(189,120,69,0.30); }
-  .callout-warn    svg { color: var(--cluos-status-warn); }
-  .callout-error   { background: var(--cluos-status-error-bg);   border-color: rgba(138,58,58,0.25); }
-  .callout-error   svg { color: var(--cluos-status-error); }
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  padding: 80px 0 64px;
+  position: relative;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--action);
+  margin-bottom: 20px;
+  padding: 4px 10px;
+  border: 1px solid var(--action-line);
+  border-radius: 20px;
+  background: var(--action-soft);
+  transition: all var(--dur) var(--ease);
+}
 
-  /* SPACING */
-  .spacing-row { display: flex; flex-direction: column; gap: 16px; }
-  .spacing-item { display: flex; align-items: center; gap: 24px; }
-  .spacing-num { font-family: var(--font-mono); font-size: 13px; color: var(--cluos-text-muted); width: 48px; flex-shrink: 0; }
-  .spacing-bar { height: 16px; background: var(--cluos-teal); border-radius: 4px; }
+h1 {
+  margin: 0;
+  max-width: 880px;
+  font-family: var(--font-display);
+  font-size: clamp(42px, 5.8vw, 74px);
+  line-height: 1.03;
+  letter-spacing: -0.038em;
+  font-weight: 560;
+  color: var(--navy);
+  text-wrap: balance;
+}
+h1 .accent {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--action) 52%, var(--champagne) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background var(--dur) var(--ease);
+}
 
-  /* RADIUS */
-  .radius-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 20px;
-  }
-  .radius-item { text-align: center; }
-  .radius-box {
-    width: 100%;
-    aspect-ratio: 1.3 / 1;
-    background: linear-gradient(135deg, var(--cluos-teal) 0%, var(--cluos-teal-deep) 100%);
-    margin-bottom: 12px;
-  }
-  .radius-value { font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--cluos-navy); margin-bottom: 2px; }
-  .radius-note { font-size: 12px; color: var(--cluos-text-subtle); }
+.hero-sub {
+  margin-top: 24px;
+  max-width: 600px;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--muted);
+}
 
-  /* ELEVATION */
-  .elev-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 24px;
-  }
-  .elev-card {
-    padding: 28px;
-    background: var(--cluos-bg);
-    border-radius: var(--radius-lg);
-    text-align: center;
-    min-height: 140px;
-    display: flex; flex-direction: column; justify-content: center;
-  }
-  .elev-0 { border: 1px solid var(--cluos-border); }
-  .elev-1 { border: 1px solid var(--cluos-border); box-shadow: var(--shadow-sm); }
-  .elev-2 { border: 1px solid var(--cluos-border); box-shadow: var(--shadow-md); }
-  .elev-3 { border: 1px solid var(--cluos-border); box-shadow: var(--shadow-lg); }
-  .elev-focus { border: 1px solid var(--cluos-teal); box-shadow: var(--ring-focus); }
-  .elev-level { font-size: 14px; font-weight: 600; color: var(--cluos-navy); margin-bottom: 4px; }
-  .elev-desc { font-size: 12px; color: var(--cluos-text-muted); }
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 36px;
+}
 
-  /* FOOTER */
-  footer {
-    padding: 48px 40px;
-    border-top: 1px solid var(--cluos-border);
-    text-align: center;
-    font-size: 13px;
-    color: var(--cluos-text-subtle);
-  }
-  footer a { color: var(--cluos-teal-deep); text-decoration: none; }
-  footer a:hover { color: var(--cluos-teal); }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.625rem 1.125rem;
+  border-radius: var(--r-md);
+  border: 1px solid transparent;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all var(--dur) var(--ease);
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--action);
+  color: var(--action-text);
+  border-color: var(--action);
+}
+.btn-primary:hover { background: var(--action-deep); border-color: var(--action-deep); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+.btn-secondary:hover { border-color: var(--text); background: var(--surface-soft); }
+body[data-appearance="dark"] .btn-secondary { border-color: var(--line); }
+body[data-appearance="dark"] .btn-secondary:hover { border-color: var(--line-strong); background: rgba(255,255,255,.06); }
+
+/* ============================================================
+   NOTE CARDS
+   ============================================================ */
+.note-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 48px 0;
+}
+@media (max-width: 768px) {
+  .note-grid { grid-template-columns: 1fr; }
+}
+.note-card {
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+body[data-appearance="dark"] .note-card { background: rgba(19,37,44,.86); }
+.note-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.note-card-title::before {
+  content: "→ ";
+  color: var(--action);
+  transition: color var(--dur) var(--ease);
+}
+.note-card-body {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ============================================================
+   SECTION LABEL
+   ============================================================ */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  margin-bottom: 20px;
+}
+.section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+  max-width: 200px;
+}
+
+/* ============================================================
+   COMMAND CARD
+   ============================================================ */
+.command-card {
+  background: #0F1B20;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  margin: 0 0 64px;
+  position: relative;
+  overflow: hidden;
+}
+.command-card::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, var(--theme-halo), transparent 65%);
+  pointer-events: none;
+  transition: background var(--dur) var(--ease);
+}
+.command-card-header {
+  margin-bottom: 24px;
+}
+.command-card-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: #F7F8F5;
+  letter-spacing: -0.02em;
+}
+.command-card-sub {
+  font-size: 13px;
+  color: rgba(247,248,245,.52);
+  margin-top: 4px;
+}
+
+.command-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 768px) {
+  .command-grid { grid-template-columns: 1fr; }
+}
+
+/* Terminal */
+.terminal {
+  background: rgba(0,0,0,.38);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--r-md);
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.8;
+}
+.terminal-line { display: flex; align-items: baseline; gap: 6px; }
+.term-prompt { color: var(--action); transition: color var(--dur) var(--ease); flex-shrink: 0; }
+.term-cmd    { color: rgba(247,248,245,.80); }
+.term-out    { color: rgba(247,248,245,.46); padding-left: 12px; }
+.term-ok     { color: #4DA3A3; padding-left: 12px; }
+
+/* Metrics */
+.metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.metric {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: var(--r-md);
+}
+.metric-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(247,248,245,.52);
+}
+.metric-value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--action);
+  transition: color var(--dur) var(--ease);
+}
+
+/* Task list */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: var(--r-md);
+}
+.task-check {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--action);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--dur) var(--ease);
+}
+.task-check svg { width: 8px; height: 8px; stroke: #fff; stroke-width: 2.5; fill: none; }
+.task-text {
+  font-size: 13px;
+  color: rgba(247,248,245,.72);
+}
+
+/* ============================================================
+   VARIANT CARDS
+   ============================================================ */
+.variants-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 64px;
+}
+@media (max-width: 900px) {
+  .variants-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .variants-grid { grid-template-columns: 1fr; }
+}
+
+.variant-card {
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+body[data-appearance="dark"] .variant-card { background: rgba(19,37,44,.86); }
+.variant-card-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-md);
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+.swatch-teal      { background: #008080; }
+.swatch-copper    { background: #BD7845; }
+.swatch-champagne { background: #C8C1AE; border: 1px solid rgba(0,0,0,.10); }
+.swatch-oxblood   { background: #8A3A3A; }
+
+.variant-card-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.variant-card-hex {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--subtle);
+  margin-bottom: 10px;
+}
+.variant-card-body {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* Active variant card */
+body[data-theme="teal"]      .variant-card[data-variant="teal"],
+body[data-theme="copper"]    .variant-card[data-variant="copper"],
+body[data-theme="champagne"] .variant-card[data-variant="champagne"],
+body[data-theme="oxblood"]   .variant-card[data-variant="oxblood"] {
+  border-color: var(--action-line);
+  background: var(--action-soft);
+}
+body[data-appearance="dark"][data-theme="teal"]      .variant-card[data-variant="teal"],
+body[data-appearance="dark"][data-theme="copper"]    .variant-card[data-variant="copper"],
+body[data-appearance="dark"][data-theme="champagne"] .variant-card[data-variant="champagne"],
+body[data-appearance="dark"][data-theme="oxblood"]   .variant-card[data-variant="oxblood"] {
+  background: rgba(255,255,255,.05);
+  border-color: var(--action-line);
+}
+
+/* ============================================================
+   MATRIX TABLE
+   ============================================================ */
+.matrix-section {
+  margin-bottom: 64px;
+}
+.table-wrap {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: border-color var(--dur) var(--ease);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+thead { background: var(--surface-soft); }
+body[data-appearance="dark"] thead { background: rgba(255,255,255,.04); }
+th {
+  padding: 10px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  border-bottom: 1px solid var(--line);
+}
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  vertical-align: middle;
+}
+tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--action-soft); }
+body[data-appearance="dark"] tbody tr:hover { background: rgba(255,255,255,.03); }
+
+.variant-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+.badge-teal      { background: rgba(0,128,128,.10);    color: #006666; border-color: rgba(0,128,128,.18);    }
+.badge-copper    { background: rgba(189,120,69,.12);   color: #965D34; border-color: rgba(189,120,69,.22);   }
+.badge-champagne { background: rgba(200,193,174,.22);  color: #6B6050; border-color: rgba(200,193,174,.48);  }
+.badge-oxblood   { background: rgba(138,58,58,.11);    color: #662828; border-color: rgba(138,58,58,.20);    }
+body[data-appearance="dark"] .badge-teal      { color: #4DA3A3; }
+body[data-appearance="dark"] .badge-copper    { color: #E2A46F; }
+body[data-appearance="dark"] .badge-champagne { color: #D4C9B4; }
+body[data-appearance="dark"] .badge-oxblood   { color: #C47070; }
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.bd-teal      { background: #008080; }
+.bd-copper    { background: #BD7845; }
+.bd-champagne { background: #C8C1AE; }
+.bd-oxblood   { background: #8A3A3A; }
+
+/* ============================================================
+   GOVERNANCE SECTION
+   ============================================================ */
+.governance-section {
+  margin-bottom: 64px;
+}
+.governance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+@media (max-width: 768px) {
+  .governance-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .governance-grid { grid-template-columns: 1fr; }
+}
+.gov-card {
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+body[data-appearance="dark"] .gov-card { background: rgba(19,37,44,.86); }
+.gov-chip {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.chip-teal      { background: rgba(0,128,128,.10);   color: #006666; }
+.chip-copper    { background: rgba(189,120,69,.12);  color: #965D34; }
+.chip-champagne { background: rgba(200,193,174,.22); color: #6B6050; }
+.chip-oxblood   { background: rgba(138,58,58,.11);   color: #662828; }
+.chip-navy      { background: rgba(27,47,54,.08);    color: #1B2F36; }
+body[data-appearance="dark"] .chip-navy { background: rgba(255,255,255,.06); color: rgba(247,248,245,.72); }
+body[data-appearance="dark"] .chip-teal      { color: #4DA3A3; }
+body[data-appearance="dark"] .chip-copper    { color: #E2A46F; }
+body[data-appearance="dark"] .chip-champagne { color: #D4C9B4; }
+body[data-appearance="dark"] .chip-oxblood   { color: #C47070; }
+.gov-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.gov-body {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 40px 0;
+  margin-top: 32px;
+  transition: border-color var(--dur) var(--ease);
+}
+.footer-inner {
+  max-width: 680px;
+}
+.footer-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.footer-body {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.footer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.footer-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--subtle);
+  letter-spacing: 0.04em;
+}
+.footer-tag strong {
+  color: var(--action);
+  font-weight: 600;
+  transition: color var(--dur) var(--ease);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .topbar { flex-wrap: wrap; height: auto; padding: 8px 16px; gap: 8px; }
+  .topbar-center { order: 3; width: 100%; justify-content: flex-start; overflow-x: auto; }
+  .theme-selector { width: max-content; }
+  .topbar-right { margin-left: auto; }
+  .live-pill { display: none; }
+  .hero { padding: 48px 0 40px; }
+  .page { padding: 0 16px; }
+  .command-card { padding: 20px 16px; }
+}
+@media (max-width: 480px) {
+  .topbar-subtitle { display: none; }
+}
 </style>
 </head>
-<body>
+<body data-theme="teal" data-appearance="light">
 
-<!-- TOP NAV -->
-<header class="topnav">
-  <div class="topnav-brand">
-    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-      <path d="M 78 22 A 36 36 0 1 0 78 78" />
-      <path d="M 72 30 A 28 28 0 1 0 72 70" opacity="0.75" />
-      <path d="M 66 38 A 20 20 0 1 0 66 62" opacity="0.55" />
-      <path d="M 60 46 A 12 12 0 1 0 60 54" opacity="0.35" />
-    </svg>
-    Cluos
+<!-- ============================================================
+     TOPBAR
+     ============================================================ -->
+<header class="topbar" role="banner">
+  <div class="topbar-brand">
+    <div class="topbar-symbol" aria-hidden="true">
+      <svg viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M9.5 4.5 L12 2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="topbar-name">CluOS</span>
+    <span class="topbar-subtitle">Action Color System</span>
   </div>
-  <div class="topnav-sub">official-preview · v0.1.1</div>
-  <nav class="topnav-links">
-    <a href="#colors">Colors</a>
-    <a href="#typography">Typography</a>
-    <a href="#buttons">Buttons</a>
-    <a href="#cards">Cards</a>
-    <a href="#forms">Forms</a>
-    <a href="#spacing">Spacing</a>
+
+  <nav class="topbar-center" aria-label="Theme selector">
+    <div class="theme-selector" role="group" aria-label="Select action color theme">
+      <button class="theme-btn active" data-set-theme="teal" aria-pressed="true">
+        <span class="theme-dot dot-teal" aria-hidden="true"></span>Teal
+      </button>
+      <button class="theme-btn" data-set-theme="copper" aria-pressed="false">
+        <span class="theme-dot dot-copper" aria-hidden="true"></span>Copper
+      </button>
+      <button class="theme-btn" data-set-theme="champagne" aria-pressed="false">
+        <span class="theme-dot dot-champagne" aria-hidden="true"></span>Champagne
+      </button>
+      <button class="theme-btn" data-set-theme="oxblood" aria-pressed="false">
+        <span class="theme-dot dot-oxblood" aria-hidden="true"></span>Oxblood
+      </button>
+    </div>
   </nav>
+
+  <div class="topbar-right">
+    <div class="live-pill" aria-live="polite" aria-label="Current variant active">
+      <span class="live-dot" aria-hidden="true"></span>Live variant
+    </div>
+    <button
+      class="appearance-toggle"
+      aria-label="Toggle light/dark appearance"
+      aria-pressed="false"
+      title="Toggle light/dark mode"
+    >
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <h1 class="hero-title">
-    Design System
-    <span class="accent">Cluos</span>
-  </h1>
-  <p class="hero-sub">
-    The canonical visual reference for the Cluos system. Refactors should
-    match this preview first, then synchronize DESIGN.md,
-    DESIGN-WORKFLOW.md, and the token files.
-  </p>
-  <div class="hero-actions">
-    <a class="btn btn-accent" href="#colors">Jump To Palette</a>
-    <a class="btn btn-ghost" href="./DESIGN.md">Open DESIGN.md</a>
-  </div>
-  <p class="hero-note">Official preview. Keep it in lockstep with DESIGN.md and DESIGN-WORKFLOW.md.</p>
-</section>
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<main>
+  <div class="page">
 
-<!-- 01 COLORS -->
-<section class="section" id="colors">
-  <div class="section-label">01 / Colors</div>
-  <h2 class="section-title">Color Palette</h2>
-
-  <div class="color-group-title">Official brand palette<span class="color-official-badge">from brand manual</span></div>
-  <div class="color-grid">
-    <div class="color-card"><div class="color-swatch" style="background: #008080;"></div><div class="color-meta"><div class="color-name">Teal</div><div class="color-hex">#008080</div><div class="color-note">Primary accent, CTAs, links, focus rings</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #1B2F36;"></div><div class="color-meta"><div class="color-name">Navy</div><div class="color-hex">#1B2F36</div><div class="color-note">Primary text, headings, dark surfaces</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #1D1D1B;"></div><div class="color-meta"><div class="color-name">Black</div><div class="color-hex">#1D1D1B</div><div class="color-note">Mono variant, highest contrast</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #C8C1AE;"></div><div class="color-meta"><div class="color-name">Champagne</div><div class="color-hex">#C8C1AE</div><div class="color-note">Warm secondary, gradient terminus</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #B5B4B5;"></div><div class="color-meta"><div class="color-name">Silver</div><div class="color-hex">#B5B4B5</div><div class="color-note">Cool secondary, alternate gradient terminus</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #FFFFFF; border-bottom: 1px solid var(--cluos-border);"></div><div class="color-meta"><div class="color-name">White</div><div class="color-hex">#FFFFFF</div><div class="color-note">Page background</div></div></div>
-  </div>
-
-  <div class="color-group-title">Derived — UI states</div>
-  <div class="color-grid">
-    <div class="color-card"><div class="color-swatch" style="background: #006666;"></div><div class="color-meta"><div class="color-name">Teal Deep</div><div class="color-hex">#006666</div><div class="color-note">Hover, pressed, link default</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #4DA3A3;"></div><div class="color-meta"><div class="color-name">Teal Soft</div><div class="color-hex">#4DA3A3</div><div class="color-note">Subtle emphasis, secondary accents</div></div></div>
-  </div>
-
-  <div class="color-group-title">Approved gradients</div>
-  <div class="gradient-row">
-    <div class="gradient-card">
-      <div class="gradient-strip" style="background: linear-gradient(135deg, #1D1D1B 0%, #1B2F36 18%, #C8C1AE 67%, #B5B4B5 100%);"></div>
-      <div class="gradient-meta"><div class="gradient-name">Primary</div><div class="gradient-desc">Official wordmark gradient — black → navy → champagne → silver</div></div>
-    </div>
-    <div class="gradient-card">
-      <div class="gradient-strip" style="background: linear-gradient(135deg, #1B2F36 0%, #C8C1AE 100%);"></div>
-      <div class="gradient-meta"><div class="gradient-name">Soft</div><div class="gradient-desc">Navy to champagne — warmer, simpler hero variant</div></div>
-    </div>
-    <div class="gradient-card">
-      <div class="gradient-strip" style="background: linear-gradient(135deg, #1B2F36 0%, #B5B4B5 100%);"></div>
-      <div class="gradient-meta"><div class="gradient-name">Mono</div><div class="gradient-desc">Navy to silver — cooler, editorial variant</div></div>
-    </div>
-    <div class="gradient-card">
-      <div class="gradient-strip" style="background: radial-gradient(ellipse at 85% 25%, #C8C1AE 0%, #008080 55%, #006666 100%);"></div>
-      <div class="gradient-meta"><div class="gradient-name">Brand Hero</div><div class="gradient-desc">Radial teal field with champagne halo (brand page 20)</div></div>
-    </div>
-  </div>
-
-  <div class="color-group-title">Semantic</div>
-  <div class="color-grid">
-    <div class="color-card"><div class="color-swatch" style="background: #3E6E82;"></div><div class="color-meta"><div class="color-name">Info</div><div class="color-hex">#3E6E82</div><div class="color-note">Informational callouts, tags</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #008080;"></div><div class="color-meta"><div class="color-name">Success</div><div class="color-hex">#008080</div><div class="color-note">Positive state (reuses teal)</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #BD7845;"></div><div class="color-meta"><div class="color-name">Warn</div><div class="color-hex">#BD7845</div><div class="color-note">Light copper — metallic, warm</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #8A3A3A;"></div><div class="color-meta"><div class="color-name">Error</div><div class="color-hex">#8A3A3A</div><div class="color-note">Muted oxblood — quiet, not scarlet</div></div></div>
-  </div>
-
-  <div class="color-group-title">Neutral scale</div>
-  <div class="color-grid">
-    <div class="color-card"><div class="color-swatch" style="background: #5A6570;"></div><div class="color-meta"><div class="color-name">Text Muted</div><div class="color-hex">#5A6570</div><div class="color-note">Secondary text, captions</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #8A939B;"></div><div class="color-meta"><div class="color-name">Text Subtle</div><div class="color-hex">#8A939B</div><div class="color-note">Placeholders, disabled</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #CFD1CA;"></div><div class="color-meta"><div class="color-name">Border Strong</div><div class="color-hex">#CFD1CA</div><div class="color-note">Emphasized dividers</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #E7E8E3;"></div><div class="color-meta"><div class="color-name">Border</div><div class="color-hex">#E7E8E3</div><div class="color-note">Default dividers</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #F3F4F1;"></div><div class="color-meta"><div class="color-name">Bg Muted</div><div class="color-hex">#F3F4F1</div><div class="color-note">Code blocks, inert surfaces</div></div></div>
-    <div class="color-card"><div class="color-swatch" style="background: #FAFAF8;"></div><div class="color-meta"><div class="color-name">Bg Subtle</div><div class="color-hex">#FAFAF8</div><div class="color-note">Alternate sections, cards</div></div></div>
-  </div>
-
-  <div class="callout-row">
-    <div class="callout callout-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><p><strong>Info.</strong> Your documentation workspace is ready to configure.</p></div>
-    <div class="callout callout-success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><p><strong>Success.</strong> Your deploy is live. It took 2.4 seconds to propagate.</p></div>
-    <div class="callout callout-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><p><strong>Heads up.</strong> You're approaching 85% of your monthly event quota.</p></div>
-    <div class="callout callout-error"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg><p><strong>Authentication failed.</strong> The API key is missing or expired.</p></div>
-  </div>
-</section>
-
-<!-- 02 TYPOGRAPHY -->
-<section class="section" id="typography">
-  <div class="section-label">02 / Typography</div>
-  <h2 class="section-title">Typography Scale</h2>
-
-  <div class="type-list">
-    <div class="type-row"><div class="type-sample t-display-hero">Display Hero</div><div class="type-spec">Display Hero — 56px / 600 / 1.05 / -0.035em / Inter</div></div>
-    <div class="type-row"><div class="type-sample t-section-h">Section Heading</div><div class="type-spec">Section Heading — 40px / 600 / 1.10 / -0.025em / Inter</div></div>
-    <div class="type-row"><div class="type-sample t-sub-h">Sub-heading</div><div class="type-spec">Sub-heading — 24px / 500 / 1.30 / -0.01em / Inter</div></div>
-    <div class="type-row"><div class="type-sample t-card-title">Card Title</div><div class="type-spec">Card Title — 20px / 600 / 1.30 / -0.01em / Inter</div></div>
-    <div class="type-row"><div class="type-sample t-body-lg">Body Large — The quiet, resonant platform that powers your product, documentation, and brand surfaces.</div><div class="type-spec">Body Large — 18px / 400 / 1.60 / normal / Inter</div></div>
-    <div class="type-row"><div class="type-sample t-body">Body — Standard reading text for documentation and long-form content.</div><div class="type-spec">Body — 16px / 400 / 1.60 / normal / Inter</div></div>
-    <div class="type-row"><div class="type-sample t-body-m">Body Medium — Navigation items and emphasized UI text</div><div class="type-spec">Body Medium — 16px / 500 / 1.60 / Inter</div></div>
-    <div class="type-row"><div class="type-sample t-button">Button Label</div><div class="type-spec">Button — 15px / 500 / 1.50 / Inter</div></div>
-    <div class="type-row"><div class="type-sample t-caption">Link / Caption</div><div class="type-spec">Link / Caption — 14px / 500 / 1.50 / Inter</div></div>
-    <div class="type-row"><div class="type-sample t-label-up">Section Label</div><div class="type-spec">Label Uppercase — 13px / 500 / 0.08em / Inter</div></div>
-    <div class="type-row"><div class="type-sample t-mono-tech">Mono Technical Label</div><div class="type-spec">Mono Code — 12px / 500 / 0.08em / JetBrains Mono</div></div>
-    <div class="type-row"><div class="type-sample t-mono-micro">Micro Label</div><div class="type-spec">Mono Micro — 10px / 500 / 0.10em / JetBrains Mono</div></div>
-  </div>
-</section>
-
-<!-- 03 BUTTONS -->
-<section class="section" id="buttons">
-  <div class="section-label">03 / Buttons</div>
-  <h2 class="section-title">Button Variants</h2>
-
-  <div class="button-grid">
-    <div class="button-demo"><button class="btn btn-dark">Get Started</button><div class="button-demo-label">Primary Dark (navy)</div></div>
-    <div class="button-demo"><button class="btn btn-ghost">Documentation</button><div class="button-demo-label">Ghost / Outline</div></div>
-    <div class="button-demo"><button class="btn btn-accent">Start Building</button><div class="button-demo-label">Brand Accent (teal)</div></div>
-    <div class="button-demo"><button class="btn btn-ghost btn-pill">Documentation</button><div class="button-demo-label">Pill (Ghost)</div></div>
-    <div class="button-demo"><span class="badge badge-info"><span class="badge-dot"></span>Info</span><div class="button-demo-label">Info Badge</div></div>
-    <div class="button-demo"><span class="badge badge-success"><span class="badge-dot"></span>Success</span><div class="button-demo-label">Success Badge</div></div>
-    <div class="button-demo"><span class="badge badge-warn"><span class="badge-dot"></span>Warning</span><div class="button-demo-label">Warning (copper)</div></div>
-    <div class="button-demo"><span class="badge badge-error"><span class="badge-dot"></span>Error</span><div class="button-demo-label">Error (oxblood)</div></div>
-    <div class="button-demo"><span class="badge badge-brand"><span class="badge-dot"></span>Cluos</span><div class="button-demo-label">Brand Badge</div></div>
-  </div>
-</section>
-
-<!-- 04 CARDS -->
-<section class="section" id="cards">
-  <div class="section-label">04 / Cards</div>
-  <h2 class="section-title">Card Examples</h2>
-
-  <div class="card-row">
-    <div class="card"><div class="card-tag">Docs</div><h3 class="card-title">Intelligent Search</h3><p class="card-text">AI-powered search that understands your documentation and returns precise answers to user questions.</p></div>
-    <div class="card"><div class="card-tag">API</div><h3 class="card-title">API Reference</h3><p class="card-text">Auto-generated API docs with interactive examples, auth flows, and language-specific snippets.</p></div>
-    <div class="card"><div class="card-tag">Analytics</div><h3 class="card-title">Usage Analytics</h3><p class="card-text">Track what your users search for, which pages perform best, and where they get stuck.</p></div>
-  </div>
-
-  <div style="margin-top: 28px;">
-    <div class="type-spec" style="margin-bottom: 10px;">Featured Card — 24px radius · brand hero gradient (radial teal + champagne halo)</div>
-    <div class="featured-card">
-      <span class="featured-tag">Featured</span>
-      <h3 class="featured-title">The Quiet Platform for Modern Products</h3>
-      <p class="featured-text">Build surfaces that feel intentional — documentation, product UI, marketing — all coherent through a single design system, calm by default and precise where it matters.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 05 FORMS -->
-<section class="section" id="forms">
-  <div class="section-label">05 / Forms</div>
-  <h2 class="section-title">Form Elements</h2>
-
-  <div class="form-grid">
-    <div class="form-field"><label class="form-label">Email address</label><input class="input" type="email" placeholder="name@company.com" /><div class="input-hint">Default state</div></div>
-    <div class="form-field"><label class="form-label">Organization</label><input class="input pill" type="text" placeholder="Acme Inc." /><div class="input-hint">Pill shape (optional)</div></div>
-    <div class="form-field"><label class="form-label">API key</label><input class="input is-focused" type="text" value="sk_live_···················" /><div class="input-hint">Focus — teal ring</div></div>
-    <div class="form-field"><label class="form-label">Project slug</label><input class="input is-error" type="text" value="invalid slug" /><div class="input-hint" style="color: var(--cluos-status-error);">Error — muted oxblood ring</div></div>
-    <div class="form-field" style="grid-column: 1 / -1;"><label class="form-label">Description</label><textarea class="input" placeholder="Tell us what you're building…"></textarea><div class="input-hint">Textarea</div></div>
-  </div>
-</section>
-
-<!-- 06 SPACING -->
-<section class="section" id="spacing">
-  <div class="section-label">06 / Spacing</div>
-  <h2 class="section-title">Spacing Scale</h2>
-
-  <div class="spacing-row">
-    <div class="spacing-item"><div class="spacing-num">4px</div><div class="spacing-bar" style="width: 4px;"></div></div>
-    <div class="spacing-item"><div class="spacing-num">8px</div><div class="spacing-bar" style="width: 8px;"></div></div>
-    <div class="spacing-item"><div class="spacing-num">12px</div><div class="spacing-bar" style="width: 12px;"></div></div>
-    <div class="spacing-item"><div class="spacing-num">16px</div><div class="spacing-bar" style="width: 16px;"></div></div>
-    <div class="spacing-item"><div class="spacing-num">24px</div><div class="spacing-bar" style="width: 24px;"></div></div>
-    <div class="spacing-item"><div class="spacing-num">32px</div><div class="spacing-bar" style="width: 32px;"></div></div>
-    <div class="spacing-item"><div class="spacing-num">48px</div><div class="spacing-bar" style="width: 48px;"></div></div>
-    <div class="spacing-item"><div class="spacing-num">64px</div><div class="spacing-bar" style="width: 64px;"></div></div>
-    <div class="spacing-item"><div class="spacing-num">96px</div><div class="spacing-bar" style="width: 96px;"></div></div>
-  </div>
-</section>
-
-<!-- 07 RADIUS -->
-<section class="section" id="radius">
-  <div class="section-label">07 / Radius</div>
-  <h2 class="section-title">Border Radius Scale</h2>
-
-  <div class="radius-grid">
-    <div class="radius-item"><div class="radius-box" style="border-radius: 6px;"></div><div class="radius-value">6px</div><div class="radius-note">Code tags, inline</div></div>
-    <div class="radius-item"><div class="radius-box" style="border-radius: 8px;"></div><div class="radius-value">8px</div><div class="radius-note">Buttons, inputs</div></div>
-    <div class="radius-item"><div class="radius-box" style="border-radius: 12px;"></div><div class="radius-value">12px</div><div class="radius-note">Cards, panels</div></div>
-    <div class="radius-item"><div class="radius-box" style="border-radius: 16px;"></div><div class="radius-value">16px</div><div class="radius-note">Feature cards, modals</div></div>
-    <div class="radius-item"><div class="radius-box" style="border-radius: 24px;"></div><div class="radius-value">24px</div><div class="radius-note">Featured / hero</div></div>
-    <div class="radius-item"><div class="radius-box" style="border-radius: 9999px;"></div><div class="radius-value">9999px</div><div class="radius-note">Pill badges, toggles</div></div>
-  </div>
-</section>
-
-<!-- 08 ELEVATION -->
-<section class="section" id="elevation">
-  <div class="section-label">08 / Elevation</div>
-  <h2 class="section-title">Elevation &amp; Depth</h2>
-
-  <div class="elev-grid">
-    <div class="elev-card elev-0"><div class="elev-level">Level 0 · Flat</div><div class="elev-desc">No shadow — border only</div></div>
-    <div class="elev-card elev-1"><div class="elev-level">Level 1 · Subtle</div><div class="elev-desc">Border + soft ambient</div></div>
-    <div class="elev-card elev-2"><div class="elev-level">Level 2 · Medium</div><div class="elev-desc">Popovers, dropdowns</div></div>
-    <div class="elev-card elev-3"><div class="elev-level">Level 3 · Raised</div><div class="elev-desc">Modals, dialogs</div></div>
-    <div class="elev-card elev-focus"><div class="elev-level">Focus Ring</div><div class="elev-desc">Teal @ 30% opacity</div></div>
-  </div>
-</section>
-
-<footer>
-  Cluos · Official Preview v0.2.0 · Refactors start here · Sync changes with DESIGN.md and DESIGN-WORKFLOW.md
-</footer>
-
-<!-- 07 PRODUCT UX PATTERNS -->
-<section class="section" id="product-ux-patterns" style="background: var(--cluos-bg-subtle);">
-  <div class="section-label">07 / Product UX Patterns</div>
-  <h2 class="section-title">Product UX Patterns</h2>
-  <p style="color: var(--cluos-text-muted); margin-bottom: 2.5rem; max-width: 48rem;">
-    Every CluOS screen is simple, focused, and intuitive. One primary action per region.
-    Technical complexity is progressively disclosed. The user understands the next step in 3 seconds.
-  </p>
-
-  <!-- 7.1 System Hub Card -->
-  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.1 · Hub — System Card</h3>
-  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
-    <!-- Online -->
-    <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem;">
-      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.5rem;">
-        <span style="width:8px; height:8px; border-radius:50%; background: var(--cluos-status-success); flex-shrink:0;"></span>
-        <span style="font-size: 0.75rem; font-weight: 500; color: var(--cluos-status-success);">Online</span>
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-eyebrow" aria-label="Design system version">
+        v0.3.0 — Identity
       </div>
-      <div style="font-weight: 600; color: var(--cluos-navy); margin-bottom: 0.25rem;">CRM CluOS</div>
-      <div style="font-size: 0.8125rem; color: var(--cluos-text-subtle); margin-bottom: 1rem;">crm.cluos.online</div>
-      <div style="display: flex; gap: 0.5rem;">
-        <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Abrir</button>
-        <button style="background: transparent; color: var(--cluos-teal-deep); border: none; font-size: 0.875rem; font-weight: 500; cursor: pointer; padding: 0.5rem 0.75rem;">Ver detalhes</button>
+
+      <h1 id="hero-heading">
+        Uma identidade CluOS.<br>
+        <span class="accent">Quatro temperaturas</span> de produto.
+      </h1>
+
+      <p class="hero-sub">
+        Esta prévia testa variações de cor de ação dentro da mesma paleta.
+        A estrutura, tipografia e marca permanecem consistentes; o que muda é
+        a personalidade operacional de cada produto.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#variants" class="btn btn-primary">Ver variações</a>
+        <a href="#matrix" class="btn btn-secondary">Mapa de uso</a>
+        <a href="#governance" class="btn btn-secondary">Regras</a>
+      </div>
+    </section>
+
+    <!-- NOTE CARDS -->
+    <div class="note-grid" role="list">
+      <div class="note-card" role="listitem">
+        <div class="note-card-title">Não é trocar tudo</div>
+        <p class="note-card-body">A cor de ação muda botões, estados ativos e halos, não toda a interface.</p>
+      </div>
+      <div class="note-card" role="listitem">
+        <div class="note-card-title">Base comum</div>
+        <p class="note-card-body">Navy, branco, Inter e cards técnicos preservam o reconhecimento de marca.</p>
+      </div>
+      <div class="note-card" role="listitem">
+        <div class="note-card-title">Produtos distintos</div>
+        <p class="note-card-body">Cada serviço ganha temperatura própria sem sair da paleta oficial.</p>
       </div>
     </div>
-    <!-- Warning -->
-    <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem;">
-      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.5rem;">
-        <span style="width:8px; height:8px; border-radius:50%; background: var(--cluos-status-warn); flex-shrink:0;"></span>
-        <span style="font-size: 0.75rem; font-weight: 500; color: var(--cluos-status-warn);">Atenção</span>
-      </div>
-      <div style="font-weight: 600; color: var(--cluos-navy); margin-bottom: 0.25rem;">Automatic-AEO</div>
-      <div style="font-size: 0.8125rem; color: var(--cluos-text-subtle); margin-bottom: 0.5rem;">aeo.cluos.online</div>
-      <div style="font-size: 0.8125rem; color: var(--cluos-status-warn); margin-bottom: 1rem;">Alta latência detectada</div>
-      <div style="display: flex; gap: 0.5rem;">
-        <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Abrir</button>
-        <button style="background: transparent; color: var(--cluos-teal-deep); border: none; font-size: 0.875rem; font-weight: 500; cursor: pointer; padding: 0.5rem 0.75rem;">Ver detalhes</button>
-      </div>
-    </div>
-    <!-- Offline -->
-    <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem; opacity: 0.75;">
-      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.5rem;">
-        <span style="width:8px; height:8px; border-radius:50%; background: var(--cluos-status-error); flex-shrink:0;"></span>
-        <span style="font-size: 0.75rem; font-weight: 500; color: var(--cluos-status-error);">Offline</span>
-      </div>
-      <div style="font-weight: 600; color: var(--cluos-navy); margin-bottom: 0.25rem;">B3</div>
-      <div style="font-size: 0.8125rem; color: var(--cluos-text-subtle); margin-bottom: 0.5rem;">b3.cluos.online</div>
-      <div style="font-size: 0.8125rem; color: var(--cluos-status-error); margin-bottom: 1rem;">Serviço indisponível</div>
-      <div style="display: flex; gap: 0.5rem;">
-        <button disabled style="background: var(--cluos-bg-muted); color: var(--cluos-text-subtle); border: none; border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; cursor: not-allowed;">Abrir</button>
-        <button style="background: transparent; color: var(--cluos-teal-deep); border: none; font-size: 0.875rem; font-weight: 500; cursor: pointer; padding: 0.5rem 0.75rem;">Ver detalhes</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- 7.2 Upload Flow -->
-  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.2 · Upload Flow</h3>
-  <div style="max-width: 520px; margin-bottom: 2.5rem;">
-    <!-- Dropzone idle -->
-    <div style="border: 2px dashed var(--cluos-border); border-radius: 12px; padding: 2rem; text-align: center; background: var(--cluos-bg); margin-bottom: 1rem;">
-      <div style="font-size: 2rem; margin-bottom: 0.5rem; color: var(--cluos-text-subtle);">↑</div>
-      <div style="font-weight: 500; color: var(--cluos-navy); margin-bottom: 0.25rem;">Arraste o vídeo aqui</div>
-      <div style="font-size: 0.8125rem; color: var(--cluos-text-muted); margin-bottom: 1rem;">ou</div>
-      <button style="background: transparent; color: var(--cluos-navy); border: 1px solid var(--cluos-border-strong); border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.875rem; cursor: pointer;">Selecionar arquivo</button>
-      <div style="font-size: 0.75rem; color: var(--cluos-text-subtle); margin-top: 0.75rem;">MP4, MOV, AVI · máx. 500MB</div>
-    </div>
-    <!-- Progress state -->
-    <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1rem;">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-        <span style="font-size: 0.875rem; font-weight: 500; color: var(--cluos-navy);">intro-produto.mp4</span>
-        <span style="font-size: 0.875rem; color: var(--cluos-text-muted);">67%</span>
+    <!-- COMMAND CARD -->
+    <section aria-label="Command surface demo">
+      <div class="section-label">
+        <span>01</span> Command surface
       </div>
-      <div style="height: 4px; background: var(--cluos-bg-muted); border-radius: 2px; overflow: hidden;">
-        <div style="height: 100%; width: 67%; background: var(--cluos-teal); border-radius: 2px;"></div>
-      </div>
-      <div style="font-size: 0.75rem; color: var(--cluos-text-subtle); margin-top: 0.5rem;">Enviando... 201MB de 300MB</div>
-    </div>
-  </div>
+      <div class="command-card">
+        <div class="command-card-header">
+          <div class="command-card-title">Command surface</div>
+          <div class="command-card-sub">A mesma UI muda de personalidade com a cor de ação.</div>
+        </div>
 
-  <!-- 7.3 Minimal Dashboard -->
-  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.3 · Dashboard Minimalista</h3>
-  <div style="max-width: 680px; margin-bottom: 2.5rem;">
-    <!-- Metrics -->
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
-      <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem;">
-        <div style="font-size: 0.75rem; font-weight: 500; color: var(--cluos-text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem;">Conteúdos publicados</div>
-        <div style="font-size: 2rem; font-weight: 600; color: var(--cluos-navy);">47</div>
-      </div>
-      <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem;">
-        <div style="font-size: 0.75rem; font-weight: 500; color: var(--cluos-text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem;">Aguardando revisão</div>
-        <div style="font-size: 2rem; font-weight: 600; color: var(--cluos-status-warn);">3</div>
-      </div>
-      <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem;">
-        <div style="font-size: 0.75rem; font-weight: 500; color: var(--cluos-text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem;">Leads ativos</div>
-        <div style="font-size: 2rem; font-weight: 600; color: var(--cluos-navy);">12</div>
-      </div>
-    </div>
-    <!-- Pending action -->
-    <div style="background: var(--cluos-status-warn-bg); border: 1px solid #e8c49a; border-radius: 12px; padding: 1rem; display: flex; align-items: center; justify-content: space-between;">
-      <div>
-        <div style="font-weight: 500; color: var(--cluos-navy); font-size: 0.9375rem;">3 conteúdos aguardando revisão</div>
-        <div style="font-size: 0.8125rem; color: var(--cluos-text-muted); margin-top: 0.25rem;">Revise antes de publicar</div>
-      </div>
-      <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; white-space: nowrap;">Revisar agora</button>
-    </div>
-  </div>
+        <div class="command-grid">
+          <!-- Terminal -->
+          <div class="terminal" role="log" aria-label="Terminal output">
+            <div class="terminal-line">
+              <span class="term-prompt">$</span>
+              <span class="term-cmd">load brand tokens</span>
+            </div>
+            <div class="terminal-line">
+              <span class="term-out">→ action color applied</span>
+            </div>
+            <div class="terminal-line">
+              <span class="term-out">→ navy surfaces preserved</span>
+            </div>
+            <div class="terminal-line">
+              <span class="term-out">→ contrast and hierarchy checked</span>
+            </div>
+            <div class="terminal-line">
+              <span class="term-ok">✓ product identity ready</span>
+            </div>
+          </div>
 
-  <!-- 7.4 Empty State -->
-  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.4 · Empty State</h3>
-  <div style="max-width: 400px; text-align: center; padding: 3rem 2rem; border: 1px solid var(--cluos-border); border-radius: 12px; background: var(--cluos-bg); margin-bottom: 2.5rem;">
-    <div style="font-size: 2.5rem; color: var(--cluos-text-subtle); margin-bottom: 1rem;">◎</div>
-    <div style="font-weight: 600; color: var(--cluos-navy); font-size: 1.0625rem; margin-bottom: 0.5rem;">Nenhum conteúdo ainda</div>
-    <div style="font-size: 0.875rem; color: var(--cluos-text-muted); margin-bottom: 1.5rem;">Gere seu primeiro conteúdo para começar a publicar no AEO.</div>
-    <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.625rem 1.25rem; font-size: 0.9375rem; font-weight: 500; cursor: pointer;">Gerar conteúdo</button>
-  </div>
+          <!-- Metrics -->
+          <div class="metrics" role="list" aria-label="Visual metrics">
+            <div class="metric" role="listitem">
+              <span class="metric-label">Visual temperature</span>
+              <span class="metric-value">4x</span>
+            </div>
+            <div class="metric" role="listitem">
+              <span class="metric-label">Shared identity</span>
+              <span class="metric-value">1</span>
+            </div>
+            <div class="metric" role="listitem">
+              <span class="metric-label">Action color</span>
+              <span class="metric-value">8%</span>
+            </div>
+            <div class="metric" role="listitem">
+              <span class="metric-label">Risk</span>
+              <span class="metric-value">low</span>
+            </div>
+          </div>
 
-  <!-- 7.5 Error State -->
-  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.5 · Error State</h3>
-  <div style="max-width: 480px; margin-bottom: 2.5rem;">
-    <div style="background: var(--cluos-status-error-bg); border: 1px solid #dcb8b8; border-radius: 12px; padding: 1.25rem;">
-      <div style="font-weight: 600; color: var(--cluos-navy); margin-bottom: 0.375rem;">Não foi possível gerar o vídeo</div>
-      <div style="font-size: 0.875rem; color: var(--cluos-text-muted); margin-bottom: 1rem;">Verifique o formato do arquivo e tente novamente. MP4 e MOV são suportados.</div>
-      <div style="display: flex; gap: 0.75rem; align-items: center;">
-        <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Tentar novamente</button>
-        <button style="background: transparent; color: var(--cluos-text-muted); border: none; font-size: 0.8125rem; cursor: pointer; padding: 0.5rem 0.5rem;">Detalhes técnicos ↓</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 7.6 Settings Screen -->
-  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.6 · Settings Screen</h3>
-  <div style="max-width: 520px; margin-bottom: 2.5rem;">
-    <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; overflow: hidden;">
-      <!-- Section: Perfil -->
-      <div style="padding: 1.25rem; border-bottom: 1px solid var(--cluos-border);">
-        <div style="font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cluos-text-subtle); margin-bottom: 0.75rem;">Perfil</div>
-        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-          <div><label style="font-size: 0.8125rem; font-weight: 500; color: var(--cluos-navy); display: block; margin-bottom: 0.25rem;">Nome</label><input style="width: 100%; border: 1px solid var(--cluos-border); border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.875rem; color: var(--cluos-text); font-family: inherit;" type="text" value="Rafael Costa" /></div>
-          <div><label style="font-size: 0.8125rem; font-weight: 500; color: var(--cluos-navy); display: block; margin-bottom: 0.25rem;">E-mail</label><input style="width: 100%; border: 1px solid var(--cluos-border); border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.875rem; color: var(--cluos-text-muted); font-family: inherit; background: var(--cluos-bg-subtle);" type="email" value="costarafaelhr@gmail.com" disabled /></div>
+          <!-- Task list -->
+          <div class="task-list" role="list" aria-label="Active states">
+            <div class="task-item" role="listitem">
+              <div class="task-check" aria-hidden="true">
+                <svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg>
+              </div>
+              <span class="task-text">Primary action</span>
+            </div>
+            <div class="task-item" role="listitem">
+              <div class="task-check" aria-hidden="true">
+                <svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg>
+              </div>
+              <span class="task-text">Active state</span>
+            </div>
+            <div class="task-item" role="listitem">
+              <div class="task-check" aria-hidden="true">
+                <svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg>
+              </div>
+              <span class="task-text">Brand halo</span>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- Section: Avançado (collapsed) -->
-      <div style="padding: 1rem 1.25rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
-        <span style="font-size: 0.8125rem; font-weight: 500; color: var(--cluos-text-muted);">Configurações avançadas</span>
-        <span style="font-size: 0.75rem; color: var(--cluos-text-subtle);">▸</span>
+    </section>
+
+    <!-- VARIANT CARDS -->
+    <section id="variants" aria-labelledby="variants-heading">
+      <div class="section-label">
+        <span>02</span> Variações
       </div>
-      <!-- Save button -->
-      <div style="padding: 1rem 1.25rem; border-top: 1px solid var(--cluos-border); display: flex; justify-content: flex-end;">
-        <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.5625rem 1.25rem; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Salvar alterações</button>
+      <h2 id="variants-heading" style="font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-0.02em;color:var(--text);margin-bottom:20px;">As quatro temperaturas</h2>
+
+      <div class="variants-grid">
+        <div class="variant-card" data-variant="teal">
+          <div class="variant-card-swatch swatch-teal" aria-hidden="true"></div>
+          <div class="variant-card-name">Teal Platform</div>
+          <div class="variant-card-hex">#008080 — default</div>
+          <p class="variant-card-body">Melhor para Hub, status geral, autenticação, CRM base e produtos onde a ação precisa parecer segura, neutra e operacional.</p>
+        </div>
+        <div class="variant-card" data-variant="copper">
+          <div class="variant-card-swatch swatch-copper" aria-hidden="true"></div>
+          <div class="variant-card-name">Copper Ops</div>
+          <div class="variant-card-hex">#BD7845 — priority</div>
+          <p class="variant-card-body">Melhor para Suporte, central CEO, decisões humanas, automação, filas, riscos moderados e áreas onde há prioridade operacional.</p>
+        </div>
+        <div class="variant-card" data-variant="champagne">
+          <div class="variant-card-swatch swatch-champagne" aria-hidden="true"></div>
+          <div class="variant-card-name">Champagne Premium</div>
+          <div class="variant-card-hex">#C8C1AE — premium</div>
+          <p class="variant-card-body">Melhor para AEO, páginas públicas, conteúdos editoriais, onboarding premium, relatórios e áreas que precisam parecer sofisticadas.</p>
+        </div>
+        <div class="variant-card" data-variant="oxblood">
+          <div class="variant-card-swatch swatch-oxblood" aria-hidden="true"></div>
+          <div class="variant-card-name">Oxblood Critical</div>
+          <div class="variant-card-hex">#8A3A3A — risk</div>
+          <p class="variant-card-body">Melhor para B3, risco, auditoria, falhas críticas, segurança, compliance, logs sensíveis e ações de alta atenção.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATRIX TABLE -->
+    <section id="matrix" aria-labelledby="matrix-heading" class="matrix-section">
+      <div class="section-label">
+        <span>03</span> Mapa de aplicação
+      </div>
+      <h2 id="matrix-heading" style="font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-0.02em;color:var(--text);margin-bottom:20px;">Variant por produto</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Produto</th>
+              <th scope="col">Variant</th>
+              <th scope="col">Aparência</th>
+              <th scope="col">Razão</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>CluOS Hub</strong></td>
+              <td><span class="variant-badge badge-teal"><span class="badge-dot bd-teal" aria-hidden="true"></span>claro-teal</span></td>
+              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">light</td>
+              <td style="color:var(--muted);">Entrada institucional — seguro, calmo</td>
+            </tr>
+            <tr>
+              <td><strong>CRM CluOS</strong></td>
+              <td><span class="variant-badge badge-copper"><span class="badge-dot bd-copper" aria-hidden="true"></span>claro-copper</span></td>
+              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">light</td>
+              <td style="color:var(--muted);">Comercial, relacional, prioridade humana</td>
+            </tr>
+            <tr>
+              <td><strong>Suporte / Edge</strong></td>
+              <td><span class="variant-badge badge-copper"><span class="badge-dot bd-copper" aria-hidden="true"></span>dark-copper</span></td>
+              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">dark</td>
+              <td style="color:var(--muted);">Command center — navy + copper destacam prioridade</td>
+            </tr>
+            <tr>
+              <td><strong>AEO Engine</strong></td>
+              <td><span class="variant-badge badge-champagne"><span class="badge-dot bd-champagne" aria-hidden="true"></span>claro-champagne</span></td>
+              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">light</td>
+              <td style="color:var(--muted);">Editorial, premium, autoridade de publicação</td>
+            </tr>
+            <tr>
+              <td><strong>MedFrame</strong></td>
+              <td><span class="variant-badge badge-copper"><span class="badge-dot bd-copper" aria-hidden="true"></span>dark-copper</span></td>
+              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">dark</td>
+              <td style="color:var(--muted);">Estúdio técnico — dark + copper para exportações</td>
+            </tr>
+            <tr>
+              <td><strong>DID</strong></td>
+              <td><span class="variant-badge badge-champagne"><span class="badge-dot bd-champagne" aria-hidden="true"></span>dark-champagne</span></td>
+              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">dark</td>
+              <td style="color:var(--muted);">Identidade digital — dark + champagne premium</td>
+            </tr>
+            <tr>
+              <td><strong>Sci-OS</strong></td>
+              <td><span class="variant-badge badge-teal"><span class="badge-dot bd-teal" aria-hidden="true"></span>claro-teal</span></td>
+              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">light</td>
+              <td style="color:var(--muted);">Científico, limpo, documental e confiável</td>
+            </tr>
+            <tr>
+              <td><strong>B3</strong></td>
+              <td><span class="variant-badge badge-oxblood"><span class="badge-dot bd-oxblood" aria-hidden="true"></span>dark-oxblood</span></td>
+              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">dark</td>
+              <td style="color:var(--muted);">Risco, auditoria — oxblood marca alta atenção</td>
+            </tr>
+            <tr>
+              <td><strong>Loteca</strong></td>
+              <td><span class="variant-badge badge-oxblood"><span class="badge-dot bd-oxblood" aria-hidden="true"></span>claro-oxblood</span></td>
+              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">light</td>
+              <td style="color:var(--muted);">Probabilidade, risco e previsão</td>
+            </tr>
+            <tr>
+              <td><strong>Docs</strong></td>
+              <td><span class="variant-badge badge-teal"><span class="badge-dot bd-teal" aria-hidden="true"></span>claro-teal</span></td>
+              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">light</td>
+              <td style="color:var(--muted);">Documentação neutra, legível e organizada</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- GOVERNANCE -->
+    <section id="governance" aria-labelledby="governance-heading" class="governance-section">
+      <div class="section-label">
+        <span>04</span> Governança visual
+      </div>
+      <h2 id="governance-heading" style="font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-0.02em;color:var(--text);margin-bottom:20px;">Regras semânticas</h2>
+
+      <div class="governance-grid">
+        <div class="gov-card">
+          <div class="gov-chip chip-teal">Teal</div>
+          <div class="gov-title">Não é decoração</div>
+          <p class="gov-body">Ação padrão, saúde do sistema, status online, produto neutro e confiável. Só aparece onde há função.</p>
+        </div>
+        <div class="gov-card">
+          <div class="gov-chip chip-copper">Copper</div>
+          <div class="gov-title">É prioridade</div>
+          <p class="gov-body">Decisão humana necessária, urgência moderada, pipeline comercial, operação em andamento.</p>
+        </div>
+        <div class="gov-card">
+          <div class="gov-chip chip-champagne">Champagne</div>
+          <div class="gov-title">É premium</div>
+          <p class="gov-body">Editorial, institucional, sofisticado. Botão champagne sempre usa texto navy — não branco.</p>
+        </div>
+        <div class="gov-card">
+          <div class="gov-chip chip-oxblood">Oxblood</div>
+          <div class="gov-title">É crítico</div>
+          <p class="gov-body">Risco, auditoria, alta atenção. Não usar como CTA positivo genérico. Não é vermelho de erro.</p>
+        </div>
+        <div class="gov-card">
+          <div class="gov-chip chip-navy">Navy</div>
+          <div class="gov-title">Ancora tudo</div>
+          <p class="gov-body">Autoridade técnica e estrutura. Fundo do dark mode, texto primário, superfícies densas.</p>
+        </div>
+        <div class="gov-card">
+          <div class="gov-chip chip-teal">Regra geral</div>
+          <div class="gov-title">Uma temperatura por produto</div>
+          <p class="gov-body">Não misturar cores de ação no mesmo produto. Cada serviço tem uma temperatura — não uma marca separada.</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.page -->
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer" role="contentinfo">
+  <div class="page">
+    <div class="footer-inner">
+      <div class="footer-title">Direção de uso</div>
+      <p class="footer-body">
+        Use cores de ação diferentes por produto, mas não transforme cada serviço em uma marca separada.
+        O reconhecimento CluOS vem do navy, da tipografia, dos componentes, do grid, da densidade visual e do símbolo.
+        A cor de ação só muda a temperatura e a intenção da interface.
+      </p>
+      <div class="footer-meta">
+        <span class="footer-tag"><strong>v0.3.0</strong></span>
+        <span class="footer-tag">@cluos/design-system</span>
+        <span class="footer-tag">PRODUCT-THEME-VARIANTS.md</span>
+        <span class="footer-tag">tokens/tokens.css</span>
+        <span class="footer-tag">8 variações oficiais</span>
       </div>
     </div>
   </div>
+</footer>
 
-  <!-- 7.7 Review / Publish Flow -->
-  <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--cluos-navy); margin: 0 0 1rem;">7.7 · Revisão e Publicação</h3>
-  <div style="max-width: 680px; margin-bottom: 2.5rem;">
-    <!-- Progress steps -->
-    <div style="display: flex; align-items: center; gap: 0; margin-bottom: 1.5rem;">
-      <div style="display: flex; align-items: center; gap: 6px; color: var(--cluos-status-success); font-size: 0.8125rem; font-weight: 500;">✓ Gerado</div>
-      <div style="flex: 1; height: 1px; background: var(--cluos-status-success); margin: 0 12px;"></div>
-      <div style="display: flex; align-items: center; gap: 6px; color: var(--cluos-teal-deep); font-size: 0.8125rem; font-weight: 600; border-bottom: 2px solid var(--cluos-teal);">● Em revisão</div>
-      <div style="flex: 1; height: 1px; background: var(--cluos-border); margin: 0 12px;"></div>
-      <div style="display: flex; align-items: center; gap: 6px; color: var(--cluos-text-subtle); font-size: 0.8125rem;">○ Publicar</div>
-    </div>
-    <!-- Content preview + action -->
-    <div style="display: grid; grid-template-columns: 1fr 180px; gap: 1rem;">
-      <div style="background: var(--cluos-bg); border: 1px solid var(--cluos-border); border-radius: 12px; padding: 1.25rem;">
-        <div style="font-weight: 600; color: var(--cluos-navy); margin-bottom: 0.5rem;">Como o CluOS simplifica a gestão de processos médicos</div>
-        <div style="font-size: 0.875rem; color: var(--cluos-text-muted); line-height: 1.6;">Neste artigo, exploramos como o CluOS integra triagem, diagnóstico e acompanhamento em uma única plataforma...</div>
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-        <button style="background: var(--cluos-teal); color: #fff; border: none; border-radius: 8px; padding: 0.625rem 1rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; width: 100%;">Publicar</button>
-        <button style="background: transparent; color: var(--cluos-navy); border: 1px solid var(--cluos-border-strong); border-radius: 8px; padding: 0.5rem 1rem; font-size: 0.8125rem; cursor: pointer; width: 100%;">Agendar</button>
-        <button style="background: transparent; color: var(--cluos-text-muted); border: none; font-size: 0.8125rem; cursor: pointer; padding: 0.5rem 0; width: 100%;">Rejeitar</button>
-      </div>
-    </div>
-  </div>
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
 
-  <p style="font-size: 0.8125rem; color: var(--cluos-text-subtle); border-top: 1px solid var(--cluos-border); padding-top: 1.5rem;">
-    All patterns above use official CluOS tokens only. See <code style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--cluos-bg-muted); padding: 0.1em 0.3em; border-radius: 4px;">APPLE-INSPIRED-PRODUCT-UX.md</code> and <code style="font-family: var(--font-mono); font-size: 0.75rem; background: var(--cluos-bg-muted); padding: 0.1em 0.3em; border-radius: 4px;">PRODUCT-PATTERNS.md</code> for full specifications.
-  </p>
-</section>
+  var body = document.body;
+  var themeBtns = document.querySelectorAll('[data-set-theme]');
+  var appearanceToggle = document.querySelector('.appearance-toggle');
+
+  function setTheme(theme) {
+    body.setAttribute('data-theme', theme);
+    themeBtns.forEach(function (btn) {
+      var isActive = btn.dataset.setTheme === theme;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', String(isActive));
+    });
+  }
+
+  function setAppearance(appearance) {
+    body.setAttribute('data-appearance', appearance);
+    var isDark = appearance === 'dark';
+    if (appearanceToggle) {
+      appearanceToggle.setAttribute('aria-pressed', String(isDark));
+      appearanceToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+  }
+
+  // Theme selector
+  themeBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      setTheme(btn.dataset.setTheme);
+    });
+  });
+
+  // Appearance toggle
+  if (appearanceToggle) {
+    appearanceToggle.addEventListener('click', function () {
+      var currentAppearance = body.getAttribute('data-appearance') || 'light';
+      setAppearance(currentAppearance === 'dark' ? 'light' : 'dark');
+    });
+  }
+
+  // Keyboard support for theme buttons
+  themeBtns.forEach(function (btn) {
+    btn.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setTheme(btn.dataset.setTheme);
+      }
+    });
+  });
+
+  // Initialize
+  setTheme(body.getAttribute('data-theme') || 'teal');
+  setAppearance(body.getAttribute('data-appearance') || 'light');
+}());
+</script>
 
 </body>
 </html>

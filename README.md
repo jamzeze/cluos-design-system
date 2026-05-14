@@ -3,13 +3,14 @@
 The single source of truth for the CluOS visual language, UX principles, product patterns, and agent governance.
 Tokens, logos, patterns, and rules — consumed by every CluOS repository.
 
-> **v0.2.1** — Added the Product Simplicity Canon as mandatory product/design governance for all CluOS apps and refactors.
+> **v0.3.0** — Added interactive light/dark design preview with action color selector (teal, copper, champagne, oxblood) and 8 approved product variants.
 
 ---
 
 ## What lives here
 
-- **`DESIGN-preview.html`** — the canonical visual reference (v0.2.0 includes Product UX Patterns section).
+- **`DESIGN-preview.html`** — the canonical interactive visual reference. Includes light/dark mode toggle and action color selector (teal / copper / champagne / oxblood). Open in a browser when working on any CluOS product.
+- **`PRODUCT-THEME-VARIANTS.md`** — the 8 approved product visual variants, recommended variant per product, and semantic rules for action colors.
 - **`DESIGN.md`** — the full narrative spec. Explains the preview and must stay in sync with it.
 - **`DESIGN-WORKFLOW.md`** — the preview-first refactor workflow for humans and agents.
 - **`PRODUCT-SIMPLICITY-CANON.md`** — mandatory product simplicity canon: reduce cognitive load, remove unnecessary complexity, improve perceived quality, and make the main user action obvious.
@@ -139,6 +140,24 @@ npm update @cluos/design-system
 
 ---
 
+## Product theme variants
+
+CluOS supports 8 approved product visual variants combining appearance (light / dark) with action color (teal / copper / champagne / oxblood):
+
+- `claro-teal` — light + teal. CluOS Hub, Sci-OS, Docs.
+- `claro-copper` — light + copper. CRM CluOS.
+- `claro-champagne` — light + champagne. AEO Engine.
+- `claro-oxblood` — light + oxblood. Loteca.
+- `dark-teal` — dark/navy + teal. Technical dashboards.
+- `dark-copper` — dark/navy + copper. Suporte, MedFrame, Edge.
+- `dark-champagne` — dark/navy + champagne. DID.
+- `dark-oxblood` — dark/navy + oxblood. B3.
+
+`DESIGN-preview.html` is the canonical interactive preview — open it in a browser to see all 8 variants live.
+`PRODUCT-THEME-VARIANTS.md` documents the recommended variant per product, semantic rules, and token usage.
+
+---
+
 ## Product UX Layer (v0.2.1)
 
 ### Product Simplicity Canon
@@ -184,11 +203,6 @@ It is now legacy-only. Its AGENTS.md prohibits agents from treating it as a desi
 This repository is the **only valid design authority** for all CluOS systems.
 See [`MIGRATION-AUDIT.md`](MIGRATION-AUDIT.md) for the full unification audit.
 
-## The Cluos brand in one paragraph
+## The CluOS brand in one paragraph
 
-Cluos is **quiet confidence**. A single accent color (teal), a single
-typeface (Inter), restrained weights, generous whitespace, and two
-status colors that belong with the palette (muted oxblood for error,
-light copper for warning). The wordmark gradient drifts from black →
-navy → champagne → silver. Mintlify-like in its reading rhythm, but
-with Cluos's own teal-and-navy temperature.
+CluOS is **quiet confidence**. One shared identity across all products. Teal as the default action color, copper for priority, champagne for premium, oxblood for risk. Navy anchors every surface. Inter and Inter Tight for UI, JetBrains Mono for technical metadata. The wordmark gradient drifts from black → navy → champagne → silver. Restrained weights, generous whitespace, and one semantic action temperature per product.
