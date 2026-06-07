@@ -1,0 +1,210 @@
+# =============================================================================
+# Hermes Connectors — Canonical Manifest
+# Classification: required | recommended
+# =============================================================================
+
+version: "1.0"
+last_updated: "2026-05-12"
+maintained_by: "cluos-hermes"
+
+connectors:
+
+  # ───────────────────────── REQUIRED ────────────────────────────────────────
+
+  - id: github
+    name: GitHub
+    classification: required
+    description: >
+      Read/write access to jamzeze org repos. Creates issues, branches, PRs,
+      reviews CI status, and manages GitHub Secrets via the REST API.
+    auth:
+      type: personal_access_token
+      env_var: GITHUB_TOKEN
+      bitwarden_item: "Hermes / GitHub PAT"
+      scopes: [repo, workflow, read:org, admin:repo_hook]
+    healthcheck:
+      command: "curl -sf -H 'Authorization: token $GITHUB_TOKEN' https://api.github.com/user"
+      expected_field: "login"
+    docs: docs/hermes-connectors-runbook.md#github
+
+  - id: google-workspace
+    name: Google Workspace
+    classification: required
+    description: >
+      Umbrella connector for Gmail, Calendar, Drive, Docs and Sheets via
+      OAuth 2.0 service account or delegated credentials.
+    auth:
+      type: oauth2_refresh
+      env_vars:
+        - GOOGLE_CLIENT_ID
+        - GOOGLE_CLIENT_SECRET
+        - GOOGLE_REFRESH_TOKEN
+      bitwarden_item: "Hermes / Google OAuth"
+      scopes:
+        - https://www.googleapis.com/auth/gmail.modify
+        - https://www.googleapis.com/auth/calendar
+        - https://www.googleapis.com/auth/drive
+        - https://www.googleapis.com/auth/documents
+        - https://www.googleapis.com/auth/spreadsheets
+    sub_connectors:
+      - gmail
+      - google-calendar
+      - google-drive
+      - google-docs
+      - google-sheets
+    healthcheck:
+      command: "scripts/smoke-connectors --connector google-workspace"
+    docs: docs/hermes-connectors-runbook.md#google-workspace
+
+  - id: gmail
+    name: Gmail
+    classification: required
+    parent: google-workspace
+    description: Read, send, label and archive emails on behalf of the CEO inbox.
+    auth:
+      inherits: google-workspace
+      extra_env: GMAIL_DELEGATED_EMAIL
+    docs: docs/hermes-connectors-runbook.md#gmail
+
+  - id: google-calendar
+    name: Google Calendar
+    classification: required
+    parent: google-workspace
+    description: Read and write calendar events, suggest meeting times, create event links.
+    auth:
+      inherits: google-workspace
+      extra_env: GOOGLE_CALENDAR_ID
+    docs: docs/hermes-connectors-runbook.md#google-calendar
+
+  - id: google-drive
+    name: Google Drive
+    classification: required
+    parent: google-workspace
+    description: Upload, download, search and organize files in Drive.
+    auth:
+      inherits: google-workspace
+      extra_env: GOOGLE_DRIVE_ROOT_FOLDER_ID
+    docs: docs/hermes-connectors-runbook.md#google-drive
+
+  - id: google-docs
+    name: Google Docs
+    classification: required
+    parent: google-workspace
+    description: Create, read and edit Google Docs for briefs, reports and specs.
+    auth:
+      inherits: google-workspace
+    docs: docs/hermes-connectors-runbook.md#google-docs
+
+  - id: google-sheets
+    name: Google Sheets
+    classification: required
+    parent: google-workspace
+    description: Read and update spreadsheets used for KPIs, pipelines and logs.
+    auth:
+      inherits: google-workspace
+    docs: docs/hermes-connectors-runbook.md#google-sheets
+
+  - id: browserbase
+    name: Browserbase
+    classification: required
+    description: >
+      Cloud browser runtime (Playwright/CDP). Used for web logins, form fills,
+      scraping SPA content and UI smoke tests. Never stores cookies locally.
+    auth:
+      type: api_key
+      env_vars:
+        - BROWSERBASE_API_KEY
+        - BROWSERBASE_PROJECT_ID
+      bitwarden_item: "Hermes / Browserbase API Key"
+    login_policy: >
+      For any OAuth or 2FA login flow, open browser via Browserbase, pause
+      for human CEO input, then continue parallel tasks.
+    healthcheck:
+      command: "scripts/smoke-connectors --connector browserbase"
+    docs: docs/hermes-connectors-runbook.md#browserbase
+
+  - id: firecrawl
+    name: Firecrawl
+    classification: required
+    description: >
+      Web crawling and page-to-markdown extraction for research, briefings
+      and competitor analysis. Non-destructive read-only.
+    auth:
+      type: api_key
+      env_var: FIRECRAWL_API_KEY
+      bitwarden_item: "Hermes / Firecrawl API Key"
+    healthcheck:
+      command: "scripts/smoke-connectors --connector firecrawl"
+    docs: docs/hermes-connectors-runbook.md#firecrawl
+
+  - id: obsidian
+    name: Obsidian (Local REST API)
+    classification: required
+    description: >
+      Knowledge base for decisions, approvals, meeting notes and action logs.
+      Uses the obsidian-local-rest-api plugin. All Hermes decisions are
+      appended here as the canonical audit trail.
+    auth:
+      type: api_key
+      env_vars:
+        - OBSIDIAN_VAULT_PATH
+        - OBSIDIAN_LOCAL_REST_API_KEY
+      bitwarden_item: "Hermes / Obsidian REST API Key"
+    write_policy: >
+      Append-only during normal operation. Destructive edits require
+      CEO_AGENT_APPROVAL_REQUIRED=true gate.
+    healthcheck:
+      command: "scripts/smoke-connectors --connector obsidian"
+    docs: docs/hermes-connectors-runbook.md#obsidian
+
+  # ─────────────────────── RECOMMENDED ───────────────────────────────────────
+
+  - id: apify
+    name: Apify
+    classification: recommended
+    description: >
+      Scalable web scraping actors for LinkedIn, Twitter, product pages and
+      public data sources. Used for prospecting and market intelligence.
+    auth:
+      type: api_key
+      env_var: APIFY_API_TOKEN
+      bitwarden_item: "Hermes / Apify API Token"
+    healthcheck:
+      command: "scripts/smoke-connectors --connector apify"
+    docs: docs/hermes-connectors-runbook.md#apify
+
+  - id: youtube-transcripts
+    name: YouTube Transcripts
+    classification: recommended
+    description: >
+      Fetch captions and auto-generated transcripts from YouTube videos
+      for summarization, note-taking and content research.
+    auth:
+      type: api_key
+      env_var: YOUTUBE_API_KEY
+      bitwarden_item: "Hermes / YouTube API Key"
+      note: >
+        Public transcripts can be fetched without auth via youtube-transcript
+        library; API key required for private video metadata.
+    healthcheck:
+      command: "scripts/smoke-connectors --connector youtube-transcripts"
+    docs: docs/hermes-connectors-runbook.md#youtube-transcripts
+
+  - id: granola-fathom
+    name: Granola / Fathom
+    classification: recommended
+    description: >
+      AI meeting note tools. Granola records and structures meeting notes;
+      Fathom captures and summarizes calls. Used for post-meeting action items.
+    auth:
+      type: api_key
+      env_vars:
+        - GRANOLA_API_KEY
+        - FATHOM_API_KEY
+      bitwarden_items:
+        - "Hermes / Granola API Key"
+        - "Hermes / Fathom API Key"
+      note: Both are optional; configure whichever tool is in active use.
+    healthcheck:
+      command: "scripts/smoke-connectors --connector granola-fathom"
+    docs: docs/hermes-connectors-runbook.md#granola-fathom
