@@ -1,12 +1,18 @@
 name: Release
 
+# ALPHA-READINESS FREEZE: releases are manual-only during Alpha.
+# Do not restore push/tag publishing without protected approval.
 on:
-  push:
-    tags:
-      - "v*"
+  workflow_dispatch:
+    inputs:
+      confirm_publish:
+        description: "Type PUBLISH_GITHUB_PACKAGES to run npm publish."
+        required: true
+        type: string
 
 jobs:
   publish:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.confirm_publish == 'PUBLISH_GITHUB_PACKAGES' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
