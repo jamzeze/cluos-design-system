@@ -1,0 +1,202 @@
+/* ==========================================================================
+   CluOS Design System — CSS Tokens v0.4
+   Thermal Nocturne is the current canonical identity.
+   Import once at the root of any consuming project.
+   ========================================================================== */
+
+:root {
+  color-scheme: light dark;
+
+  /* ----- Canonical brand foundations -------------------------------- */
+  --cluos-deep-navy:        #010D28;
+  --cluos-medium-blue:      #132952;
+  --cluos-tech-green:       #C4DB7B;
+  --cluos-operational-teal: #16A39A;
+  --cluos-deep-teal:        #08736E;
+  --cluos-info:             #3E6E82;
+  --cluos-white:            #FFFFFF;
+  --cluos-neutral-100:      #EAEAEA;
+  --cluos-neutral-500:      #A5A5A5;
+
+  /* Compatibility aliases — do not use to define new semantics. */
+  --cluos-navy:          var(--cluos-deep-navy);
+  --cluos-teal:          var(--cluos-operational-teal);
+  --cluos-teal-deep:     var(--cluos-deep-teal);
+  --cluos-teal-soft:     #6FC7C0;
+  --cluos-black:         #1D1D1B;
+  --cluos-champagne:     #C8C1AE;
+  --cluos-silver:        #B5B4B5;
+
+  /* ----- Signal and semantic accents -------------------------------- */
+  --cluos-signal-deep:   #A6C05D;
+  --cluos-signal-soft:   rgba(196, 219, 123, 0.18);
+  --cluos-operational-active: var(--cluos-deep-teal);
+
+  --cluos-status-success:    #6F8F19;
+  --cluos-status-success-bg: #F1F6DF;
+  --cluos-status-info:       #3E6E82;
+  --cluos-status-info-bg:    #EDF1F4;
+  --cluos-status-warn:       #BD7845;
+  --cluos-status-warn-bg:    #F8EBDF;
+  --cluos-status-error:      #8A3A3A;
+  --cluos-status-error-bg:   #F5EAEA;
+
+  /* ----- Light appearance ------------------------------------------- */
+  --cluos-bg:            #FFFFFF;
+  --cluos-bg-subtle:     #F7F9F5;
+  --cluos-bg-muted:      #EAEAEA;
+  --cluos-border:        #DCE2E3;
+  --cluos-border-strong: #C2CDD1;
+  --cluos-text:          var(--cluos-deep-navy);
+  --cluos-text-muted:    #46536B;
+  --cluos-text-subtle:   #68748A;
+  --cluos-text-on-teal:  #FFFFFF;
+  --cluos-text-on-signal: var(--cluos-deep-navy);
+  --cluos-text-on-navy:  #F7F8F5;
+
+  /* ----- Approved gradients ----------------------------------------- */
+  --cluos-gradient-primary:
+    linear-gradient(135deg, #010D28 0%, #132952 42%, #16A39A 72%, #C4DB7B 100%);
+  --cluos-gradient-soft:
+    linear-gradient(135deg, #010D28 0%, #132952 66%, #16A39A 100%);
+  --cluos-gradient-mono:
+    linear-gradient(135deg, #010D28 0%, #132952 100%);
+  --cluos-bg-brand-hero:
+    radial-gradient(circle at 72% 24%, rgba(196, 219, 123, 0.34), transparent 28rem),
+    radial-gradient(circle at 30% 74%, rgba(22, 163, 154, 0.24), transparent 24rem),
+    #010D28;
+
+  /* ----- Typography -------------------------------------------------- */
+  --cluos-font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --cluos-font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --cluos-font-data: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --cluos-font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --cluos-font-weight-display: 200;
+  --cluos-font-weight-body: 400;
+  --cluos-font-weight-label: 550;
+  --cluos-font-weight-heading: 400;
+
+  --cluos-text-xs:   0.75rem;
+  --cluos-text-sm:   0.875rem;
+  --cluos-text-base: 1rem;
+  --cluos-text-lg:   1.125rem;
+  --cluos-text-xl:   1.25rem;
+  --cluos-text-2xl:  1.5rem;
+  --cluos-text-3xl:  1.875rem;
+  --cluos-text-4xl:  2.25rem;
+  --cluos-text-5xl:  3rem;
+  --cluos-text-6xl:  3.75rem;
+
+  --cluos-leading-tight:   1.2;
+  --cluos-leading-snug:    1.4;
+  --cluos-leading-normal:  1.6;
+  --cluos-leading-relaxed: 1.75;
+
+  /* ----- Spacing and layout ----------------------------------------- */
+  --cluos-space-1:  0.25rem;
+  --cluos-space-2:  0.5rem;
+  --cluos-space-3:  0.75rem;
+  --cluos-space-4:  1rem;
+  --cluos-space-6:  1.5rem;
+  --cluos-space-8:  2rem;
+  --cluos-space-10: 2.5rem;
+  --cluos-space-12: 3rem;
+  --cluos-space-16: 4rem;
+  --cluos-space-24: 6rem;
+
+  --cluos-container-prose:   42rem;
+  --cluos-container-docs:    48rem;
+  --cluos-container-product: 72rem;
+  --cluos-container-wide:    80rem;
+
+  --cluos-radius-sm:  6px;
+  --cluos-radius-md:  10px;
+  --cluos-radius-lg:  14px;
+  --cluos-radius-xl:  20px;
+  --cluos-radius-2xl: 24px;
+
+  /* ----- Elevation and focus ---------------------------------------- */
+  --cluos-shadow-xs: 0 1px 2px rgba(1, 13, 40, 0.05);
+  --cluos-shadow-sm: 0 1px 3px rgba(1, 13, 40, 0.08),
+                     0 1px 2px rgba(1, 13, 40, 0.05);
+  --cluos-shadow-md: 0 6px 18px rgba(1, 13, 40, 0.10),
+                     0 2px 5px rgba(1, 13, 40, 0.06);
+  --cluos-shadow-lg: 0 18px 48px rgba(1, 13, 40, 0.16),
+                     0 5px 12px rgba(1, 13, 40, 0.08);
+  --cluos-ring-focus: 0 0 0 3px rgba(196, 219, 123, 0.72);
+
+  /* ----- Motion ------------------------------------------------------ */
+  --cluos-ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --cluos-ease-in-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --cluos-dur-fast:    160ms;
+  --cluos-dur-base:    240ms;
+  --cluos-dur-slow:    520ms;
+  --cluos-motion-hover:   180ms;
+  --cluos-motion-press:   100ms;
+  --cluos-motion-enter:   520ms;
+  --cluos-motion-data:    820ms;
+  --cluos-motion-stagger: 55ms;
+
+  /* ----- Positive action -------------------------------------------- */
+  --cluos-action-primary:      var(--cluos-tech-green);
+  --cluos-action-primary-deep: var(--cluos-signal-deep);
+  --cluos-action-primary-soft: var(--cluos-signal-soft);
+  --cluos-action-primary-text: var(--cluos-deep-navy);
+
+  --cluos-action:       var(--cluos-action-primary);
+  --cluos-action-deep:  var(--cluos-action-primary-deep);
+  --cluos-action-soft:  var(--cluos-action-primary-soft);
+  --cluos-action-text:  var(--cluos-action-primary-text);
+
+  /* Operational/semantic compatibility tokens. Copper and oxblood are
+     never positive action themes. */
+  --cluos-action-teal:            var(--cluos-operational-teal);
+  --cluos-action-teal-deep:       var(--cluos-deep-teal);
+  --cluos-action-teal-soft:       rgba(22, 163, 154, 0.12);
+  --cluos-action-copper:          #BD7845;
+  --cluos-action-copper-deep:     #965D34;
+  --cluos-action-copper-soft:     rgba(189, 120, 69, 0.12);
+  --cluos-action-champagne:       #C8C1AE;
+  --cluos-action-champagne-deep:  #AFA58E;
+  --cluos-action-champagne-soft:  rgba(200, 193, 174, 0.22);
+  --cluos-action-oxblood:         #8A3A3A;
+  --cluos-action-oxblood-deep:    #662828;
+  --cluos-action-oxblood-soft:    rgba(138, 58, 58, 0.11);
+}
+
+/* Legacy data-theme attributes remain non-breaking but no longer turn
+   copper or oxblood into positive CTA colors. */
+[data-theme="teal"],
+[data-theme="copper"],
+[data-theme="champagne"],
+[data-theme="oxblood"] {
+  --cluos-action:       var(--cluos-action-primary);
+  --cluos-action-deep:  var(--cluos-action-primary-deep);
+  --cluos-action-soft:  var(--cluos-action-primary-soft);
+  --cluos-action-text:  var(--cluos-action-primary-text);
+}
+
+[data-appearance="dark"] {
+  color-scheme: dark;
+  --cluos-bg:            #010D28;
+  --cluos-bg-subtle:     #081634;
+  --cluos-bg-muted:      #132952;
+  --cluos-border:        rgba(255, 255, 255, 0.15);
+  --cluos-border-strong: rgba(255, 255, 255, 0.26);
+  --cluos-text:          #F7F8F5;
+  --cluos-text-muted:    rgba(247, 248, 245, 0.72);
+  --cluos-text-subtle:   rgba(247, 248, 245, 0.54);
+  --cluos-teal:          var(--cluos-operational-teal);
+  --cluos-operational-active: var(--cluos-operational-teal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

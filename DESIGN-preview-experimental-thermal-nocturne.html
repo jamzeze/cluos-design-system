@@ -1,0 +1,2889 @@
+<!doctype html>
+<html lang="pt-BR" data-appearance="dark" data-motion="full" data-type-mode="manrope-lead">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CluOS Thermal Nocturne Showcase</title>
+    <meta
+      name="description"
+      content="Showcase estático da identidade experimental CluOS Thermal Nocturne."
+    >
+    <link rel="preload" href="assets/fonts/manrope-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+      @font-face {
+        font-family: "Manrope";
+        src: url("assets/fonts/manrope-latin-variable.woff2") format("woff2");
+        font-style: normal;
+        font-weight: 200 800;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Instrument Sans";
+        src: url("assets/fonts/instrument-sans-latin-variable.woff2") format("woff2");
+        font-style: normal;
+        font-weight: 400 700;
+        font-stretch: 75% 100%;
+        font-display: swap;
+      }
+
+      :root {
+        color-scheme: dark light;
+        --cluos-primary-950: #010d28;
+        --cluos-primary-800: #132952;
+        --cluos-signal-400: #c4db7b;
+        --cluos-white: #ffffff;
+        --cluos-neutral-100: #eaeaea;
+        --cluos-neutral-500: #a5a5a5;
+        --cluos-copper-500: #bd7845;
+        --cluos-copper-700: #965d34;
+        --cluos-oxblood-500: #8a3a3a;
+        --cluos-oxblood-700: #662828;
+        --cluos-teal-500: #16a39a;
+        --cluos-teal-700: #08736e;
+        --cluos-teal-active: var(--cluos-teal-500);
+        --cluos-info-500: #3e6e82;
+        --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+        --font-interface: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+        --font-data: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+        --space-1: 0.25rem;
+        --space-2: 0.5rem;
+        --space-3: 0.75rem;
+        --space-4: 1rem;
+        --space-6: 1.5rem;
+        --space-8: 2rem;
+        --space-10: 2.5rem;
+        --space-12: 3rem;
+        --space-16: 4rem;
+        --radius-sm: 6px;
+        --radius-md: 10px;
+        --radius-lg: 14px;
+        --radius-xl: 20px;
+        --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        --motion-hover: 180ms;
+        --motion-press: 100ms;
+        --motion-enter: 520ms;
+        --motion-data: 820ms;
+        --motion-stagger: 55ms;
+        --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+        --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+        --dur-fast: 160ms;
+        --dur-base: 240ms;
+        --z-sticky: 20;
+        --z-modal: 50;
+        --surface: var(--cluos-primary-950);
+        --surface-deep: color-mix(in oklch, var(--cluos-primary-950) 92%, black);
+        --surface-raised: color-mix(in oklch, var(--cluos-primary-950) 78%, var(--cluos-primary-800));
+        --surface-muted: color-mix(in oklch, var(--cluos-primary-800) 84%, black);
+        --surface-inset: color-mix(in oklch, var(--cluos-primary-950) 88%, black);
+        --text: oklch(0.975 0.008 110);
+        --text-muted: color-mix(in oklch, var(--text) 72%, transparent);
+        --text-subtle: color-mix(in oklch, var(--text) 54%, transparent);
+        --border: color-mix(in oklch, white 15%, transparent);
+        --border-strong: color-mix(in oklch, white 26%, transparent);
+        --focus-ring: 0 0 0 3px color-mix(in oklch, var(--cluos-signal-400) 75%, white);
+        --shadow-raised: 0 24px 70px color-mix(in oklch, black 42%, transparent);
+      }
+
+      [data-type-mode="instrument-lead"] {
+        --font-display: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+        --font-interface: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+        --font-data: "Manrope", ui-sans-serif, system-ui, sans-serif;
+      }
+
+      [data-appearance="light"] {
+        color-scheme: light;
+        --surface: #ffffff;
+        --surface-deep: color-mix(in oklch, #ffffff 86%, var(--cluos-neutral-100));
+        --surface-raised: color-mix(in oklch, #ffffff 94%, var(--cluos-signal-400));
+        --surface-muted: color-mix(in oklch, #ffffff 88%, var(--cluos-primary-800));
+        --surface-inset: #ffffff;
+        --text: var(--cluos-primary-950);
+        --text-muted: color-mix(in oklch, var(--cluos-primary-950) 76%, white);
+        --text-subtle: color-mix(in oklch, var(--cluos-primary-950) 58%, white);
+        --border: color-mix(in oklch, var(--cluos-primary-950) 18%, white);
+        --border-strong: color-mix(in oklch, var(--cluos-primary-950) 32%, white);
+        --shadow-raised: 0 18px 48px color-mix(in oklch, var(--cluos-primary-950) 16%, transparent);
+        --cluos-teal-active: var(--cluos-teal-700);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        background:
+          radial-gradient(circle at 18% 8%, color-mix(in oklch, var(--cluos-signal-400) 18%, transparent), transparent 26rem),
+          linear-gradient(180deg, var(--surface-deep), var(--surface) 24rem, var(--surface));
+        color: var(--text);
+        font-family: var(--font-interface);
+        font-size: 16px;
+        line-height: 1.62;
+        text-rendering: optimizeLegibility;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      img,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button,
+      .button-link {
+        min-height: 44px;
+      }
+
+      button {
+        cursor: pointer;
+        font-weight: 550;
+      }
+
+      .control-button:disabled {
+        cursor: not-allowed;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+      }
+
+      :focus-visible {
+        outline: none;
+        box-shadow: var(--focus-ring);
+      }
+
+      [data-reveal] {
+        transition: opacity var(--motion-enter) var(--ease-spring), transform var(--motion-enter) var(--ease-spring);
+      }
+
+      .motion-ready[data-motion="full"] [data-reveal]:not(.is-visible) {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      .chart-bar-vertical {
+        transform: scaleY(1);
+        transform-origin: bottom;
+        transition: transform var(--motion-data) var(--ease-spring);
+      }
+
+      .chart-bar-horizontal,
+      .chart-progress-fill {
+        transform-origin: left;
+        transition: transform var(--motion-data) var(--ease-spring);
+      }
+
+      [data-chart] .chart-bar-vertical,
+      [data-chart] .chart-bar-horizontal,
+      [data-chart] .chart-progress-fill {
+        transition-delay: calc(var(--motion-index, 0) * var(--motion-stagger));
+      }
+
+      .motion-ready[data-motion="full"] [data-chart]:not(.is-visible) .chart-bar-vertical {
+        transform: scaleY(0);
+      }
+
+      .motion-ready[data-motion="full"] [data-chart]:not(.is-visible) .chart-bar-horizontal,
+      .motion-ready[data-motion="full"] [data-chart]:not(.is-visible) .chart-progress-fill {
+        transform: scaleX(0);
+      }
+
+      .chart-trace {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 0;
+        transition: stroke-dashoffset var(--motion-data) var(--ease-standard);
+      }
+
+      .motion-ready[data-motion="full"] [data-chart]:not(.is-visible) .chart-trace {
+        stroke-dashoffset: 1;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      [data-motion="reduced"] *,
+      [data-motion="reduced"] *::before,
+      [data-motion="reduced"] *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      html[data-motion="reduced"] {
+        scroll-behavior: auto;
+      }
+
+      .skip-link {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: var(--z-modal);
+        transform: translateY(-180%);
+        padding: 10px 14px;
+        border-radius: var(--radius-md);
+        background: var(--cluos-signal-400);
+        color: var(--cluos-primary-950);
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform var(--dur-fast) var(--ease-out);
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+
+      .shell {
+        width: calc(100% - 32px);
+        max-width: 1280px;
+        margin-inline: auto;
+      }
+
+      main > *,
+      .effect-grid > *,
+      .token-grid > *,
+      .type-grid > *,
+      .component-stack > *,
+      .product-grid > *,
+      .technology-grid > *,
+      .mesh-wrap,
+      .table-wrap {
+        min-width: 0;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: var(--z-sticky);
+        border-bottom: 1px solid var(--border);
+        background: color-mix(in oklch, var(--surface) 90%, transparent);
+        backdrop-filter: blur(14px);
+      }
+
+      .nav {
+        display: flex;
+        min-height: 72px;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-4);
+      }
+
+      .brand {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+      }
+
+      .brand img {
+        width: clamp(112px, 14vw, 148px);
+        height: auto;
+      }
+
+      .logo-navy {
+        display: none;
+      }
+
+      [data-appearance="light"] .logo-white {
+        display: none;
+      }
+
+      [data-appearance="light"] .logo-navy {
+        display: block;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: var(--space-2);
+      }
+
+      .nav-links a,
+      .nav-links button,
+      .button-link,
+      .control-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-2);
+        border: 1px solid transparent;
+        border-radius: var(--radius-md);
+        padding: 9px 13px;
+        background: transparent;
+        color: var(--text);
+        font-weight: 550;
+        text-decoration: none;
+        transition:
+          background-color var(--motion-hover) var(--ease-standard),
+          border-color var(--motion-hover) var(--ease-standard),
+          transform var(--motion-hover) var(--ease-standard);
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .nav-links a:hover,
+        .nav-links button:not(:disabled):hover,
+        .button-link:hover,
+        .control-button:not(:disabled):hover,
+        .type-mode-button:hover {
+          transform: translateY(-1px) scale(1.012);
+        }
+
+        .nav-links a:hover,
+        .nav-links button:not(:disabled):hover,
+        .button-link:hover,
+        .control-button:not(:disabled):hover {
+          border-color: var(--border);
+          background: color-mix(in oklch, var(--surface-raised) 82%, transparent);
+        }
+
+        .interactive-surface:hover {
+          transform: translateY(-2px);
+          border-color: color-mix(in oklch, var(--cluos-signal-400) 40%, var(--border));
+        }
+      }
+
+      .nav-links a:active,
+      .nav-links button:not(:disabled):active,
+      .button-link:active,
+      .control-button:not(:disabled):active,
+      .type-mode-button:active {
+        transform: scale(0.985);
+        transition-duration: var(--motion-press);
+      }
+
+      .nav-links a:focus-visible,
+      .nav-links button:focus-visible,
+      .button-link:focus-visible,
+      .control-button:focus-visible,
+      .type-mode-button:focus-visible {
+        transform: none;
+      }
+
+      .primary-action {
+        border-color: transparent;
+        background: var(--cluos-signal-400);
+        color: var(--cluos-primary-950);
+      }
+
+      .secondary-action {
+        border-color: var(--border-strong);
+        background: color-mix(in oklch, var(--surface-raised) 86%, transparent);
+      }
+
+      main {
+        display: grid;
+        gap: clamp(4rem, 8vw, 7rem);
+        padding-block: clamp(2.5rem, 5vw, 4rem) clamp(4rem, 7vw, 6rem);
+      }
+
+      section {
+        scroll-margin-top: 96px;
+      }
+
+      .section-head {
+        display: grid;
+        gap: var(--space-3);
+        max-width: 860px;
+        margin-bottom: var(--space-8);
+      }
+
+      .section-head h2,
+      .hero-title,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      .hero-title,
+      h2,
+      h3 {
+        font-family: var(--font-display);
+        text-wrap: balance;
+      }
+
+      .hero-title {
+        max-width: 900px;
+        font-size: clamp(2.75rem, 7vw, 5.5rem);
+        font-weight: 200;
+        line-height: 1.03;
+        letter-spacing: -0.035em;
+      }
+
+      h2 {
+        font-size: clamp(2rem, 4.5vw, 3.35rem);
+        font-weight: 300;
+        line-height: 1.08;
+        letter-spacing: -0.025em;
+      }
+
+      h3 {
+        font-size: clamp(1.25rem, 2.2vw, 1.7rem);
+        font-weight: 400;
+        line-height: 1.18;
+      }
+
+      p {
+        max-width: 72ch;
+        color: var(--text-muted);
+      }
+
+      .hero {
+        min-height: calc(100dvh - 112px);
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.85fr);
+        align-items: center;
+        gap: clamp(2rem, 6vw, 5rem);
+      }
+
+      .hero-copy {
+        display: grid;
+        gap: var(--space-6);
+      }
+
+      .hero-copy p {
+        font-size: clamp(1.05rem, 2vw, 1.32rem);
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+      }
+
+      .hero-instrument,
+      .panel,
+      .effect-article,
+      .token-card,
+      .type-specimen {
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        background: linear-gradient(180deg, color-mix(in oklch, var(--surface-raised) 94%, white 4%), var(--surface-raised));
+        box-shadow: var(--shadow-raised);
+      }
+
+      .interactive-surface {
+        transition: transform var(--motion-hover) var(--ease-standard), border-color var(--motion-hover) var(--ease-standard);
+      }
+
+      .hero-instrument {
+        position: relative;
+        isolation: isolate;
+        min-height: 430px;
+        overflow: hidden;
+        padding: var(--space-6);
+      }
+
+      .hero-instrument::before,
+      .ambient-field::before {
+        content: "";
+        position: absolute;
+        inset: -20%;
+        z-index: -1;
+        background:
+          radial-gradient(circle at 72% 24%, color-mix(in oklch, var(--cluos-signal-400) 45%, transparent), transparent 12rem),
+          radial-gradient(circle at 30% 74%, color-mix(in oklch, var(--cluos-teal-active) 28%, transparent), transparent 10rem),
+          radial-gradient(circle at 82% 82%, color-mix(in oklch, var(--cluos-info-500) 28%, transparent), transparent 12rem);
+      }
+
+      .instrument-grid {
+        display: grid;
+        height: 100%;
+        min-height: 360px;
+        grid-template-rows: auto 1fr auto;
+        gap: var(--space-5, 1.25rem);
+      }
+
+      .instrument-top,
+      .instrument-bottom {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-3);
+        font-family: var(--font-data);
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+        font-size: 0.78rem;
+        color: var(--text-muted);
+      }
+
+      .trace-orbit {
+        position: relative;
+        display: grid;
+        place-items: center;
+      }
+
+      .trace-orbit svg {
+        width: min(100%, 420px);
+        height: auto;
+      }
+
+      .trace-label {
+        position: absolute;
+        display: grid;
+        place-items: center;
+        width: 42%;
+        aspect-ratio: 1;
+        border: 1px solid color-mix(in oklch, var(--cluos-signal-400) 36%, transparent);
+        border-radius: 50%;
+        background: color-mix(in oklch, var(--cluos-primary-950) 68%, transparent);
+        text-align: center;
+      }
+
+      .trace-label strong {
+        display: block;
+        color: var(--cluos-signal-400);
+        font-size: clamp(2rem, 5vw, 3rem);
+        line-height: 1;
+      }
+
+      [data-appearance="light"] .trace-label,
+      [data-appearance="light"] .field-target {
+        background: var(--cluos-primary-950);
+      }
+
+      [data-appearance="light"] .trace-label .mono {
+        color: var(--cluos-neutral-100);
+      }
+
+      .static-fallback {
+        position: relative;
+      }
+
+      .static-fallback::after {
+        content: "Fallback estático disponível";
+        position: absolute;
+        right: var(--space-3);
+        bottom: var(--space-3);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 4px 8px;
+        background: color-mix(in oklch, var(--surface) 76%, transparent);
+        color: var(--text-muted);
+        font-family: var(--font-data);
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+        font-size: 0.68rem;
+      }
+
+      .token-grid,
+      .effect-grid,
+      .type-grid,
+      .type-lab-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--space-4);
+      }
+
+      .primary-token-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+
+      .semantic-token-strip {
+        display: grid;
+        grid-template-columns: minmax(190px, 0.7fr) repeat(2, minmax(220px, 1fr));
+        gap: var(--space-3);
+        align-items: stretch;
+        margin-top: var(--space-4);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: var(--space-3);
+        background: var(--surface-inset);
+      }
+
+      .semantic-token-intro,
+      .semantic-token {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        min-height: 52px;
+        padding: var(--space-3);
+      }
+
+      .semantic-token-intro {
+        color: var(--text-muted);
+      }
+
+      .semantic-token {
+        border-left: 1px solid var(--border);
+      }
+
+      .semantic-swatch {
+        width: 14px;
+        height: 14px;
+        flex: 0 0 14px;
+        border-radius: 4px;
+        box-shadow: 0 0 0 3px color-mix(in oklch, currentColor 16%, transparent);
+      }
+
+      .semantic-swatch.copper { color: var(--cluos-copper-500); background: currentColor; }
+      .semantic-swatch.oxblood { color: var(--cluos-oxblood-500); background: currentColor; }
+
+      .type-mode-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+        margin-bottom: var(--space-4);
+      }
+
+      .type-mode-button {
+        min-height: 44px;
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-md);
+        padding: 9px 13px;
+        background: var(--surface-raised);
+        color: var(--text);
+        font-family: var(--font-interface);
+        font-weight: 550;
+        transition: transform var(--motion-hover) var(--ease-standard);
+      }
+
+      .type-lab-specimen {
+        display: grid;
+        align-content: start;
+        gap: var(--space-4);
+        min-height: 220px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: var(--space-6);
+        background: linear-gradient(180deg, color-mix(in oklch, var(--surface-raised) 94%, white 4%), var(--surface-raised));
+        box-shadow: var(--shadow-raised);
+      }
+
+      .type-role {
+        color: var(--text-subtle);
+        font-family: var(--font-data);
+        font-size: 0.78rem;
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .type-lab-display {
+        max-width: 12ch;
+        color: var(--text);
+        font-family: var(--font-display);
+        font-size: clamp(2.4rem, 6vw, 4.7rem);
+        font-weight: 200;
+        line-height: 1.02;
+        letter-spacing: -0.035em;
+      }
+
+      .token-card,
+      .type-specimen,
+      .effect-article,
+      .panel {
+        padding: var(--space-6);
+      }
+
+      .token-card {
+        display: grid;
+        min-height: 180px;
+        align-content: space-between;
+        gap: var(--space-6);
+      }
+
+      .swatch {
+        min-height: 82px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+      }
+
+      .swatch.navy {
+        background: #010d28;
+      }
+
+      .swatch.blue {
+        background: #132952;
+      }
+
+      .swatch.lime {
+        background: #c4db7b;
+      }
+
+      .swatch.copper {
+        background: #bd7845;
+      }
+
+      .swatch.oxblood {
+        background: #8a3a3a;
+      }
+
+      .swatch.teal {
+        background: var(--cluos-teal-active);
+      }
+
+      .token-meta,
+      .mono,
+      .metric-row,
+      .thermal-step span {
+        font-family: var(--font-data);
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+        font-size: 0.78rem;
+        color: var(--text-subtle);
+      }
+
+      .token-meta strong {
+        display: block;
+        color: var(--text);
+        font-family: var(--font-interface);
+        font-size: 1rem;
+      }
+
+      .contrast-list {
+        display: grid;
+        gap: var(--space-3);
+        margin: var(--space-6) 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .contrast-list li {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: var(--space-3);
+        border-top: 1px solid var(--border);
+        padding-top: var(--space-3);
+      }
+
+      .display-sample {
+        font-family: var(--font-display);
+        font-weight: 200;
+        max-width: 14ch;
+        font-size: clamp(2.4rem, 6vw, 4.7rem);
+        line-height: 1.02;
+        letter-spacing: -0.035em;
+      }
+
+      .body-sample {
+        font-size: 1.02rem;
+      }
+
+      .telemetry-strip {
+        display: grid;
+        gap: var(--space-2);
+        margin-top: var(--space-4);
+        font-family: var(--font-data);
+        font-size: 0.75rem;
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .metric-row {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--space-3);
+        border-top: 1px solid var(--border);
+        padding-top: var(--space-2);
+      }
+
+      .effect-article {
+        display: grid;
+        gap: var(--space-5, 1.25rem);
+        min-height: 360px;
+      }
+
+      .effect-stage {
+        min-height: 210px;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: var(--surface-inset);
+      }
+
+      .ambient-field {
+        isolation: isolate;
+      }
+
+      .field-target {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        place-items: center;
+        width: min(72%, 260px);
+        aspect-ratio: 1;
+        border: 1px solid color-mix(in oklch, var(--cluos-signal-400) 42%, transparent);
+        border-radius: 50%;
+        background: color-mix(in oklch, var(--cluos-primary-950) 72%, transparent);
+        color: var(--cluos-signal-400);
+        font-family: var(--font-data);
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .thermal-track {
+        width: min(92%, 520px);
+        display: grid;
+        gap: var(--space-4);
+      }
+
+      .thermal-bar {
+        display: grid;
+        grid-template-columns: 52% 28% 20%;
+        min-height: 22px;
+        overflow: hidden;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+      }
+
+      .thermal-bar span:nth-child(1) {
+        background: var(--cluos-signal-400);
+      }
+
+      .thermal-bar span:nth-child(2) {
+        background: var(--cluos-teal-active);
+      }
+
+      .thermal-bar span:nth-child(3) {
+        background: var(--cluos-info-500);
+      }
+
+      .thermal-steps {
+        display: grid;
+        gap: var(--space-3);
+      }
+
+      .thermal-step {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: var(--space-3);
+      }
+
+      .flow-svg,
+      .mesh-svg {
+        width: min(100%, 560px);
+        height: auto;
+      }
+
+      .flow-node,
+      .mesh-node {
+        fill: var(--surface-raised);
+        stroke: var(--cluos-signal-400);
+        stroke-width: 2;
+      }
+
+      .flow-path {
+        fill: none;
+        stroke: var(--cluos-signal-400);
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-dasharray: 7 10;
+      }
+
+      .flow-path.chart-trace,
+      .mesh-line.chart-trace {
+        stroke-dasharray: 1;
+      }
+
+      .flow-label,
+      .mesh-label {
+        fill: var(--text);
+        font-family: var(--font-data);
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+        font-size: 12px;
+      }
+
+      .motion-demo-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-6);
+      }
+
+      .motion-demo {
+        display: grid;
+        align-content: start;
+        gap: var(--space-4);
+        min-width: 0;
+        padding: var(--space-6);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        background: linear-gradient(180deg, color-mix(in oklch, var(--surface-raised) 94%, white 4%), var(--surface-raised));
+        box-shadow: var(--shadow-raised);
+      }
+
+      .motion-demo h3 { margin: 0; }
+
+      .motion-meta {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-2);
+        margin: 0;
+        font-family: var(--font-data);
+        font-size: 0.78rem;
+      }
+
+      .motion-meta div { min-width: 0; }
+      .motion-meta dt { color: var(--text-subtle); }
+      .motion-meta dd { margin: 0; color: var(--text); font-weight: 600; }
+
+      .rise-chart {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        align-items: end;
+        min-height: 176px;
+        gap: var(--space-3);
+        padding: var(--space-4);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: var(--surface-inset);
+      }
+
+      .rise-column { display: grid; align-items: end; gap: var(--space-2); height: 100%; text-align: center; }
+      .rise-column span { font-family: var(--font-data); font-variant-numeric: tabular-nums; color: var(--text-muted); }
+      .rise-column .chart-bar-vertical { display: block; height: var(--bar-height); border-radius: 6px 6px 2px 2px; background: var(--cluos-signal-400); }
+      .rise-column:nth-child(even) .chart-bar-vertical { background: var(--cluos-teal-active); }
+
+      .value-list,
+      .relationship-list {
+        display: grid;
+        gap: var(--space-2);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-family: var(--font-data);
+        font-size: 0.84rem;
+        color: var(--text-muted);
+      }
+
+      .progress-rows { display: grid; gap: var(--space-3); }
+      .progress-row { display: grid; grid-template-columns: minmax(100px, 1fr) auto; gap: var(--space-2) var(--space-4); align-items: center; font-family: var(--font-data); }
+      .progress-row .chart-progress-fill { grid-column: 1 / -1; display: block; height: 12px; width: var(--progress); border-radius: 999px; background: var(--cluos-signal-400); }
+      .run-progress .chart-progress-fill { display: block; height: 100%; width: var(--progress); background: var(--cluos-signal-400); }
+      .progress-row:nth-child(2) .chart-progress-fill { background: var(--cluos-teal-active); }
+      .progress-row:nth-child(3) .chart-progress-fill { background: var(--cluos-info-500); }
+
+      .demo-controls { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+      .demo-controls button[disabled] { cursor: not-allowed; opacity: 0.55; }
+      .demo-state-note { min-height: 1.62em; color: var(--text-muted); }
+
+      .surface-preview { display: grid; gap: var(--space-3); padding: var(--space-4); border-radius: var(--radius-md); background: var(--surface-inset); }
+      .surface-preview p { color: var(--text-muted); }
+
+      .resolve-item { display: grid; gap: var(--space-3); padding: var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-inset); transition: opacity 280ms var(--ease-standard), background-color 280ms var(--ease-standard), transform 280ms var(--ease-standard); }
+      .resolve-item.is-resolving { opacity: 0.7; transform: scale(0.985); background: color-mix(in oklch, var(--cluos-copper-500) 22%, var(--surface-inset)); }
+      .resolve-item.is-resolved { background: color-mix(in oklch, var(--cluos-signal-400) 24%, var(--surface-inset)); }
+
+      .veil-demo details { border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-inset); }
+      .veil-demo summary { min-height: 44px; display: flex; align-items: center; padding: var(--space-3) var(--space-4); cursor: pointer; font-weight: 600; }
+      .veil-content { padding: 0 var(--space-4) var(--space-4); opacity: 0; transform: translateY(-6px); transition: opacity var(--motion-enter) var(--ease-spring), transform var(--motion-enter) var(--ease-spring); }
+      .veil-demo details[open] .veil-content { opacity: 1; transform: translateY(0); }
+
+      .flow-draw-svg,
+      .agent-pulse-svg { width: 100%; height: auto; padding: var(--space-2); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-inset); }
+      .flow-draw-svg .chart-trace { fill: none; stroke: var(--cluos-signal-400); stroke-width: 3; stroke-linecap: round; }
+      .flow-draw-svg text { fill: var(--text); font-family: var(--font-data); font-size: 12px; }
+      .flow-draw-svg .chart-trace:nth-of-type(2) { stroke: var(--cluos-teal-active); transition-delay: var(--motion-stagger); }
+      .flow-draw-svg .chart-trace:nth-of-type(3) { stroke: var(--cluos-info-500); transition-delay: calc(var(--motion-stagger) * 2); }
+      .agent-pulse-svg .agent-link { stroke: var(--border-strong); stroke-width: 2; }
+      .agent-pulse-svg .agent-node { fill: var(--surface-raised); stroke: var(--cluos-signal-400); stroke-width: 2; }
+      .agent-pulse-svg text { fill: var(--text); font-family: var(--font-data); font-size: 12px; }
+      .active-agent-node { transform-box: fill-box; transform-origin: center; }
+      .motion-ready[data-motion="full"] [data-chart].is-visible .active-agent-node { animation: agent-pulse 820ms var(--ease-spring) infinite; }
+
+      @keyframes agent-pulse {
+        50% { opacity: 0.7; transform: scale(1.12); }
+      }
+
+      .spectral-card {
+        position: relative;
+        isolation: isolate;
+        width: min(88%, 420px);
+        padding: var(--space-6);
+        border-radius: var(--radius-lg);
+        background: var(--surface-raised);
+      }
+
+      .spectral-card::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        z-index: -1;
+        border-radius: calc(var(--radius-lg) + 2px);
+        background: linear-gradient(135deg, var(--cluos-signal-400), var(--cluos-teal-active), var(--cluos-info-500));
+      }
+
+      .veil-preview {
+        display: grid;
+        width: min(90%, 460px);
+        gap: var(--space-3);
+      }
+
+      .veil-row {
+        min-height: 44px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: color-mix(in oklch, var(--surface-raised) 78%, transparent);
+      }
+
+      .mesh-wrap {
+        width: 100%;
+        display: grid;
+        gap: var(--space-4);
+      }
+
+      .mesh-line {
+        stroke: color-mix(in oklch, var(--cluos-signal-400) 64%, var(--cluos-teal-active));
+        stroke-width: 2;
+        stroke-dasharray: 5 7;
+      }
+
+      [data-chart] [data-mesh-edge] {
+        transition-delay: calc(var(--motion-index, 0) * var(--motion-stagger));
+      }
+
+      [data-mesh-node] {
+        transform-box: fill-box;
+        transform-origin: center;
+        transition: opacity var(--motion-enter) var(--ease-spring), transform var(--motion-enter) var(--ease-spring);
+        transition-delay: calc(var(--motion-index, 0) * var(--motion-stagger));
+      }
+
+      .motion-ready[data-motion="full"] [data-chart]:not(.is-visible) [data-mesh-node] {
+        opacity: 0;
+        transform: scale(0.84);
+      }
+
+      .motion-ready[data-motion="full"] [data-chart].is-visible [data-mesh-node].is-active {
+        animation: agent-pulse 1400ms var(--ease-spring) calc((var(--motion-index, 0) + 1) * var(--motion-stagger)) infinite;
+      }
+
+      @keyframes trace-flow {
+        to {
+          stroke-dashoffset: -68;
+        }
+      }
+
+      @keyframes signal-pulse {
+        50% {
+          transform: scale(1.035);
+          opacity: 0.78;
+        }
+      }
+
+      .field-target {
+        animation: signal-pulse 5.8s var(--ease-out) infinite;
+      }
+
+      .table-wrap {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 560px;
+      }
+
+      th,
+      td {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      td {
+        color: var(--text-muted);
+      }
+
+      .component-stack,
+      .product-grid,
+      .state-grid,
+      .technology-grid {
+        display: grid;
+        gap: var(--space-4);
+      }
+
+      .component-stack {
+        grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      }
+
+      .component-column {
+        display: grid;
+        align-content: start;
+        gap: var(--space-4);
+      }
+
+      .component-row,
+      .chip-row,
+      .status-row,
+      .queue-actions,
+      .panel-toolbar,
+      .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--space-3);
+      }
+
+      .panel-head,
+      .queue-item,
+      .run-row,
+      .technology-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: var(--space-4);
+      }
+
+      .panel-head {
+        margin-bottom: var(--space-6);
+      }
+
+      .panel-kicker,
+      .status-label,
+      .queue-meta,
+      .run-meta,
+      .technology-label {
+        color: var(--text-subtle);
+        font-family: var(--font-data);
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+        font-size: 0.72rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .button-link.primary-action:hover,
+      .primary-action:hover {
+        border-color: color-mix(in oklch, var(--cluos-signal-400) 72%, white);
+        background: color-mix(in oklch, var(--cluos-signal-400) 88%, white);
+      }
+
+      .danger-action {
+        border-color: color-mix(in oklch, var(--cluos-oxblood-500) 72%, white);
+        background: color-mix(in oklch, var(--cluos-oxblood-500) 74%, var(--surface));
+        color: var(--cluos-white);
+      }
+
+      .icon-button {
+        width: 44px;
+        min-width: 44px;
+        padding: 0;
+      }
+
+      .icon-button svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .chip,
+      .status-badge,
+      .shortcut {
+        display: inline-flex;
+        min-height: 30px;
+        align-items: center;
+        gap: 7px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 4px 10px;
+        background: color-mix(in oklch, var(--surface-inset) 86%, transparent);
+        color: var(--text-muted);
+        font-size: 0.78rem;
+        font-weight: 650;
+      }
+
+      .status-badge::before,
+      .status-dot {
+        content: "";
+        width: 8px;
+        height: 8px;
+        flex: 0 0 auto;
+        border-radius: 50%;
+        background: currentColor;
+      }
+
+      .status-success {
+        color: color-mix(in oklch, var(--cluos-signal-400) 78%, white);
+      }
+
+      [data-appearance="light"] .status-success {
+        color: color-mix(in oklch, var(--cluos-signal-400) 62%, black);
+      }
+
+      .status-info {
+        color: color-mix(in oklch, var(--cluos-info-500) 52%, white);
+      }
+
+      [data-appearance="light"] .status-info {
+        color: color-mix(in oklch, var(--cluos-info-500) 88%, black);
+      }
+
+      .status-warning {
+        color: color-mix(in oklch, var(--cluos-copper-500) 62%, white);
+      }
+
+      [data-appearance="light"] .status-warning {
+        color: var(--cluos-copper-700);
+      }
+
+      .status-error {
+        color: color-mix(in oklch, var(--cluos-oxblood-500) 58%, white);
+      }
+
+      [data-appearance="light"] .status-error {
+        color: var(--cluos-oxblood-700);
+      }
+
+      .field-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-4);
+      }
+
+      .field {
+        display: grid;
+        gap: var(--space-2);
+      }
+
+      .field-wide {
+        grid-column: 1 / -1;
+      }
+
+      .field label,
+      .field-label {
+        color: var(--text);
+        font-weight: 650;
+      }
+
+      .field input,
+      .field select,
+      .field textarea,
+      .command-input {
+        width: 100%;
+        min-height: 44px;
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-md);
+        padding: 10px 12px;
+        background: var(--surface-inset);
+        color: var(--text);
+      }
+
+      .field textarea {
+        min-height: 104px;
+        resize: vertical;
+      }
+
+      .field input::placeholder,
+      .field textarea::placeholder,
+      .command-input::placeholder {
+        color: var(--text-subtle);
+      }
+
+      .helper-text {
+        color: var(--text-subtle);
+        font-size: 0.78rem;
+      }
+
+      .error-text {
+        color: color-mix(in oklch, var(--cluos-oxblood-500) 56%, white);
+      }
+
+      [data-appearance="light"] .error-text {
+        color: var(--cluos-oxblood-700);
+      }
+
+      .state-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .state-card {
+        min-height: 150px;
+        display: grid;
+        align-content: center;
+        gap: var(--space-3);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: var(--space-4);
+        background: var(--surface-inset);
+      }
+
+      .skeleton {
+        display: grid;
+        gap: var(--space-2);
+      }
+
+      .skeleton span {
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--surface-muted), var(--border-strong), var(--surface-muted));
+        background-size: 240% 100%;
+        animation: skeleton-shift 2s linear infinite;
+      }
+
+      .skeleton span:last-child {
+        width: 62%;
+      }
+
+      @keyframes skeleton-shift {
+        to {
+          background-position: -240% 0;
+        }
+      }
+
+      .empty-state,
+      .error-state {
+        text-align: left;
+      }
+
+      .state-icon {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        color: var(--cluos-signal-400);
+        font-family: var(--font-data);
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .product-grid {
+        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      }
+
+      .queue-list,
+      .run-list,
+      .command-list {
+        display: grid;
+        gap: var(--space-2);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .queue-item,
+      .run-row {
+        border-top: 1px solid var(--border);
+        padding-block: var(--space-4);
+      }
+
+      .queue-item:first-child,
+      .run-row:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .queue-title,
+      .run-title {
+        display: grid;
+        gap: var(--space-1);
+      }
+
+      .queue-title strong,
+      .run-title strong {
+        color: var(--text);
+      }
+
+      .queue-actions button {
+        min-height: 44px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 6px 10px;
+        background: transparent;
+        color: var(--text);
+        font-size: 0.78rem;
+        font-weight: 550;
+      }
+
+      button[aria-pressed="true"] {
+        border-color: color-mix(in oklch, var(--cluos-signal-400) 58%, var(--border));
+        background: color-mix(in oklch, var(--cluos-signal-400) 14%, var(--surface-raised));
+      }
+
+      .queue-item[data-resolved="true"] {
+        opacity: 0.54;
+      }
+
+      .queue-item[data-resolved="true"] strong {
+        text-decoration: line-through;
+      }
+
+      .queue-item[data-inspected="true"] {
+        border-radius: var(--radius-md);
+        background: color-mix(in oklch, var(--cluos-signal-400) 7%, transparent);
+        box-shadow: inset 2px 0 var(--cluos-signal-400);
+        padding-inline: var(--space-3);
+      }
+
+      .inspection-note {
+        margin-top: var(--space-2);
+        color: var(--text-muted);
+      }
+
+      .console {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .console::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 2px;
+        background: linear-gradient(var(--cluos-signal-400), var(--cluos-teal-active), var(--cluos-info-500));
+      }
+
+      .run-progress {
+        width: 112px;
+        height: 7px;
+        overflow: hidden;
+        border-radius: 99px;
+        background: var(--border);
+      }
+
+      .run-progress span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: var(--cluos-signal-400);
+      }
+
+      .evidence-panel {
+        display: grid;
+        gap: var(--space-2);
+        border-top: 1px solid var(--border);
+        padding-top: var(--space-4);
+      }
+
+      .technology-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .technology-card {
+        display: grid;
+        align-content: start;
+        gap: var(--space-4);
+        min-height: 250px;
+        border-top: 2px solid var(--border-strong);
+        padding-top: var(--space-4);
+      }
+
+      .technology-card[data-tier="core"] {
+        border-color: var(--cluos-signal-400);
+      }
+
+      .technology-card[data-tier="specialist"] {
+        border-color: var(--cluos-teal-active);
+      }
+
+      .technology-card[data-tier="conditional"] {
+        border-color: var(--cluos-copper-500);
+      }
+
+      .technology-card ul,
+      .accessibility-list {
+        display: grid;
+        gap: var(--space-2);
+        margin: 0;
+        padding-left: 1.2rem;
+        color: var(--text-muted);
+      }
+
+      .decision-table th:first-child {
+        width: 22%;
+      }
+
+      .accessibility-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+        gap: var(--space-4);
+      }
+
+      .contrast-preview {
+        display: grid;
+        min-height: 260px;
+        place-items: center;
+        border-radius: var(--radius-md);
+        padding: var(--space-6);
+        background: var(--cluos-signal-400);
+        color: var(--cluos-primary-950);
+        text-align: center;
+      }
+
+      .contrast-preview strong {
+        display: block;
+        font-size: clamp(2.6rem, 7vw, 5rem);
+        line-height: 1;
+      }
+
+      .command-search {
+        position: relative;
+      }
+
+      .command-input {
+        padding-right: 72px;
+        font-size: 1.04rem;
+      }
+
+      .shortcut {
+        position: absolute;
+        top: 7px;
+        right: 8px;
+        min-height: 30px;
+        border-radius: var(--radius-sm);
+        font-family: var(--font-data);
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .command-list button {
+        width: 100%;
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-4);
+        border: 1px solid transparent;
+        border-radius: var(--radius-md);
+        padding: 10px 12px;
+        background: transparent;
+        color: var(--text);
+        text-align: left;
+      }
+
+      .command-list button:hover,
+      .command-list button:focus-visible {
+        border-color: var(--border);
+        background: var(--surface-inset);
+      }
+
+      .command-list span:last-child {
+        color: var(--text-subtle);
+        font-family: var(--font-data);
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+        font-size: 0.72rem;
+      }
+
+      dialog {
+        width: min(720px, calc(100% - 32px));
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-xl);
+        padding: 0;
+        background: var(--surface-raised);
+        color: var(--text);
+        box-shadow: var(--shadow-raised);
+        opacity: 0;
+        transform: translateY(8px) scale(0.985);
+        transition: opacity 360ms var(--ease-spring), transform 360ms var(--ease-spring);
+      }
+
+      dialog::backdrop {
+        background: color-mix(in oklch, var(--cluos-primary-950) 58%, transparent);
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        transition: opacity 300ms var(--ease-standard);
+      }
+
+      dialog.is-visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      dialog[open].is-visible::backdrop {
+        opacity: 1;
+      }
+
+      dialog.is-closing {
+        opacity: 0;
+        transform: translateY(5px) scale(0.99);
+        transition-duration: 220ms;
+      }
+
+      dialog.is-closing::backdrop {
+        opacity: 0;
+        transition-duration: 180ms;
+      }
+
+      .dialog-body {
+        display: grid;
+        gap: var(--space-4);
+        padding: var(--space-6);
+      }
+
+      .dialog-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--border);
+        padding-block: var(--space-8) var(--space-12);
+        color: var(--text-muted);
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+      }
+
+      @media (max-width: 920px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-instrument {
+          min-height: 360px;
+        }
+
+        .component-stack,
+        .product-grid,
+        .accessibility-layout,
+        .motion-demo-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .technology-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 760px) {
+        body {
+          background:
+            radial-gradient(circle at 50% 0%, color-mix(in oklch, var(--cluos-signal-400) 14%, transparent), transparent 18rem),
+            var(--surface);
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+          padding-block: var(--space-3);
+        }
+
+        .nav-links {
+          width: 100%;
+          flex-wrap: nowrap;
+          justify-content: flex-start;
+          overflow-x: auto;
+          padding-bottom: var(--space-1);
+          scrollbar-width: thin;
+        }
+
+        .nav-links > * {
+          flex: 0 0 auto;
+        }
+
+        .brand img {
+          width: 98px;
+        }
+
+        section {
+          scroll-margin-top: 150px;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: var(--space-4);
+        }
+
+        .hero-title {
+          font-size: clamp(2.55rem, 14vw, 4.2rem);
+        }
+
+        .hero-instrument {
+          min-height: 310px;
+          padding: var(--space-4);
+        }
+
+        .instrument-grid {
+          min-height: 270px;
+        }
+
+        .static-fallback::after {
+          position: static;
+          justify-self: start;
+          margin-top: var(--space-3);
+        }
+
+        table {
+          min-width: 520px;
+        }
+
+        .field-grid,
+        .state-grid,
+        .technology-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .semantic-token-strip {
+          grid-template-columns: 1fr;
+        }
+
+        .semantic-token {
+          border-top: 1px solid var(--border);
+          border-left: 0;
+        }
+
+        .panel-head,
+        .queue-item,
+        .run-row,
+        .technology-head {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .queue-actions {
+          width: 100%;
+        }
+
+        .queue-actions button {
+          flex: 1 1 auto;
+          min-height: 44px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+    <header class="site-header">
+      <nav class="shell nav" aria-label="Navegação principal">
+        <a class="brand" href="#main" aria-label="CluOS Thermal Nocturne">
+          <img class="logo-white" src="assets/cluos-logo-white.svg" alt="CluOS">
+          <img class="logo-navy" src="assets/cluos-logo-navy.svg" alt="CluOS">
+        </a>
+        <div class="nav-links">
+          <a href="#foundations">Fundação</a>
+          <a href="#typography-lab">Tipografia</a>
+          <a href="#effects">Efeitos</a>
+          <a href="#motion-library">Movimento</a>
+          <a href="#components">Componentes</a>
+          <a href="#products">Operação</a>
+          <button id="theme-toggle" type="button" aria-pressed="false">Tema claro</button>
+          <button id="motion-toggle" type="button" aria-pressed="false">Reduzir movimento</button>
+          <button id="open-command" type="button">Comando</button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" class="shell">
+      <section class="hero" aria-labelledby="hero-title" data-reveal>
+        <div class="hero-copy">
+          <h1 class="hero-title" id="hero-title">CluOS Thermal Nocturne</h1>
+          <p>
+            Um sistema visual experimental para interfaces agentivas: campos noturnos,
+            sinal lime e transições térmicas que explicam estado, foco e risco.
+          </p>
+          <div class="button-row">
+            <a class="button-link primary-action" href="#effects">Ver efeitos</a>
+            <button class="control-button secondary-action" type="button" id="hero-command">Abrir comandos</button>
+          </div>
+        </div>
+
+        <div class="hero-instrument static-fallback" data-chart role="img" aria-label="Painel de sinal Thermal Nocturne: estabilidade de handoff em 86 por cento.">
+          <div class="instrument-grid">
+            <div class="instrument-top">
+              <span>ORCH-QUEUE 07</span>
+              <span>RUNBOOK NOMINAL</span>
+            </div>
+            <div class="trace-orbit">
+              <svg viewBox="0 0 420 420" aria-hidden="true">
+                <circle cx="210" cy="210" r="162" fill="none" stroke="rgba(196, 219, 123, 0.22)" stroke-width="1"></circle>
+                <circle cx="210" cy="210" r="112" fill="none" stroke="rgba(22, 163, 154, 0.22)" stroke-width="1"></circle>
+                <path class="chart-trace" pathLength="1" d="M70 215 C 124 72, 300 70, 350 214" fill="none" stroke="#C4DB7B" stroke-width="8" stroke-linecap="round"></path>
+                <path class="chart-trace" pathLength="1" d="M350 214 C 346 290, 288 352, 210 360" fill="none" stroke="#16A39A" stroke-width="8" stroke-linecap="round"></path>
+                <path class="chart-trace" pathLength="1" d="M210 360 C 146 348, 86 300, 70 215" fill="none" stroke="#3E6E82" stroke-width="8" stroke-linecap="round"></path>
+              </svg>
+              <div class="trace-label">
+                <span>
+                  <strong>86%</strong>
+                  <span class="mono">stable handoff</span>
+                </span>
+              </div>
+            </div>
+            <div class="instrument-bottom">
+              <span>memory -> agents -> decision</span>
+              <span>native svg/css</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="foundations" aria-labelledby="foundations-title" data-reveal>
+        <div class="section-head">
+          <h2 id="foundations-title">Fundação Visual</h2>
+          <p>
+            Azigos fornece o campo primário. Verde Tech e Teal Operacional formam
+            o sinal CluOS; copper e oxblood ficam restritos a estados semânticos.
+          </p>
+        </div>
+        <div class="token-grid primary-token-grid">
+          <article class="token-card" data-palette-role="primary">
+            <div class="swatch navy" aria-hidden="true"></div>
+            <div class="token-meta"><strong>Deep Navy</strong>#010D28 · campo e texto primário</div>
+          </article>
+          <article class="token-card" data-palette-role="primary">
+            <div class="swatch blue" aria-hidden="true"></div>
+            <div class="token-meta"><strong>Medium Blue</strong>#132952 · superfície elevada</div>
+          </article>
+          <article class="token-card" data-palette-role="primary">
+            <div class="swatch lime" aria-hidden="true"></div>
+            <div class="token-meta"><strong>Tech Lime</strong>#C4DB7B · sinal e ação primária</div>
+          </article>
+          <article class="token-card" data-palette-role="primary">
+            <div class="swatch teal" aria-hidden="true"></div>
+            <div class="token-meta"><strong>Operational Teal</strong>#16A39A · dados, fluxo e execução</div>
+          </article>
+        </div>
+        <div class="semantic-token-strip" aria-label="Acentos semânticos secundários">
+          <div class="semantic-token-intro">
+            <div class="token-meta"><strong>Acentos secundários</strong>Aplicação restrita por estado</div>
+          </div>
+          <article class="semantic-token" data-palette-role="semantic-secondary">
+            <span class="semantic-swatch copper" aria-hidden="true"></span>
+            <div class="token-meta"><strong>Blood Copper</strong>#BD7845 · warning e revisão humana</div>
+          </article>
+          <article class="semantic-token" data-palette-role="semantic-secondary">
+            <span class="semantic-swatch oxblood" aria-hidden="true"></span>
+            <div class="token-meta"><strong>Oxblood</strong>#8A3A3A · erro, bloqueio e destruição</div>
+          </article>
+        </div>
+        <ul class="contrast-list" aria-label="Pares de contraste aprovados">
+          <li><span>#010D28 sobre #C4DB7B</span><strong>12.63:1 · AAA</strong></li>
+          <li><span>#FFFFFF sobre #132952</span><strong>14.32:1 · AAA</strong></li>
+          <li><span>#010D28 sobre #BD7845</span><strong>5.45:1 · AA</strong></li>
+          <li><span>#16A39A sobre #010D28</span><strong>6.19:1 · AA</strong></li>
+          <li><span>#08736E sobre #FFFFFF</span><strong>5.69:1 · AA</strong></li>
+        </ul>
+      </section>
+
+      <section id="type" aria-labelledby="type-title" data-reveal>
+        <div class="section-head">
+          <h2 id="type-title">Tipografia</h2>
+          <p>
+            Manrope sustenta a voz expressiva; Instrument Sans organiza a interface,
+            dados e telemetria com leitura consistente.
+          </p>
+        </div>
+        <div class="type-grid">
+          <article class="type-specimen">
+            <h3 class="display-sample">Nocturnal, orchestral, precise.</h3>
+          </article>
+          <article class="type-specimen">
+            <h3>Leitura operacional</h3>
+            <p class="body-sample">
+              Interfaces CluOS precisam revelar estado, dono e próxima ação sem
+              transformar a tela em espetáculo técnico.
+            </p>
+          </article>
+          <article class="type-specimen">
+            <h3>Telemetria</h3>
+            <div class="telemetry-strip" aria-label="Exemplo de telemetria">
+              <div class="metric-row"><span>AGENT</span><strong>mesh-router</strong></div>
+              <div class="metric-row"><span>TRACE</span><strong>handoff-28f</strong></div>
+              <div class="metric-row"><span>STATE</span><strong>attention</strong></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="typography-lab" aria-labelledby="typography-lab-title" data-reveal>
+        <div class="section-head">
+          <h2 id="typography-lab-title">Typography Lab</h2>
+          <p>Compare as duas hierarquias aplicadas à interface inteira.</p>
+        </div>
+        <div class="type-mode-controls" role="group" aria-label="Liderança tipográfica">
+          <button type="button" class="type-mode-button" data-font-mode="manrope-lead" aria-pressed="true">Manrope Lead</button>
+          <button type="button" class="type-mode-button" data-font-mode="instrument-lead" aria-pressed="false">Instrument Lead</button>
+        </div>
+        <div class="type-lab-grid">
+          <article class="type-lab-specimen">
+            <span class="type-role" id="type-role-display">Display · Manrope 200</span>
+            <p class="type-lab-display">Intelligence in motion.</p>
+          </article>
+          <article class="type-lab-specimen">
+            <span class="type-role" id="type-role-interface">Interface · Instrument Sans 400–600</span>
+            <h3>Operação clara, resposta imediata</h3>
+            <p>Estado, owner e próxima ação permanecem legíveis em qualquer densidade.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="effects" aria-labelledby="effects-title" data-reveal>
+        <div class="section-head">
+          <h2 id="effects-title">Efeitos aprovados</h2>
+          <p>
+            Todos usam a camada nativa mais simples. Nenhum efeito oculta conteúdo,
+            depende apenas de cor ou exige GPU para comunicar o estado.
+          </p>
+        </div>
+        <div class="effect-grid">
+          <article class="effect-article" id="effect-1" aria-labelledby="effect-1-title">
+            <h3 id="effect-1-title">1. Campo Ambiente · Ambient Field</h3>
+            <p>Um campo radial localizado marca a região ativa do sistema.</p>
+            <div class="effect-stage ambient-field static-fallback">
+              <div class="field-target">active region</div>
+            </div>
+          </article>
+
+          <article class="effect-article" id="effect-2" aria-labelledby="effect-2-title" data-reveal>
+            <h3 id="effect-2-title">2. Traço Térmico · Thermal Trace</h3>
+            <p>Lime, cobre e oxblood comunicam progresso, atenção e bloqueio com valores.</p>
+            <div class="effect-stage">
+              <div class="thermal-track" data-chart role="img" aria-label="Traço térmico: 52 por cento nominal, 28 por cento atenção e 20 por cento risco.">
+                <div class="thermal-bar" aria-hidden="true"><span class="chart-bar-horizontal" style="--motion-index: 0"></span><span class="chart-bar-horizontal" style="--motion-index: 1"></span><span class="chart-bar-horizontal" style="--motion-index: 2"></span></div>
+                <div class="thermal-steps" aria-label="Traço térmico com rótulos">
+                  <div class="thermal-step"><strong>Nominal</strong><span>52%</span></div>
+                  <div class="thermal-step"><strong>Atenção</strong><span>28%</span></div>
+                  <div class="thermal-step"><strong>Risco</strong><span>20%</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="effect-article" id="effect-3" aria-labelledby="effect-3-title" data-reveal>
+            <h3 id="effect-3-title">3. Contorno de Fluxo · Flow Contour</h3>
+            <p>Caminhos laminares mostram uma relação real entre memória, agentes e decisão.</p>
+            <div class="effect-stage">
+              <svg class="flow-svg" data-chart viewBox="0 0 560 240" role="img" aria-labelledby="flow-title flow-desc">
+                <title id="flow-title">Fluxo entre memória, agentes, decisão e resultado</title>
+                <desc id="flow-desc">Três curvas conectam memória ao roteador, roteador à decisão e decisão ao resultado.</desc>
+                <path class="flow-path chart-trace" pathLength="1" d="M92 124 C 168 34, 244 34, 280 120"></path>
+                <path class="flow-path chart-trace" pathLength="1" d="M280 120 C 336 200, 410 202, 470 124"></path>
+                <path class="flow-path chart-trace" pathLength="1" d="M92 124 C 174 196, 354 196, 470 124"></path>
+                <circle class="flow-node" cx="92" cy="124" r="34"></circle>
+                <circle class="flow-node" cx="280" cy="120" r="38"></circle>
+                <circle class="flow-node" cx="470" cy="124" r="34"></circle>
+                <text class="flow-label" x="58" y="129">memory</text>
+                <text class="flow-label" x="249" y="125">agents</text>
+                <text class="flow-label" x="440" y="129">outcome</text>
+              </svg>
+            </div>
+          </article>
+
+          <article class="effect-article" id="effect-4" aria-labelledby="effect-4-title">
+            <h3 id="effect-4-title">4. Borda Espectral · Spectral Edge</h3>
+            <p>Uma única borda expressiva destaca processamento excepcional.</p>
+            <div class="effect-stage">
+              <div class="spectral-card">
+                <h3>Advanced reasoning lane</h3>
+                <p>Uso restrito a uma superfície de foco; foco acessível continua separado.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="effect-article" id="effect-6" aria-labelledby="effect-6-title">
+            <h3 id="effect-6-title">6. Véu de Profundidade · Depth Veil</h3>
+            <p>Scrim e blur isolam uma decisão modal sem virar vidro decorativo.</p>
+            <div class="effect-stage">
+              <div class="veil-preview" aria-hidden="true">
+                <div class="veil-row"></div>
+                <div class="veil-row"></div>
+                <div class="veil-row"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="effect-article" id="effect-8" aria-labelledby="effect-8-title" data-reveal>
+            <h3 id="effect-8-title">8. Malha de Agentes · Agent Mesh</h3>
+            <p>Nós e arestas explicam agentes, dependências, ownership e handoffs.</p>
+            <div class="mesh-wrap">
+              <div class="effect-stage">
+                <svg class="mesh-svg" data-chart viewBox="0 0 620 260" role="img" aria-labelledby="mesh-title mesh-desc">
+                  <title id="mesh-title">Malha de agentes CluOS</title>
+                  <desc id="mesh-desc">O planner coordena executor, auditor e operador, com handoff final para validação.</desc>
+                  <line class="mesh-line chart-trace" data-mesh-edge pathLength="1" style="--motion-index: 0" x1="310" y1="56" x2="148" y2="142"></line>
+                  <line class="mesh-line chart-trace" data-mesh-edge pathLength="1" style="--motion-index: 1" x1="310" y1="56" x2="310" y2="154"></line>
+                  <line class="mesh-line chart-trace" data-mesh-edge pathLength="1" style="--motion-index: 2" x1="310" y1="56" x2="472" y2="142"></line>
+                  <line class="mesh-line chart-trace" data-mesh-edge pathLength="1" style="--motion-index: 3" x1="310" y1="154" x2="472" y2="214"></line>
+                  <circle class="mesh-node is-active" data-mesh-node style="--motion-index: 1" cx="310" cy="56" r="34"></circle>
+                  <circle class="mesh-node" data-mesh-node style="--motion-index: 3" cx="148" cy="142" r="34"></circle>
+                  <circle class="mesh-node" data-mesh-node style="--motion-index: 3" cx="310" cy="154" r="34"></circle>
+                  <circle class="mesh-node" data-mesh-node style="--motion-index: 4" cx="472" cy="142" r="34"></circle>
+                  <circle class="mesh-node" data-mesh-node style="--motion-index: 5" cx="472" cy="214" r="28"></circle>
+                  <text class="mesh-label" x="286" y="61">planner</text>
+                  <text class="mesh-label" x="126" y="147">exec</text>
+                  <text class="mesh-label" x="286" y="159">audit</text>
+                  <text class="mesh-label" x="448" y="147">ops</text>
+                  <text class="mesh-label" x="446" y="219">gate</text>
+                </svg>
+              </div>
+              <div class="table-wrap">
+                <table id="agent-mesh-table">
+                  <caption class="sr-only">Alternativa tabular da malha de agentes</caption>
+                  <thead>
+                    <tr>
+                      <th>Origem</th>
+                      <th>Destino</th>
+                      <th>Tipo</th>
+                      <th>Responsabilidade</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Planner</td>
+                      <td>Executor</td>
+                      <td>handoff</td>
+                      <td>Transformar plano aprovado em artefato.</td>
+                    </tr>
+                    <tr>
+                      <td>Planner</td>
+                      <td>Auditor</td>
+                      <td>verificação</td>
+                      <td>Checar contrato, acessibilidade e regressões.</td>
+                    </tr>
+                    <tr>
+                      <td>Operador</td>
+                      <td>Gate</td>
+                      <td>aprovação</td>
+                      <td>Confirmar prontidão antes de produção.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="motion-library" aria-labelledby="motion-library-title" data-reveal>
+        <div class="section-head">
+          <h2 id="motion-library-title">Motion Library</h2>
+          <p>Oito movimentos canônicos para dados, controles, superfícies e agentes.</p>
+        </div>
+        <div class="motion-demo-grid">
+          <article class="motion-demo" data-motion-demo="data-rise" aria-labelledby="data-rise-title">
+            <h3 id="data-rise-title">Data rise</h3>
+            <div class="rise-chart" data-chart role="img" aria-label="Cinco barras verticais: 38, 62, 84, 56 e 92 por cento.">
+              <div class="rise-column"><span class="chart-bar-vertical" style="--bar-height: 38%; --motion-index: 0"></span><span>38%</span></div>
+              <div class="rise-column"><span class="chart-bar-vertical" style="--bar-height: 62%; --motion-index: 1"></span><span>62%</span></div>
+              <div class="rise-column"><span class="chart-bar-vertical" style="--bar-height: 84%; --motion-index: 2"></span><span>84%</span></div>
+              <div class="rise-column"><span class="chart-bar-vertical" style="--bar-height: 56%; --motion-index: 3"></span><span>56%</span></div>
+              <div class="rise-column"><span class="chart-bar-vertical" style="--bar-height: 92%; --motion-index: 4"></span><span>92%</span></div>
+            </div>
+            <ul class="value-list" aria-label="Valores do gráfico"><li>Jan 38%</li><li>Fev 62%</li><li>Mar 84%</li><li>Abr 56%</li><li>Mai 92%</li></ul>
+            <dl class="motion-meta"><div><dt>Trigger</dt><dd>Viewport 25%</dd></div><div><dt>Duration</dt><dd>820ms</dd></div><div><dt>Easing</dt><dd>Spring out</dd></div></dl>
+          </article>
+
+          <article class="motion-demo" data-motion-demo="progress-trace" aria-labelledby="progress-trace-title">
+            <h3 id="progress-trace-title">Progress trace</h3>
+            <div class="progress-rows" data-chart role="img" aria-label="KPIs: cobertura 74 por cento, evidência 58 por cento, estabilidade 91 por cento.">
+              <div class="progress-row"><span>Cobertura</span><strong>74%</strong><span class="chart-progress-fill" style="--progress: 74%; --motion-index: 0"></span></div>
+              <div class="progress-row"><span>Evidência</span><strong>58%</strong><span class="chart-progress-fill" style="--progress: 58%; --motion-index: 1"></span></div>
+              <div class="progress-row"><span>Estabilidade</span><strong>91%</strong><span class="chart-progress-fill" style="--progress: 91%; --motion-index: 2"></span></div>
+            </div>
+            <ul class="value-list" aria-label="Valores dos KPIs"><li>Cobertura: 74%</li><li>Evidência: 58%</li><li>Estabilidade: 91%</li></ul>
+            <dl class="motion-meta"><div><dt>Trigger</dt><dd>Viewport 25%</dd></div><div><dt>Duration</dt><dd>820ms</dd></div><div><dt>Easing</dt><dd>Spring out</dd></div></dl>
+          </article>
+
+          <article class="motion-demo" data-motion-demo="spectral-hover" aria-labelledby="spectral-hover-title">
+            <h3 id="spectral-hover-title">Spectral hover</h3>
+            <div class="demo-controls" aria-label="Estados de ação">
+              <button class="control-button primary-action" type="button" data-demo-action="spectral">Ação primária</button>
+              <button class="control-button secondary-action" type="button" data-demo-action="spectral">Ação secundária</button>
+              <button class="control-button secondary-action" type="button" disabled>Indisponível</button>
+            </div>
+            <p class="demo-state-note" data-demo-status="spectral">Use Tab, Enter ou Espaço; hover é opcional.</p>
+            <dl class="motion-meta"><div><dt>Trigger</dt><dd>Hover ou press</dd></div><div><dt>Duration</dt><dd>Hover 180ms · Press 100ms</dd></div><div><dt>Easing</dt><dd>Standard</dd></div></dl>
+          </article>
+
+          <article class="motion-demo" data-motion-demo="surface-lift" aria-labelledby="surface-lift-title">
+            <h3 id="surface-lift-title">Surface lift</h3>
+            <div class="surface-preview interactive-surface">
+              <strong>Investigação de contrato</strong><p>Uma superfície acionável eleva apenas em dispositivos com hover.</p>
+              <button class="control-button secondary-action" type="button" data-surface-details aria-expanded="false">Abrir detalhes</button>
+              <p class="demo-state-note" data-surface-note hidden>Owner: auditoria · Próxima ação: revisar contrato.</p>
+            </div>
+            <dl class="motion-meta"><div><dt>Trigger</dt><dd>Hover ou press</dd></div><div><dt>Duration</dt><dd>Hover 180ms · Press 100ms</dd></div><div><dt>Easing</dt><dd>Standard</dd></div></dl>
+          </article>
+
+          <article class="motion-demo" data-motion-demo="queue-resolve" aria-labelledby="queue-resolve-title">
+            <h3 id="queue-resolve-title">Queue resolve</h3>
+            <div class="resolve-item" data-demo-queue-item><strong>Validar rótulos do gráfico</strong><span class="demo-state-note">Pendente · owner: design system</span><button class="control-button primary-action" type="button" data-demo-resolve>Resolver item</button></div>
+            <dl class="motion-meta"><div><dt>Trigger</dt><dd>Press</dd></div><div><dt>Duration</dt><dd>280ms</dd></div><div><dt>Easing</dt><dd>Standard</dd></div></dl>
+          </article>
+
+          <article class="motion-demo veil-demo" data-motion-demo="veil-open" aria-labelledby="veil-open-title">
+            <h3 id="veil-open-title">Veil open</h3>
+            <details><summary>Revelar contexto da decisão</summary><div class="veil-content"><p>O conteúdo preserva o fluxo nativo do documento e abre sem depender de hover.</p><button class="control-button secondary-action" type="button" data-open-palette>Abrir Command Palette</button></div></details>
+            <dl class="motion-meta"><div><dt>Trigger</dt><dd>Native toggle</dd></div><div><dt>Duration</dt><dd>520ms</dd></div><div><dt>Easing</dt><dd>Spring out</dd></div></dl>
+          </article>
+
+          <article class="motion-demo" data-motion-demo="flow-draw" aria-labelledby="flow-draw-title">
+            <h3 id="flow-draw-title">Flow draw</h3>
+            <svg class="flow-draw-svg" data-chart viewBox="0 0 440 180" role="img" aria-labelledby="flow-draw-svg-title flow-draw-svg-desc"><title id="flow-draw-svg-title">Rotas sequenciais de dados</title><desc id="flow-draw-svg-desc">Três rotas conectam entrada, decisão e entrega.</desc><path class="chart-trace" pathLength="1" d="M36 90 C120 28 165 28 220 90"></path><path class="chart-trace" pathLength="1" d="M220 90 C276 152 330 152 404 90"></path><path class="chart-trace" pathLength="1" d="M36 90 C150 154 290 154 404 90"></path><text x="20" y="112">entrada</text><text x="191" y="112">decisão</text><text x="365" y="112">entrega</text></svg>
+            <dl class="motion-meta"><div><dt>Trigger</dt><dd>Viewport 25%</dd></div><div><dt>Duration</dt><dd>820ms</dd></div><div><dt>Easing</dt><dd>Standard</dd></div></dl>
+          </article>
+
+          <article class="motion-demo" data-motion-demo="agent-pulse" aria-labelledby="agent-pulse-title">
+            <h3 id="agent-pulse-title">Agent pulse</h3>
+            <svg class="agent-pulse-svg" data-chart viewBox="0 0 440 180" role="img" aria-labelledby="agent-pulse-svg-title agent-pulse-svg-desc"><title id="agent-pulse-svg-title">Relação entre agentes</title><desc id="agent-pulse-svg-desc">Planner encaminha para executor e auditor; executor entrega ao gate.</desc><line class="agent-link chart-trace" data-mesh-edge pathLength="1" style="--motion-index: 0" x1="220" y1="42" x2="105" y2="116"></line><line class="agent-link chart-trace" data-mesh-edge pathLength="1" style="--motion-index: 1" x1="220" y1="42" x2="335" y2="116"></line><line class="agent-link chart-trace" data-mesh-edge pathLength="1" style="--motion-index: 2" x1="105" y1="116" x2="220" y2="148"></line><circle class="agent-node active-agent-node is-active" data-mesh-node style="--motion-index: 1" cx="220" cy="42" r="26"></circle><circle class="agent-node" data-mesh-node style="--motion-index: 2" cx="105" cy="116" r="26"></circle><circle class="agent-node" data-mesh-node style="--motion-index: 3" cx="335" cy="116" r="26"></circle><circle class="agent-node" data-mesh-node style="--motion-index: 4" cx="220" cy="148" r="22"></circle><text x="196" y="46">planner</text><text x="78" y="120">executor</text><text x="314" y="120">auditor</text><text x="207" y="152">gate</text></svg>
+            <ul class="relationship-list" aria-label="Relações de agentes"><li>Planner → Executor: handoff</li><li>Planner → Auditor: verificação</li><li>Executor → Gate: entrega</li></ul>
+            <dl class="motion-meta"><div><dt>Trigger</dt><dd>Viewport 25%</dd></div><div><dt>Duration</dt><dd>820ms</dd></div><div><dt>Easing</dt><dd>Spring out</dd></div></dl>
+          </article>
+        </div>
+      </section>
+
+      <section id="components" aria-labelledby="components-title" data-reveal>
+        <div class="section-head">
+          <h2 id="components-title">Componentes</h2>
+          <p>
+            Componentes reutilizáveis mantêm a hierarquia simples: ação lime, superfícies
+            noturnas e cores térmicas reservadas a significado operacional.
+          </p>
+        </div>
+        <div class="component-stack">
+          <div class="component-column">
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="panel-kicker">Actions / controls</span>
+                  <h3>Controles essenciais</h3>
+                </div>
+                <span class="chip">44px minimum</span>
+              </div>
+              <div class="component-row" aria-label="Exemplos de botões">
+                <button class="control-button primary-action" type="button">Executar plano</button>
+                <button class="control-button secondary-action" type="button">Ver detalhes</button>
+                <button class="control-button danger-action" type="button">Interromper</button>
+                <button class="control-button icon-button secondary-action" type="button" aria-label="Mais opções">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="5" cy="12" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle>
+                  </svg>
+                </button>
+              </div>
+              <div class="chip-row" aria-label="Exemplos de filtros">
+                <span class="chip">All agents</span>
+                <span class="chip">Owner: Rafael</span>
+                <span class="chip">Priority: P1</span>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="panel-kicker">Status semantics</span>
+                  <h3>Estados combinam cor e linguagem</h3>
+                </div>
+              </div>
+              <div class="status-row">
+                <span class="status-badge status-success">Sucesso</span>
+                <span class="status-badge status-info">Informação</span>
+                <span class="status-badge status-warning">Atenção</span>
+                <span class="status-badge status-error">Erro</span>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="panel-kicker">Form pattern</span>
+                  <h3>Configurar nova execução</h3>
+                </div>
+                <span class="status-badge status-info">Rascunho salvo</span>
+              </div>
+              <form class="field-grid" id="run-form">
+                <div class="field">
+                  <label for="run-name">Nome da execução</label>
+                  <input id="run-name" name="run-name" type="text" placeholder="Ex.: Auditoria semanal" autocomplete="off" aria-describedby="run-name-help">
+                  <span class="helper-text" id="run-name-help">Use um nome que descreva o resultado esperado.</span>
+                </div>
+                <div class="field">
+                  <label for="run-owner">Responsável</label>
+                  <select id="run-owner" name="run-owner" aria-describedby="run-owner-help">
+                    <option>Operator team</option>
+                    <option>Risk team</option>
+                    <option>Design system</option>
+                  </select>
+                  <span class="helper-text" id="run-owner-help">Define quem recebe pedidos de decisão.</span>
+                </div>
+                <div class="field field-wide">
+                  <label for="run-instruction">Instrução</label>
+                  <textarea id="run-instruction" name="run-instruction" placeholder="Descreva objetivo, limites e evidência de conclusão." aria-describedby="run-instruction-help"></textarea>
+                  <span class="helper-text" id="run-instruction-help">Nunca inclua credenciais, chaves ou dados pessoais.</span>
+                </div>
+                <div class="field field-wide">
+                  <label for="run-gate">Gate de aprovação</label>
+                  <input id="run-gate" name="run-gate" type="text" aria-invalid="true" aria-describedby="run-gate-error" value="Produção automática">
+                  <span class="helper-text error-text" id="run-gate-error">Aprovação humana é obrigatória antes de produção.</span>
+                </div>
+                <div class="button-row field-wide">
+                  <button class="control-button primary-action" type="submit">Validar configuração</button>
+                  <button class="control-button secondary-action" type="reset">Limpar</button>
+                </div>
+              </form>
+            </article>
+          </div>
+
+          <div class="component-column">
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="panel-kicker">System states</span>
+                  <h3>Feedback completo</h3>
+                </div>
+              </div>
+              <div class="state-grid">
+                <div class="state-card loading-state" aria-label="Estado carregando">
+                  <span class="status-label">Loading</span>
+                  <div class="skeleton" aria-hidden="true"><span></span><span></span><span></span></div>
+                  <span class="helper-text">Sincronizando agentes…</span>
+                </div>
+                <div class="state-card empty-state">
+                  <span class="state-icon" aria-hidden="true">0</span>
+                  <strong>Nenhum bloqueio</strong>
+                  <span class="helper-text">A fila está pronta para a próxima execução.</span>
+                </div>
+                <div class="state-card error-state">
+                  <span class="state-icon status-error" aria-hidden="true">!</span>
+                  <strong>Handoff incompleto</strong>
+                  <span class="helper-text">Revise o owner e tente novamente.</span>
+                </div>
+                <div class="state-card">
+                  <span class="state-icon status-success" aria-hidden="true">✓</span>
+                  <strong>Gate aprovado</strong>
+                  <span class="helper-text">Evidências registradas há 2 min.</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-head">
+                <div>
+                  <span class="panel-kicker">Information density</span>
+                  <h3>Detalhe progressivo</h3>
+                </div>
+              </div>
+              <details>
+                <summary>Ver trace de execução</summary>
+                <div class="telemetry-strip">
+                  <div class="metric-row"><span>08:41:09</span><strong>planner / accepted</strong></div>
+                  <div class="metric-row"><span>08:41:12</span><strong>executor / running</strong></div>
+                  <div class="metric-row"><span>08:42:03</span><strong>auditor / waiting</strong></div>
+                </div>
+              </details>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="products" aria-labelledby="products-title" data-reveal>
+        <div class="section-head">
+          <h2 id="products-title">Exemplos Operacionais</h2>
+          <p>
+            Duas superfícies mostram como a identidade funciona em produtos modernos:
+            uma fila orientada à ação e um console de orquestração orientado à evidência.
+          </p>
+        </div>
+        <div class="product-grid">
+          <article class="panel interactive-surface" aria-labelledby="queue-title" data-reveal>
+            <div class="panel-head">
+              <div>
+                <span class="panel-kicker">Operational queue</span>
+                <h3 id="queue-title">Fila de decisões</h3>
+              </div>
+              <span class="status-badge status-warning" id="queue-count">3 pendentes</span>
+            </div>
+            <div class="filter-row" aria-label="Filtros da fila">
+              <button class="control-button secondary-action" type="button" data-filter-toggle aria-pressed="false">Prioridade</button>
+              <button class="control-button secondary-action" type="button" data-filter-toggle aria-pressed="false">Owner</button>
+            </div>
+            <ul class="queue-list">
+              <li class="queue-item" data-queue-item>
+                <div class="queue-title">
+                  <span class="queue-meta">P1 · Segurança · 12 min</span>
+                  <strong>Confirmar acesso temporário do auditor</strong>
+                  <span class="helper-text">Solicitado por access-governor</span>
+                </div>
+                <div class="queue-actions">
+                  <button type="button" data-queue-action="approve">Aprovar</button>
+                  <button type="button" data-queue-action="inspect">Inspecionar</button>
+                </div>
+              </li>
+              <li class="queue-item" data-queue-item>
+                <div class="queue-title">
+                  <span class="queue-meta">P2 · Conteúdo · 24 min</span>
+                  <strong>Revisar evidência da publicação</strong>
+                  <span class="helper-text">Solicitado por release-orchestrator</span>
+                </div>
+                <div class="queue-actions">
+                  <button type="button" data-queue-action="approve">Resolver</button>
+                  <button type="button" data-queue-action="inspect">Inspecionar</button>
+                </div>
+              </li>
+              <li class="queue-item" data-queue-item>
+                <div class="queue-title">
+                  <span class="queue-meta">P2 · Dados · 37 min</span>
+                  <strong>Definir owner para a reconciliação</strong>
+                  <span class="helper-text">Solicitado por finance-router</span>
+                </div>
+                <div class="queue-actions">
+                  <button type="button" data-queue-action="approve">Assumir</button>
+                  <button type="button" data-queue-action="inspect">Inspecionar</button>
+                </div>
+              </li>
+            </ul>
+          </article>
+
+          <article class="panel console interactive-surface" aria-labelledby="console-title" data-reveal>
+            <div class="panel-head">
+              <div>
+                <span class="panel-kicker">Orchestration console</span>
+                <h3 id="console-title">Execução DS-284</h3>
+              </div>
+              <span class="status-badge status-success">Nominal</span>
+            </div>
+            <div class="thermal-track" data-chart role="img" aria-label="Progresso da execução: 6 de 8 gates completos.">
+              <div class="thermal-bar" aria-hidden="true"><span class="chart-bar-horizontal" style="--motion-index: 0"></span><span class="chart-bar-horizontal" style="--motion-index: 1"></span><span class="chart-bar-horizontal" style="--motion-index: 2"></span></div>
+              <div class="metric-row"><span>Plano</span><strong>6 / 8 gates completos</strong></div>
+            </div>
+            <ol class="run-list">
+              <li class="run-row">
+                <div class="run-title">
+                  <span class="run-meta">01 · 08:41</span>
+                  <strong>Context router</strong>
+                  <span class="helper-text">Escopo e invariantes consolidados.</span>
+                </div>
+                <span class="status-badge status-success">Completo</span>
+              </li>
+              <li class="run-row">
+                <div class="run-title">
+                  <span class="run-meta">02 · 08:44</span>
+                  <strong>Interface executor</strong>
+                  <span class="helper-text">Renderizando superfícies operacionais.</span>
+                </div>
+                <div class="run-progress" data-chart role="img" aria-label="72 por cento completo"><span class="chart-progress-fill" style="--progress: 72%; --motion-index: 0"></span></div>
+              </li>
+              <li class="run-row">
+                <div class="run-title">
+                  <span class="run-meta">03 · próximo</span>
+                  <strong>Accessibility auditor</strong>
+                  <span class="helper-text">Aguardando artefato estável.</span>
+                </div>
+                <span class="status-badge status-info">Em espera</span>
+              </li>
+            </ol>
+            <div class="panel-toolbar">
+              <button class="control-button primary-action" type="button" id="advance-run">Avançar gate</button>
+              <button class="control-button secondary-action" type="button" id="toggle-evidence" aria-expanded="false" aria-controls="evidence-panel">Abrir evidências</button>
+            </div>
+            <div class="evidence-panel" id="evidence-panel" hidden>
+              <div class="metric-row"><span>ARTIFACT</span><strong>thermal-nocturne/index.html</strong></div>
+              <div class="metric-row"><span>CHECK</span><strong>contract / passed</strong></div>
+              <div class="metric-row"><span>OWNER</span><strong>accessibility-auditor</strong></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="technology" aria-labelledby="technology-title" data-reveal>
+        <div class="section-head">
+          <h2 id="technology-title">Tecnologia</h2>
+          <p>
+            A decisão de runtime segue a menor camada capaz. A identidade não exige
+            uma biblioteca específica; complexidade só entra quando gera compreensão real.
+          </p>
+        </div>
+        <div class="technology-grid">
+          <article class="technology-card" data-tier="core">
+            <div class="technology-head">
+              <span class="technology-label">Core / default</span>
+              <span class="chip">baixo custo</span>
+            </div>
+            <h3>CSS · SVG · WAAPI</h3>
+            <p>Estados, transições, microinterações, malhas e diagramas leves.</p>
+            <ul>
+              <li>Primeira escolha para produto</li>
+              <li>Fallback estático natural</li>
+              <li>Motion para sequências UI/SVG complexas</li>
+            </ul>
+          </article>
+          <article class="technology-card" data-tier="specialist">
+            <div class="technology-head">
+              <span class="technology-label">Specialist / approved</span>
+              <span class="chip">uso governado</span>
+            </div>
+            <h3>Rive · dotLottie · PixiJS</h3>
+            <p>Vetores interativos, animações portáteis e cenas 2D densas.</p>
+            <ul>
+              <li>Rive para interação com estados</li>
+              <li>dotLottie para narrativa vetorial</li>
+              <li>PixiJS quando DOM/SVG não escala</li>
+            </ul>
+          </article>
+          <article class="technology-card" data-tier="conditional">
+            <div class="technology-head">
+              <span class="technology-label">Conditional / exceptional</span>
+              <span class="chip">gate técnico</span>
+            </div>
+            <h3>Paper Shaders · Three.js · R3F</h3>
+            <p>Shaders aprovados e 3D quando profundidade é parte da informação.</p>
+            <ul>
+              <li>Pin de versão obrigatório</li>
+              <li>Um canvas GPU por viewport</li>
+              <li>Spline/GSAP apenas em narrativa cinematográfica</li>
+            </ul>
+          </article>
+        </div>
+        <div class="table-wrap panel" style="margin-top: var(--space-6)">
+          <table class="decision-table">
+            <caption><strong>Technology decision matrix</strong> · produção CluOS</caption>
+            <thead>
+              <tr><th>Necessidade</th><th>Camada preferida</th><th>Gate</th><th>Evitar</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Microinteração</td><td>CSS / WAAPI</td><td>Reduced motion</td><td>Runtime 3D</td></tr>
+              <tr><td>Vetor interativo</td><td>Rive</td><td>Fallback e input acessível</td><td>Canvas sem semântica</td></tr>
+              <tr><td>2D de alta densidade</td><td>PixiJS</td><td>Budget de frame/memória</td><td>Milhares de nós DOM</td></tr>
+              <tr><td>3D informacional</td><td>Three.js / R3F</td><td>Fallback estático e GPU budget</td><td>3D decorativo</td></tr>
+              <tr><td>Exploração</td><td>ShaderToy / Vanta / Theatre</td><td>Protótipo somente</td><td>Produção direta</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="accessibility" aria-labelledby="accessibility-title" data-reveal>
+        <div class="section-head">
+          <h2 id="accessibility-title">Acessibilidade</h2>
+          <p>
+            WCAG 2.2 AA, foco visível, alvos mínimos de 44px, movimento reduzido
+            e conteúdo íntegro sem JavaScript são parte do contrato.
+          </p>
+        </div>
+        <div class="accessibility-layout">
+          <div class="contrast-preview" aria-label="Contraste de 12 vírgula 63 para 1">
+            <span><strong>12.63:1</strong>Deep Navy sobre Tech Lime</span>
+          </div>
+          <div class="panel">
+            <h3>Contrato WCAG 2.2 AA</h3>
+            <ul class="accessibility-list">
+              <li>Estados combinam cor com texto, forma, valor ou tabela.</li>
+              <li>Todo controle tem foco visível e alvo mínimo de 44 × 44px.</li>
+              <li>Movimento respeita a preferência do sistema e o controle local.</li>
+              <li>Conteúdo, hierarquia e próximas ações permanecem íntegros sem JavaScript.</li>
+              <li>SVGs informacionais recebem título e descrição; decorativos ficam ocultos.</li>
+              <li>Nuances térmicas nunca são o único canal para risco ou sucesso.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="command-dialog" aria-labelledby="command-title">
+      <div class="dialog-body">
+        <div class="panel-head">
+          <div>
+            <span class="panel-kicker">Navigation layer</span>
+            <h2 id="command-title">Command Palette</h2>
+          </div>
+          <button class="control-button icon-button secondary-action" type="button" id="close-command" aria-label="Fechar comandos">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+          </button>
+        </div>
+        <label class="field-label" for="command-name">Buscar comando</label>
+        <div class="command-search">
+          <input class="command-input" id="command-name" name="command-name" type="search" placeholder="Digite uma seção ou ação" autocomplete="off">
+          <span class="shortcut" aria-hidden="true">ESC</span>
+        </div>
+        <span class="helper-text" id="command-helper">Filtre por nome; pressione Enter para abrir o primeiro resultado.</span>
+        <ul class="command-list" id="command-list" aria-describedby="command-helper">
+          <li><button type="button" data-command-target="#foundations"><span>Fundações visuais</span><span>Tokens</span></button></li>
+          <li><button type="button" data-command-target="#typography-lab"><span>Typography Lab</span><span>Tipografia</span></button></li>
+          <li><button type="button" data-command-target="#effects"><span>Efeitos aprovados</span><span>Visual</span></button></li>
+          <li><button type="button" data-command-target="#motion-library"><span>Motion Library</span><span>Movimento</span></button></li>
+          <li><button type="button" data-command-target="#components"><span>Componentes e estados</span><span>UI</span></button></li>
+          <li><button type="button" data-command-target="#products"><span>Produtos operacionais</span><span>Ops</span></button></li>
+          <li><button type="button" data-command-target="#technology"><span>Matriz de tecnologia</span><span>Runtime</span></button></li>
+        </ul>
+        <div class="dialog-actions">
+          <button class="control-button secondary-action" type="button" id="clear-command">Limpar busca</button>
+        </div>
+      </div>
+    </dialog>
+
+    <footer class="shell site-footer">
+      <p>Showcase experimental isolado. Não substitui o Design System CluOS canônico.</p>
+    </footer>
+
+    <noscript>
+      <p class="shell">JavaScript está desativado. Todo o conteúdo permanece visível; apenas os controles interativos ficam inativos.</p>
+    </noscript>
+
+    <div class="sr-only" aria-live="polite" id="announcer"></div>
+
+    <script>
+      const root = document.documentElement;
+      const announcer = document.querySelector("#announcer");
+      const commandDialog = document.querySelector("#command-dialog");
+      const openCommand = document.querySelector("#open-command");
+      const heroCommand = document.querySelector("#hero-command");
+      const closeCommand = document.querySelector("#close-command");
+      const themeToggle = document.querySelector("#theme-toggle");
+      const motionToggle = document.querySelector("#motion-toggle");
+      const commandInput = document.querySelector("#command-name");
+      const commandButtons = [...document.querySelectorAll("[data-command-target]")];
+      const typeModeButtons = [...document.querySelectorAll("[data-font-mode]")];
+      const displayRole = document.querySelector("#type-role-display");
+      const interfaceRole = document.querySelector("#type-role-interface");
+      const clearCommand = document.querySelector("#clear-command");
+      const runForm = document.querySelector("#run-form");
+      const advanceRun = document.querySelector("#advance-run");
+      const toggleEvidence = document.querySelector("#toggle-evidence");
+      const evidencePanel = document.querySelector("#evidence-panel");
+      let previousFocus = null;
+      const motionTargets = [...document.querySelectorAll("[data-reveal], [data-chart]")];
+      let motionNavigationTarget = null;
+      let motionNavigationTimer = null;
+
+      function resolveHashTarget(hash = window.location.hash) {
+        if (!hash?.startsWith("#") || hash.length < 2) return null;
+        try {
+          return document.getElementById(decodeURIComponent(hash.slice(1)));
+        } catch {
+          return null;
+        }
+      }
+
+      function finishMotionNavigation() {
+        window.clearTimeout(motionNavigationTimer);
+        motionNavigationTimer = null;
+        motionNavigationTarget = null;
+      }
+
+      function scheduleMotionNavigationFinish() {
+        window.clearTimeout(motionNavigationTimer);
+        motionNavigationTimer = window.setTimeout(finishMotionNavigation, 180);
+      }
+
+      function beginMotionNavigation(target) {
+        if (!target) return;
+        motionNavigationTarget = target;
+        window.clearTimeout(motionNavigationTimer);
+        motionNavigationTimer = window.setTimeout(finishMotionNavigation, 2500);
+      }
+
+      function motionTargetIsIntentional(target) {
+        return !motionNavigationTarget || target === motionNavigationTarget || motionNavigationTarget.contains(target);
+      }
+
+      function motionIsReduced() {
+        return root.dataset.motion === "reduced" || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      }
+
+      function activateMotionTarget(target) {
+        target.classList.add("is-visible");
+      }
+
+      function syncMotionTargets() {
+        if (motionIsReduced()) motionTargets.forEach(activateMotionTarget);
+      }
+
+      root.classList.add("motion-ready");
+
+      if (motionIsReduced() || !("IntersectionObserver" in window)) {
+        motionTargets.forEach(activateMotionTarget);
+      } else {
+        const motionObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting || !motionTargetIsIntentional(entry.target)) return;
+            activateMotionTarget(entry.target);
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.25 });
+        motionTargets.forEach((target) => motionObserver.observe(target));
+      }
+
+      beginMotionNavigation(resolveHashTarget());
+      window.addEventListener("scroll", () => {
+        if (motionNavigationTarget) scheduleMotionNavigationFinish();
+      }, { passive: true });
+      window.addEventListener("scrollend", finishMotionNavigation, { passive: true });
+      window.addEventListener("hashchange", () => beginMotionNavigation(resolveHashTarget()));
+      document.addEventListener("click", (event) => {
+        const anchor = event.target.closest?.('a[href^="#"]');
+        if (anchor) beginMotionNavigation(resolveHashTarget(anchor.getAttribute("href")));
+      }, true);
+
+      function announce(message) {
+        if (announcer) announcer.textContent = message;
+      }
+
+      function setAppearance(next) {
+        root.dataset.appearance = next;
+        themeToggle?.setAttribute("aria-pressed", String(next === "light"));
+        if (themeToggle) themeToggle.textContent = next === "dark" ? "Tema claro" : "Tema escuro";
+        announce(next === "dark" ? "Tema escuro ativado." : "Tema claro ativado.");
+      }
+
+      function setMotion(next) {
+        root.dataset.motion = next;
+        syncMotionTargets();
+        motionToggle?.setAttribute("aria-pressed", String(next === "reduced"));
+        if (motionToggle) motionToggle.textContent = next === "full" ? "Reduzir movimento" : "Ativar movimento";
+        announce(next === "full" ? "Movimento completo ativado." : "Movimento reduzido ativado.");
+      }
+
+      function setTypographyMode(mode) {
+        const normalizedMode = mode === "instrument-lead" ? "instrument-lead" : "manrope-lead";
+        root.dataset.typeMode = normalizedMode;
+        if (displayRole) displayRole.textContent = normalizedMode === "manrope-lead" ? "Display · Manrope 200" : "Display · Instrument Sans 300";
+        if (interfaceRole) interfaceRole.textContent = normalizedMode === "manrope-lead" ? "Interface · Instrument Sans 400–600" : "Interface · Instrument Sans 400–600";
+        typeModeButtons.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.fontMode === normalizedMode));
+        });
+        announce(normalizedMode === "manrope-lead" ? "Manrope lidera a interface." : "Instrument Sans lidera a interface.");
+      }
+
+      function openPalette(trigger) {
+        if (!commandDialog?.showModal) return;
+        previousFocus = trigger ?? document.activeElement;
+        commandDialog.classList.remove("is-closing", "is-visible");
+        commandDialog.showModal();
+        window.requestAnimationFrame(() => {
+          commandDialog.classList.add("is-visible");
+          commandInput?.focus();
+        });
+      }
+
+      function closePalette() {
+        if (!commandDialog?.open) return Promise.resolve();
+        commandDialog.classList.remove("is-visible");
+        commandDialog.classList.add("is-closing");
+        const closeNow = () => commandDialog.close();
+        if (motionIsReduced()) {
+          closeNow();
+          return Promise.resolve();
+        }
+        return new Promise((resolve) => {
+          window.setTimeout(() => {
+            closeNow();
+            resolve();
+          }, 220);
+        });
+      }
+
+      themeToggle?.addEventListener("click", () => {
+        setAppearance(root.dataset.appearance === "dark" ? "light" : "dark");
+      });
+
+      motionToggle?.addEventListener("click", () => {
+        setMotion(root.dataset.motion === "full" ? "reduced" : "full");
+      });
+
+      typeModeButtons.forEach((button) => {
+        button.addEventListener("click", () => setTypographyMode(button.dataset.fontMode));
+      });
+
+      openCommand?.addEventListener("click", () => openPalette(openCommand));
+      heroCommand?.addEventListener("click", () => openPalette(heroCommand));
+      closeCommand?.addEventListener("click", closePalette);
+
+      function filterCommands() {
+        const query = commandInput?.value.trim().toLocaleLowerCase("pt-BR") ?? "";
+        commandButtons.forEach((button) => {
+          const match = button.textContent.toLocaleLowerCase("pt-BR").includes(query);
+          button.closest("li").hidden = !match;
+        });
+      }
+
+      commandInput?.addEventListener("input", filterCommands);
+      commandInput?.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          const firstVisible = commandButtons.find((button) => !button.closest("li").hidden);
+          if (firstVisible) {
+            event.preventDefault();
+            firstVisible.click();
+          }
+        }
+      });
+
+      clearCommand?.addEventListener("click", () => {
+        if (!commandInput) return;
+        commandInput.value = "";
+        filterCommands();
+        commandInput.focus();
+      });
+
+      commandButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const target = document.querySelector(button.dataset.commandTarget);
+          const heading = target?.querySelector("h2");
+          heading?.setAttribute("tabindex", "-1");
+          closePalette().then(() => {
+            beginMotionNavigation(target);
+            target?.scrollIntoView({ behavior: motionIsReduced() ? "auto" : "smooth" });
+            heading?.focus({ preventScroll: true });
+          });
+        });
+      });
+
+      document.querySelectorAll("[data-filter-toggle]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const active = button.getAttribute("aria-pressed") === "true";
+          button.setAttribute("aria-pressed", String(!active));
+          announce(`${button.textContent.trim()} ${active ? "desativado" : "ativado"}.`);
+        });
+      });
+
+      document.querySelectorAll("[data-demo-action='spectral']").forEach((button) => {
+        button.addEventListener("click", () => {
+          const status = button.closest("[data-motion-demo]")?.querySelector("[data-demo-status]");
+          if (status) status.textContent = `${button.textContent.trim()} ativada.`;
+          announce(`${button.textContent.trim()} ativada.`);
+        });
+      });
+
+      document.querySelectorAll("[data-surface-details]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const note = button.closest(".surface-preview")?.querySelector("[data-surface-note]");
+          const expanded = button.getAttribute("aria-expanded") === "true";
+          button.setAttribute("aria-expanded", String(!expanded));
+          button.textContent = expanded ? "Abrir detalhes" : "Fechar detalhes";
+          if (note) note.hidden = expanded;
+          announce(expanded ? "Detalhes da superfície fechados." : "Detalhes da superfície abertos.");
+        });
+      });
+
+      document.querySelectorAll("[data-demo-resolve]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const item = button.closest("[data-demo-queue-item]");
+          if (!item || item.classList.contains("is-resolved")) return;
+          item.classList.add("is-resolving");
+          button.disabled = true;
+          button.textContent = "Resolvendo…";
+          const finishResolve = () => {
+            item.classList.remove("is-resolving");
+            item.classList.add("is-resolved");
+            button.textContent = "Resolvido";
+            const note = item.querySelector(".demo-state-note");
+            if (note) note.textContent = "Resolvido · confirmação registrada";
+            announce("Item demonstrativo resolvido.");
+          };
+          if (motionIsReduced()) {
+            finishResolve();
+          } else {
+            window.setTimeout(finishResolve, 280);
+          }
+        });
+      });
+
+      document.querySelectorAll("[data-open-palette]").forEach((button) => {
+        button.addEventListener("click", () => openPalette(button));
+      });
+
+      document.querySelectorAll("[data-queue-action]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const item = button.closest("[data-queue-item]");
+          if (!item) return;
+          if (button.dataset.queueAction === "inspect") {
+            const inspected = item.dataset.inspected === "true";
+            item.dataset.inspected = String(!inspected);
+            button.setAttribute("aria-pressed", String(!inspected));
+            let note = item.querySelector(".inspection-note");
+            if (!note) {
+              note = document.createElement("span");
+              note.className = "helper-text inspection-note";
+              item.querySelector(".queue-title")?.append(note);
+            }
+            note.hidden = inspected;
+            note.textContent = "Evidência disponível · owner confirmado · ação reversível";
+            button.textContent = inspected ? "Inspecionar" : "Fechar detalhes";
+            announce(`${inspected ? "Detalhes fechados" : "Detalhes abertos"} para: ${item.querySelector("strong")?.textContent}.`);
+            return;
+          }
+          item.dataset.resolved = "true";
+          button.disabled = true;
+          button.textContent = "Resolvido";
+          const count = document.querySelectorAll('[data-queue-item]:not([data-resolved="true"])').length;
+          const queueCount = document.querySelector("#queue-count");
+          if (queueCount) queueCount.textContent = `${count} ${count === 1 ? "pendente" : "pendentes"}`;
+          announce("Item resolvido e fila atualizada.");
+        });
+      });
+
+      runForm?.addEventListener("submit", (event) => {
+        event.preventDefault();
+        announce("Configuração validada. O gate humano permanece obrigatório.");
+      });
+
+      advanceRun?.addEventListener("click", () => {
+        advanceRun.textContent = "Gate solicitado";
+        advanceRun.disabled = true;
+        announce("Solicitação enviada ao gate de acessibilidade.");
+      });
+
+      toggleEvidence?.addEventListener("click", () => {
+        if (!evidencePanel) return;
+        const expanded = toggleEvidence.getAttribute("aria-expanded") === "true";
+        toggleEvidence.setAttribute("aria-expanded", String(!expanded));
+        toggleEvidence.textContent = expanded ? "Abrir evidências" : "Fechar evidências";
+        evidencePanel.hidden = expanded;
+        announce(expanded ? "Evidências ocultadas." : "Evidências exibidas.");
+      });
+
+      commandDialog?.addEventListener("close", () => {
+        commandDialog.classList.remove("is-closing", "is-visible");
+        if (commandInput) commandInput.value = "";
+        filterCommands();
+        if (previousFocus instanceof HTMLElement) previousFocus.focus();
+      });
+
+      commandDialog?.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closePalette();
+        }
+      });
+
+      commandDialog?.addEventListener("cancel", (event) => {
+        event.preventDefault();
+        closePalette();
+      });
+
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "/" && !event.metaKey && !event.ctrlKey && !event.altKey) {
+          const target = event.target;
+          const typing = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement;
+          if (!typing) {
+            event.preventDefault();
+            openPalette(openCommand);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

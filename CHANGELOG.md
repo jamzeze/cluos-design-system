@@ -3,6 +3,45 @@
 All notable changes to the Cluos design system are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com).
 
+## [Unreleased] — Thermal Nocturne (experimental, not adopted)
+
+Preserves work originally built in a Codex sandbox
+(`~/Documents/Codex/2026-07-28/que`, outside any git repository) so it
+survives on the record instead of depending on a temp folder on one machine.
+
+**Status: approved design direction, not yet a replacement for the
+canonical design system in this repo.** No default token, variant, or
+package export changes. `package.json` version is unchanged. Any product
+consuming `@cluos/design-system` today is unaffected until this is
+explicitly promoted.
+
+### Added
+
+- `EXPERIMENTAL-THERMAL-NOCTURNE.md` — the full narrative design contract
+  (color foundation, typography, motion, components) as authored, with its
+  own explicit "not yet a replacement" status line preserved verbatim.
+- `DESIGN-preview-experimental-thermal-nocturne.html` — the interactive
+  showcase (foundation, typography lab, approved effects, motion library,
+  components, operational examples, accessibility contrast proof).
+- `tokens-experimental/thermal-nocturne-tokens.css` and
+  `thermal-nocturne-fonts.css` — the full token extraction already in
+  production use by MMS (`src/styles/cluos-tokens.css`, labeled v0.4 there),
+  copied here so the design-system repo and its first real consumer stop
+  drifting apart.
+- `guides/thermal-nocturne-2026-07-28/` — source PRODUCT.md, the sandbox's
+  own README/RELEASE notes and version.json, brand asset exports, and the
+  original visual-QA screenshot set (mobile/tablet/desktop, light/dark,
+  motion and reduced-motion) as traceability evidence.
+
+### Not done in this change
+
+- No promotion to a numbered release or default variant.
+- No change to `tokens/tokens.css`, `tokens.ts`, `tokens.js`, or
+  `tailwind-preset.js` — the files every current consumer actually imports.
+- No reconciliation between MMS's ad-hoc vendored copy and this repo as the
+  single source of truth — that decision belongs to whoever owns the
+  promotion call.
+
 ## [0.3.0] — Product action color variants
 
 ### Added

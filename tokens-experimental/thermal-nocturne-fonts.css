@@ -1,0 +1,17 @@
+/* CluOS bundled typography — import before tokens.css. */
+@font-face {
+  font-family: "Manrope";
+  src: url("../brand-assets/fonts/manrope-latin-variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("../brand-assets/fonts/instrument-sans-latin-variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
