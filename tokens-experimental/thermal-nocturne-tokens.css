@@ -1,7 +1,14 @@
 /* ==========================================================================
-   CluOS Design System — CSS Tokens v0.4
-   Thermal Nocturne is the current canonical identity.
-   Import once at the root of any consuming project.
+   CluOS Design System — CSS Tokens v0.4 (Thermal Nocturne)
+
+   UPDATED 2026-08-10: there is no single "canonical identity" anymore.
+   Thermal Nocturne is one of six approved archetypes, chosen per task —
+   see ../docs/cluos-design-system-v2/04-selected-direction.md. Its
+   equivalent in the current architecture is
+   [data-cluos-style="B"] (light) / [data-cluos-style="G"] (dark) in
+   ../tokens/tokens.css — prefer that for new work; it composes with the
+   seven registered palettes and stays in sync with the other five
+   archetypes. This file is kept unchanged for direct-import compatibility.
    ========================================================================== */
 
 :root {

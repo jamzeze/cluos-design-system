@@ -180,3 +180,327 @@
   --cluos-text-muted:    rgba(247, 248, 245, 0.68);
   --cluos-text-subtle:   rgba(247, 248, 245, 0.46);
 }
+
+/* ==========================================================================
+   Semantic role tokens — the real design-system contract (v2)
+
+   Everything above this line is v0.3 ("Teal Classic"), unchanged since
+   2026-08 and kept forever as a zero-regression compatibility layer: no
+   value here was edited, so any code already using --cluos-teal etc. sees
+   no difference.
+
+   Everything below is new: a style+palette architecture that lets any of
+   six approved visual archetypes (design-gallery skill, CluOS decision
+   2026-08-10: style is chosen per task, never fixed to one canonical
+   direction — see ../docs/cluos-design-system-v2/04-selected-direction.md)
+   pair with any of six registered accent/status palettes, independently.
+
+   Usage:
+     <html data-cluos-style="B">                              archetype only
+     <html data-cluos-style="B" data-cluos-palette="pal-forest">  + palette
+
+   Consume --cluos-color-* in your own CSS, never the raw --cluos-teal /
+   --cluos-navy names directly, so your components automatically follow
+   whichever style+palette combination is active on the page.
+   ========================================================================== */
+
+:root {
+  /* default resolution with no [data-cluos-style] set: Archetype A / Teal Classic,
+     i.e. the exact same visual result as importing only the v0.3 tokens above. */
+  --cluos-color-bg-canvas:            var(--cluos-bg-subtle);
+  --cluos-color-bg-surface:           var(--cluos-bg);
+  --cluos-color-bg-elevated:          var(--cluos-bg);
+  --cluos-color-bg-subtle:            var(--cluos-bg-muted);
+  --cluos-color-fg-primary:           var(--cluos-text);
+  --cluos-color-fg-secondary:         var(--cluos-text-muted);
+  --cluos-color-fg-muted:             var(--cluos-text-subtle);
+  --cluos-color-border-default:       var(--cluos-border);
+  --cluos-color-border-strong:        var(--cluos-border-strong);
+  --cluos-color-action-primary:       var(--cluos-teal);
+  --cluos-color-action-primary-hover: var(--cluos-teal-deep);
+  --cluos-color-focus-ring:           var(--cluos-ring-focus);
+  --cluos-color-status-success:       var(--cluos-status-success);
+  --cluos-color-status-warning:       var(--cluos-status-warn);
+  --cluos-color-status-danger:        var(--cluos-status-error);
+  --cluos-color-status-info:          var(--cluos-status-info);
+  --cluos-color-signal:               var(--cluos-teal);
+}
+
+/* ----- Archetype presets ------------------------------------------------
+   Style sets the FULL role set: neutrals + accent + status. An archetype's
+   own neutral register is part of its identity (see design-archetypes.yaml
+   theses — "porcelana quente" for Clinic Premium, "branco, tinta" for
+   Swiss Ledger, etc.), so palette (below) does not override it.
+   -------------------------------------------------------------------- */
+
+[data-cluos-style="A"] {
+  /* Calm Command — luxury-medical x data-precision x swiss-minimal, preserve */
+  --cluos-color-bg-canvas:            #FBFBF9;
+  --cluos-color-bg-surface:           #FFFFFF;
+  --cluos-color-bg-elevated:          #FFFFFF;
+  --cluos-color-bg-subtle:            #F3F4F1;
+  --cluos-color-fg-primary:           #1B2F36;
+  --cluos-color-fg-secondary:         #5A6570;
+  --cluos-color-fg-muted:             #8A939B;
+  --cluos-color-border-default:       #E6E7E1;
+  --cluos-color-border-strong:        #D4D6CD;
+  --cluos-color-action-primary:       #008080;
+  --cluos-color-action-primary-hover: #005959;
+  --cluos-color-focus-ring:           rgba(0, 128, 128, 0.30);
+  --cluos-color-status-success:       #008080;
+  --cluos-color-status-warning:       #B06A34;
+  --cluos-color-status-danger:        #8A3A3A;
+  --cluos-color-status-info:          #3E6E82;
+  --cluos-color-signal:               #008080;
+}
+
+[data-cluos-style="B"] {
+  /* Data Precision — evolve, consolidates Thermal Nocturne v0.4 */
+  --cluos-color-bg-canvas:            #F5F7F4;
+  --cluos-color-bg-surface:           #FFFFFF;
+  --cluos-color-bg-elevated:          #FFFFFF;
+  --cluos-color-bg-subtle:            #F5F7F4;
+  --cluos-color-fg-primary:           #0B1730;
+  --cluos-color-fg-secondary:         #46536B;
+  --cluos-color-fg-muted:             #68748A;
+  --cluos-color-border-default:       #DCE2E3;
+  --cluos-color-border-strong:        #C2CDD1;
+  --cluos-color-action-primary:       #0E8F87;
+  --cluos-color-action-primary-hover: #0A6B65;
+  --cluos-color-focus-ring:           rgba(14, 143, 135, 0.20);
+  --cluos-color-status-success:       #6F8F19;
+  --cluos-color-status-warning:       #BD7845;
+  --cluos-color-status-danger:        #8A3A3A;
+  --cluos-color-status-info:          #3E6E82;
+  --cluos-color-signal:               #C4DB7B;
+  /* brand chrome (rail background etc.) is intentionally NOT a token here —
+     it's a deliberate fixed navy in every consuming component, part of B's
+     identity, not reskinned by palette. Use --cluos-navy directly for it. */
+}
+
+[data-cluos-style="C"] {
+  /* Editorial Intelligence — editorial-luxury x contemporary-magazine x data-precision, new palette */
+  --cluos-color-bg-canvas:            #FAFAF7;
+  --cluos-color-bg-surface:           #FFFFFF;
+  --cluos-color-bg-elevated:          #FFFFFF;
+  --cluos-color-bg-subtle:            #FAFAF7;
+  --cluos-color-fg-primary:           #16181D;
+  --cluos-color-fg-secondary:         #565A61;
+  --cluos-color-fg-muted:             #84888E;
+  --cluos-color-border-default:       #E4E3DD;
+  --cluos-color-border-strong:        #CBCAC2;
+  --cluos-color-action-primary:       #2B49C7;
+  --cluos-color-action-primary-hover: #1D339B;
+  --cluos-color-focus-ring:           rgba(43, 73, 199, 0.24);
+  --cluos-color-status-success:       #3D7A46;
+  --cluos-color-status-warning:       #A96A2F;
+  --cluos-color-status-danger:        #973B3B;
+  --cluos-color-status-info:          #3E6E82;
+  --cluos-color-signal:               #2B49C7;
+}
+
+[data-cluos-style="D"] {
+  /* Swiss Ledger — swiss-minimal, preserve, pure mono scaffold */
+  --cluos-color-bg-canvas:            #FFFFFF;
+  --cluos-color-bg-surface:           #FFFFFF;
+  --cluos-color-bg-elevated:          #FFFFFF;
+  --cluos-color-bg-subtle:            #FFFFFF;
+  --cluos-color-fg-primary:           #111417;
+  --cluos-color-fg-secondary:         #5B6166;
+  --cluos-color-fg-muted:             #8B9095;
+  --cluos-color-border-default:       #E3E4E1;
+  --cluos-color-border-strong:        #111417;
+  --cluos-color-action-primary:       #007070;
+  --cluos-color-action-primary-hover: #005050;
+  --cluos-color-focus-ring:           rgba(0, 112, 112, 0.22);
+  --cluos-color-status-success:       #007070;
+  --cluos-color-status-warning:       #A96A2F;
+  --cluos-color-status-danger:        #8A3A3A;
+  --cluos-color-status-info:          #3E6E82;
+  --cluos-color-signal:               #007070;
+}
+
+[data-cluos-style="E"] {
+  /* Clinic Premium — luxury-medical, evolve, warm hospitality register */
+  --cluos-color-bg-canvas:            #F6F3EE;
+  --cluos-color-bg-surface:           #FFFFFF;
+  --cluos-color-bg-elevated:          #FFFFFF;
+  --cluos-color-bg-subtle:            #F6F3EE;
+  --cluos-color-fg-primary:           #24403C;
+  --cluos-color-fg-secondary:         #63705F;
+  --cluos-color-fg-muted:             #8E9788;
+  --cluos-color-border-default:       #E7DFD2;
+  --cluos-color-border-strong:        #D6CCBA;
+  --cluos-color-action-primary:       #0E6E68;
+  --cluos-color-action-primary-hover: #0A524E;
+  --cluos-color-focus-ring:           rgba(14, 110, 104, 0.18);
+  --cluos-color-status-success:       #0E6E68;
+  --cluos-color-status-warning:       #A96A2F;
+  --cluos-color-status-danger:        #8A3A3A;
+  --cluos-color-status-info:          #3E6E82;
+  --cluos-color-signal:               #0E6E68;
+}
+
+[data-cluos-style="G"] {
+  /* Night Watch — Thermal Nocturne dark register. Structurally always dark;
+     this is B's content contract in its dark appearance, not a separate
+     archetype for token purposes. */
+  --cluos-color-bg-canvas:            #010D28;
+  --cluos-color-bg-surface:           #0B1B41;
+  --cluos-color-bg-elevated:          #0B1B41;
+  --cluos-color-bg-subtle:            #01081A;
+  --cluos-color-fg-primary:           #E8ECF4;
+  --cluos-color-fg-secondary:         #9AA7C0;
+  --cluos-color-fg-muted:             #66738F;
+  --cluos-color-border-default:       rgba(199, 213, 235, 0.14);
+  --cluos-color-border-strong:        rgba(199, 213, 235, 0.26);
+  --cluos-color-action-primary:       #1FB5AB;
+  --cluos-color-action-primary-hover: #17958D;
+  --cluos-color-focus-ring:           rgba(31, 181, 171, 0.30);
+  --cluos-color-status-success:       #9CC24A;
+  --cluos-color-status-warning:       #D08A54;
+  --cluos-color-status-danger:        #C46A6A;
+  --cluos-color-status-info:          #6FA8C4;
+  --cluos-color-signal:               #C4DB7B;
+}
+
+/* ----- Palette overrides -------------------------------------------------
+   Composable with any [data-cluos-style]. Overrides ONLY accent/status/
+   signal — never bg/fg/border, which stay part of the archetype's own
+   identity (see note above). Registry: ../agent-skills/shared/palette-policy.md
+   -------------------------------------------------------------------- */
+
+[data-cluos-palette="pal-tealcool"] {
+  /* Teal Cool Slate — preserve, cooler neutrals variant. Pairs with A, D. */
+  --cluos-color-action-primary:       #008080;
+  --cluos-color-action-primary-hover: #005959;
+  --cluos-color-status-success:       #008080;
+  --cluos-color-status-warning:       #B06A34;
+  --cluos-color-status-danger:        #8A3A3A;
+  --cluos-color-signal:               #008080;
+}
+
+[data-cluos-palette="pal-tealink"] {
+  /* Teal Ink — preserve, high-contrast variant. Pairs with A, D. */
+  --cluos-color-action-primary:       #00696B;
+  --cluos-color-action-primary-hover: #004F50;
+  --cluos-color-status-success:       #00696B;
+  --cluos-color-status-warning:       #B06A34;
+  --cluos-color-status-danger:        #8A3A3A;
+  --cluos-color-signal:               #00696B;
+}
+
+[data-cluos-palette="pal-forest"] {
+  /* Forest Command — evolve, teal anchor toward forest. Pairs with B, G. */
+  --cluos-color-action-primary:       #3D7A46;
+  --cluos-color-action-primary-hover: #2C5A34;
+  --cluos-color-status-success:       #3D7A46;
+  --cluos-color-status-warning:       #B5773A;
+  --cluos-color-status-danger:        #8A3A3A;
+  --cluos-color-signal:               #D9C27A;
+}
+
+[data-cluos-palette="pal-copper"] {
+  /* Copper Signal — evolve, amber signal instead of green. Pairs with B, G, E. */
+  --cluos-color-action-primary:       #0E6E68;
+  --cluos-color-action-primary-hover: #0A524E;
+  --cluos-color-status-success:       #0E6E68;
+  --cluos-color-status-warning:       #BD7845;
+  --cluos-color-status-danger:        #8A3A3A;
+  --cluos-color-signal:               #BD7845;
+}
+
+[data-cluos-palette="pal-cold"] {
+  /* Cold Luxury — new, silver + electric blue. Pairs with C, D. */
+  --cluos-color-action-primary:       #2D6CDF;
+  --cluos-color-action-primary-hover: #1F4FAE;
+  --cluos-color-status-success:       #2D6CDF;
+  --cluos-color-status-warning:       #B5773A;
+  --cluos-color-status-danger:        #8A3A3A;
+  --cluos-color-signal:               #9FB3C8;
+}
+
+[data-cluos-palette="pal-terracotta"] {
+  /* Terracotta Slate — new, warm rust vs cool slate. Pairs with E, C. */
+  --cluos-color-action-primary:       #B5623A;
+  --cluos-color-action-primary-hover: #8F4B2B;
+  --cluos-color-status-success:       #4A7A5E;
+  --cluos-color-status-warning:       #B5623A;
+  --cluos-color-status-danger:        #8A3A3A;
+  --cluos-color-signal:               #E3A26B;
+}
+
+/* ----- Palette x Night Watch (dark) — brighter/higher-contrast variants -
+   Compound selectors win over the single-attribute palette rules above via
+   specificity, so pairing any palette with G automatically gets a reading
+   tuned for a dark canvas instead of the palette's default (light-surface)
+   values. Validated in design-gallery/index.html#workbench before being
+   ported here (G + Terracotta Slate combination, tested live).
+   -------------------------------------------------------------------- */
+
+[data-cluos-style="G"][data-cluos-palette="pal-tealcool"],
+[data-cluos-style="G"][data-cluos-palette="pal-tealink"] {
+  --cluos-color-action-primary:       #3FB3B3;
+  --cluos-color-action-primary-hover: #2D8F8F;
+  --cluos-color-status-success:       #3FB3B3;
+  --cluos-color-status-warning:       #D89A5D;
+  --cluos-color-status-danger:        #C46A6A;
+  --cluos-color-signal:               #3FB3B3;
+}
+
+[data-cluos-style="G"][data-cluos-palette="pal-forest"] {
+  --cluos-color-action-primary:       #6FBE72;
+  --cluos-color-action-primary-hover: #519A54;
+  --cluos-color-status-success:       #6FBE72;
+  --cluos-color-status-warning:       #D89A5D;
+  --cluos-color-status-danger:        #C46A6A;
+  --cluos-color-signal:               #E8D28F;
+}
+
+[data-cluos-style="G"][data-cluos-palette="pal-copper"] {
+  --cluos-color-action-primary:       #34A79E;
+  --cluos-color-action-primary-hover: #268079;
+  --cluos-color-status-success:       #34A79E;
+  --cluos-color-status-warning:       #E0A46B;
+  --cluos-color-status-danger:        #C46A6A;
+  --cluos-color-signal:               #E0A46B;
+}
+
+[data-cluos-style="G"][data-cluos-palette="pal-cold"] {
+  --cluos-color-action-primary:       #6E9DF2;
+  --cluos-color-action-primary-hover: #4E7DD1;
+  --cluos-color-status-success:       #6E9DF2;
+  --cluos-color-status-warning:       #D89A5D;
+  --cluos-color-status-danger:        #C46A6A;
+  --cluos-color-signal:               #C3D2E0;
+}
+
+[data-cluos-style="G"][data-cluos-palette="pal-terracotta"] {
+  --cluos-color-action-primary:       #E08F63;
+  --cluos-color-action-primary-hover: #C06F45;
+  --cluos-color-status-success:       #6FBE72;
+  --cluos-color-status-warning:       #E08F63;
+  --cluos-color-status-danger:        #C46A6A;
+  --cluos-color-signal:               #F0C093;
+}
+
+/* ==========================================================================
+   Thermal Nocturne v0.4 — compatibility names (unique, no collision with
+   v0.3 above). Unchanged values from tokens-experimental/thermal-nocturne-
+   tokens.css. Kept for any code that already references these names
+   directly; the archetype/palette system above is the recommended path
+   for new work. Equivalent semantic role values: [data-cluos-style="B"]
+   (light) / [data-cluos-style="G"] (dark).
+   ========================================================================== */
+
+:root {
+  --cluos-deep-navy:          #010D28;
+  --cluos-medium-blue:        #132952;
+  --cluos-tech-green:         #C4DB7B;
+  --cluos-operational-teal:   #16A39A;
+  --cluos-deep-teal:          #08736E;
+  --cluos-neutral-100:        #EAEAEA;
+  --cluos-neutral-500:        #A5A5A5;
+  --cluos-signal-deep:        #A6C05D;
+  --cluos-signal-soft:        rgba(196, 219, 123, 0.18);
+}

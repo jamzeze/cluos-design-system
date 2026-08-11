@@ -1,0 +1,65 @@
+# CluOS Agent Skills Manifest
+# Canonical source: this repo (cluos-design-system), agent-skills/
+# Installed (copied, not symlinked) into ~/.claude/skills/ and
+# ~/.codex/skills/ by scripts/sync-agent-skills.sh. Re-run that script
+# after any edit here — it is idempotent and reports drift.
+
+version: 1
+canonical_root: agent-skills/frontend
+last_synced: null   # set by sync-agent-skills.sh on each successful run
+
+skills:
+  - slug: anti-ai-slop-frontend
+    version: 1
+    description: "Mandatory frontend router — classifies task depth and starts the correct skill chain."
+    triggers: [frontend, ui, interface, tela, página, componente, layout, css, tailwind, tema, design system, responsivo, tipografia, paleta, dashboard, formulário, tabela, card, modal, redesign]
+    depends_on: []
+    precedes: [design-gallery, frontend-craftsman, design-system-refactor-director]
+    references: [../shared/design-archetypes.yaml, ../shared/palette-policy.md, ../shared/routing-matrix.yaml]
+    compatible_with: [claude, codex]
+    cluos_profile: profiles/cluos
+    path: frontend/anti-ai-slop-frontend/SKILL.md
+
+  - slug: design-gallery
+    version: 1
+    description: "Presents the archetype+palette library and captures an explicit human choice for N2/N3 work."
+    triggers: [dashboard, redesign, nova tela, onboarding, landing page, "qual direção"]
+    depends_on: [anti-ai-slop-frontend]
+    precedes: [frontend-craftsman]
+    references: [../shared/design-archetypes.yaml, ../shared/palette-policy.md]
+    compatible_with: [claude, codex]
+    cluos_profile: profiles/cluos
+    path: frontend/design-gallery/SKILL.md
+
+  - slug: frontend-craftsman
+    version: 1
+    description: "Implements the chosen direction as functional, accessible, tested frontend code."
+    triggers: [implementar, criar componente, refatorar tabela, formulário]
+    depends_on: [anti-ai-slop-frontend]
+    precedes: [design-critic]
+    references: [../shared/anti-slop-rubric.md, ../shared/palette-policy.md]
+    compatible_with: [claude, codex]
+    cluos_profile: profiles/cluos
+    path: frontend/frontend-craftsman/SKILL.md
+
+  - slug: design-critic
+    version: 1
+    description: "Independent visual/usability review against the anti-slop rubric before design-qa."
+    triggers: []
+    depends_on: [frontend-craftsman]
+    precedes: [design-qa]
+    references: [../shared/anti-slop-rubric.md]
+    compatible_with: [claude, codex]
+    cluos_profile: profiles/cluos
+    path: frontend/design-critic/SKILL.md
+
+  - slug: design-system-refactor-director
+    version: 1
+    description: "Conducts systemic (N3) design system refactors across the 15 required phases."
+    triggers: ["refatorar design system", "mudar paleta global", "novo primitive"]
+    depends_on: [anti-ai-slop-frontend]
+    precedes: [design-gallery, writing-plans]
+    references: [../shared/design-archetypes.yaml, ../shared/palette-policy.md, ../shared/anti-slop-rubric.md]
+    compatible_with: [claude, codex]
+    cluos_profile: profiles/cluos
+    path: frontend/design-system-refactor-director/SKILL.md

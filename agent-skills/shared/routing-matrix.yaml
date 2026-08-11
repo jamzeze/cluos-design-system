@@ -1,0 +1,107 @@
+# Routing Matrix — frontend work classification
+#
+# Consumed by anti-ai-slop-frontend. Levels gate which skills are mandatory.
+# See profiles/cluos/product-context.md for the CluOS-specific surface list
+# this routes against.
+
+version: 1
+
+levels:
+  N0:
+    name: "Mudança microscópica"
+    examples: [correção de texto, ajuste de alinhamento, bug de estado visual isolado, correção de foco, ajuste de um token já existente]
+    flow: [anti-ai-slop-frontend, frontend-craftsman, "design-critic (reduzido)", verificação-visual, verification-before-completion]
+    gallery_required: false
+    selection_required: false
+
+  N1:
+    name: "Componente ou seção"
+    examples: [novo componente, refatoração de tabela, modal, formulário, navegação parcial]
+    flow: [anti-ai-slop-frontend, get-context, frontend-craftsman, design-critic, design-qa, verification-before-completion]
+    gallery_required: "quando houver mais de uma direção visual relevante"
+    selection_required: false
+
+  N2:
+    name: "Tela, fluxo ou redesign"
+    examples: [dashboard, landing page, onboarding, área administrativa, redesign de uma tela inteira]
+    flow: [anti-ai-slop-frontend, get-context, design-gallery, "seleção humana (estilo + paleta)", frontend-craftsman, design-critic, design-qa, verification-before-completion]
+    gallery_required: true
+    selection_required: true
+    note: "Para CluOS, 'seleção humana' significa: apresentar as opções relevantes de design-archetypes.yaml + palette-policy.md, Rafael escolhe estilo e paleta para ESTA tela especificamente. Não presumir um default fixo."
+
+  N3:
+    name: "Design system ou múltiplas superfícies"
+    examples: [refatoração do design system, mudança de paleta global, novo primitive compartilhado]
+    flow: [anti-ai-slop-frontend, design-system-refactor-director, audit, get-context, design-gallery, "seleção humana", writing-plans, frontend-craftsman, design-critic, design-qa, verification-before-completion]
+    gallery_required: true
+    selection_required: true
+
+# Matriz de teste (12 prompts, §18.4 do metaprompt). Validado por leitura e
+# classificação manual em 2026-08-10 — NÃO validado como comportamento real
+# de agente em execução (isso exigiria sessões live do Claude e do Codex,
+# fora do escopo do que pode ser executado nesta sessão). Ver
+# docs/cluos-design-system-v2/skill-provenance.md, seção "Deferido".
+
+test_matrix:
+  - prompt: "Corrija o alinhamento deste botão."
+    level: N0
+    skills: [anti-ai-slop-frontend, frontend-craftsman]
+    gallery: false
+    selection: false
+  - prompt: "Crie um novo componente de filtro."
+    level: N1
+    skills: [anti-ai-slop-frontend, get-context, frontend-craftsman, design-critic, design-qa]
+    gallery: false
+    selection: false
+  - prompt: "Refatore esta tabela."
+    level: N1
+    skills: [anti-ai-slop-frontend, get-context, frontend-craftsman, design-critic, design-qa]
+    gallery: "condicional (se densidade/estrutura mudar substancialmente)"
+    selection: false
+  - prompt: "Crie uma tela de dashboard."
+    level: N2
+    skills: [anti-ai-slop-frontend, get-context, design-gallery, frontend-craftsman, design-critic, design-qa]
+    gallery: true
+    selection: true
+  - prompt: "Redesenhe o onboarding."
+    level: N2
+    skills: [anti-ai-slop-frontend, get-context, design-gallery, frontend-craftsman, design-critic, design-qa]
+    gallery: true
+    selection: true
+  - prompt: "Mude a paleta do produto."
+    level: N3
+    skills: [anti-ai-slop-frontend, design-system-refactor-director, design-gallery, writing-plans]
+    gallery: true
+    selection: true
+    note: "Bloqueia sem decisão registrada em palette-decisions.yaml."
+  - prompt: "Refatore o design system."
+    level: N3
+    skills: [anti-ai-slop-frontend, design-system-refactor-director, audit, get-context, design-gallery, writing-plans, frontend-craftsman, design-critic, design-qa]
+    gallery: true
+    selection: true
+  - prompt: "Implemente esta imagem."
+    level: N1
+    skills: [anti-ai-slop-frontend, image-to-code, frontend-craftsman, design-critic, design-qa]
+    gallery: false
+    selection: false
+  - prompt: "Melhore o frontend."
+    level: "ambíguo — pedir esclarecimento (qual superfície?) antes de classificar"
+    skills: []
+    gallery: null
+    selection: null
+  - prompt: "Adicione uma animação ao modal."
+    level: N0
+    skills: [anti-ai-slop-frontend, frontend-craftsman]
+    gallery: false
+    selection: false
+  - prompt: "Corrija um bug de teclado no combobox."
+    level: N0
+    skills: [anti-ai-slop-frontend, systematic-debugging, frontend-craftsman]
+    gallery: false
+    selection: false
+  - prompt: "Crie uma landing page."
+    level: N2
+    skills: [anti-ai-slop-frontend, get-context, design-gallery, frontend-craftsman, design-critic, design-qa]
+    gallery: true
+    selection: true
+    note: "Fora do inventário atual de superfícies CluOS (produto é operacional, não marketing) — confirmar com Rafael antes de aplicar arquétipos B/D/G que foram desenhados para densidade operacional."

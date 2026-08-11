@@ -1,0 +1,55 @@
+# CluOS design decisions log (machine-readable)
+# Human-readable version: docs/cluos-design-system-v2/decision-log.md
+# Append-only. Never edit a past entry's outcome — add a new entry that
+# supersedes it and reference the old entry's date.
+
+decisions:
+  - date: "2026-08-10"
+    decision: "Style is chosen per task, not fixed to a single canonical direction."
+    made_by: rafael
+    detail: >
+      Rafael reviewed 7 archetypes (A-G) rendered on real suporte.cluos.online
+      surfaces. Approved A, B, C, D, E, G. Rejected F (Grid Manifest,
+      refined-brutalist). Explicitly requested to keep choosing style AND
+      palette at build time for each screen ("quero escolher cada vez"),
+      rather than adopting one canonical look for the whole design system.
+    consequence: >
+      design-archetypes.yaml holds 6 approved archetypes as a permanent,
+      reusable library. anti-ai-slop-frontend's N2/N3 flow must present
+      the relevant options and get an explicit style+palette choice for
+      every dashboard/flow/redesign-scale task — never assume a default.
+    supersedes: null
+
+  - date: "2026-08-10"
+    decision: "Palette decoupled from archetype; workbench pattern ported to tokens.css."
+    made_by: rafael
+    detail: >
+      Rafael requested "mais variações das paletas de cores" and a live
+      style+color picker on the main mockup screen. Delivered as an
+      interactive workbench (6 styles x 7 palettes) using a
+      var(--u-x, native) alias layer; Rafael tested it and confirmed
+      ("confirmado pode implementar tudo").
+    consequence: >
+      tokens/tokens.css ships the same alias layer as the real semantic
+      token architecture. 7 palettes registered in palette-policy.md,
+      selectable independently of archetype.
+    supersedes: null
+
+  - date: "2026-08-10"
+    decision: "No single 'winning' visual direction — Subproject D reframed."
+    made_by: claude (recorded per advisor guidance, confirmed by the two decisions above)
+    detail: >
+      The original metaprompt's Subproject D ("refatoração e migração")
+      assumed one chosen direction to migrate real surfaces toward. That
+      target does not exist under the library model. D was reframed as
+      "ship the archetype+palette preset architecture in the design-system
+      package" — no real product surfaces were migrated, because none were
+      in scope or had zero real @cluos/design-system consumers to migrate
+      (see surface-inventory.md).
+    consequence: >
+      docs/cluos-design-system-v2/14-final-verification.md must not claim
+      "a direção foi escolhida" or "as superfícies do escopo foram
+      migradas" per Section 26's acceptance criteria — those are
+      unreachable under this decision and are reported as N/A with reason,
+      not as passed.
+    supersedes: null

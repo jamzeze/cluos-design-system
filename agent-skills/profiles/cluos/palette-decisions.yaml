@@ -1,0 +1,20 @@
+# CluOS palette decisions log (machine-readable)
+# See palette-policy.md for the full palette registry this references.
+
+decisions:
+  - date: "2026-08-10"
+    scope: global
+    decision: "No single global palette. 7 palettes registered as first-class, selectable per task."
+    mode: "n/a — mode is per-palette (see palette-policy.md table)"
+    made_by: rafael
+    detail: >
+      Both color eras (Teal Classic v0.3 and Thermal Nocturne v0.4) kept as
+      native palettes, neither deprecated. 6 additional palettes
+      (Teal Cool Slate, Teal Ink, Forest Command, Copper Signal, Cold
+      Luxury, Terracotta Slate) added per Rafael's request for "mais
+      variações."
+    rollback: >
+      Each palette is an isolated .pal-* CSS class in tokens/tokens.css.
+      Removing a palette = delete its class + its row in palette-policy.md;
+      zero impact on other palettes or on archetypes (alias fallback to
+      native colors if a referenced class is ever missing).

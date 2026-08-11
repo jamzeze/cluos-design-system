@@ -112,6 +112,18 @@ this repository.
 
 ## 3. Color system
 
+> **2026-08-10 update:** the palette below (Teal Classic) is now one of
+> **six approved visual archetypes**, each with its own color strategy,
+> chosen per screen rather than fixed system-wide — see
+> `docs/cluos-design-system-v2/04-selected-direction.md` for the decision
+> and `agent-skills/shared/design-archetypes.yaml` for all six. This
+> section still describes Teal Classic correctly (it is Archetype A's
+> native palette, unchanged); it is no longer the *only* correct palette
+> for a CluOS screen. For the composable style + palette system that
+> supersedes the fixed `[data-theme]` variants below, see the "Semantic
+> role tokens" section of `tokens/tokens.css` and
+> `agent-skills/shared/palette-policy.md`.
+
 All core colors are taken verbatim from the official Cluos palette:
 
 | Official HEX | Role in system       |

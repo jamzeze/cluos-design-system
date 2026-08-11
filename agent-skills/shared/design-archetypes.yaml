@@ -1,0 +1,210 @@
+# Design Archetype Library — CluOS
+#
+# Source of truth for the design-gallery skill and for anti-ai-slop-frontend's
+# routing. Each archetype is a full visual system (composition, typography,
+# density, color strategy, radius/elevation, iconography, motion) that can be
+# selected independently per screen or surface. There is no single canonical
+# direction: Rafael confirmed on 2026-08-10 that style is chosen per task.
+#
+# identifier stability: never rename an id once shipped. Add new archetypes,
+# do not silently redefine existing ones.
+#
+# reference vocabulary: base archetype names (editorial-luxury, swiss-minimal,
+# luxury-medical, contemporary-magazine, high-end-architecture,
+# apple-like-precision, fashion-luxury, data-precision, japanese-minimal,
+# refined-brutalist) come from the metaprompt's Section 10 library. Of the ten,
+# six were adapted into fully-specified, CluOS-native archetypes below
+# (mocked on real suporte.cluos.online surfaces and approved by Rafael on
+# 2026-08-10). The other four (editorial-luxury standalone, contemporary-magazine
+# standalone, high-end-architecture, apple-like-precision, fashion-luxury,
+# japanese-minimal) are documented as reference only in
+# docs/cluos-design-system-v2/03-visual-directions.md — CluOS's actual surface
+# inventory (dashboards, tables, forms, health monitoring) does not call for
+# them yet. refined-brutalist WAS mocked (as "F · Grid Manifest") and was
+# explicitly rejected by Rafael on 2026-08-10; kept here as `status: rejected`
+# so it is not silently reintroduced.
+
+version: 1
+last_updated: "2026-08-10"
+decision_source: docs/cluos-design-system-v2/04-selected-direction.md
+
+archetypes:
+  - id: cluos-calm-command
+    slug: A
+    css_namespace: dA
+    name: "Calm Command"
+    base_archetypes: [luxury-medical, data-precision, swiss-minimal]
+    status: approved
+    thesis: >
+      Confiança clínica sem frieza. Preserva as âncoras cromáticas oficiais
+      do CluOS (teal + navy) e corrige a execução: teal vira a única cor de
+      ação, hierarquia sai de cards e passa para tipografia, hairlines e
+      alinhamento.
+    problem_solved: "Excesso de cards e cor de marca aplicada a tudo."
+    surfaces_recommended: [dashboards médios, telas de configuração, formulários operacionais]
+    surfaces_to_avoid: [monitoramento contínuo de alta densidade — ver B/G]
+    composition: "Rail esquerdo tipográfico, conteúdo em duas colunas, KPIs como linha entre hairlines"
+    grid: "216px rail fixo + conteúdo fluido, container largo"
+    density: média
+    typography: {display: Inter, body: Inter, mono: "JetBrains Mono"}
+    color_strategy: {mode: preserve, native_palette: teal-classic}
+    radius: {scale: [6px, 8px, 12px], default: 8px}
+    borders: "hairlines onipresentes, quase nenhuma sombra"
+    elevation: "shadow apenas em popover/menu, nunca em card de conteúdo"
+    iconography: "nenhum ícone decorativo; dot de status é o único glifo"
+    motion: {intensity: baixa, use: "transições de 120-200ms em hover/focus apenas"}
+    anti_patterns: ["card dentro de card", "ícone em todo título", "gradiente de marca como fundo"]
+    mockup: design-gallery/index.html#dirA
+
+  - id: data-precision
+    slug: B
+    css_namespace: dB
+    name: "Data Precision"
+    base_archetypes: [data-precision, swiss-minimal]
+    status: approved
+    thesis: >
+      O CluOS é uma central de comando; a interface tem a densidade e
+      precisão de uma. Consolida o Thermal Nocturne (v0.4) já aprovado como
+      experimento: navy profundo como campo de marca no rail, registro claro
+      e frio para telas de longa sessão, verde-sinal reservado a "ativo".
+    problem_solved: "Falta de densidade e hierarquia de dados em telas operacionais."
+    surfaces_recommended: [visão geral de operação, listas de serviços, filas, tabelas densas]
+    surfaces_to_avoid: [telas de marca/apresentação executiva — ver C]
+    composition: "Rail navy compacto com contadores reais, grid de KPI, tabela densa com filtros"
+    grid: "200px rail fixo + conteúdo em grid denso, números tabulares"
+    density: alta
+    typography: {display: Manrope, body: "Instrument Sans", mono: "JetBrains Mono"}
+    color_strategy: {mode: evolve, native_palette: thermal-nocturne, anchor_kept: teal}
+    radius: {scale: [4px, 5px, 6px], default: 5px}
+    borders: "grid de 1px onipresente entre células"
+    elevation: "quase nula; separação por borda, não sombra"
+    iconography: "nenhum decorativo; contadores no rail são estado real"
+    motion: {intensity: baixa, use: "auto-refresh indicators, sem animação decorativa"}
+    anti_patterns: ["verde-sinal usado como decoração fora do item ativo", "cards de métrica"]
+    mockup: design-gallery/index.html#dirB
+    dark_mode_variant: night-watch
+
+  - id: night-watch
+    slug: G
+    css_namespace: dG
+    name: "Night Watch"
+    base_archetypes: [data-precision]
+    status: approved
+    thesis: >
+      O registro escuro do Thermal Nocturne como modo primário para salas de
+      comando e telas sempre abertas. Não é um arquétipo visual independente:
+      é a Direção B com o mesmo contrato semântico de tokens, appearance
+      escura. Estruturalmente fixo como "sempre escuro" — isso é identidade
+      de marca, não escolha de paleta.
+    problem_solved: "Monitoramento contínuo em ambiente de baixa luz / sala de comando."
+    surfaces_recommended: [monitoramento 24/7, TVs de operação, salas de comando]
+    surfaces_to_avoid: [formulários longos, leitura prolongada — cansa como registro primário]
+    composition: "Idêntica à B; campo navy profundo (#010D28) fixo, superfícies elevadas em azul"
+    grid: "idêntico à B"
+    density: alta
+    typography: {display: Manrope, body: "Instrument Sans", mono: "JetBrains Mono"}
+    color_strategy: {mode: evolve, native_palette: thermal-nocturne-dark, anchor_kept: teal}
+    radius: {scale: [4px, 5px, 6px], default: 5px}
+    borders: "linhas translúcidas (rgba branco 14-26%)"
+    elevation: "superfícies elevadas por tom, não sombra"
+    iconography: "idêntico à B"
+    motion: {intensity: baixa, use: "sparkline de dado real, indicador ao vivo pulsante opcional"}
+    anti_patterns: ["fundo escuro parcial numa tela clara (nunca alternar dark/light por seção)"]
+    mockup: design-gallery/index.html#dirG
+    note: "Estruturalmente é 'B em modo escuro', não uma entrada de biblioteca separada para fins de roteamento de skill — mas mantida como id próprio porque tem CSS namespace e mockup próprios."
+
+  - id: cluos-editorial-intelligence
+    slug: C
+    css_namespace: dC
+    name: "Editorial Intelligence"
+    base_archetypes: [editorial-luxury, contemporary-magazine, data-precision]
+    status: approved
+    thesis: >
+      O valor do CluOS é inteligência, não telemetria crua. A operação é
+      contada como uma edição conta o dia: manchete, contexto, números com
+      narrativa. Paleta nova (tinta + papel + cobalto), sem herdar teal/navy.
+    problem_solved: "Tudo com o mesmo peso visual; ausência de hierarquia editorial."
+    surfaces_recommended: [relatórios, visão executiva, resumos diários, apresentação a stakeholders]
+    surfaces_to_avoid: [operação de alta frequência — ver B/G]
+    composition: "Masthead superior com tabs tipográficas, manchete + índice, sem sidebar"
+    grid: "container largo, coluna assimétrica 1.5fr/1fr para manchete + números"
+    density: média-baixa
+    typography: {display: Newsreader (serif), body: "Instrument Sans", mono: "JetBrains Mono"}
+    color_strategy: {mode: new, native_palette: editorial-cobalt}
+    radius: {scale: [0px, 2px], default: 0px}
+    borders: "regras finas e grossas (1px e 2px), sem raio"
+    elevation: "nenhuma"
+    iconography: "nenhuma; hierarquia por tipografia apenas"
+    motion: {intensity: mínima}
+    anti_patterns: ["itálico sem clearance de descendentes", "manchete inventada sem dado real por trás"]
+    mockup: design-gallery/index.html#dirC
+
+  - id: swiss-ledger
+    slug: D
+    css_namespace: dD
+    name: "Swiss Ledger"
+    base_archetypes: [swiss-minimal]
+    status: approved
+    thesis: >
+      A interface como um livro-razão: branco, tinta, uma régua. Rigor
+      tipográfico absoluto — sem rail, sem cards, sem raio, sem sombra.
+      Hierarquia inteira por escala, peso e hairlines.
+    problem_solved: "Ornamento sem função; menor custo de manutenção possível."
+    surfaces_recommended: [telas simples, configurações, superfícies novas de baixo risco]
+    surfaces_to_avoid: [telas que precisam de calor de marca imediato]
+    composition: "Tabs horizontais sublinhadas no masthead, banda de KPI entre hairlines"
+    grid: "container fluido, sem sidebar"
+    density: média
+    typography: {display: Inter, body: Inter, mono: "JetBrains Mono"}
+    color_strategy: {mode: preserve, native_palette: swiss-mono}
+    radius: {scale: [0px], default: 0px}
+    borders: "hairlines finos + uma regra grossa (line2 == ink)"
+    elevation: "nenhuma"
+    iconography: "nenhuma"
+    motion: {intensity: mínima}
+    anti_patterns: ["qualquer raio de borda", "qualquer sombra"]
+    mockup: design-gallery/index.html#dirD
+
+  - id: clinic-premium
+    slug: E
+    css_namespace: dE
+    name: "Clinic Premium"
+    base_archetypes: [luxury-medical]
+    status: approved
+    thesis: >
+      Confiança clínica com calor de hospitalidade premium: porcelana quente
+      como base, teal profundo como âncora, champagne revivido como nuance.
+      Cartões usados como material consciente da direção, não como muleta.
+    problem_solved: "Falta de calor/hospitalidade em superfícies voltadas a clientes de consultoria hospitalar."
+    surfaces_recommended: [superfícies para clientes hospitalares, apresentações de consultoria]
+    surfaces_to_avoid: [densidade extrema de monitoramento — ver B/G]
+    composition: "Rail suave com item ativo em pílula, cartões suaves (raio 12) para métricas"
+    grid: "224px rail + conteúdo em cards"
+    density: média
+    typography: {display: "Instrument Sans", body: "Instrument Sans", mono: "JetBrains Mono"}
+    color_strategy: {mode: evolve, native_palette: clinic-warm, anchor_kept: teal}
+    radius: {scale: [10px, 12px], default: 12px}
+    borders: "sutis, quase invisíveis; cartões carregam a separação"
+    elevation: "sombra suave tingida na cor de fundo (nunca preto puro)"
+    iconography: "mínima; dot de status colorido dentro do cartão"
+    motion: {intensity: baixa}
+    anti_patterns: ["bege+latão+oxblood genérico de luxo (banido por padrão)", "cruz médica / clichê hospitalar"]
+    mockup: design-gallery/index.html#dirE
+
+  - id: refined-brutalist
+    slug: F
+    css_namespace: dF
+    name: "Grid Manifest"
+    base_archetypes: [refined-brutalist]
+    status: rejected
+    rejected_on: "2026-08-10"
+    rejected_by: rafael
+    rejected_reason: >
+      Descartada explicitamente ("gostei de todos exceto Grid Manifest, pode
+      retirar"). Mantida aqui com status rejected, não removida do registro,
+      para que a skill design-gallery nunca a reintroduza silenciosamente
+      numa rodada futura.
+    thesis: >
+      (histórico) Honestidade estrutural com acabamento profissional: módulos
+      de borda dupla, tipografia assertiva em caixa alta, verde-sinal como
+      bloco material.

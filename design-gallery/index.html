@@ -1,0 +1,2090 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CluOS Design System v2 · Galeria de Direções</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@200;300;400;500;600&family=Instrument+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===================== GALLERY CHROME (neutro, não é uma das direções) ===================== */
+  :root{
+    --g-bg:#F4F4F2; --g-surface:#FFFFFF; --g-ink:#1E2124; --g-muted:#5D6368;
+    --g-line:#E2E2DE; --g-accent:#0F766E;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--g-bg);color:var(--g-ink);font:15px/1.6 "Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+  a{color:inherit}
+
+  header.masthead{border-bottom:1px solid var(--g-line);background:var(--g-surface);padding:48px 0 36px}
+  .masthead h1{font-size:30px;font-weight:500;letter-spacing:-.02em;line-height:1.2}
+  .masthead .sub{color:var(--g-muted);margin-top:10px;max-width:70ch}
+  .toc{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--g-line)}
+  .toc nav{display:flex;gap:26px;overflow-x:auto;padding:13px 0;font-size:13px;font-weight:500;color:var(--g-muted);white-space:nowrap}
+  .toc a{text-decoration:none}
+  .toc a:hover{color:var(--g-ink)}
+
+  section.block{padding:56px 0;border-bottom:1px solid var(--g-line)}
+  .block h2{font-size:22px;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+  .block .lede{color:var(--g-muted);max-width:78ch;margin-bottom:28px}
+  .kicker{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--g-accent);margin-bottom:10px}
+
+  table.plain{width:100%;border-collapse:collapse;font-size:14px;background:var(--g-surface);border:1px solid var(--g-line);border-radius:8px;overflow:hidden}
+  table.plain th{Text-align:left;font-weight:600;font-size:12.5px;color:var(--g-muted);padding:10px 14px;border-bottom:1px solid var(--g-line);background:#FAFAF8;text-align:left}
+  table.plain td{padding:10px 14px;border-bottom:1px solid var(--g-line);vertical-align:top}
+  table.plain tr:last-child td{border-bottom:none}
+  code{font:12.5px "JetBrains Mono",monospace;background:#ECECE8;padding:1px 6px;border-radius:4px}
+
+  /* fluxo de skills */
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font:12.5px "JetBrains Mono",monospace}
+  .flow .n{background:var(--g-surface);border:1px solid var(--g-line);border-radius:6px;padding:6px 10px}
+  .flow .n.hot{border-color:var(--g-accent);color:var(--g-accent);font-weight:500}
+  .flow .a{color:#9AA0A5}
+  .skillgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:22px}
+  .skillcard{background:var(--g-surface);border:1px solid var(--g-line);border-radius:8px;padding:18px 20px}
+  .skillcard h4{font:500 13.5px "JetBrains Mono",monospace;color:var(--g-accent)}
+  .skillcard p{font-size:13.5px;color:var(--g-muted);margin-top:8px}
+  .skillcard .role{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--g-ink);background:#ECECE8;border-radius:4px;padding:2px 8px;margin-top:12px}
+
+  /* swatches */
+  .palrow{display:flex;flex-wrap:wrap;gap:22px}
+  .palcol{flex:1 1 260px;background:var(--g-surface);border:1px solid var(--g-line);border-radius:8px;padding:18px}
+  .palcol h4{font-size:14px;font-weight:600}
+  .palcol .mode{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--g-muted)}
+  .sw{display:flex;gap:0;margin:14px 0 10px;border-radius:6px;overflow:hidden;border:1px solid var(--g-line)}
+  .sw div{height:52px;flex:1}
+  .palcol ul{list-style:none;font:12px "JetBrains Mono",monospace;color:var(--g-muted)}
+  .palcol li{display:flex;justify-content:space-between;padding:3px 0}
+
+  /* moldura de mockup */
+  .mock{margin:34px 0 10px;border:1px solid #D8D8D3;border-radius:10px;overflow:hidden;box-shadow:0 18px 50px rgba(30,33,36,.10)}
+  .mock .bar{display:flex;align-items:center;gap:8px;background:#EBEBE7;border-bottom:1px solid #D8D8D3;padding:8px 14px;font:11.5px "JetBrains Mono",monospace;color:#7A7F84}
+  .mock .bar i{width:9px;height:9px;border-radius:50%;background:#CFCFC9;display:inline-block}
+  .caption{font-size:13px;color:var(--g-muted);margin:8px 2px 0}
+  .caption b{color:var(--g-ink);font-weight:600}
+  .mocknote{font-size:12px;color:#9AA0A5;margin-top:4px}
+  .viewport{overflow-x:auto}
+  .screen{min-width:1180px}
+
+  .prosrisks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+  .prosrisks .box{background:var(--g-surface);border:1px solid var(--g-line);border-radius:8px;padding:16px 20px;font-size:13.5px}
+  .prosrisks h5{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+  .prosrisks ul{margin-left:16px;color:var(--g-muted)}
+  .prosrisks li{margin:4px 0}
+
+  .decision{background:var(--g-surface);border:1px solid var(--g-line);border-radius:10px;padding:28px 32px;margin-top:8px}
+  .decision ol{margin-left:20px}
+  .decision li{margin:6px 0}
+  footer{padding:40px 0;color:#9AA0A5;font-size:12.5px}
+
+  /* ============================================================================
+     TOKENS UNIVERSAIS DE PALETA - desacoplam cor de arquétipo (workbench)
+     Cada arquétipo consome var(--u-x, valor-nativo). Sem classe .pal-*, usa a
+     paleta nativa do arquétipo. Variantes -dark alimentam a Direção G (registro
+     escuro), que precisa de acentos mais claros/saturados para contraste.
+     ============================================================================ */
+  .pal-tealcool{--u-accent:#008080;--u-accent-deep:#005959;--u-ink:#1B2F36;--u-bg:#F7F8FA;--u-surface:#FFFFFF;
+    --u-line:#E1E5EA;--u-line2:#CBD2D8;--u-mut:#4B5563;--u-sub:#7C8791;
+    --u-ok:#008080;--u-warn:#B06A34;--u-err:#8A3A3A;
+    --u-accent-dark:#3FB3B3;--u-signal-dark:#3FB3B3;--u-ok-dark:#3FB3B3;--u-warn-dark:#D89A5D;--u-err-dark:#C46A6A;
+    --u-mut-dark:#93A0AC;--u-sub-dark:#67727C}
+  .pal-tealink{--u-accent:#00696B;--u-accent-deep:#004F50;--u-ink:#10181C;--u-bg:#FFFFFF;--u-surface:#FFFFFF;
+    --u-line:#DADDDF;--u-line2:#C3C7CA;--u-mut:#4B5560;--u-sub:#7B838B;
+    --u-ok:#00696B;--u-warn:#B06A34;--u-err:#8A3A3A;
+    --u-accent-dark:#33A6A6;--u-signal-dark:#33A6A6;--u-ok-dark:#33A6A6;--u-warn-dark:#D89A5D;--u-err-dark:#C46A6A;
+    --u-mut-dark:#9AA3A8;--u-sub-dark:#6E777C}
+  .pal-forest{--u-accent:#3D7A46;--u-accent-deep:#2C5A34;--u-ink:#16201A;--u-bg:#F6F5EF;--u-surface:#FFFFFF;
+    --u-line:#E4E2D6;--u-line2:#CFCDBC;--u-mut:#52604E;--u-sub:#7C8977;
+    --u-ok:#3D7A46;--u-warn:#B5773A;--u-err:#8A3A3A;--u-signal:#D9C27A;
+    --u-accent-dark:#6FBE72;--u-signal-dark:#E8D28F;--u-ok-dark:#6FBE72;--u-warn-dark:#D89A5D;--u-err-dark:#C46A6A;
+    --u-mut-dark:#A9B6A0;--u-sub-dark:#92A188}
+  .pal-copper{--u-accent:#0E6E68;--u-accent-deep:#0A524E;--u-ink:#0B1730;--u-bg:#F5F7F4;--u-surface:#FFFFFF;
+    --u-line:#DCE2E3;--u-line2:#C2CDD1;--u-mut:#46536B;--u-sub:#68748A;
+    --u-ok:#0E6E68;--u-warn:#BD7845;--u-err:#8A3A3A;--u-signal:#BD7845;
+    --u-accent-dark:#34A79E;--u-signal-dark:#E0A46B;--u-ok-dark:#34A79E;--u-warn-dark:#E0A46B;--u-err-dark:#C46A6A;
+    --u-mut-dark:#97A4B8;--u-sub-dark:#6C7890}
+  .pal-cold{--u-accent:#2D6CDF;--u-accent-deep:#1F4FAE;--u-ink:#1B1E22;--u-bg:#F4F5F6;--u-surface:#FFFFFF;
+    --u-line:#E2E4E7;--u-line2:#C9CDD2;--u-mut:#565C64;--u-sub:#82888F;
+    --u-ok:#2D6CDF;--u-warn:#B5773A;--u-err:#8A3A3A;--u-signal:#9FB3C8;
+    --u-accent-dark:#6E9DF2;--u-signal-dark:#C3D2E0;--u-ok-dark:#6E9DF2;--u-warn-dark:#D89A5D;--u-err-dark:#C46A6A;
+    --u-mut-dark:#9AA0A8;--u-sub-dark:#6E747C}
+  .pal-terracotta{--u-accent:#B5623A;--u-accent-deep:#8F4B2B;--u-ink:#24303A;--u-bg:#F3F1EC;--u-surface:#FFFFFF;
+    --u-line:#E4E0D6;--u-line2:#CBC5B6;--u-mut:#586470;--u-sub:#828C95;
+    --u-ok:#4A7A5E;--u-warn:#B5623A;--u-err:#8A3A3A;--u-signal:#E3A26B;
+    --u-accent-dark:#E08F63;--u-signal-dark:#F0C093;--u-ok-dark:#6FBE72;--u-warn-dark:#E08F63;--u-err-dark:#C46A6A;
+    --u-mut-dark:#A8AEB4;--u-sub-dark:#7C8389}
+
+  /* ============================================================================
+     WORKBENCH - mockup interativo: escolha estilo + paleta, muda na hora
+     ============================================================================ */
+  .workbench{background:var(--g-surface);border:1px solid var(--g-line);border-radius:10px;padding:26px 30px 10px;margin-top:26px}
+  .wb-controls{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-end;margin-bottom:20px}
+  .wb-field{display:flex;flex-direction:column;gap:6px}
+  .wb-field label{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--g-muted)}
+  .wb-field select{font:14px "Inter",sans-serif;border:1px solid #D2D2CC;border-radius:8px;padding:9px 34px 9px 12px;background:#FFFFFF;color:var(--g-ink);min-width:230px;appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%235D6368" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>');background-repeat:no-repeat;background-position:right 10px center}
+  .wb-field select:focus{outline:none;border-color:var(--g-accent);box-shadow:0 0 0 3px rgba(15,118,110,.16)}
+  .wb-hint{font-size:12.5px;color:var(--g-muted);padding-bottom:9px}
+  .wb-stage{border:1px solid #D8D8D3;border-radius:10px;overflow:hidden;box-shadow:0 18px 50px rgba(30,33,36,.10);margin-bottom:24px}
+  .wb-stage .bar{display:flex;align-items:center;gap:8px;background:#EBEBE7;border-bottom:1px solid #D8D8D3;padding:8px 14px;font:11.5px "JetBrains Mono",monospace;color:#7A7F84}
+  .wb-stage .bar i{width:9px;height:9px;border-radius:50%;background:#CFCFC9;display:inline-block}
+  .wb-canvas{overflow-x:auto}
+  .wb-canvas .screen{min-width:1180px;display:none}
+  .wb-canvas .screen.wb-active{display:block}
+
+  /* ============================================================================
+     DIREÇÃO A · cluos-calm-command · paleta PRESERVE
+     Luxury Medical × Data Precision × Swiss Minimal, cores âncora atuais.
+     ============================================================================ */
+  .dA{--teal:var(--u-accent,#008080);--teal-deep:var(--u-accent-deep,#005959);--navy:var(--u-ink,#1B2F36);--bg:var(--u-bg,#FBFBF9);--surface:var(--u-surface,#FFFFFF);
+      --line:var(--u-line,#E6E7E1);--line2:var(--u-line2,#D4D6CD);--mut:var(--u-mut,#5A6570);--sub:var(--u-sub,#8A939B);
+      --ok:var(--u-ok,#008080);--warn:var(--u-warn,#B06A34);--err:var(--u-err,#8A3A3A);--info:#3E6E82;
+      font-family:"Inter",system-ui,sans-serif;background:var(--bg);color:var(--navy);font-size:14px;line-height:1.5}
+  .dA .shell{display:grid;grid-template-columns:216px 1fr;min-height:640px}
+  .dA .rail{border-right:1px solid var(--line);padding:26px 0;background:var(--bg)}
+  .dA .rail .logo{padding:0 26px 26px;font-weight:300;font-size:17px;letter-spacing:.14em}
+  .dA .rail .logo b{font-weight:600;color:var(--teal)}
+  .dA .rail .grp{padding:16px 26px 5px;font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--sub)}
+  .dA .rail a{display:block;padding:7px 26px;font-size:13.5px;color:var(--mut);text-decoration:none}
+  .dA .rail a.on{color:var(--navy);font-weight:500;box-shadow:inset 2px 0 0 var(--teal)}
+  .dA .main{padding:34px 44px}
+  .dA .crumb{font-size:12.5px;color:var(--sub);margin-bottom:6px}
+  .dA h1{font-size:24px;font-weight:400;letter-spacing:-.01em}
+  .dA .sum{color:var(--mut);font-size:13.5px;margin-top:4px}
+  .dA .kpis{display:flex;gap:0;margin:30px 0 34px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .dA .kpi{flex:1;padding:18px 22px 16px;border-right:1px solid var(--line)}
+  .dA .kpi:first-child{padding-left:2px}
+  .dA .kpi:last-child{border-right:none}
+  .dA .kpi .v{font-size:26px;font-weight:300;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+  .dA .kpi .l{font-size:12px;color:var(--mut);margin-top:2px}
+  .dA .kpi.alert .v{color:var(--err)}
+  .dA .cols{display:grid;grid-template-columns:1fr 300px;gap:44px}
+  .dA table{width:100%;border-collapse:collapse;font-size:13.5px}
+  .dA th{text-align:left;font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);padding:8px 10px;border-bottom:1px solid var(--line2)}
+  .dA td{padding:11px 10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  .dA td.num{text-align:right;font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--mut)}
+  .dA .st{display:inline-flex;align-items:center;gap:7px;font-size:13px}
+  .dA .st i{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .dA .ok i{background:var(--ok)} .dA .warn i{background:var(--warn)} .dA .err i{background:var(--err)} .dA .mut i{background:var(--sub)}
+  .dA .side h3{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);padding-bottom:10px;border-bottom:1px solid var(--line2)}
+  .dA .att{padding:14px 0;border-bottom:1px solid var(--line)}
+  .dA .att .t{font-weight:500;font-size:13.5px}
+  .dA .att .d{font-size:12.5px;color:var(--mut);margin-top:3px}
+  .dA .att a{font-size:12.5px;color:var(--teal-deep);font-weight:500;text-decoration:none;display:inline-block;margin-top:6px}
+  .dA .btn{display:inline-block;background:var(--teal);color:#fff;font-size:13.5px;font-weight:500;border-radius:8px;padding:9px 18px;text-decoration:none}
+  .dA .btn.ghost{background:transparent;color:var(--navy);border:1px solid var(--line2)}
+  .dA .btn.danger{background:transparent;color:var(--err);border:1px solid #E3CBCB}
+  /* detalhe */
+  .dA .headrow{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+  .dA .badge{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;border-radius:999px;padding:4px 12px}
+  .dA .badge.warn{background:#F8EFE6;color:var(--warn)}
+  .dA .meta{display:flex;gap:34px;margin:26px 0 30px;font-size:13px;color:var(--mut)}
+  .dA .meta b{display:block;color:var(--navy);font-weight:500;font-size:14.5px;font-variant-numeric:tabular-nums}
+  .dA .panelrow{display:grid;grid-template-columns:1fr 1fr;gap:44px}
+  .dA .tl{list-style:none}
+  .dA .tl li{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .dA .tl time{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--sub);min-width:44px;padding-top:1px}
+  .dA .spark{width:100%;height:46px;margin:6px 0 18px}
+  /* form */
+  .dA form{max-width:520px}
+  .dA .fld{margin-bottom:20px}
+  .dA label{display:block;font-size:13px;font-weight:500;margin-bottom:6px}
+  .dA .help{font-size:12px;color:var(--sub);margin-top:5px}
+  .dA .errmsg{font-size:12px;color:var(--err);margin-top:5px}
+  .dA input[type=text],.dA input[type=email],.dA select{width:100%;border:1px solid var(--line2);border-radius:8px;background:#fff;font:14px "Inter",sans-serif;color:var(--navy);padding:9px 12px}
+  .dA input:focus,.dA select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,128,128,.22)}
+  .dA input.bad{border-color:var(--err)}
+  .dA .checks{display:flex;flex-wrap:wrap;gap:8px}
+  .dA .chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line2);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--mut);cursor:pointer}
+  .dA .chip.sel{border-color:var(--teal);color:var(--teal-deep);background:rgba(0,128,128,.06);font-weight:500}
+  .dA .radios label{display:flex;gap:10px;align-items:flex-start;font-weight:400;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}
+  .dA .radios .rl b{display:block;font-size:13.5px;font-weight:500}
+  .dA .radios .rl span{font-size:12.5px;color:var(--mut)}
+  .dA .actions{display:flex;gap:12px;margin-top:28px;align-items:center}
+
+  /* ============================================================================
+     DIREÇÃO B · data-precision sobre Thermal Nocturne · paleta EVOLVE
+     ============================================================================ */
+  .dB{--navy:#010D28;--blue:#132952;--teal:var(--u-accent,#0E8F87);--teal-ink:var(--u-accent-deep,#0A6B65);--signal:var(--u-signal,#C4DB7B);
+      --bg:var(--u-bg,#F5F7F4);--surface:var(--u-surface,#FFFFFF);--line:var(--u-line,#DCE2E3);--line2:var(--u-line2,#C2CDD1);
+      --ink:var(--u-ink,#0B1730);--mut:var(--u-mut,#46536B);--sub:var(--u-sub,#68748A);
+      --ok:var(--u-ok,#6F8F19);--warn:var(--u-warn,#BD7845);--err:var(--u-err,#8A3A3A);
+      font-family:"Instrument Sans","Inter",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:13.5px;line-height:1.45}
+  .dB .shell{display:grid;grid-template-columns:200px 1fr;min-height:660px}
+  .dB .rail{background:var(--navy);color:#C7CFDD;padding:20px 0;display:flex;flex-direction:column}
+  .dB .rail .logo{padding:4px 20px 20px;display:flex;align-items:center;gap:10px}
+  .dB .rail .logo .sym{width:26px;height:26px;border-radius:6px;background:linear-gradient(135deg,#132952,#0E8F87);display:inline-flex;align-items:center;justify-content:center;color:#fff;font:600 13px "Manrope",sans-serif}
+  .dB .rail .logo span{font:200 15px "Manrope",sans-serif;letter-spacing:.16em;color:#fff}
+  .dB .rail .grp{padding:14px 20px 4px;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#5A6A8C}
+  .dB .rail a{display:flex;justify-content:space-between;align-items:center;padding:6.5px 20px;font-size:13px;color:#B6C0D2;text-decoration:none}
+  .dB .rail a.on{background:rgba(196,219,123,.10);color:#fff;box-shadow:inset 2px 0 0 var(--signal)}
+  .dB .rail .ct{font:11px "JetBrains Mono",monospace;color:#7C8AA6;background:rgba(255,255,255,.06);border-radius:4px;padding:1px 6px}
+  .dB .rail .ct.hot{color:var(--navy);background:var(--signal);font-weight:600}
+  .dB .rail .env{margin-top:auto;padding:14px 20px;font:11px "JetBrains Mono",monospace;color:#5A6A8C;border-top:1px solid rgba(255,255,255,.08)}
+  .dB .main{padding:0}
+  .dB .statusbar{display:flex;align-items:center;gap:26px;background:var(--surface);border-bottom:1px solid var(--line);padding:12px 30px;font-size:12.5px;color:var(--mut)}
+  .dB .statusbar .live{display:inline-flex;align-items:center;gap:8px;font-weight:600;color:var(--teal-ink)}
+  .dB .statusbar .live i{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+  .dB .statusbar .mono{font:12px "JetBrains Mono",monospace}
+  .dB .content{padding:26px 30px}
+  .dB h1{font:300 21px "Manrope",sans-serif;letter-spacing:-.01em;color:var(--navy)}
+  .dB .gridkpi{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:20px 0 26px}
+  .dB .gridkpi .k{background:var(--surface);padding:14px 18px}
+  .dB .gridkpi .v{font:500 22px/1.1 "Manrope",sans-serif;font-variant-numeric:tabular-nums;color:var(--navy)}
+  .dB .gridkpi .v small{font-size:12px;color:var(--sub);font-weight:400}
+  .dB .gridkpi .l{font-size:11.5px;color:var(--sub);margin-top:4px;letter-spacing:.02em}
+  .dB .gridkpi .k.bad .v{color:var(--err)}
+  .dB .toolrow{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+  .dB .toolrow .f{border:1px solid var(--line2);background:var(--surface);border-radius:5px;font-size:12.5px;color:var(--mut);padding:5px 12px}
+  .dB .toolrow .f.on{border-color:var(--teal);color:var(--teal-ink);font-weight:500}
+  .dB .toolrow .sp{flex:1}
+  .dB .toolrow .upd{font:11.5px "JetBrains Mono",monospace;color:var(--sub)}
+  .dB table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);font-size:13px}
+  .dB th{text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);padding:8px 14px;border-bottom:1px solid var(--line2);background:#FAFBFA}
+  .dB td{padding:9px 14px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  .dB tr:last-child td{border-bottom:none}
+  .dB td.num,.dB th.num{text-align:right;font-family:"JetBrains Mono",monospace;font-size:12px}
+  .dB .svc{font-weight:600;color:var(--navy)}
+  .dB .svc small{display:block;font-weight:400;font-size:11.5px;color:var(--sub)}
+  .dB .pill{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.04em;border-radius:4px;padding:2px 8px}
+  .dB .pill.ok{background:#F1F6DF;color:#55700F}
+  .dB .pill.warn{background:#F8EBDF;color:#96562A}
+  .dB .pill.err{background:#F5EAEA;color:var(--err)}
+  .dB .pill.mut{background:#EDF0F2;color:var(--sub)}
+  .dB .lat{color:var(--mut)} .dB .lat.hot{color:var(--warn);font-weight:600}
+  .dB .btn{display:inline-block;background:var(--navy);color:#fff;font-size:12.5px;font-weight:600;border-radius:5px;padding:8px 16px;text-decoration:none}
+  .dB .btn.signal{background:var(--signal);color:var(--navy)}
+  .dB .btn.ghost{background:transparent;border:1px solid var(--line2);color:var(--ink);font-weight:500}
+  /* detalhe B */
+  .dB .dethead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:18px}
+  .dB .dethead h1 b{font-weight:600}
+  .dB .metastrip{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:16px 0 22px}
+  .dB .metastrip .m{background:var(--surface);flex:1;padding:10px 16px;font-size:11.5px;color:var(--sub)}
+  .dB .metastrip b{display:block;font:500 15px "Manrope",sans-serif;color:var(--navy);font-variant-numeric:tabular-nums;margin-top:2px}
+  .dB .twocol{display:grid;grid-template-columns:1.4fr 1fr;gap:22px}
+  .dB .panel{background:var(--surface);border:1px solid var(--line);border-radius:6px}
+  .dB .panel h3{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);padding:10px 16px;border-bottom:1px solid var(--line)}
+  .dB .panel .bd{padding:14px 16px}
+  .dB .ev{display:flex;gap:12px;padding:8px 16px;border-bottom:1px solid var(--line);font-size:12.5px}
+  .dB .ev:last-child{border-bottom:none}
+  .dB .ev time{font:11.5px "JetBrains Mono",monospace;color:var(--sub);min-width:42px}
+  .dB .ev .tag{font-size:10px;font-weight:600;letter-spacing:.05em;border-radius:3px;padding:1px 6px;height:fit-content}
+  .dB .ev .tag.a{background:#F8EBDF;color:#96562A} .dB .ev .tag.d{background:#EDF1F4;color:#3E6E82} .dB .ev .tag.o{background:#F1F6DF;color:#55700F}
+  /* form B */
+  .dB form{max-width:560px}
+  .dB .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .dB .fld{margin-bottom:16px}
+  .dB label{display:block;font-size:12px;font-weight:600;margin-bottom:5px;color:var(--navy)}
+  .dB .help{font-size:11.5px;color:var(--sub);margin-top:4px}
+  .dB .errmsg{font-size:11.5px;color:var(--err);margin-top:4px;font-weight:500}
+  .dB input[type=text],.dB input[type=email],.dB select{width:100%;border:1px solid var(--line2);border-radius:5px;background:#fff;font:13px "Instrument Sans",sans-serif;color:var(--ink);padding:8px 11px}
+  .dB input:focus,.dB select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,143,135,.18)}
+  .dB input.bad{border-color:var(--err)}
+  .dB .prodtable{margin:4px 0 0}
+  .dB .prodtable td:first-child{font-weight:600;color:var(--navy)}
+  .dB .prodtable td{padding:7px 14px}
+  .dB .prodtable .desc{color:var(--sub);font-size:12px}
+  .dB .actions{display:flex;gap:10px;margin-top:24px;align-items:center}
+
+  /* ----- modificadores de paleta (mesma marcação de B, tokens diferentes) ----- */
+  .dB.pal-forest{--navy:#14251B;--blue:#1E3A28;--teal:#3D7A46;--teal-ink:#2C5A34;--signal:#D9C27A;
+    --bg:#F6F5EF;--surface:#FFFFFF;--line:#E4E2D6;--line2:#CFCDBC;
+    --ink:#16201A;--mut:#52604E;--sub:#7C8977;--ok:#3D7A46;--warn:#B5773A;--err:#8A3A3A}
+  .dB.pal-cold{--navy:#1B1E22;--blue:#262A30;--teal:#2D6CDF;--teal-ink:#1F4FAE;--signal:#9FB3C8;
+    --bg:#F4F5F6;--surface:#FFFFFF;--line:#E2E4E7;--line2:#C9CDD2;
+    --ink:#1B1E22;--mut:#565C64;--sub:#82888F;--ok:#2D6CDF;--warn:#B5773A;--err:#8A3A3A}
+  .dB.pal-terracotta{--navy:#24303A;--blue:#324150;--teal:#B5623A;--teal-ink:#8F4B2B;--signal:#E3A26B;
+    --bg:#F3F1EC;--surface:#FFFFFF;--line:#E4E0D6;--line2:#CBC5B6;
+    --ink:#24303A;--mut:#586470;--sub:#828C95;--ok:#4A7A5E;--warn:#B5623A;--err:#8A3A3A}
+
+  /* ============================================================================
+     DIREÇÃO C · cluos-editorial-intelligence · paleta NEW
+     ============================================================================ */
+  .dC{--ink:var(--u-ink,#16181D);--paper:var(--u-bg,#FAFAF7);--raised:var(--u-surface,#FFFFFF);--line:var(--u-line,#E4E3DD);--line2:var(--u-line2,#CBCAC2);
+      --mut:var(--u-mut,#565A61);--sub:var(--u-sub,#84888E);--cobalt:var(--u-accent,#2B49C7);--cobalt-deep:var(--u-accent-deep,#1D339B);
+      --ok:var(--u-ok,#3D7A46);--warn:var(--u-warn,#A96A2F);--err:var(--u-err,#973B3B);
+      font-family:"Instrument Sans","Inter",system-ui,sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.55}
+  .dC .mast{border-bottom:1px solid var(--ink);padding:20px 48px 0;background:var(--paper)}
+  .dC .mastrow{display:flex;align-items:baseline;justify-content:space-between}
+  .dC .mast .brand{font:300 20px "Manrope",sans-serif;letter-spacing:.2em}
+  .dC .mast .brand b{font-weight:600;color:var(--cobalt)}
+  .dC .mast .who{font-size:12.5px;color:var(--sub)}
+  .dC .tabs{display:flex;gap:34px;margin-top:18px}
+  .dC .tabs a{font-family:"Newsreader",serif;font-size:17px;color:var(--mut);text-decoration:none;padding-bottom:12px}
+  .dC .tabs a.on{color:var(--ink);border-bottom:2px solid var(--cobalt);font-weight:500}
+  .dC .page{padding:40px 48px 48px}
+  .dC .lead h1{font:400 34px/1.18 "Newsreader",serif;letter-spacing:-.01em;max-width:22ch}
+  .dC .lead h1 em{font-style:italic;color:var(--cobalt)}
+  .dC .deck{font-size:15px;color:var(--mut);margin-top:12px;max-width:62ch}
+  .dC .edgrid{display:grid;grid-template-columns:1.5fr 1fr;gap:56px;margin-top:38px}
+  .dC .story{border-top:2px solid var(--ink);padding-top:18px}
+  .dC .story .cat{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--err)}
+  .dC .story.deg .cat{color:var(--warn)}
+  .dC .story h3{font:500 21px/1.25 "Newsreader",serif;margin-top:8px}
+  .dC .story p{font-size:13.5px;color:var(--mut);margin-top:8px;max-width:58ch}
+  .dC .story .act{margin-top:12px;font-size:13px;font-weight:600;color:var(--cobalt);text-decoration:none;display:inline-block}
+  .dC .story + .story{margin-top:30px}
+  .dC .numscol{border-top:2px solid var(--ink);padding-top:18px}
+  .dC .numscol h4{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+  .dC .bignum{padding:18px 0;border-bottom:1px solid var(--line)}
+  .dC .bignum .v{font:300 40px/1 "Manrope",sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .dC .bignum .v.bad{color:var(--err)}
+  .dC .bignum .l{font-size:12.5px;color:var(--mut);margin-top:6px}
+  .dC .idx{margin-top:44px}
+  .dC .idx h2{font:500 15px "Instrument Sans",sans-serif;letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:10px}
+  .dC table{width:100%;border-collapse:collapse;font-size:13.5px}
+  .dC td{padding:12px 6px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  .dC td .svcname{font-weight:600}
+  .dC td .svcdesc{color:var(--sub);font-size:12.5px}
+  .dC td.num{text-align:right;font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--mut)}
+  .dC .state{font-size:12.5px;font-weight:600}
+  .dC .state.ok{color:var(--ok)} .dC .state.warn{color:var(--warn)} .dC .state.err{color:var(--err)} .dC .state.mut{color:var(--sub)}
+  .dC .btn{display:inline-block;background:var(--ink);color:var(--paper);font-size:13px;font-weight:600;border-radius:2px;padding:10px 20px;text-decoration:none}
+  .dC .btn.cob{background:var(--cobalt)}
+  .dC .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line2)}
+  /* detalhe C */
+  .dC .dethead{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid var(--ink);padding-bottom:18px}
+  .dC .dethead h1{font:400 30px "Newsreader",serif}
+  .dC .dethead .stt{font-size:13px;font-weight:600;color:var(--warn)}
+  .dC .detgrid{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:30px}
+  .dC .detgrid h4{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);margin-bottom:12px}
+  .dC .narr{font:400 16.5px/1.6 "Newsreader",serif;max-width:56ch}
+  .dC .narr b{font-weight:600}
+  .dC .tlC{list-style:none;margin-top:6px}
+  .dC .tlC li{display:flex;gap:16px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .dC .tlC time{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--sub);min-width:44px}
+  .dC .metaC{display:flex;gap:40px;margin:22px 0 4px}
+  .dC .metaC div span{font-size:12px;color:var(--sub)}
+  .dC .metaC div b{display:block;font:300 24px "Manrope",sans-serif;font-variant-numeric:tabular-nums}
+  /* form C */
+  .dC .formwrap{display:grid;grid-template-columns:1fr 1.4fr;gap:56px}
+  .dC .formintro h1{font:400 28px/1.2 "Newsreader",serif}
+  .dC .formintro p{color:var(--mut);font-size:14px;margin-top:12px;max-width:36ch}
+  .dC form{max-width:540px}
+  .dC .fld{margin-bottom:22px}
+  .dC label{display:block;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}
+  .dC .help{font-size:12.5px;color:var(--sub);margin-top:5px}
+  .dC .errmsg{font-size:12.5px;color:var(--err);margin-top:5px;font-weight:500}
+  .dC input[type=text],.dC input[type=email],.dC select{width:100%;border:none;border-bottom:1.5px solid var(--line2);background:transparent;font:15px "Instrument Sans",sans-serif;color:var(--ink);padding:8px 2px}
+  .dC input:focus,.dC select:focus{outline:none;border-bottom-color:var(--cobalt);box-shadow:0 1.5px 0 var(--cobalt)}
+  .dC input.bad{border-bottom-color:var(--err)}
+  .dC .checksC{display:flex;flex-direction:column}
+  .dC .checksC label{display:flex;justify-content:space-between;align-items:center;text-transform:none;letter-spacing:0;font-size:14px;font-weight:500;padding:11px 0;border-bottom:1px solid var(--line);margin:0;cursor:pointer}
+  .dC .checksC small{color:var(--sub);font-weight:400;font-size:12.5px}
+  .dC .actions{display:flex;gap:14px;margin-top:30px;align-items:center}
+
+  /* ============================================================================
+     DIREÇÃO D · swiss-minimal puro · "Swiss Ledger" · paleta preserve mono
+     ============================================================================ */
+  .dD{--ink:var(--u-ink,#111417);--bg:var(--u-bg,#FFFFFF);--line:var(--u-line,#E3E4E1);--line2:var(--u-line2,var(--u-ink,#111417));--mut:var(--u-mut,#5B6166);--sub:var(--u-sub,#8B9095);
+      --teal:var(--u-accent,#007070);--ok:var(--u-ok,#007070);--warn:var(--u-warn,#A96A2F);--err:var(--u-err,#8A3A3A);
+      font-family:"Inter",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:13.5px;line-height:1.5}
+  .dD .top{display:flex;align-items:baseline;gap:44px;padding:22px 40px 0;border-bottom:1px solid var(--line2)}
+  .dD .top .logo{font-weight:300;font-size:15px;letter-spacing:.18em}
+  .dD .top .logo b{font-weight:600}
+  .dD .tabs{display:flex;gap:30px}
+  .dD .tabs a{font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--sub);text-decoration:none;padding-bottom:14px}
+  .dD .tabs a.on{color:var(--ink);border-bottom:2px solid var(--ink)}
+  .dD .top .env{margin-left:auto;font:11px "JetBrains Mono",monospace;color:var(--sub)}
+  .dD .body{padding:30px 40px 40px}
+  .dD .titlerow{display:flex;justify-content:space-between;align-items:baseline}
+  .dD h1{font-size:22px;font-weight:400;letter-spacing:-.01em}
+  .dD .upd{font:11px "JetBrains Mono",monospace;color:var(--sub)}
+  .dD .kband{display:grid;grid-template-columns:repeat(4,1fr);margin:26px 0 30px;border-top:1px solid var(--line2);border-bottom:1px solid var(--line)}
+  .dD .kband .k{padding:16px 20px 14px;border-right:1px solid var(--line)}
+  .dD .kband .k:first-child{padding-left:0}
+  .dD .kband .k:last-child{border-right:none}
+  .dD .kband .v{font-size:30px;font-weight:300;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .dD .kband .v.bad{color:var(--err)}
+  .dD .kband .l{font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--sub);margin-top:4px}
+  .dD .grid2{display:grid;grid-template-columns:1fr 290px;gap:48px}
+  .dD table{width:100%;border-collapse:collapse;font-size:13px}
+  .dD th{text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--sub);padding:7px 8px;border-bottom:1px solid var(--line2)}
+  .dD td{padding:10px 8px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  .dD td.num{text-align:right;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--mut)}
+  .dD .stx{font-weight:600;font-size:12.5px}
+  .dD .stx.ok{color:var(--ok)} .dD .stx.warn{color:var(--warn)} .dD .stx.err{color:var(--err)} .dD .stx.mut{color:var(--sub);font-weight:400}
+  .dD .attD h3{font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--sub);padding-bottom:8px;border-bottom:1px solid var(--line2)}
+  .dD .attD .it{padding:13px 0;border-bottom:1px solid var(--line)}
+  .dD .attD .it b{font-size:13px;font-weight:600;display:block}
+  .dD .attD .it p{font-size:12.5px;color:var(--mut);margin-top:3px}
+  .dD .attD .it a{font-size:12px;font-weight:600;color:var(--teal);text-decoration:none;display:inline-block;margin-top:6px;letter-spacing:.02em}
+  .dD .btn{display:inline-block;border:1px solid var(--ink);color:var(--ink);font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:8px 16px;text-decoration:none}
+
+  /* ============================================================================
+     DIREÇÃO E · luxury-medical · "Clinic Premium" · paleta evolve quente
+     ============================================================================ */
+  .dE{--teal:var(--u-accent,#0E6E68);--teal-deep:var(--u-accent-deep,#0A524E);--ink:var(--u-ink,#24403C);--bg:var(--u-bg,#F6F3EE);--surface:var(--u-surface,#FFFFFF);
+      --line:var(--u-line,#E7DFD2);--line2:var(--u-line2,#D6CCBA);--mut:var(--u-mut,#63705F);--sub:var(--u-sub,#8E9788);--champ:#C9BFA9;
+      --ok:var(--u-ok,#0E6E68);--warn:var(--u-warn,#A96A2F);--err:var(--u-err,#8A3A3A);
+      font-family:"Instrument Sans","Inter",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.55}
+  .dE .shell{display:grid;grid-template-columns:224px 1fr;min-height:640px}
+  .dE .rail{padding:28px 18px;border-right:1px solid var(--line)}
+  .dE .rail .logo{padding:0 12px 26px;font:200 18px "Manrope",sans-serif;letter-spacing:.15em;color:var(--ink)}
+  .dE .rail .logo b{font-weight:500;color:var(--teal)}
+  .dE .rail .grp{padding:14px 12px 6px;font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--sub)}
+  .dE .rail a{display:block;padding:8px 12px;font-size:13.5px;color:var(--mut);text-decoration:none;border-radius:8px}
+  .dE .rail a.on{background:rgba(14,110,104,.09);color:var(--teal-deep);font-weight:600}
+  .dE .main{padding:36px 44px}
+  .dE h1{font:300 26px "Manrope",sans-serif;letter-spacing:-.01em}
+  .dE .sum{color:var(--mut);font-size:13.5px;margin-top:6px}
+  .dE .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0}
+  .dE .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:0 1px 3px rgba(36,64,60,.05)}
+  .dE .card .v{font:300 26px "Manrope",sans-serif;font-variant-numeric:tabular-nums}
+  .dE .card .v.bad{color:var(--err)}
+  .dE .card .l{font-size:12px;color:var(--mut);margin-top:3px}
+  .dE .panelE{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(36,64,60,.05)}
+  .dE .panelE h3{font-size:13px;font-weight:600;padding:14px 20px;border-bottom:1px solid var(--line)}
+  .dE table{width:100%;border-collapse:collapse;font-size:13.5px}
+  .dE td{padding:12px 20px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  .dE tr:last-child td{border-bottom:none}
+  .dE td.num{text-align:right;font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--mut)}
+  .dE .stE{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500}
+  .dE .stE i{width:8px;height:8px;border-radius:50%}
+  .dE .ok i{background:var(--ok)} .dE .warn i{background:var(--warn)} .dE .err i{background:var(--err)} .dE .mut i{background:var(--sub)}
+  .dE .gridE{display:grid;grid-template-columns:1fr 300px;gap:20px}
+  .dE .attE{border-left:3px solid var(--warn);background:var(--surface);border-radius:0 12px 12px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 20px;margin-bottom:14px}
+  .dE .attE.err{border-left-color:var(--err)}
+  .dE .attE b{font-size:13.5px;display:block}
+  .dE .attE p{font-size:12.5px;color:var(--mut);margin-top:4px}
+  .dE .attE a{font-size:12.5px;font-weight:600;color:var(--teal-deep);text-decoration:none;display:inline-block;margin-top:8px}
+  .dE .btn{display:inline-block;background:var(--teal);color:#fff;font-size:13px;font-weight:600;border-radius:10px;padding:9px 18px;text-decoration:none}
+
+  /* ============================================================================
+     DIREÇÃO G · thermal nocturne dark · "Night Watch" · paleta evolve dark
+     ============================================================================ */
+  .dG{--field:#010D28;--raised:#0B1B41;--deep:#01081A;--line:rgba(199,213,235,.14);--line2:rgba(199,213,235,.26);
+      --text:#E8ECF4;--mut:var(--u-mut-dark,#9AA7C0);--sub:var(--u-sub-dark,#66738F);--teal:var(--u-accent-dark,#1FB5AB);--signal:var(--u-signal-dark,#C4DB7B);
+      --ok:var(--u-ok-dark,#9CC24A);--warn:var(--u-warn-dark,#D08A54);--err:var(--u-err-dark,#C46A6A);
+      font-family:"Instrument Sans","Inter",system-ui,sans-serif;background:var(--field);color:var(--text);font-size:13.5px;line-height:1.5}
+  .dG .shell{display:grid;grid-template-columns:200px 1fr;min-height:640px}
+  .dG .rail{background:var(--deep);padding:22px 0;border-right:1px solid var(--line)}
+  .dG .rail .logo{padding:0 20px 22px;font:200 15px "Manrope",sans-serif;letter-spacing:.18em;color:#fff}
+  .dG .rail .logo b{font-weight:600;color:var(--teal)}
+  .dG .rail .grp{padding:14px 20px 4px;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+  .dG .rail a{display:flex;justify-content:space-between;padding:6.5px 20px;font-size:13px;color:var(--mut);text-decoration:none}
+  .dG .rail a.on{color:#fff;box-shadow:inset 2px 0 0 var(--signal);background:rgba(196,219,123,.07)}
+  .dG .rail .ct{font:10.5px "JetBrains Mono",monospace;color:var(--sub)}
+  .dG .rail .ct.hot{color:var(--field);background:var(--signal);border-radius:3px;padding:0 6px;font-weight:600}
+  .dG .main{padding:26px 32px}
+  .dG .toprow{display:flex;align-items:center;gap:20px;margin-bottom:22px}
+  .dG h1{font:300 20px "Manrope",sans-serif;color:#fff}
+  .dG .live{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--signal)}
+  .dG .live i{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 8px rgba(196,219,123,.8)}
+  .dG .upd{margin-left:auto;font:11px "JetBrains Mono",monospace;color:var(--sub)}
+  .dG .kgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-bottom:22px}
+  .dG .k{background:var(--raised);padding:14px 18px}
+  .dG .k .v{font:300 24px "Manrope",sans-serif;font-variant-numeric:tabular-nums;color:#fff}
+  .dG .k .v.bad{color:var(--err)}
+  .dG .k .l{font-size:11px;color:var(--mut);margin-top:3px}
+  .dG table{width:100%;border-collapse:collapse;font-size:13px;background:var(--raised);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .dG th{text-align:left;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);padding:8px 14px;border-bottom:1px solid var(--line2)}
+  .dG td{padding:9px 14px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  .dG tr:last-child td{border-bottom:none}
+  .dG td.num{text-align:right;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--mut)}
+  .dG .svc{font-weight:600;color:#fff}
+  .dG .svc small{display:block;font-weight:400;font-size:11.5px;color:var(--sub)}
+  .dG .stG{font-size:12px;font-weight:600}
+  .dG .stG.ok{color:var(--ok)} .dG .stG.warn{color:var(--warn)} .dG .stG.err{color:var(--err)} .dG .stG.mut{color:var(--sub);font-weight:400}
+  .dG .lat.hot{color:var(--warn);font-weight:600}
+  .dG .sparkG{margin:20px 0 0;border:1px solid var(--line);border-radius:6px;background:var(--raised);padding:14px 18px}
+  .dG .sparkG h3{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);margin-bottom:8px}
+
+  /* ----- D · detalhe e formulário ----- */
+  .dD .metaD{display:grid;grid-template-columns:repeat(4,1fr);margin:22px 0 26px;border-top:1px solid var(--line2);border-bottom:1px solid var(--line)}
+  .dD .metaD .m{padding:13px 18px 11px;border-right:1px solid var(--line);font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--sub)}
+  .dD .metaD .m:first-child{padding-left:0}
+  .dD .metaD .m:last-child{border-right:none}
+  .dD .metaD b{display:block;font-size:19px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--ink);font-variant-numeric:tabular-nums;margin-top:3px}
+  .dD .tlD{list-style:none}
+  .dD .tlD li{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+  .dD .tlD time{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--sub);min-width:42px;padding-top:1px}
+  .dD .stword{font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--warn)}
+  .dD form{max-width:520px}
+  .dD .fld{margin-bottom:20px}
+  .dD label{display:block;font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin-bottom:6px}
+  .dD .help{font-size:12px;color:var(--sub);margin-top:5px}
+  .dD .errmsg{font-size:12px;color:var(--err);margin-top:5px;font-weight:500}
+  .dD input[type=text],.dD input[type=email],.dD select{width:100%;border:1px solid var(--ink);border-radius:0;background:#fff;font:13.5px "Inter",sans-serif;color:var(--ink);padding:9px 11px}
+  .dD input:focus,.dD select:focus{outline:2px solid var(--teal);outline-offset:-1px}
+  .dD input.bad{border-color:var(--err);outline:1px solid var(--err);outline-offset:-1px}
+  .dD .prods label{display:flex;justify-content:space-between;align-items:center;text-transform:none;letter-spacing:0;font-size:13.5px;font-weight:400;padding:9px 2px;border-bottom:1px solid var(--line);margin:0}
+  .dD .prods small{color:var(--sub)}
+  .dD .actions{display:flex;gap:12px;margin-top:26px}
+  .dD .btn.solid{background:var(--ink);color:#fff}
+
+  /* ----- E · detalhe e formulário ----- */
+  .dE .badgeE{display:inline-flex;font-size:12.5px;font-weight:600;border-radius:999px;padding:5px 14px;background:#F5E7D8;color:var(--warn)}
+  .dE .metaE{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
+  .dE .metaE .card .v{font-size:20px}
+  .dE .tlE{list-style:none}
+  .dE .tlE li{display:flex;gap:14px;padding:11px 20px;border-bottom:1px solid var(--line);font-size:13px}
+  .dE .tlE li:last-child{border-bottom:none}
+  .dE .tlE time{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--sub);min-width:44px}
+  .dE .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line2)}
+  .dE .btn.danger{background:transparent;color:var(--err);border:1px solid #E0C9C0}
+  .dE form{max-width:560px}
+  .dE .fld{margin-bottom:20px}
+  .dE label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+  .dE .help{font-size:12px;color:var(--sub);margin-top:5px}
+  .dE .errmsg{font-size:12px;color:var(--err);margin-top:5px;font-weight:500}
+  .dE input[type=text],.dE input[type=email],.dE select{width:100%;border:1px solid var(--line2);border-radius:10px;background:#fff;font:14px "Instrument Sans",sans-serif;color:var(--ink);padding:10px 13px}
+  .dE input:focus,.dE select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,110,104,.16)}
+  .dE input.bad{border-color:var(--err)}
+  .dE .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .dE .chip{display:inline-flex;border:1px solid var(--line2);border-radius:999px;padding:7px 16px;font-size:13px;color:var(--mut)}
+  .dE .chip.sel{border-color:var(--teal);color:var(--teal-deep);background:rgba(14,110,104,.08);font-weight:600}
+  .dE .actions{display:flex;gap:12px;margin-top:26px}
+
+  /* ----- G · detalhe e formulário ----- */
+  .dG .badgeG{display:inline-flex;font-size:11.5px;font-weight:600;border-radius:4px;padding:4px 10px;background:rgba(208,138,84,.16);color:var(--warn)}
+  .dG .metastrip{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:18px 0 20px}
+  .dG .metastrip .m{background:var(--raised);flex:1;padding:10px 16px;font-size:11px;color:var(--sub)}
+  .dG .metastrip b{display:block;font:500 15px "Manrope",sans-serif;color:#fff;font-variant-numeric:tabular-nums;margin-top:2px}
+  .dG .twocol{display:grid;grid-template-columns:1.4fr 1fr;gap:20px}
+  .dG .panelG{background:var(--raised);border:1px solid var(--line);border-radius:6px}
+  .dG .panelG h3{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);padding:10px 16px;border-bottom:1px solid var(--line)}
+  .dG .ev{display:flex;gap:12px;padding:9px 16px;border-bottom:1px solid var(--line);font-size:12.5px}
+  .dG .ev:last-child{border-bottom:none}
+  .dG .ev time{font:11.5px "JetBrains Mono",monospace;color:var(--sub);min-width:42px}
+  .dG .ev .tag{font-size:10px;font-weight:600;letter-spacing:.05em;border-radius:3px;padding:1px 6px;height:fit-content}
+  .dG .ev .tag.a{background:rgba(208,138,84,.16);color:var(--warn)} .dG .ev .tag.d{background:rgba(31,181,171,.14);color:var(--teal)} .dG .ev .tag.o{background:rgba(156,194,74,.14);color:var(--ok)}
+  .dG .btnG{display:inline-block;background:var(--signal);color:var(--field);font-size:12.5px;font-weight:600;border-radius:5px;padding:8px 16px;text-decoration:none}
+  .dG .btnG.ghost{background:transparent;border:1px solid var(--line2);color:var(--text);font-weight:500}
+  .dG .btnG.dang{background:transparent;border:1px solid rgba(196,106,106,.5);color:var(--err);font-weight:500}
+  .dG form{max-width:560px}
+  .dG .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .dG .fld{margin-bottom:16px}
+  .dG label{display:block;font-size:12px;font-weight:600;margin-bottom:5px;color:#fff}
+  .dG .help{font-size:11.5px;color:var(--sub);margin-top:4px}
+  .dG .errmsg{font-size:11.5px;color:var(--err);margin-top:4px;font-weight:500}
+  .dG input[type=text],.dG input[type=email],.dG select{width:100%;border:1px solid var(--line2);border-radius:5px;background:var(--raised);font:13px "Instrument Sans",sans-serif;color:var(--text);padding:8px 11px}
+  .dG input:focus,.dG select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(31,181,171,.22)}
+  .dG input.bad{border-color:var(--err)}
+  .dG .prodtable{width:100%;border-collapse:collapse;background:var(--raised);border:1px solid var(--line);border-radius:6px;overflow:hidden;font-size:13px}
+  .dG .prodtable td{padding:8px 14px;border-bottom:1px solid var(--line)}
+  .dG .prodtable tr:last-child td{border-bottom:none}
+  .dG .prodtable td:first-child{width:34px}
+  .dG .prodtable .nm{font-weight:600;color:#fff}
+  .dG .prodtable .desc{color:var(--sub);font-size:11.5px}
+  .dG .actions{display:flex;gap:10px;margin-top:22px}
+
+  @media (max-width:900px){
+    .prosrisks{grid-template-columns:1fr}
+    .wrap{padding:0 18px}
+  }
+</style>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="kicker">CluOS Design System v2 · pré-implementação</div>
+    <h1>Galeria de direções: três sistemas visuais comparáveis, mesma operação</h1>
+    <p class="sub">Seis arquétipos aprovados sobre as superfícies reais do ecossistema (admin do <b>suporte</b>), todos com set completo: dashboard denso, detalhe do crm e convite de usuário. Mesmo conteúdo e mesmos dados em todos, para comparação honesta. <b>Não é mais uma escolha única</b>: os seis ficam disponíveis na biblioteca de direções (skill <code>design-gallery</code>) e você escolhe qual aplicar por tela, conforme o contexto de cada tarefa. Dados numéricos são de demonstração. Nada foi implementado no produto ainda.</p>
+  </div>
+</header>
+
+<div class="toc"><div class="wrap"><nav>
+  <a href="#workbench">Experimente ao vivo</a>
+  <a href="#found">Encontrado</a>
+  <a href="#skills">Skills Claude + Codex</a>
+  <a href="#palettes">Paletas</a>
+  <a href="#dirA">A · Calm Command</a>
+  <a href="#dirB">B · Data Precision</a>
+  <a href="#dirC">C · Editorial Intelligence</a>
+  <a href="#dirD">D · Swiss Ledger</a>
+  <a href="#dirE">E · Clinic Premium</a>
+  <a href="#dirG">G · Night Watch</a>
+  <a href="#palgallery">Mais paletas</a>
+  <a href="#decision">Recomendação e decisão</a>
+</nav></div></div>
+
+<!-- ================================================================ WORKBENCH INTERATIVO -->
+<section class="block" id="workbench"><div class="wrap">
+  <div class="kicker">Experimente ao vivo</div>
+  <h2>Escolha o estilo e a paleta, muda na hora</h2>
+  <p class="lede">Nada aqui é fixo. Os seis arquétipos ficam disponíveis como biblioteca (skill <code>design-gallery</code>): você escolhe qual usar por tela, conforme o contexto da tarefa. A paleta também é independente do estilo: qualquer paleta compatível pode ser aplicada a qualquer arquétipo. Troque os dois seletores abaixo e veja o mesmo dashboard mudar instantaneamente, sem recarregar a página.</p>
+
+  <div class="workbench">
+    <div class="wb-controls">
+      <div class="wb-field">
+        <label for="wb-style">Estilo</label>
+        <select id="wb-style">
+          <option value="dA">A · Calm Command</option>
+          <option value="dB" selected>B · Data Precision</option>
+          <option value="dC">C · Editorial Intelligence</option>
+          <option value="dD">D · Swiss Ledger</option>
+          <option value="dE">E · Clinic Premium</option>
+          <option value="dG">G · Night Watch (dark)</option>
+        </select>
+      </div>
+      <div class="wb-field">
+        <label for="wb-palette">Paleta</label>
+        <select id="wb-palette">
+          <option value="">Nativa do estilo</option>
+          <optgroup label="Preserve">
+            <option value="pal-tealcool">Teal Cool Slate</option>
+            <option value="pal-tealink">Teal Ink</option>
+          </optgroup>
+          <optgroup label="Evolve">
+            <option value="pal-forest">Forest Command</option>
+            <option value="pal-copper">Copper Signal</option>
+          </optgroup>
+          <optgroup label="New">
+            <option value="pal-cold">Cold Luxury</option>
+            <option value="pal-terracotta">Terracotta Slate</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="wb-hint" id="wb-hint">Direção G é sempre registro escuro: a paleta ajusta acento e status, não o fundo.</div>
+    </div>
+
+    <div class="wb-stage">
+      <div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Operação · <span id="wb-barlabel">Direção B · paleta nativa</span></div>
+      <div class="wb-canvas">
+
+        <div class="screen dA wb-active" data-style="dA"><div class="shell">
+          <aside class="rail">
+            <div class="logo">CLU<b>OS</b></div>
+            <div class="grp">Operação</div>
+            <a class="on" href="#">Visão geral</a><a href="#">Incidentes</a><a href="#">Conversas</a>
+            <div class="grp">Produtos</div>
+            <a href="#">b3</a><a href="#">crm</a><a href="#">sci</a><a href="#">did</a><a href="#">medframe</a>
+            <div class="grp">Acessos</div>
+            <a href="#">Usuários</a><a href="#">Convites</a>
+          </aside>
+          <main class="main">
+            <div class="crumb">Operação</div>
+            <div class="headrow">
+              <div><h1>Visão geral</h1><div class="sum">7 serviços monitorados · 2 exigem atenção · atualizado há 40 s</div></div>
+              <a class="btn ghost" href="#">Exportar relatório</a>
+            </div>
+            <div class="kpis">
+              <div class="kpi"><div class="v">99,24%</div><div class="l">Disponibilidade 30 d</div></div>
+              <div class="kpi alert"><div class="v">2</div><div class="l">Incidentes abertos</div></div>
+              <div class="kpi"><div class="v">14</div><div class="l">Conversas aguardando</div></div>
+              <div class="kpi"><div class="v">38 min</div><div class="l">MTTR 7 d</div></div>
+            </div>
+            <div class="cols">
+              <div>
+                <table>
+                  <tr><th>Serviço</th><th>Status</th><th style="text-align:right">Uptime 30 d</th><th style="text-align:right">p95</th></tr>
+                  <tr><td><b>did</b> · identidade</td><td><span class="st err"><i></i>Incidente · falha de auth</span></td><td class="num">94,2%</td><td class="num">-</td></tr>
+                  <tr><td><b>crm</b> · conversas</td><td><span class="st warn"><i></i>Degradado · latência</span></td><td class="num">97,1%</td><td class="num">480 ms</td></tr>
+                  <tr><td><b>b3</b> · mercado</td><td><span class="st ok"><i></i>Operacional</span></td><td class="num">99,98%</td><td class="num">42 ms</td></tr>
+                  <tr><td><b>sci</b> · científico</td><td><span class="st ok"><i></i>Operacional</span></td><td class="num">99,90%</td><td class="num">88 ms</td></tr>
+                  <tr><td><b>loteca</b></td><td><span class="st ok"><i></i>Operacional</span></td><td class="num">99,95%</td><td class="num">61 ms</td></tr>
+                  <tr><td><b>medframe</b></td><td><span class="st ok"><i></i>Operacional</span></td><td class="num">99,70%</td><td class="num">120 ms</td></tr>
+                  <tr><td><b>aeo</b></td><td><span class="st mut"><i></i>Manutenção programada</span></td><td class="num">-</td><td class="num">-</td></tr>
+                </table>
+              </div>
+              <aside class="side">
+                <h3>Atenção agora</h3>
+                <div class="att"><div class="t">did · falha de autenticação</div><div class="d">Callbacks Authelia retornando 502 desde 13:12. Runbook de identidade disponível.</div><a href="#">Abrir incidente</a></div>
+                <div class="att"><div class="t">crm · latência acima do alvo</div><div class="d">p95 em 480 ms após deploy v2.4.1. Alvo: 200 ms.</div><a href="#">Ver serviço</a></div>
+              </aside>
+            </div>
+          </main>
+        </div></div>
+
+        <div class="screen dB" data-style="dB"><div class="shell">
+          <aside class="rail">
+            <div class="logo"><span class="sym">C</span><span>CLUOS</span></div>
+            <div class="grp">Operação</div>
+            <a class="on" href="#">Visão geral</a>
+            <a href="#">Incidentes <span class="ct hot">2</span></a>
+            <a href="#">Conversas <span class="ct">14</span></a>
+            <div class="grp">Produtos</div>
+            <a href="#">b3</a><a href="#">crm <span class="ct">p95</span></a><a href="#">sci</a><a href="#">did <span class="ct hot">!</span></a><a href="#">medframe</a><a href="#">aeo</a>
+            <div class="grp">Acessos</div>
+            <a href="#">Usuários</a><a href="#">Convites</a>
+            <div class="env">kvm8 · prod · rafael</div>
+          </aside>
+          <main class="main">
+            <div class="statusbar">
+              <span class="live"><i></i>Operação com atenção</span>
+              <span>7 serviços · 2 fora do alvo</span>
+              <span class="mono">atualizado 14:41:22</span>
+              <span style="margin-left:auto"><a class="btn ghost" href="#" style="padding:5px 12px">Exportar</a></span>
+            </div>
+            <div class="content">
+              <h1>Visão geral da operação</h1>
+              <div class="gridkpi">
+                <div class="k"><div class="v">99,24<small> %</small></div><div class="l">Disponibilidade 30 d</div></div>
+                <div class="k bad"><div class="v">2</div><div class="l">Incidentes abertos</div></div>
+                <div class="k"><div class="v">14</div><div class="l">Conversas aguardando</div></div>
+                <div class="k"><div class="v">38<small> min</small></div><div class="l">MTTR 7 d</div></div>
+              </div>
+              <div class="toolrow">
+                <span class="f on">Todos · 7</span><span class="f">Atenção · 2</span><span class="f">Operacionais · 4</span><span class="f">Manutenção · 1</span>
+                <span class="sp"></span><span class="upd">auto-refresh 30 s</span>
+              </div>
+              <table>
+                <tr><th>Serviço</th><th>Status</th><th class="num">Uptime 30 d</th><th class="num">p95</th><th class="num">Req/min</th><th>Último evento</th></tr>
+                <tr><td class="svc">did<small>identidade · SSO</small></td><td><span class="pill err">Incidente</span></td><td class="num">94,2%</td><td class="num">-</td><td class="num">0</td><td>Callbacks 502 desde 13:12</td></tr>
+                <tr><td class="svc">crm<small>conversas WhatsApp</small></td><td><span class="pill warn">Degradado</span></td><td class="num">97,1%</td><td class="num lat hot">480 ms</td><td class="num">211</td><td>Deploy v2.4.1 às 13:58</td></tr>
+                <tr><td class="svc">b3<small>mercado</small></td><td><span class="pill ok">Operacional</span></td><td class="num">99,98%</td><td class="num lat">42 ms</td><td class="num">876</td><td>Healthcheck ok</td></tr>
+                <tr><td class="svc">sci<small>científico</small></td><td><span class="pill ok">Operacional</span></td><td class="num">99,90%</td><td class="num lat">88 ms</td><td class="num">64</td><td>Healthcheck ok</td></tr>
+                <tr><td class="svc">loteca</td><td><span class="pill ok">Operacional</span></td><td class="num">99,95%</td><td class="num lat">61 ms</td><td class="num">37</td><td>Healthcheck ok</td></tr>
+                <tr><td class="svc">medframe</td><td><span class="pill ok">Operacional</span></td><td class="num">99,70%</td><td class="num lat">120 ms</td><td class="num">18</td><td>Healthcheck ok</td></tr>
+                <tr><td class="svc">aeo</td><td><span class="pill mut">Manutenção</span></td><td class="num">-</td><td class="num">-</td><td class="num">-</td><td>Janela até 18:00</td></tr>
+              </table>
+            </div>
+          </main>
+        </div></div>
+
+        <div class="screen dC" data-style="dC">
+          <header class="mast">
+            <div class="mastrow"><span class="brand">CLU<b>OS</b></span><span class="who">domingo, 10 ago · rafael · kvm8</span></div>
+            <nav class="tabs"><a class="on" href="#">Hoje</a><a href="#">Serviços</a><a href="#">Conversas</a><a href="#">Acessos</a><a href="#">Relatórios</a></nav>
+          </header>
+          <div class="page">
+            <div class="lead">
+              <h1>Dois serviços exigem atenção <em>nesta tarde.</em></h1>
+              <p class="deck">A identidade está fora do ar desde 13:12 e o CRM opera com o dobro da latência alvo após o deploy da tarde. Os demais cinco serviços seguem estáveis.</p>
+            </div>
+            <div class="edgrid">
+              <div>
+                <article class="story">
+                  <div class="cat">Incidente · did</div>
+                  <h3>Autenticação central retorna 502 e bloqueia logins em cadeia</h3>
+                  <p>Os callbacks do Authelia falham desde 13:12, afetando o login de todos os produtos atrás do SSO. O runbook de identidade está pronto para execução supervisionada.</p>
+                  <a class="act" href="#">Abrir incidente e runbook</a>
+                </article>
+                <article class="story deg">
+                  <div class="cat">Degradado · crm</div>
+                  <h3>Latência dobra após deploy do gateway WhatsApp</h3>
+                  <p>p95 em 480 ms contra alvo de 200 ms desde a v2.4.1 das 13:58. Sem perda de mensagens até agora; 14 conversas aguardam resposta.</p>
+                  <a class="act" href="#">Ver serviço</a>
+                </article>
+              </div>
+              <aside class="numscol">
+                <h4>Em números</h4>
+                <div class="bignum"><div class="v">99,24%</div><div class="l">Disponibilidade dos serviços em 30 dias</div></div>
+                <div class="bignum"><div class="v bad">2</div><div class="l">Incidentes abertos agora</div></div>
+                <div class="bignum"><div class="v">14</div><div class="l">Conversas aguardando resposta</div></div>
+                <div class="bignum" style="border-bottom:none"><div class="v">38 min</div><div class="l">Tempo médio de resolução na semana</div></div>
+              </aside>
+            </div>
+            <div class="idx">
+              <h2>Índice de serviços</h2>
+              <table>
+                <tr><td><span class="svcname">did</span> <span class="svcdesc">identidade · SSO</span></td><td><span class="state err">Incidente</span></td><td class="num">94,2% · 30 d</td></tr>
+                <tr><td><span class="svcname">crm</span> <span class="svcdesc">conversas WhatsApp</span></td><td><span class="state warn">Degradado</span></td><td class="num">97,1% · 480 ms</td></tr>
+                <tr><td><span class="svcname">b3</span> <span class="svcdesc">mercado</span></td><td><span class="state ok">Operacional</span></td><td class="num">99,98% · 42 ms</td></tr>
+                <tr><td><span class="svcname">sci</span> <span class="svcdesc">científico</span></td><td><span class="state ok">Operacional</span></td><td class="num">99,90% · 88 ms</td></tr>
+                <tr><td><span class="svcname">loteca</span></td><td><span class="state ok">Operacional</span></td><td class="num">99,95% · 61 ms</td></tr>
+                <tr><td><span class="svcname">medframe</span></td><td><span class="state ok">Operacional</span></td><td class="num">99,70% · 120 ms</td></tr>
+                <tr><td><span class="svcname">aeo</span></td><td><span class="state mut">Manutenção</span></td><td class="num">janela até 18:00</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen dD" data-style="dD">
+          <div class="top">
+            <span class="logo">CLU<b>OS</b></span>
+            <nav class="tabs"><a class="on" href="#">Operação</a><a href="#">Produtos</a><a href="#">Conversas</a><a href="#">Acessos</a><a href="#">Relatórios</a></nav>
+            <span class="env">kvm8 · prod · rafael</span>
+          </div>
+          <div class="body">
+            <div class="titlerow"><h1>Visão geral</h1><span class="upd">atualizado 14:41:22 · auto 30 s</span></div>
+            <div class="kband">
+              <div class="k"><div class="v">99,24%</div><div class="l">Disponibilidade 30 d</div></div>
+              <div class="k bad"><div class="v">2</div><div class="l">Incidentes abertos</div></div>
+              <div class="k"><div class="v">14</div><div class="l">Conversas aguardando</div></div>
+              <div class="k"><div class="v">38 min</div><div class="l">MTTR 7 d</div></div>
+            </div>
+            <div class="grid2">
+              <table>
+                <tr><th>Serviço</th><th>Status</th><th style="text-align:right">Uptime 30 d</th><th style="text-align:right">p95</th></tr>
+                <tr><td><b>did</b> · identidade</td><td><span class="stx err">Incidente · falha de auth</span></td><td class="num">94,2%</td><td class="num">-</td></tr>
+                <tr><td><b>crm</b> · conversas</td><td><span class="stx warn">Degradado · latência</span></td><td class="num">97,1%</td><td class="num">480 ms</td></tr>
+                <tr><td><b>b3</b> · mercado</td><td><span class="stx ok">Operacional</span></td><td class="num">99,98%</td><td class="num">42 ms</td></tr>
+                <tr><td><b>sci</b> · científico</td><td><span class="stx ok">Operacional</span></td><td class="num">99,90%</td><td class="num">88 ms</td></tr>
+                <tr><td><b>loteca</b></td><td><span class="stx ok">Operacional</span></td><td class="num">99,95%</td><td class="num">61 ms</td></tr>
+                <tr><td><b>medframe</b></td><td><span class="stx ok">Operacional</span></td><td class="num">99,70%</td><td class="num">120 ms</td></tr>
+                <tr><td><b>aeo</b></td><td><span class="stx mut">Manutenção programada</span></td><td class="num">-</td><td class="num">-</td></tr>
+              </table>
+              <aside class="attD">
+                <h3>Atenção agora</h3>
+                <div class="it"><b>did · falha de autenticação</b><p>Callbacks Authelia retornando 502 desde 13:12.</p><a href="#">Abrir incidente</a></div>
+                <div class="it"><b>crm · latência acima do alvo</b><p>p95 em 480 ms após deploy v2.4.1. Alvo: 200 ms.</p><a href="#">Ver serviço</a></div>
+                <a class="btn" href="#" style="margin-top:16px">Exportar relatório</a>
+              </aside>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen dE" data-style="dE"><div class="shell">
+          <aside class="rail">
+            <div class="logo">CLU<b>OS</b></div>
+            <div class="grp">Operação</div>
+            <a class="on" href="#">Visão geral</a><a href="#">Incidentes</a><a href="#">Conversas</a>
+            <div class="grp">Produtos</div>
+            <a href="#">b3</a><a href="#">crm</a><a href="#">sci</a><a href="#">did</a><a href="#">medframe</a>
+            <div class="grp">Acessos</div>
+            <a href="#">Usuários</a><a href="#">Convites</a>
+          </aside>
+          <main class="main">
+            <h1>Visão geral</h1>
+            <div class="sum">7 serviços monitorados · 2 exigem atenção · atualizado há 40 s</div>
+            <div class="cards">
+              <div class="card"><div class="v">99,24%</div><div class="l">Disponibilidade 30 d</div></div>
+              <div class="card"><div class="v bad">2</div><div class="l">Incidentes abertos</div></div>
+              <div class="card"><div class="v">14</div><div class="l">Conversas aguardando</div></div>
+              <div class="card"><div class="v">38 min</div><div class="l">MTTR 7 d</div></div>
+            </div>
+            <div class="gridE">
+              <div class="panelE">
+                <h3>Serviços</h3>
+                <table>
+                  <tr><td><span class="stE err"><i></i><b>did</b> · identidade</span></td><td>Incidente · falha de auth</td><td class="num">94,2%</td></tr>
+                  <tr><td><span class="stE warn"><i></i><b>crm</b> · conversas</span></td><td>Degradado · latência</td><td class="num">97,1% · 480 ms</td></tr>
+                  <tr><td><span class="stE ok"><i></i><b>b3</b> · mercado</span></td><td>Operacional</td><td class="num">99,98% · 42 ms</td></tr>
+                  <tr><td><span class="stE ok"><i></i><b>sci</b> · científico</span></td><td>Operacional</td><td class="num">99,90% · 88 ms</td></tr>
+                  <tr><td><span class="stE ok"><i></i><b>loteca</b></span></td><td>Operacional</td><td class="num">99,95% · 61 ms</td></tr>
+                  <tr><td><span class="stE ok"><i></i><b>medframe</b></span></td><td>Operacional</td><td class="num">99,70% · 120 ms</td></tr>
+                  <tr><td><span class="stE mut"><i></i><b>aeo</b></span></td><td>Manutenção programada</td><td class="num">-</td></tr>
+                </table>
+              </div>
+              <aside>
+                <div class="attE err"><b>did · falha de autenticação</b><p>Callbacks Authelia retornando 502 desde 13:12. Runbook disponível.</p><a href="#">Abrir incidente</a></div>
+                <div class="attE"><b>crm · latência acima do alvo</b><p>p95 em 480 ms após deploy v2.4.1. Alvo: 200 ms.</p><a href="#">Ver serviço</a></div>
+                <a class="btn" href="#">Exportar relatório</a>
+              </aside>
+            </div>
+          </main>
+        </div></div>
+
+        <div class="screen dG" data-style="dG"><div class="shell">
+          <aside class="rail">
+            <div class="logo">CLU<b>OS</b></div>
+            <div class="grp">Operação</div>
+            <a class="on" href="#">Visão geral</a>
+            <a href="#">Incidentes <span class="ct hot">2</span></a>
+            <a href="#">Conversas <span class="ct">14</span></a>
+            <div class="grp">Produtos</div>
+            <a href="#">b3</a><a href="#">crm</a><a href="#">sci</a><a href="#">did</a><a href="#">medframe</a><a href="#">aeo</a>
+            <div class="grp">Acessos</div>
+            <a href="#">Usuários</a><a href="#">Convites</a>
+          </aside>
+          <main class="main">
+            <div class="toprow">
+              <h1>Monitoramento</h1>
+              <span class="live"><i></i>ao vivo</span>
+              <span class="upd">14:41:22 · auto 30 s</span>
+            </div>
+            <div class="kgrid">
+              <div class="k"><div class="v">99,24%</div><div class="l">Disponibilidade 30 d</div></div>
+              <div class="k bad"><div class="v">2</div><div class="l">Incidentes abertos</div></div>
+              <div class="k"><div class="v">14</div><div class="l">Conversas aguardando</div></div>
+              <div class="k"><div class="v">38 min</div><div class="l">MTTR 7 d</div></div>
+            </div>
+            <table>
+              <tr><th>Serviço</th><th>Status</th><th style="text-align:right">Uptime 30 d</th><th style="text-align:right">p95</th><th>Último evento</th></tr>
+              <tr><td class="svc">did<small>identidade · SSO</small></td><td><span class="stG err">Incidente</span></td><td class="num">94,2%</td><td class="num">-</td><td>Callbacks 502 desde 13:12</td></tr>
+              <tr><td class="svc">crm<small>conversas WhatsApp</small></td><td><span class="stG warn">Degradado</span></td><td class="num">97,1%</td><td class="num lat hot">480 ms</td><td>Deploy v2.4.1 às 13:58</td></tr>
+              <tr><td class="svc">b3<small>mercado</small></td><td><span class="stG ok">Operacional</span></td><td class="num">99,98%</td><td class="num">42 ms</td><td>Healthcheck ok</td></tr>
+              <tr><td class="svc">sci<small>científico</small></td><td><span class="stG ok">Operacional</span></td><td class="num">99,90%</td><td class="num">88 ms</td><td>Healthcheck ok</td></tr>
+              <tr><td class="svc">loteca</td><td><span class="stG ok">Operacional</span></td><td class="num">99,95%</td><td class="num">61 ms</td><td>Healthcheck ok</td></tr>
+              <tr><td class="svc">medframe</td><td><span class="stG ok">Operacional</span></td><td class="num">99,70%</td><td class="num">120 ms</td><td>Healthcheck ok</td></tr>
+              <tr><td class="svc">aeo</td><td><span class="stG mut">Manutenção</span></td><td class="num">-</td><td class="num">-</td><td>Janela até 18:00</td></tr>
+            </table>
+            <div class="sparkG">
+              <h3>p95 do crm · últimas 3 h</h3>
+              <svg style="width:100%;height:46px" viewBox="0 0 600 46" preserveAspectRatio="none"><polyline fill="none" style="stroke:var(--teal)" stroke-width="1.5" points="0,34 60,33 120,35 180,32 240,34 300,30 360,31 420,14 480,10 540,12 600,9"/><line x1="0" y1="40" x2="600" y2="40" stroke="rgba(199,213,235,.14)"/></svg>
+            </div>
+          </main>
+        </div></div>
+
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<script>
+(function(){
+  var styleSel = document.getElementById('wb-style');
+  var palSel = document.getElementById('wb-palette');
+  var barLabel = document.getElementById('wb-barlabel');
+  var hint = document.getElementById('wb-hint');
+  var screens = document.querySelectorAll('.wb-canvas .screen');
+  var styleNames = {dA:'A · Calm Command', dB:'B · Data Precision', dC:'C · Editorial Intelligence', dD:'D · Swiss Ledger', dE:'E · Clinic Premium', dG:'G · Night Watch'};
+  var palNames = {'':'paleta nativa', 'pal-tealcool':'Teal Cool Slate', 'pal-tealink':'Teal Ink', 'pal-forest':'Forest Command', 'pal-copper':'Copper Signal', 'pal-cold':'Cold Luxury', 'pal-terracotta':'Terracotta Slate'};
+  var allPal = ['pal-tealcool','pal-tealink','pal-forest','pal-copper','pal-cold','pal-terracotta'];
+
+  function render(){
+    var style = styleSel.value;
+    var pal = palSel.value;
+    screens.forEach(function(s){
+      var active = s.getAttribute('data-style') === style;
+      s.classList.toggle('wb-active', active);
+      allPal.forEach(function(p){ s.classList.remove(p); });
+      if (active && pal) s.classList.add(pal);
+    });
+    barLabel.textContent = 'Direção ' + styleNames[style] + ' · ' + palNames[pal];
+    hint.style.display = style === 'dG' ? 'block' : 'none';
+  }
+
+  styleSel.addEventListener('change', render);
+  palSel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<!-- ================================================================ A. ENCONTRADO -->
+<section class="block" id="found"><div class="wrap">
+  <div class="kicker">A · O que foi encontrado</div>
+  <h2>Estado atual</h2>
+  <p class="lede">Leitura direta do disco, sem suposições.</p>
+  <table class="plain">
+    <tr><th style="width:220px">Item</th><th>Estado</th></tr>
+    <tr><td>Design system</td><td><code>cluos-design-system</code> v0.3.0 · tokens CSS/JS/TS + preset Tailwind · paleta oficial teal <code>#008080</code> + navy <code>#1B2F36</code> + champagne/silver · Inter + JetBrains Mono · filosofia Mintlify (“quiet confidence”)</td></tr>
+    <tr><td>Experimento existente</td><td><b>Thermal Nocturne</b> v0.4 em <code>tokens-experimental/</code>, marcado como “approved design direction, not yet a replacement”: navy <code>#010D28</code>, azul <code>#132952</code>, teal <code>#16A39A</code>, verde-sinal <code>#C4DB7B</code>, Manrope + Instrument Sans</td></tr>
+    <tr><td>Skills do Claude</td><td><code>~/.claude/skills/</code> · 18 skills instaladas em cópia manual</td></tr>
+    <tr><td>Skills do Codex</td><td><code>~/.codex/skills/</code> · 14 skills, conjunto sobreposto mas divergente do Claude · <b>não há fonte canônica nem sincronização</b></td></tr>
+    <tr><td>Superfície de referência</td><td><code>suporte</code> (hub público + admin em React/Vite): health de <code>b3 · crm · sci · loteca · did · medframe · aeo</code>, usuários, convites, Authelia, service registry</td></tr>
+    <tr><td>Sinais de AI-slop no DS atual</td><td>Inter como default sem decisão, 5 raios de borda (6→24px), gradientes de marca usados como decoração de fundo, hierarquia por cards, ausência de tokens semânticos de papel (<code>bg-canvas / fg-primary / action</code>), dois temas coexistindo sem decisão registrada</td></tr>
+  </table>
+</div></section>
+
+<!-- ================================================================ B. SKILLS -->
+<section class="block" id="skills"><div class="wrap">
+  <div class="kicker">B · Arquitetura das skills (Claude + Codex)</div>
+  <h2>Cinco skills, uma fonte canônica, dois destinos</h2>
+  <p class="lede">Fonte canônica versionada em <code>cluos-design-system/agent-skills/</code>. Um instalador idempotente sincroniza para <code>~/.claude/skills/</code> e <code>~/.codex/skills/</code> com backup e verificação de hash; blocos delimitados (<code>&lt;!-- BEGIN CLUOS FRONTEND WORKFLOW --&gt;</code>) entram em <code>CLAUDE.md</code> e <code>AGENTS.md</code> sem sobrescrever o resto. O contexto específico do CluOS fica em <code>profiles/cluos/</code>, carregado automaticamente dentro do workspace.</p>
+
+  <div class="flow">
+    <span class="n hot">anti-ai-slop-frontend</span><span class="a">roteia por nível →</span>
+    <span class="n">N0 correção · direto ao craftsman</span><span class="a">·</span>
+    <span class="n">N1 componente · + get-context</span><span class="a">·</span>
+    <span class="n">N2 tela · + design-gallery + seleção humana</span><span class="a">·</span>
+    <span class="n">N3 sistêmico · + refactor-director + writing-plans</span>
+  </div>
+  <div class="flow" style="margin-top:10px">
+    <span class="n">frontend-craftsman</span><span class="a">→</span>
+    <span class="n">design-critic (rubrica 50 pts, P0-P3)</span><span class="a">→</span>
+    <span class="n">design-qa (alvo vs renderizado)</span><span class="a">→</span>
+    <span class="n">verification-before-completion</span>
+  </div>
+
+  <div class="skillgrid">
+    <div class="skillcard"><h4>anti-ai-slop-frontend</h4><span class="role">Roteador obrigatório</span><p>Todo trabalho de frontend passa aqui antes de qualquer código. Classifica N0-N3, carrega o profile CluOS, aplica hard gates: sem redesign a partir de texto vago, sem paleta global sem decisão registrada, sem “concluído” sem abrir o render.</p></div>
+    <div class="skillcard"><h4>design-gallery</h4><span class="role">Alternativas comparáveis</span><p>Gera exatamente 3 direções por rodada com o mesmo conteúdo e viewport, usando a biblioteca de 10 arquétipos + 2 híbridos CluOS. Modos de paleta preserve/evolve/new. Esta página é o primeiro artefato dela.</p></div>
+    <div class="skillcard"><h4>frontend-craftsman</h4><span class="role">Implementação fiel</span><p>Transforma a direção escolhida em código: tokens semânticos, estados reais (foco, teclado, loading, empty, error), sem valores arbitrários, sem inventar direção nova durante a implementação.</p></div>
+    <div class="skillcard"><h4>design-critic</h4><span class="role">Revisor independente</span><p>Teste de identidade (“removendo o logo, ainda é CluOS?”), rubrica de 50 pontos em 10 dimensões, severidade P0-P3. Bloqueia handoff com P0-P2 abertos. Não substitui o Design QA.</p></div>
+    <div class="skillcard"><h4>design-system-refactor-director</h4><span class="role">Refatorações sistêmicas</span><p>Conduz as 15 fases (inventário → tokens → primitives → migração → QA → manutenção). Impede melhorar telas isoladas sobre fundação ruim. Migração por aliases de compatibilidade e golden screens, com rollback documentado.</p></div>
+    <div class="skillcard"><h4>shared/ + profiles/cluos/</h4><span class="role">Fonte única</span><p><code>design-archetypes.yaml</code>, <code>anti-slop-rubric.md</code>, <code>palette-policy.md</code>, <code>routing-matrix.yaml</code> compartilhados; contexto de produto, marca e decisões do CluOS no profile. Validador checa frontmatter, referências, placeholders e divergência entre instalações.</p></div>
+  </div>
+</div></section>
+
+<!-- ================================================================ PALETAS -->
+<section class="block" id="palettes"><div class="wrap">
+  <div class="kicker">Estratégias de paleta</div>
+  <h2>Atual vs três opções</h2>
+  <p class="lede">Cada direção abaixo usa uma estratégia diferente, como manda a política: A preserva as âncoras atuais, B evolui a partir do Thermal Nocturne já aprovado como experimento, C propõe identidade cromática nova.</p>
+  <div class="palrow">
+    <div class="palcol">
+      <h4>Paleta atual (v0.3)</h4><div class="mode">baseline</div>
+      <div class="sw"><div style="background:#008080"></div><div style="background:#1B2F36"></div><div style="background:#C8C1AE"></div><div style="background:#B5B4B5"></div><div style="background:#FAFAF8;border-left:1px solid #E7E8E3"></div></div>
+      <ul><li><span>teal ação</span><span>#008080</span></li><li><span>navy texto</span><span>#1B2F36</span></li><li><span>champagne</span><span>#C8C1AE</span></li><li><span>silver</span><span>#B5B4B5</span></li></ul>
+    </div>
+    <div class="palcol">
+      <h4>A · Calm Command</h4><div class="mode">preserve</div>
+      <div class="sw"><div style="background:#008080"></div><div style="background:#005959"></div><div style="background:#1B2F36"></div><div style="background:#FBFBF9;border-left:1px solid #E6E7E1"></div><div style="background:#E6E7E1"></div></div>
+      <ul><li><span>teal (única ação)</span><span>#008080</span></li><li><span>teal texto AA</span><span>#005959</span></li><li><span>navy</span><span>#1B2F36</span></li><li><span>neutros quentes</span><span>#FBFBF9…</span></li></ul>
+    </div>
+    <div class="palcol">
+      <h4>B · Data Precision</h4><div class="mode">evolve · thermal nocturne</div>
+      <div class="sw"><div style="background:#010D28"></div><div style="background:#132952"></div><div style="background:#0E8F87"></div><div style="background:#C4DB7B"></div><div style="background:#F5F7F4;border-left:1px solid #DCE2E3"></div></div>
+      <ul><li><span>navy campo</span><span>#010D28</span></li><li><span>teal operacional</span><span>#0E8F87</span></li><li><span>sinal (só “ativo”)</span><span>#C4DB7B</span></li><li><span>neutros frios</span><span>#F5F7F4…</span></li></ul>
+    </div>
+    <div class="palcol">
+      <h4>C · Editorial Intelligence</h4><div class="mode">new</div>
+      <div class="sw"><div style="background:#16181D"></div><div style="background:#2B49C7"></div><div style="background:#FAFAF7;border-left:1px solid #E4E3DD"></div><div style="background:#E4E3DD"></div><div style="background:#973B3B"></div></div>
+      <ul><li><span>tinta</span><span>#16181D</span></li><li><span>cobalto (ação)</span><span>#2B49C7</span></li><li><span>papel</span><span>#FAFAF7</span></li><li><span>estados sóbrios</span><span>ok/warn/err</span></li></ul>
+    </div>
+  </div>
+  <div class="palrow" style="margin-top:22px">
+    <div class="palcol">
+      <h4>D · Swiss Ledger</h4><div class="mode">preserve · mono</div>
+      <div class="sw"><div style="background:#FFFFFF;border-right:1px solid #E3E4E1"></div><div style="background:#111417"></div><div style="background:#007070"></div><div style="background:#E3E4E1"></div></div>
+      <ul><li><span>branco puro-quase</span><span>#FFFFFF</span></li><li><span>tinta fria</span><span>#111417</span></li><li><span>teal funcional</span><span>#007070</span></li></ul>
+    </div>
+    <div class="palcol">
+      <h4>E · Clinic Premium</h4><div class="mode">evolve · quente</div>
+      <div class="sw"><div style="background:#0E6E68"></div><div style="background:#24403C"></div><div style="background:#F6F3EE;border-left:1px solid #E7DFD2"></div><div style="background:#C9BFA9"></div></div>
+      <ul><li><span>teal profundo</span><span>#0E6E68</span></li><li><span>verde-navy</span><span>#24403C</span></li><li><span>porcelana</span><span>#F6F3EE</span></li><li><span>champagne revivido</span><span>#C9BFA9</span></li></ul>
+    </div>
+    <div class="palcol">
+      <h4>G · Night Watch</h4><div class="mode">evolve · dark-primary</div>
+      <div class="sw"><div style="background:#010D28"></div><div style="background:#10224D"></div><div style="background:#16A39A"></div><div style="background:#C4DB7B"></div><div style="background:#E8ECF4;border-left:1px solid #10224D"></div></div>
+      <ul><li><span>campo noturno</span><span>#010D28</span></li><li><span>superfície elevada</span><span>#10224D</span></li><li><span>teal luminoso</span><span>#16A39A</span></li><li><span>sinal vivo</span><span>#C4DB7B</span></li></ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- ================================================================ DIREÇÃO A -->
+<section class="block" id="dirA"><div class="wrap">
+  <div class="kicker">Direção A · híbrido cluos-calm-command · paleta preserve</div>
+  <h2>Calm Command: Luxury Medical × Data Precision × Swiss Minimal</h2>
+  <p class="lede"><b>Tese:</b> confiança clínica sem frieza. A identidade atual (teal + navy + neutros quentes) é mantida e corrigida: teal vira a única cor de ação, hierarquia sai dos cards e passa para tipografia, hairlines e alinhamento. Densidade média, silêncio visual intencional. Navegação: rail esquerdo tipográfico, sem ícones decorativos.</p>
+
+  <!-- A1 dashboard -->
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Operação · 1280px</div>
+  <div class="viewport"><div class="screen dA"><div class="shell">
+    <aside class="rail">
+      <div class="logo">CLU<b>OS</b></div>
+      <div class="grp">Operação</div>
+      <a class="on" href="#">Visão geral</a><a href="#">Incidentes</a><a href="#">Conversas</a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a href="#">crm</a><a href="#">sci</a><a href="#">did</a><a href="#">medframe</a>
+      <div class="grp">Acessos</div>
+      <a href="#">Usuários</a><a href="#">Convites</a>
+    </aside>
+    <main class="main">
+      <div class="crumb">Operação</div>
+      <div class="headrow">
+        <div><h1>Visão geral</h1><div class="sum">7 serviços monitorados · 2 exigem atenção · atualizado há 40 s</div></div>
+        <a class="btn ghost" href="#">Exportar relatório</a>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><div class="v">99,24%</div><div class="l">Disponibilidade 30 d</div></div>
+        <div class="kpi alert"><div class="v">2</div><div class="l">Incidentes abertos</div></div>
+        <div class="kpi"><div class="v">14</div><div class="l">Conversas aguardando</div></div>
+        <div class="kpi"><div class="v">38 min</div><div class="l">MTTR 7 d</div></div>
+      </div>
+      <div class="cols">
+        <div>
+          <table>
+            <tr><th>Serviço</th><th>Status</th><th style="text-align:right">Uptime 30 d</th><th style="text-align:right">p95</th></tr>
+            <tr><td><b>did</b> · identidade</td><td><span class="st err"><i></i>Incidente · falha de auth</span></td><td class="num">94,2%</td><td class="num">-</td></tr>
+            <tr><td><b>crm</b> · conversas</td><td><span class="st warn"><i></i>Degradado · latência</span></td><td class="num">97,1%</td><td class="num">480 ms</td></tr>
+            <tr><td><b>b3</b> · mercado</td><td><span class="st ok"><i></i>Operacional</span></td><td class="num">99,98%</td><td class="num">42 ms</td></tr>
+            <tr><td><b>sci</b> · científico</td><td><span class="st ok"><i></i>Operacional</span></td><td class="num">99,90%</td><td class="num">88 ms</td></tr>
+            <tr><td><b>loteca</b></td><td><span class="st ok"><i></i>Operacional</span></td><td class="num">99,95%</td><td class="num">61 ms</td></tr>
+            <tr><td><b>medframe</b></td><td><span class="st ok"><i></i>Operacional</span></td><td class="num">99,70%</td><td class="num">120 ms</td></tr>
+            <tr><td><b>aeo</b></td><td><span class="st mut"><i></i>Manutenção programada</span></td><td class="num">-</td><td class="num">-</td></tr>
+          </table>
+        </div>
+        <aside class="side">
+          <h3>Atenção agora</h3>
+          <div class="att"><div class="t">did · falha de autenticação</div><div class="d">Callbacks Authelia retornando 502 desde 13:12. Runbook de identidade disponível.</div><a href="#">Abrir incidente</a></div>
+          <div class="att"><div class="t">crm · latência acima do alvo</div><div class="d">p95 em 480 ms após deploy v2.4.1. Alvo: 200 ms.</div><a href="#">Ver serviço</a></div>
+        </aside>
+      </div>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>A1 · Dashboard denso.</b> KPIs como linha tipográfica entre hairlines, não cards. Um foco primário: a coluna “Atenção agora”. Dot de status é semântico, não decorativo.</p>
+
+  <!-- A2 detalhe -->
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Produtos · crm</div>
+  <div class="viewport"><div class="screen dA"><div class="shell">
+    <aside class="rail">
+      <div class="logo">CLU<b>OS</b></div>
+      <div class="grp">Operação</div>
+      <a href="#">Visão geral</a><a href="#">Incidentes</a><a href="#">Conversas</a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a class="on" href="#">crm</a><a href="#">sci</a><a href="#">did</a><a href="#">medframe</a>
+      <div class="grp">Acessos</div>
+      <a href="#">Usuários</a><a href="#">Convites</a>
+    </aside>
+    <main class="main">
+      <div class="crumb">Produtos / crm</div>
+      <div class="headrow">
+        <div><h1>crm · conversas</h1><div class="sum">Central de conversas WhatsApp · KVM8 · atrás de auth.cluos.online</div></div>
+        <span class="badge warn">Degradado desde 14:32</span>
+      </div>
+      <div class="meta">
+        <div><span>Uptime 30 d</span><b>97,1%</b></div>
+        <div><span>p95 atual</span><b>480 ms</b></div>
+        <div><span>Alvo p95</span><b>200 ms</b></div>
+        <div><span>Último deploy</span><b>v2.4.1 · 13:58</b></div>
+      </div>
+      <svg class="spark" viewBox="0 0 600 46" preserveAspectRatio="none"><polyline fill="none" stroke="#B06A34" stroke-width="1.5" points="0,34 60,33 120,35 180,32 240,34 300,30 360,31 420,14 480,10 540,12 600,9"/><line x1="0" y1="40" x2="600" y2="40" stroke="#E6E7E1"/></svg>
+      <div class="panelrow">
+        <div>
+          <h3 style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);padding-bottom:10px;border-bottom:1px solid var(--line2)">Linha do tempo</h3>
+          <ul class="tl">
+            <li><time>14:32</time><div><b>Alerta</b> · p95 acima de 400 ms por 10 min consecutivos</div></li>
+            <li><time>13:58</time><div><b>Deploy</b> · v2.4.1, gateway WhatsApp atualizado</div></li>
+            <li><time>12:10</time><div><b>Healthcheck</b> · todos os endpoints dentro do alvo</div></li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);padding-bottom:10px;border-bottom:1px solid var(--line2)">Endpoints</h3>
+          <table>
+            <tr><td>/api/conversas</td><td class="num" style="color:var(--warn);font-weight:600">480 ms</td></tr>
+            <tr><td>/webhook/wa</td><td class="num">310 ms</td></tr>
+            <tr><td>/api/kpis</td><td class="num">95 ms</td></tr>
+          </table>
+          <div class="actions" style="display:flex;gap:12px;margin-top:22px">
+            <a class="btn" href="#">Abrir runbook</a>
+            <a class="btn ghost" href="#">Silenciar alerta</a>
+            <a class="btn danger" href="#">Reiniciar serviço · L2</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>A2 · Detalhe de serviço.</b> Ação supervisionada (L2) visualmente separada das ações reversíveis. Sparkline funcional, sem gráfico decorativo.</p>
+
+  <!-- A3 form -->
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Acessos · Convidar</div>
+  <div class="viewport"><div class="screen dA"><div class="shell">
+    <aside class="rail">
+      <div class="logo">CLU<b>OS</b></div>
+      <div class="grp">Operação</div>
+      <a href="#">Visão geral</a><a href="#">Incidentes</a><a href="#">Conversas</a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a href="#">crm</a><a href="#">sci</a><a href="#">did</a><a href="#">medframe</a>
+      <div class="grp">Acessos</div>
+      <a href="#">Usuários</a><a class="on" href="#">Convites</a>
+    </aside>
+    <main class="main">
+      <div class="crumb">Acessos / Convites</div>
+      <h1>Convidar usuário</h1>
+      <div class="sum" style="margin-bottom:30px">O convite cria a conta no Authelia com os grupos escolhidos e expira automaticamente.</div>
+      <form>
+        <div class="fld"><label>Nome completo</label><input type="text" value="Isabel Moreira"></div>
+        <div class="fld"><label>E-mail</label><input type="email" class="bad" value="isabel@gmail.com"><div class="errmsg">Domínio não permitido para o papel Operador. Use um e-mail corporativo.</div></div>
+        <div class="fld"><label>Produtos</label>
+          <div class="checks">
+            <span class="chip sel">crm</span><span class="chip sel">sci</span><span class="chip">b3</span><span class="chip">did</span><span class="chip">medframe</span><span class="chip">aeo</span>
+          </div>
+          <div class="help">Define os grupos de acesso no SSO. Pode ser alterado depois.</div>
+        </div>
+        <div class="fld radios"><label style="border:none;padding:0;margin-bottom:6px;font-weight:500;display:block">Papel</label>
+          <label><input type="radio" name="p"><span class="rl"><b>Visualizador</b><span>Lê painéis e status, sem ações.</span></span></label>
+          <label><input type="radio" name="p" checked><span class="rl"><b>Operador</b><span>Executa ações supervisionadas nos produtos liberados.</span></span></label>
+          <label><input type="radio" name="p"><span class="rl"><b>Administrador</b><span>Gerencia usuários, convites e permissões.</span></span></label>
+        </div>
+        <div class="fld" style="max-width:220px"><label>Expiração do convite</label>
+          <select><option>7 dias</option><option>48 horas</option><option>30 dias</option></select>
+        </div>
+        <div class="actions"><a class="btn" href="#">Enviar convite</a><a class="btn ghost" href="#">Cancelar</a></div>
+      </form>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>A3 · Formulário.</b> Label acima, helper e erro abaixo, foco teal com anel visível, papéis com consequências explícitas. Sem card envolvendo o formulário.</p>
+
+  <div class="prosrisks">
+    <div class="box"><h5>A favor</h5><ul>
+      <li>Zero risco de marca: as âncoras cromáticas oficiais permanecem.</li>
+      <li>Migração mais barata: corrige tokens e hierarquia sem trocar identidade.</li>
+      <li>“Serene + precise” do brand manual finalmente aplicado à UI operacional.</li>
+    </ul></div>
+    <div class="box"><h5>Riscos</h5><ul>
+      <li>Menor salto perceptível: pode continuar lembrando o SaaS teal genérico.</li>
+      <li>Teal como ação e como sucesso exige disciplina para não se confundirem.</li>
+      <li>Ignora o investimento já feito no Thermal Nocturne.</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<!-- ================================================================ DIREÇÃO B -->
+<section class="block" id="dirB"><div class="wrap">
+  <div class="kicker">Direção B · data-precision + swiss-minimal · paleta evolve (Thermal Nocturne)</div>
+  <h2>Data Precision: central de comando sobre o Thermal Nocturne</h2>
+  <p class="lede"><b>Tese:</b> o CluOS é uma central de comando, e a interface deve ter a densidade e a precisão de uma. Consolida o experimento Thermal Nocturne já aprovado: navy profundo como campo de marca no rail, registro claro e frio para as telas de longa sessão, verde-sinal reservado exclusivamente para “vivo/ativo”. Grid visível, números em mono, raios mínimos. Navegação: rail navy compacto com contadores reais.</p>
+
+  <!-- B1 dashboard -->
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Operação · 1280px</div>
+  <div class="viewport"><div class="screen dB"><div class="shell">
+    <aside class="rail">
+      <div class="logo"><span class="sym">C</span><span>CLUOS</span></div>
+      <div class="grp">Operação</div>
+      <a class="on" href="#">Visão geral</a>
+      <a href="#">Incidentes <span class="ct hot">2</span></a>
+      <a href="#">Conversas <span class="ct">14</span></a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a href="#">crm <span class="ct">p95</span></a><a href="#">sci</a><a href="#">did <span class="ct hot">!</span></a><a href="#">medframe</a><a href="#">aeo</a>
+      <div class="grp">Acessos</div>
+      <a href="#">Usuários</a><a href="#">Convites</a>
+      <div class="env">kvm8 · prod · rafael</div>
+    </aside>
+    <main class="main">
+      <div class="statusbar">
+        <span class="live"><i></i>Operação com atenção</span>
+        <span>7 serviços · 2 fora do alvo</span>
+        <span class="mono">atualizado 14:41:22</span>
+        <span style="margin-left:auto"><a class="btn ghost" href="#" style="padding:5px 12px">Exportar</a></span>
+      </div>
+      <div class="content">
+        <h1>Visão geral da operação</h1>
+        <div class="gridkpi">
+          <div class="k"><div class="v">99,24<small> %</small></div><div class="l">Disponibilidade 30 d</div></div>
+          <div class="k bad"><div class="v">2</div><div class="l">Incidentes abertos</div></div>
+          <div class="k"><div class="v">14</div><div class="l">Conversas aguardando</div></div>
+          <div class="k"><div class="v">38<small> min</small></div><div class="l">MTTR 7 d</div></div>
+        </div>
+        <div class="toolrow">
+          <span class="f on">Todos · 7</span><span class="f">Atenção · 2</span><span class="f">Operacionais · 4</span><span class="f">Manutenção · 1</span>
+          <span class="sp"></span><span class="upd">auto-refresh 30 s</span>
+        </div>
+        <table>
+          <tr><th>Serviço</th><th>Status</th><th class="num">Uptime 30 d</th><th class="num">p95</th><th class="num">Req/min</th><th>Último evento</th></tr>
+          <tr><td class="svc">did<small>identidade · SSO</small></td><td><span class="pill err">Incidente</span></td><td class="num">94,2%</td><td class="num">-</td><td class="num">0</td><td>Callbacks 502 desde 13:12</td></tr>
+          <tr><td class="svc">crm<small>conversas WhatsApp</small></td><td><span class="pill warn">Degradado</span></td><td class="num">97,1%</td><td class="num lat hot">480 ms</td><td class="num">211</td><td>Deploy v2.4.1 às 13:58</td></tr>
+          <tr><td class="svc">b3<small>mercado</small></td><td><span class="pill ok">Operacional</span></td><td class="num">99,98%</td><td class="num lat">42 ms</td><td class="num">876</td><td>Healthcheck ok</td></tr>
+          <tr><td class="svc">sci<small>científico</small></td><td><span class="pill ok">Operacional</span></td><td class="num">99,90%</td><td class="num lat">88 ms</td><td class="num">64</td><td>Healthcheck ok</td></tr>
+      <tr><td class="svc">loteca</td><td><span class="pill ok">Operacional</span></td><td class="num">99,95%</td><td class="num lat">61 ms</td><td class="num">37</td><td>Healthcheck ok</td></tr>
+          <tr><td class="svc">medframe</td><td><span class="pill ok">Operacional</span></td><td class="num">99,70%</td><td class="num lat">120 ms</td><td class="num">18</td><td>Healthcheck ok</td></tr>
+          <tr><td class="svc">aeo</td><td><span class="pill mut">Manutenção</span></td><td class="num">-</td><td class="num">-</td><td class="num">-</td><td>Janela até 18:00</td></tr>
+        </table>
+      </div>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>B1 · Dashboard denso.</b> Rail navy carrega a marca; conteúdo claro para longa sessão. Contadores no rail são estado real, não decoração. Verde-sinal aparece uma única vez (item ativo).</p>
+
+  <!-- B2 detalhe -->
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Produtos · crm</div>
+  <div class="viewport"><div class="screen dB"><div class="shell">
+    <aside class="rail">
+      <div class="logo"><span class="sym">C</span><span>CLUOS</span></div>
+      <div class="grp">Operação</div>
+      <a href="#">Visão geral</a><a href="#">Incidentes <span class="ct hot">2</span></a><a href="#">Conversas <span class="ct">14</span></a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a class="on" href="#">crm</a><a href="#">sci</a><a href="#">did <span class="ct hot">!</span></a><a href="#">medframe</a><a href="#">aeo</a>
+      <div class="grp">Acessos</div>
+      <a href="#">Usuários</a><a href="#">Convites</a>
+      <div class="env">kvm8 · prod · rafael</div>
+    </aside>
+    <main class="main">
+      <div class="statusbar"><span>Produtos / crm</span><span class="mono" style="margin-left:auto">v2.4.1 · deploy 13:58</span></div>
+      <div class="content">
+        <div class="dethead">
+          <div><h1><b>crm</b> · conversas WhatsApp</h1></div>
+          <span class="pill warn" style="font-size:12px;padding:4px 10px">Degradado desde 14:32</span>
+        </div>
+        <div class="metastrip">
+          <div class="m">Uptime 30 d<b>97,1%</b></div>
+          <div class="m">p95 atual<b style="color:var(--warn)">480 ms</b></div>
+          <div class="m">Alvo p95<b>200 ms</b></div>
+          <div class="m">Req/min<b>211</b></div>
+          <div class="m">Erros 1 h<b>0,4%</b></div>
+        </div>
+        <div class="twocol">
+          <div class="panel">
+            <h3>Eventos</h3>
+            <div class="ev"><time>14:32</time><span class="tag a">ALERTA</span><div>p95 acima de 400 ms por 10 min consecutivos no gateway WhatsApp</div></div>
+            <div class="ev"><time>13:58</time><span class="tag d">DEPLOY</span><div>v2.4.1 · atualização do gateway · autor: runner kvm8</div></div>
+            <div class="ev"><time>12:10</time><span class="tag o">OK</span><div>Healthcheck completo, todos os endpoints dentro do alvo</div></div>
+          </div>
+          <div>
+            <div class="panel">
+              <h3>Endpoints</h3>
+              <table style="border:none">
+                <tr><td>/api/conversas</td><td class="num lat hot">480 ms</td></tr>
+                <tr><td>/webhook/wa</td><td class="num lat">310 ms</td></tr>
+                <tr><td>/api/kpis</td><td class="num lat">95 ms</td></tr>
+              </table>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:14px">
+              <a class="btn" href="#">Abrir runbook</a>
+              <a class="btn ghost" href="#">Silenciar</a>
+              <a class="btn ghost" href="#" style="color:var(--err);border-color:#E3CBCB">Reiniciar · L2</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>B2 · Detalhe de serviço.</b> Meta-strip densa em painéis com grid de 1px; eventos com tags tipadas. Tudo alinhado, nada flutuando.</p>
+
+  <!-- B3 form -->
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Acessos · Convidar</div>
+  <div class="viewport"><div class="screen dB"><div class="shell">
+    <aside class="rail">
+      <div class="logo"><span class="sym">C</span><span>CLUOS</span></div>
+      <div class="grp">Operação</div>
+      <a href="#">Visão geral</a><a href="#">Incidentes <span class="ct hot">2</span></a><a href="#">Conversas <span class="ct">14</span></a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a href="#">crm</a><a href="#">sci</a><a href="#">did</a><a href="#">medframe</a><a href="#">aeo</a>
+      <div class="grp">Acessos</div>
+      <a href="#">Usuários</a><a class="on" href="#">Convites</a>
+      <div class="env">kvm8 · prod · rafael</div>
+    </aside>
+    <main class="main">
+      <div class="statusbar"><span>Acessos / Convites / Novo</span></div>
+      <div class="content">
+        <h1>Convidar usuário</h1>
+        <p style="color:var(--sub);font-size:12.5px;margin:6px 0 22px">Cria a conta no Authelia com os grupos escolhidos. O convite expira automaticamente.</p>
+        <form>
+          <div class="fgrid">
+            <div class="fld"><label>Nome completo</label><input type="text" value="Isabel Moreira"></div>
+            <div class="fld"><label>E-mail</label><input type="email" class="bad" value="isabel@gmail.com"><div class="errmsg">Domínio não permitido para Operador. Use e-mail corporativo.</div></div>
+          </div>
+          <div class="fld"><label>Produtos e papel</label>
+            <table class="prodtable">
+              <tr><th></th><th>Produto</th><th>Papel</th></tr>
+              <tr><td><input type="checkbox" checked></td><td>crm <span class="desc">· conversas</span></td><td><select style="width:160px"><option>Operador</option><option>Visualizador</option></select></td></tr>
+              <tr><td><input type="checkbox" checked></td><td>sci <span class="desc">· científico</span></td><td><select style="width:160px"><option>Visualizador</option><option>Operador</option></select></td></tr>
+              <tr><td><input type="checkbox"></td><td>did <span class="desc">· identidade</span></td><td><select style="width:160px" disabled><option>-</option></select></td></tr>
+              <tr><td><input type="checkbox"></td><td>medframe</td><td><select style="width:160px" disabled><option>-</option></select></td></tr>
+            </table>
+            <div class="help">Papel por produto. Administrador global só via Acessos / Usuários.</div>
+          </div>
+          <div class="fld" style="max-width:200px"><label>Expiração</label>
+            <select><option>7 dias</option><option>48 horas</option><option>30 dias</option></select>
+          </div>
+          <div class="actions"><a class="btn signal" href="#">Enviar convite</a><a class="btn ghost" href="#">Cancelar</a></div>
+        </form>
+      </div>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>B3 · Formulário.</b> Papel por produto em tabela densa, coerente com o resto do sistema. O verde-sinal marca a ação primária da tela, única.</p>
+
+  <div class="prosrisks">
+    <div class="box"><h5>A favor</h5><ul>
+      <li>Capitaliza o Thermal Nocturne já aprovado como experimento: decisão, não recomeço.</li>
+      <li>Densidade certa para a tarefa real: monitorar 7+ serviços e agir rápido.</li>
+      <li>Identidade forte no rail navy sem sacrificar legibilidade de longa sessão.</li>
+    </ul></div>
+    <div class="box"><h5>Riscos</h5><ul>
+      <li>Verde-sinal <code>#C4DB7B</code> exige policiamento: se vazar para decoração vira slop.</li>
+      <li>Densidade alta pede mais disciplina de grid em telas futuras simples.</li>
+      <li>Migração maior: neutros, tipografia (Manrope/Instrument Sans) e componentes mudam.</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<!-- ================================================================ DIREÇÃO C -->
+<section class="block" id="dirC"><div class="wrap">
+  <div class="kicker">Direção C · híbrido cluos-editorial-intelligence · paleta new</div>
+  <h2>Editorial Intelligence: a operação lida como uma edição</h2>
+  <p class="lede"><b>Tese:</b> o valor do CluOS é inteligência, não telemetria; a interface conta o estado da operação como uma redação conta o dia: manchete, contexto, números com narrativa. Serif editorial (Newsreader) para títulos, sans para operação, cobalto como única cor de ação. Paleta nova: tinta + papel + cobalto. Navegação: masthead superior com tabs tipográficas, sem sidebar.</p>
+
+  <!-- C1 dashboard -->
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Hoje · 1280px</div>
+  <div class="viewport"><div class="screen dC">
+    <header class="mast">
+      <div class="mastrow"><span class="brand">CLU<b>OS</b></span><span class="who">domingo, 10 ago · rafael · kvm8</span></div>
+      <nav class="tabs"><a class="on" href="#">Hoje</a><a href="#">Serviços</a><a href="#">Conversas</a><a href="#">Acessos</a><a href="#">Relatórios</a></nav>
+    </header>
+    <div class="page">
+      <div class="lead">
+        <h1>Dois serviços exigem atenção <em>nesta tarde.</em></h1>
+        <p class="deck">A identidade está fora do ar desde 13:12 e o CRM opera com o dobro da latência alvo após o deploy da tarde. Os demais cinco serviços seguem estáveis.</p>
+      </div>
+      <div class="edgrid">
+        <div>
+          <article class="story">
+            <div class="cat">Incidente · did</div>
+            <h3>Autenticação central retorna 502 e bloqueia logins em cadeia</h3>
+            <p>Os callbacks do Authelia falham desde 13:12, afetando o login de todos os produtos atrás do SSO. O runbook de identidade está pronto para execução supervisionada.</p>
+            <a class="act" href="#">Abrir incidente e runbook</a>
+          </article>
+          <article class="story deg">
+            <div class="cat">Degradado · crm</div>
+            <h3>Latência dobra após deploy do gateway WhatsApp</h3>
+            <p>p95 em 480 ms contra alvo de 200 ms desde a v2.4.1 das 13:58. Sem perda de mensagens até agora; 14 conversas aguardam resposta.</p>
+            <a class="act" href="#">Ver serviço</a>
+          </article>
+        </div>
+        <aside class="numscol">
+          <h4>Em números</h4>
+          <div class="bignum"><div class="v">99,24%</div><div class="l">Disponibilidade dos serviços em 30 dias</div></div>
+          <div class="bignum"><div class="v bad">2</div><div class="l">Incidentes abertos agora</div></div>
+          <div class="bignum"><div class="v">14</div><div class="l">Conversas aguardando resposta</div></div>
+          <div class="bignum" style="border-bottom:none"><div class="v">38 min</div><div class="l">Tempo médio de resolução na semana</div></div>
+        </aside>
+      </div>
+      <div class="idx">
+        <h2>Índice de serviços</h2>
+        <table>
+          <tr><td><span class="svcname">did</span> <span class="svcdesc">identidade · SSO</span></td><td><span class="state err">Incidente</span></td><td class="num">94,2% · 30 d</td></tr>
+          <tr><td><span class="svcname">crm</span> <span class="svcdesc">conversas WhatsApp</span></td><td><span class="state warn">Degradado</span></td><td class="num">97,1% · 480 ms</td></tr>
+          <tr><td><span class="svcname">b3</span> <span class="svcdesc">mercado</span></td><td><span class="state ok">Operacional</span></td><td class="num">99,98% · 42 ms</td></tr>
+          <tr><td><span class="svcname">sci</span> <span class="svcdesc">científico</span></td><td><span class="state ok">Operacional</span></td><td class="num">99,90% · 88 ms</td></tr>
+          <tr><td><span class="svcname">loteca</span></td><td><span class="state ok">Operacional</span></td><td class="num">99,95% · 61 ms</td></tr>
+          <tr><td><span class="svcname">medframe</span></td><td><span class="state ok">Operacional</span></td><td class="num">99,70% · 120 ms</td></tr>
+          <tr><td><span class="svcname">aeo</span></td><td><span class="state mut">Manutenção</span></td><td class="num">janela até 18:00</td></tr>
+        </table>
+      </div>
+    </div>
+  </div></div></div>
+  <p class="caption"><b>C1 · Dashboard denso.</b> A manchete é a hierarquia: o que exige atenção vira história, o resto vira índice. Números grandes carregam narrativa, não cards.</p>
+
+  <!-- C2 detalhe -->
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Serviços · crm</div>
+  <div class="viewport"><div class="screen dC">
+    <header class="mast">
+      <div class="mastrow"><span class="brand">CLU<b>OS</b></span><span class="who">domingo, 10 ago · rafael · kvm8</span></div>
+      <nav class="tabs"><a href="#">Hoje</a><a class="on" href="#">Serviços</a><a href="#">Conversas</a><a href="#">Acessos</a><a href="#">Relatórios</a></nav>
+    </header>
+    <div class="page">
+      <div class="dethead">
+        <h1>crm · conversas WhatsApp</h1>
+        <span class="stt">Degradado desde 14:32</span>
+      </div>
+      <div class="metaC">
+        <div><span>Uptime 30 d</span><b>97,1%</b></div>
+        <div><span>p95 atual</span><b style="color:var(--warn)">480 ms</b></div>
+        <div><span>Alvo</span><b>200 ms</b></div>
+        <div><span>Deploy</span><b>v2.4.1</b></div>
+      </div>
+      <div class="detgrid">
+        <div>
+          <h4>O que aconteceu</h4>
+          <p class="narr">Às <b>13:58</b> o deploy v2.4.1 atualizou o gateway WhatsApp. Meia hora depois, o p95 de <code style="background:transparent;font-size:14px">/api/conversas</code> passou de 140 ms para <b>480 ms</b> e disparou o alerta. Não há perda de mensagens registrada; o risco é o tempo de resposta das 14 conversas em fila.</p>
+          <div class="actions" style="display:flex;gap:14px;margin-top:26px">
+            <a class="btn cob" href="#">Abrir runbook</a>
+            <a class="btn ghost" href="#">Silenciar alerta</a>
+            <a class="btn ghost" href="#" style="color:var(--err);border-color:#D9C2C2">Reiniciar serviço · L2</a>
+          </div>
+        </div>
+        <div>
+          <h4>Linha do tempo</h4>
+          <ul class="tlC">
+            <li><time>14:32</time><div><b>Alerta</b> · p95 acima de 400 ms por 10 min</div></li>
+            <li><time>13:58</time><div><b>Deploy</b> · v2.4.1, gateway WhatsApp</div></li>
+            <li><time>12:10</time><div><b>Healthcheck</b> · endpoints dentro do alvo</div></li>
+          </ul>
+          <h4 style="margin-top:26px">Endpoints</h4>
+          <table>
+            <tr><td>/api/conversas</td><td class="num" style="color:var(--warn);font-weight:600">480 ms</td></tr>
+            <tr><td>/webhook/wa</td><td class="num">310 ms</td></tr>
+            <tr><td>/api/kpis</td><td class="num">95 ms</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div></div></div>
+  <p class="caption"><b>C2 · Detalhe de serviço.</b> “O que aconteceu” em prosa editorial ancora a decisão; dados operacionais ficam ao lado, precisos e em mono.</p>
+
+  <!-- C3 form -->
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Acessos · Convidar</div>
+  <div class="viewport"><div class="screen dC">
+    <header class="mast">
+      <div class="mastrow"><span class="brand">CLU<b>OS</b></span><span class="who">domingo, 10 ago · rafael · kvm8</span></div>
+      <nav class="tabs"><a href="#">Hoje</a><a href="#">Serviços</a><a href="#">Conversas</a><a class="on" href="#">Acessos</a><a href="#">Relatórios</a></nav>
+    </header>
+    <div class="page">
+      <div class="formwrap">
+        <div class="formintro">
+          <h1>Convidar usuário</h1>
+          <p>O convite cria a conta no Authelia com os grupos escolhidos e expira sozinho. Nenhum acesso é concedido antes do primeiro login.</p>
+        </div>
+        <form>
+          <div class="fld"><label>Nome completo</label><input type="text" value="Isabel Moreira"></div>
+          <div class="fld"><label>E-mail</label><input type="email" class="bad" value="isabel@gmail.com"><div class="errmsg">Domínio não permitido para o papel Operador. Use um e-mail corporativo.</div></div>
+          <div class="fld"><label>Produtos</label>
+            <div class="checksC">
+              <label><span>crm · conversas</span><input type="checkbox" checked></label>
+              <label><span>sci · científico</span><input type="checkbox" checked></label>
+              <label><span>did · identidade <small>requer papel Administrador</small></span><input type="checkbox"></label>
+              <label><span>medframe</span><input type="checkbox"></label>
+            </div>
+          </div>
+          <div class="fld"><label>Papel</label>
+            <select><option>Operador · executa ações supervisionadas</option><option>Visualizador · somente leitura</option><option>Administrador · gerencia acessos</option></select>
+          </div>
+          <div class="fld" style="max-width:220px"><label>Expiração</label>
+            <select><option>7 dias</option><option>48 horas</option><option>30 dias</option></select>
+          </div>
+          <div class="actions"><a class="btn cob" href="#">Enviar convite</a><a class="btn ghost" href="#">Cancelar</a></div>
+        </form>
+      </div>
+    </div>
+  </div></div></div>
+  <p class="caption"><b>C3 · Formulário.</b> Intro editorial explica a consequência antes do preenchimento; inputs de linha única (underline) mantêm o registro de papel impresso.</p>
+
+  <div class="prosrisks">
+    <div class="box"><h5>A favor</h5><ul>
+      <li>Identidade impossível de confundir com SaaS genérico: passa o teste de intercambiabilidade.</li>
+      <li>Excelente para a camada de inteligência: relatórios, insights, visão executiva para clientes de consultoria hospitalar.</li>
+      <li>Hierarquia editorial resolve o problema real de “tudo com o mesmo peso”.</li>
+    </ul></div>
+    <div class="box"><h5>Riscos</h5><ul>
+      <li>Maior risco de marca: abandona o teal como identidade central (rebrand cromático).</li>
+      <li>Serif e prosa pedem manutenção de copy: título ruim quebra a tela.</li>
+      <li>Menos eficiente para operação de alta frequência; exigiria um registro denso complementar.</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<!-- ================================================================ DIREÇÃO D -->
+<section class="block" id="dirD"><div class="wrap">
+  <div class="kicker">Direção D · swiss-minimal puro · paleta preserve (mono)</div>
+  <h2>Swiss Ledger: rigor tipográfico absoluto</h2>
+  <p class="lede"><b>Tese:</b> a interface como um livro-razão: branco, tinta, uma régua. Sem rail, sem cards, sem raios, sem sombras; hierarquia inteira por escala, peso e hairlines. O teal sobrevive apenas como cor funcional de link e ação. Navegação: tabs horizontais sublinhadas no masthead.</p>
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Operação · 1280px</div>
+  <div class="viewport"><div class="screen dD">
+    <div class="top">
+      <span class="logo">CLU<b>OS</b></span>
+      <nav class="tabs"><a class="on" href="#">Operação</a><a href="#">Produtos</a><a href="#">Conversas</a><a href="#">Acessos</a><a href="#">Relatórios</a></nav>
+      <span class="env">kvm8 · prod · rafael</span>
+    </div>
+    <div class="body">
+      <div class="titlerow"><h1>Visão geral</h1><span class="upd">atualizado 14:41:22 · auto 30 s</span></div>
+      <div class="kband">
+        <div class="k"><div class="v">99,24%</div><div class="l">Disponibilidade 30 d</div></div>
+        <div class="k"><div class="v bad">2</div><div class="l">Incidentes abertos</div></div>
+        <div class="k"><div class="v">14</div><div class="l">Conversas aguardando</div></div>
+        <div class="k"><div class="v">38 min</div><div class="l">MTTR 7 d</div></div>
+      </div>
+      <div class="grid2">
+        <table>
+          <tr><th>Serviço</th><th>Status</th><th style="text-align:right">Uptime 30 d</th><th style="text-align:right">p95</th></tr>
+          <tr><td><b>did</b> · identidade</td><td><span class="stx err">Incidente · falha de auth</span></td><td class="num">94,2%</td><td class="num">-</td></tr>
+          <tr><td><b>crm</b> · conversas</td><td><span class="stx warn">Degradado · latência</span></td><td class="num">97,1%</td><td class="num">480 ms</td></tr>
+          <tr><td><b>b3</b> · mercado</td><td><span class="stx ok">Operacional</span></td><td class="num">99,98%</td><td class="num">42 ms</td></tr>
+          <tr><td><b>sci</b> · científico</td><td><span class="stx ok">Operacional</span></td><td class="num">99,90%</td><td class="num">88 ms</td></tr>
+          <tr><td><b>loteca</b></td><td><span class="stx ok">Operacional</span></td><td class="num">99,95%</td><td class="num">61 ms</td></tr>
+          <tr><td><b>medframe</b></td><td><span class="stx ok">Operacional</span></td><td class="num">99,70%</td><td class="num">120 ms</td></tr>
+          <tr><td><b>aeo</b></td><td><span class="stx mut">Manutenção programada</span></td><td class="num">-</td><td class="num">-</td></tr>
+        </table>
+        <aside class="attD">
+          <h3>Atenção agora</h3>
+          <div class="it"><b>did · falha de autenticação</b><p>Callbacks Authelia retornando 502 desde 13:12.</p><a href="#">Abrir incidente</a></div>
+          <div class="it"><b>crm · latência acima do alvo</b><p>p95 em 480 ms após deploy v2.4.1. Alvo: 200 ms.</p><a href="#">Ver serviço</a></div>
+          <a class="btn" href="#" style="margin-top:16px">Exportar relatório</a>
+        </aside>
+      </div>
+    </div>
+  </div></div></div>
+  <p class="caption"><b>D1 · Dashboard denso.</b> Radius zero, sombra zero, ornamento zero. Status é palavra colorida, não pill.</p>
+
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Produtos · crm</div>
+  <div class="viewport"><div class="screen dD">
+    <div class="top">
+      <span class="logo">CLU<b>OS</b></span>
+      <nav class="tabs"><a href="#">Operação</a><a class="on" href="#">Produtos</a><a href="#">Conversas</a><a href="#">Acessos</a><a href="#">Relatórios</a></nav>
+      <span class="env">kvm8 · prod · rafael</span>
+    </div>
+    <div class="body">
+      <div class="titlerow"><h1>crm · conversas WhatsApp</h1><span class="stword">Degradado desde 14:32</span></div>
+      <div class="metaD">
+        <div class="m">Uptime 30 d<b>97,1%</b></div>
+        <div class="m">p95 atual<b style="color:var(--warn)">480 ms</b></div>
+        <div class="m">Alvo p95<b>200 ms</b></div>
+        <div class="m">Último deploy<b>v2.4.1 · 13:58</b></div>
+      </div>
+      <div class="grid2">
+        <div>
+          <h3 style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--sub);padding-bottom:8px;border-bottom:1px solid var(--line2)">Linha do tempo</h3>
+          <ul class="tlD">
+            <li><time>14:32</time><div><b>Alerta</b> · p95 acima de 400 ms por 10 min consecutivos</div></li>
+            <li><time>13:58</time><div><b>Deploy</b> · v2.4.1, gateway WhatsApp atualizado</div></li>
+            <li><time>12:10</time><div><b>Healthcheck</b> · endpoints dentro do alvo</div></li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:10.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--sub);padding-bottom:8px;border-bottom:1px solid var(--line2)">Endpoints</h3>
+          <table>
+            <tr><td>/api/conversas</td><td class="num" style="color:var(--warn);font-weight:600">480 ms</td></tr>
+            <tr><td>/webhook/wa</td><td class="num">310 ms</td></tr>
+            <tr><td>/api/kpis</td><td class="num">95 ms</td></tr>
+          </table>
+          <div style="display:flex;gap:12px;margin-top:20px">
+            <a class="btn solid" href="#">Abrir runbook</a>
+            <a class="btn" href="#">Silenciar</a>
+            <a class="btn" href="#" style="border-color:var(--err);color:var(--err)">Reiniciar · L2</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div></div>
+  <p class="caption"><b>D2 · Detalhe de serviço.</b> Mesma régua do dashboard: meta em banda hairline, timeline e endpoints em colunas alinhadas.</p>
+
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Acessos · Convidar</div>
+  <div class="viewport"><div class="screen dD">
+    <div class="top">
+      <span class="logo">CLU<b>OS</b></span>
+      <nav class="tabs"><a href="#">Operação</a><a href="#">Produtos</a><a href="#">Conversas</a><a class="on" href="#">Acessos</a><a href="#">Relatórios</a></nav>
+      <span class="env">kvm8 · prod · rafael</span>
+    </div>
+    <div class="body">
+      <h1>Convidar usuário</h1>
+      <p style="font-size:13px;color:var(--mut);margin:6px 0 26px">O convite cria a conta no Authelia com os grupos escolhidos e expira automaticamente.</p>
+      <form>
+        <div class="fld"><label>Nome completo</label><input type="text" value="Isabel Moreira"></div>
+        <div class="fld"><label>E-mail</label><input type="email" class="bad" value="isabel@gmail.com"><div class="errmsg">Domínio não permitido para o papel Operador. Use um e-mail corporativo.</div></div>
+        <div class="fld"><label>Produtos</label>
+          <div class="prods">
+            <label><span><b>crm</b> · conversas</span><input type="checkbox" checked></label>
+            <label><span><b>sci</b> · científico</span><input type="checkbox" checked></label>
+            <label><span><b>did</b> · identidade <small>requer Administrador</small></span><input type="checkbox"></label>
+            <label><span><b>medframe</b></span><input type="checkbox"></label>
+          </div>
+        </div>
+        <div class="fld" style="max-width:280px"><label>Papel</label>
+          <select><option>Operador · ações supervisionadas</option><option>Visualizador · somente leitura</option><option>Administrador · gerencia acessos</option></select>
+        </div>
+        <div class="fld" style="max-width:200px"><label>Expiração</label>
+          <select><option>7 dias</option><option>48 horas</option><option>30 dias</option></select>
+        </div>
+        <div class="actions"><a class="btn solid" href="#">Enviar convite</a><a class="btn" href="#">Cancelar</a></div>
+      </form>
+    </div>
+  </div></div></div>
+  <p class="caption"><b>D3 · Formulário.</b> Inputs retangulares de traço fino, foco em outline teal, produtos como linhas de razão.</p>
+
+  <div class="prosrisks">
+    <div class="box"><h5>A favor</h5><ul><li>O mais barato de manter: pouquíssimos tokens, nenhuma decisão decorativa.</li><li>Envelhece bem e escala para qualquer densidade.</li></ul></div>
+    <div class="box"><h5>Riscos</h5><ul><li>Identidade mínima: depende inteiramente de execução tipográfica impecável.</li><li>Pode parecer inacabado para stakeholders que esperam "produto".</li></ul></div>
+  </div>
+</div></section>
+
+<!-- ================================================================ DIREÇÃO E -->
+<section class="block" id="dirE"><div class="wrap">
+  <div class="kicker">Direção E · luxury-medical · paleta evolve (quente)</div>
+  <h2>Clinic Premium: hospitalidade clínica</h2>
+  <p class="lede"><b>Tese:</b> confiança clínica com calor de hospitalidade premium: porcelana quente como base, teal profundo como âncora, champagne revivido como nuance. Superfícies em cartões suaves (raio 12) usados como material da direção, não como muleta. Navegação: rail suave com item ativo em pílula. É a direção mais próxima do universo da consultoria hospitalar.</p>
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Operação · 1280px</div>
+  <div class="viewport"><div class="screen dE"><div class="shell">
+    <aside class="rail">
+      <div class="logo">CLU<b>OS</b></div>
+      <div class="grp">Operação</div>
+      <a class="on" href="#">Visão geral</a><a href="#">Incidentes</a><a href="#">Conversas</a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a href="#">crm</a><a href="#">sci</a><a href="#">did</a><a href="#">medframe</a>
+      <div class="grp">Acessos</div>
+      <a href="#">Usuários</a><a href="#">Convites</a>
+    </aside>
+    <main class="main">
+      <h1>Visão geral</h1>
+      <div class="sum">7 serviços monitorados · 2 exigem atenção · atualizado há 40 s</div>
+      <div class="cards">
+        <div class="card"><div class="v">99,24%</div><div class="l">Disponibilidade 30 d</div></div>
+        <div class="card"><div class="v bad">2</div><div class="l">Incidentes abertos</div></div>
+        <div class="card"><div class="v">14</div><div class="l">Conversas aguardando</div></div>
+        <div class="card"><div class="v">38 min</div><div class="l">MTTR 7 d</div></div>
+      </div>
+      <div class="gridE">
+        <div class="panelE">
+          <h3>Serviços</h3>
+          <table>
+            <tr><td><span class="stE err"><i></i><b>did</b> · identidade</span></td><td>Incidente · falha de auth</td><td class="num">94,2%</td></tr>
+            <tr><td><span class="stE warn"><i></i><b>crm</b> · conversas</span></td><td>Degradado · latência</td><td class="num">97,1% · 480 ms</td></tr>
+            <tr><td><span class="stE ok"><i></i><b>b3</b> · mercado</span></td><td>Operacional</td><td class="num">99,98% · 42 ms</td></tr>
+            <tr><td><span class="stE ok"><i></i><b>sci</b> · científico</span></td><td>Operacional</td><td class="num">99,90% · 88 ms</td></tr>
+            <tr><td><span class="stE ok"><i></i><b>loteca</b></span></td><td>Operacional</td><td class="num">99,95% · 61 ms</td></tr>
+            <tr><td><span class="stE ok"><i></i><b>medframe</b></span></td><td>Operacional</td><td class="num">99,70% · 120 ms</td></tr>
+            <tr><td><span class="stE mut"><i></i><b>aeo</b></span></td><td>Manutenção programada</td><td class="num">-</td></tr>
+          </table>
+        </div>
+        <aside>
+          <div class="attE err"><b>did · falha de autenticação</b><p>Callbacks Authelia retornando 502 desde 13:12. Runbook disponível.</p><a href="#">Abrir incidente</a></div>
+          <div class="attE"><b>crm · latência acima do alvo</b><p>p95 em 480 ms após deploy v2.4.1. Alvo: 200 ms.</p><a href="#">Ver serviço</a></div>
+          <a class="btn" href="#">Exportar relatório</a>
+        </aside>
+      </div>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>E1 · Dashboard denso.</b> Cartões como material consciente da direção (nunca card dentro de card); alertas com borda lateral semântica.</p>
+
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Produtos · crm</div>
+  <div class="viewport"><div class="screen dE"><div class="shell">
+    <aside class="rail">
+      <div class="logo">CLU<b>OS</b></div>
+      <div class="grp">Operação</div>
+      <a href="#">Visão geral</a><a href="#">Incidentes</a><a href="#">Conversas</a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a class="on" href="#">crm</a><a href="#">sci</a><a href="#">did</a><a href="#">medframe</a>
+      <div class="grp">Acessos</div>
+      <a href="#">Usuários</a><a href="#">Convites</a>
+    </aside>
+    <main class="main">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px">
+        <div><h1>crm · conversas WhatsApp</h1><div class="sum">Central de conversas · KVM8 · atrás de auth.cluos.online</div></div>
+        <span class="badgeE">Degradado desde 14:32</span>
+      </div>
+      <div class="metaE">
+        <div class="card"><div class="v">97,1%</div><div class="l">Uptime 30 d</div></div>
+        <div class="card"><div class="v" style="color:var(--warn)">480 ms</div><div class="l">p95 atual</div></div>
+        <div class="card"><div class="v">200 ms</div><div class="l">Alvo p95</div></div>
+        <div class="card"><div class="v">v2.4.1</div><div class="l">Deploy · 13:58</div></div>
+      </div>
+      <div class="gridE">
+        <div class="panelE">
+          <h3>Linha do tempo</h3>
+          <ul class="tlE">
+            <li><time>14:32</time><div><b>Alerta</b> · p95 acima de 400 ms por 10 min consecutivos</div></li>
+            <li><time>13:58</time><div><b>Deploy</b> · v2.4.1, gateway WhatsApp atualizado</div></li>
+            <li><time>12:10</time><div><b>Healthcheck</b> · endpoints dentro do alvo</div></li>
+          </ul>
+        </div>
+        <div>
+          <div class="panelE">
+            <h3>Endpoints</h3>
+            <table>
+              <tr><td>/api/conversas</td><td class="num" style="color:var(--warn);font-weight:600">480 ms</td></tr>
+              <tr><td>/webhook/wa</td><td class="num">310 ms</td></tr>
+              <tr><td>/api/kpis</td><td class="num">95 ms</td></tr>
+            </table>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+            <a class="btn" href="#">Abrir runbook</a>
+            <a class="btn ghost" href="#">Silenciar</a>
+            <a class="btn danger" href="#">Reiniciar · L2</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>E2 · Detalhe de serviço.</b> Métricas em cartões suaves, timeline hospitaleira, ação destrutiva claramente separada.</p>
+
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Acessos · Convidar</div>
+  <div class="viewport"><div class="screen dE"><div class="shell">
+    <aside class="rail">
+      <div class="logo">CLU<b>OS</b></div>
+      <div class="grp">Operação</div>
+      <a href="#">Visão geral</a><a href="#">Incidentes</a><a href="#">Conversas</a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a href="#">crm</a><a href="#">sci</a><a href="#">did</a><a href="#">medframe</a>
+      <div class="grp">Acessos</div>
+      <a href="#">Usuários</a><a class="on" href="#">Convites</a>
+    </aside>
+    <main class="main">
+      <h1>Convidar usuário</h1>
+      <div class="sum" style="margin-bottom:24px">O convite cria a conta no Authelia com os grupos escolhidos e expira automaticamente.</div>
+      <div class="panelE" style="max-width:620px"><div style="padding:24px 28px">
+        <form style="max-width:none">
+          <div class="fld"><label>Nome completo</label><input type="text" value="Isabel Moreira"></div>
+          <div class="fld"><label>E-mail</label><input type="email" class="bad" value="isabel@gmail.com"><div class="errmsg">Domínio não permitido para o papel Operador. Use um e-mail corporativo.</div></div>
+          <div class="fld"><label>Produtos</label>
+            <div class="chips">
+              <span class="chip sel">crm</span><span class="chip sel">sci</span><span class="chip">b3</span><span class="chip">did</span><span class="chip">medframe</span><span class="chip">aeo</span>
+            </div>
+            <div class="help">Define os grupos de acesso no SSO. Pode ser alterado depois.</div>
+          </div>
+          <div class="fld" style="max-width:320px"><label>Papel</label>
+            <select><option>Operador · ações supervisionadas</option><option>Visualizador · somente leitura</option><option>Administrador · gerencia acessos</option></select>
+          </div>
+          <div class="fld" style="max-width:200px"><label>Expiração</label>
+            <select><option>7 dias</option><option>48 horas</option><option>30 dias</option></select>
+          </div>
+          <div class="actions"><a class="btn" href="#">Enviar convite</a><a class="btn ghost" href="#">Cancelar</a></div>
+        </form>
+      </div></div>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>E3 · Formulário.</b> Um único cartão-superfície envolve o formulário; inputs arredondados, chips-pílula, foco teal suave.</p>
+
+  <div class="prosrisks">
+    <div class="box"><h5>A favor</h5><ul><li>Alinhado ao posicionamento hospitalar premium do CluOS e da consultoria.</li><li>Acolhedor para usuários não técnicos (recepção, gestão clínica).</li></ul></div>
+    <div class="box"><h5>Riscos</h5><ul><li>Neutros quentes exigem curadoria para não cair no bege-genérico de clínica.</li><li>Menos eficiente para densidade extrema de monitoramento.</li></ul></div>
+  </div>
+</div></section>
+
+<!-- ================================================================ DIREÇÃO G -->
+<section class="block" id="dirG"><div class="wrap">
+  <div class="kicker">Direção G · thermal nocturne noturno · paleta evolve (dark-primary)</div>
+  <h2>Night Watch: o registro de monitoramento do Thermal Nocturne</h2>
+  <p class="lede"><b>Tese:</b> o próprio Thermal Nocturne define o dark como registro expressivo e de monitoramento. Aqui ele vira o modo primário: campo navy profundo, superfícies elevadas em azul, traços luminosos de dado, sinal verde com brilho reservado ao que está vivo. Complementar natural da Direção B (mesmos tokens, appearance escura) para salas de comando e telas sempre abertas.</p>
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Monitoramento · 1280px</div>
+  <div class="viewport"><div class="screen dG"><div class="shell">
+    <aside class="rail">
+      <div class="logo">CLU<b>OS</b></div>
+      <div class="grp">Operação</div>
+      <a class="on" href="#">Visão geral</a>
+      <a href="#">Incidentes <span class="ct hot">2</span></a>
+      <a href="#">Conversas <span class="ct">14</span></a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a href="#">crm</a><a href="#">sci</a><a href="#">did</a><a href="#">medframe</a><a href="#">aeo</a>
+      <div class="grp">Acessos</div>
+      <a href="#">Usuários</a><a href="#">Convites</a>
+    </aside>
+    <main class="main">
+      <div class="toprow">
+        <h1>Monitoramento</h1>
+        <span class="live"><i></i>ao vivo</span>
+        <span class="upd">14:41:22 · auto 30 s</span>
+      </div>
+      <div class="kgrid">
+        <div class="k"><div class="v">99,24%</div><div class="l">Disponibilidade 30 d</div></div>
+        <div class="k"><div class="v bad">2</div><div class="l">Incidentes abertos</div></div>
+        <div class="k"><div class="v">14</div><div class="l">Conversas aguardando</div></div>
+        <div class="k"><div class="v">38 min</div><div class="l">MTTR 7 d</div></div>
+      </div>
+      <table>
+        <tr><th>Serviço</th><th>Status</th><th style="text-align:right">Uptime 30 d</th><th style="text-align:right">p95</th><th>Último evento</th></tr>
+        <tr><td class="svc">did<small>identidade · SSO</small></td><td><span class="stG err">Incidente</span></td><td class="num">94,2%</td><td class="num">-</td><td>Callbacks 502 desde 13:12</td></tr>
+        <tr><td class="svc">crm<small>conversas WhatsApp</small></td><td><span class="stG warn">Degradado</span></td><td class="num">97,1%</td><td class="num lat hot">480 ms</td><td>Deploy v2.4.1 às 13:58</td></tr>
+        <tr><td class="svc">b3<small>mercado</small></td><td><span class="stG ok">Operacional</span></td><td class="num">99,98%</td><td class="num">42 ms</td><td>Healthcheck ok</td></tr>
+        <tr><td class="svc">sci<small>científico</small></td><td><span class="stG ok">Operacional</span></td><td class="num">99,90%</td><td class="num">88 ms</td><td>Healthcheck ok</td></tr>
+        <tr><td class="svc">loteca</td><td><span class="stG ok">Operacional</span></td><td class="num">99,95%</td><td class="num">61 ms</td><td>Healthcheck ok</td></tr>
+        <tr><td class="svc">medframe</td><td><span class="stG ok">Operacional</span></td><td class="num">99,70%</td><td class="num">120 ms</td><td>Healthcheck ok</td></tr>
+        <tr><td class="svc">aeo</td><td><span class="stG mut">Manutenção</span></td><td class="num">-</td><td class="num">-</td><td>Janela até 18:00</td></tr>
+      </table>
+      <div class="sparkG">
+        <h3>p95 do crm · últimas 3 h</h3>
+        <svg style="width:100%;height:46px" viewBox="0 0 600 46" preserveAspectRatio="none"><polyline fill="none" stroke="#1FB5AB" stroke-width="1.5" points="0,34 60,33 120,35 180,32 240,34 300,30 360,31 420,14 480,10 540,12 600,9"/><line x1="0" y1="40" x2="600" y2="40" stroke="rgba(199,213,235,.14)"/></svg>
+      </div>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>G1 · Dashboard denso (dark).</b> Mesmos tokens semânticos da Direção B em appearance escura: pode existir como modo complementar da B em vez de direção separada.</p>
+
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Produtos · crm</div>
+  <div class="viewport"><div class="screen dG"><div class="shell">
+    <aside class="rail">
+      <div class="logo">CLU<b>OS</b></div>
+      <div class="grp">Operação</div>
+      <a href="#">Visão geral</a><a href="#">Incidentes <span class="ct hot">2</span></a><a href="#">Conversas <span class="ct">14</span></a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a class="on" href="#">crm</a><a href="#">sci</a><a href="#">did</a><a href="#">medframe</a><a href="#">aeo</a>
+      <div class="grp">Acessos</div>
+      <a href="#">Usuários</a><a href="#">Convites</a>
+    </aside>
+    <main class="main">
+      <div class="toprow">
+        <h1>crm · conversas WhatsApp</h1>
+        <span class="badgeG">Degradado desde 14:32</span>
+        <span class="upd">v2.4.1 · deploy 13:58</span>
+      </div>
+      <div class="metastrip">
+        <div class="m">Uptime 30 d<b>97,1%</b></div>
+        <div class="m">p95 atual<b style="color:var(--warn)">480 ms</b></div>
+        <div class="m">Alvo p95<b>200 ms</b></div>
+        <div class="m">Req/min<b>211</b></div>
+        <div class="m">Erros 1 h<b>0,4%</b></div>
+      </div>
+      <div class="twocol">
+        <div class="panelG">
+          <h3>Eventos</h3>
+          <div class="ev"><time>14:32</time><span class="tag a">ALERTA</span><div>p95 acima de 400 ms por 10 min consecutivos no gateway</div></div>
+          <div class="ev"><time>13:58</time><span class="tag d">DEPLOY</span><div>v2.4.1 · gateway WhatsApp · runner kvm8</div></div>
+          <div class="ev"><time>12:10</time><span class="tag o">OK</span><div>Healthcheck completo dentro do alvo</div></div>
+        </div>
+        <div>
+          <div class="panelG">
+            <h3>Endpoints</h3>
+            <div class="ev"><div style="flex:1">/api/conversas</div><div style="font:600 12px 'JetBrains Mono',monospace;color:var(--warn)">480 ms</div></div>
+            <div class="ev"><div style="flex:1">/webhook/wa</div><div style="font:12px 'JetBrains Mono',monospace;color:var(--mut)">310 ms</div></div>
+            <div class="ev"><div style="flex:1">/api/kpis</div><div style="font:12px 'JetBrains Mono',monospace;color:var(--mut)">95 ms</div></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+            <a class="btnG" href="#">Abrir runbook</a>
+            <a class="btnG ghost" href="#">Silenciar</a>
+            <a class="btnG dang" href="#">Reiniciar · L2</a>
+          </div>
+        </div>
+      </div>
+      <div class="sparkG">
+        <h3>p95 · últimas 3 h</h3>
+        <svg style="width:100%;height:46px" viewBox="0 0 600 46" preserveAspectRatio="none"><polyline fill="none" stroke="#1FB5AB" stroke-width="1.5" points="0,34 60,33 120,35 180,32 240,34 300,30 360,31 420,14 480,10 540,12 600,9"/><line x1="0" y1="40" x2="600" y2="40" stroke="rgba(199,213,235,.14)"/></svg>
+      </div>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>G2 · Detalhe de serviço (dark).</b> Painéis elevados em azul, tags luminosas discretas, traço de dado teal.</p>
+
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Acessos · Convidar</div>
+  <div class="viewport"><div class="screen dG"><div class="shell">
+    <aside class="rail">
+      <div class="logo">CLU<b>OS</b></div>
+      <div class="grp">Operação</div>
+      <a href="#">Visão geral</a><a href="#">Incidentes <span class="ct hot">2</span></a><a href="#">Conversas <span class="ct">14</span></a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a href="#">crm</a><a href="#">sci</a><a href="#">did</a><a href="#">medframe</a><a href="#">aeo</a>
+      <div class="grp">Acessos</div>
+      <a href="#">Usuários</a><a class="on" href="#">Convites</a>
+    </aside>
+    <main class="main">
+      <h1>Convidar usuário</h1>
+      <p style="color:var(--sub);font-size:12.5px;margin:6px 0 20px">Cria a conta no Authelia com os grupos escolhidos. O convite expira automaticamente.</p>
+      <form>
+        <div class="fgrid">
+          <div class="fld"><label>Nome completo</label><input type="text" value="Isabel Moreira"></div>
+          <div class="fld"><label>E-mail</label><input type="email" class="bad" value="isabel@gmail.com"><div class="errmsg">Domínio não permitido para Operador. Use e-mail corporativo.</div></div>
+        </div>
+        <div class="fld"><label>Produtos e papel</label>
+          <table class="prodtable">
+            <tr><td><input type="checkbox" checked></td><td><span class="nm">crm</span> <span class="desc">· conversas</span></td><td><select style="width:170px"><option>Operador</option><option>Visualizador</option></select></td></tr>
+            <tr><td><input type="checkbox" checked></td><td><span class="nm">sci</span> <span class="desc">· científico</span></td><td><select style="width:170px"><option>Visualizador</option><option>Operador</option></select></td></tr>
+            <tr><td><input type="checkbox"></td><td><span class="nm">did</span> <span class="desc">· identidade</span></td><td><select style="width:170px" disabled><option>-</option></select></td></tr>
+            <tr><td><input type="checkbox"></td><td><span class="nm">medframe</span></td><td><select style="width:170px" disabled><option>-</option></select></td></tr>
+          </table>
+          <div class="help">Papel por produto. Administrador global só via Acessos / Usuários.</div>
+        </div>
+        <div class="fld" style="max-width:200px"><label>Expiração</label>
+          <select><option>7 dias</option><option>48 horas</option><option>30 dias</option></select>
+        </div>
+        <div class="actions"><a class="btnG" href="#">Enviar convite</a><a class="btnG ghost" href="#">Cancelar</a></div>
+      </form>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>G3 · Formulário (dark).</b> Mesma estrutura do formulário da B em appearance escura; sinal verde marca a ação primária única.</p>
+
+  <div class="prosrisks">
+    <div class="box"><h5>A favor</h5><ul><li>Registro certo para monitoramento contínuo e salas de comando.</li><li>Marca expressiva máxima dentro do Thermal Nocturne já aprovado.</li></ul></div>
+    <div class="box"><h5>Riscos</h5><ul><li>Dark como primário cansa em telas de leitura longa e formulários.</li><li>Melhor como appearance da B do que como sistema único.</li></ul></div>
+  </div>
+</div></section>
+
+<!-- ================================================================ BIBLIOTECA AMPLIADA DE PALETAS -->
+<section class="block" id="palgallery"><div class="wrap">
+  <div class="kicker">Biblioteca ampliada de paletas</div>
+  <h2>Mais variações de cor para escolher, independente do arquétipo</h2>
+  <p class="lede">Como os seis arquétipos agora vivem como biblioteca (não como escolha única), a paleta também fica desacoplada do layout: qualquer paleta compatível com o modo de um arquétipo (<code>preserve</code>/<code>evolve</code>/<code>new</code>) pode ser aplicada a ele. Abaixo, seis paletas adicionais além das seis já usadas nos mockups A-G, e uma prova concreta: o mesmo dashboard da Direção B renderizado com três paletas diferentes, trocando só os tokens de cor, nenhuma estrutura.</p>
+
+  <div class="palrow">
+    <div class="palcol">
+      <h4>Teal Cool Slate</h4><div class="mode">preserve · neutros frios</div>
+      <div class="sw"><div style="background:#008080"></div><div style="background:#1B2F36"></div><div style="background:#F7F8FA;border-left:1px solid #E1E5EA"></div><div style="background:#E1E5EA"></div></div>
+      <ul><li><span>teal</span><span>#008080</span></li><li><span>navy</span><span>#1B2F36</span></li><li><span>cinza-ardósia</span><span>#F7F8FA</span></li></ul>
+      <p style="font-size:12px;color:var(--g-muted);margin-top:10px">Pareia bem com: A, D</p>
+    </div>
+    <div class="palcol">
+      <h4>Teal Ink</h4><div class="mode">preserve · alto contraste</div>
+      <div class="sw"><div style="background:#00696B"></div><div style="background:#10181C"></div><div style="background:#FFFFFF;border-left:1px solid #DADDDF"></div><div style="background:#DADDDF"></div></div>
+      <ul><li><span>teal AA</span><span>#00696B</span></li><li><span>tinta quase-preta</span><span>#10181C</span></li><li><span>branco</span><span>#FFFFFF</span></li></ul>
+      <p style="font-size:12px;color:var(--g-muted);margin-top:10px">Pareia bem com: A, D</p>
+    </div>
+    <div class="palcol">
+      <h4>Forest Command</h4><div class="mode">evolve · âncora teal → floresta</div>
+      <div class="sw"><div style="background:#14251B"></div><div style="background:#3D7A46"></div><div style="background:#F6F5EF;border-left:1px solid #E4E2D6"></div><div style="background:#D9C27A"></div></div>
+      <ul><li><span>floresta profunda</span><span>#14251B</span></li><li><span>verde operacional</span><span>#3D7A46</span></li><li><span>osso</span><span>#F6F5EF</span></li><li><span>sinal dourado</span><span>#D9C27A</span></li></ul>
+      <p style="font-size:12px;color:var(--g-muted);margin-top:10px">Pareia bem com: B, G · demo abaixo</p>
+    </div>
+    <div class="palcol">
+      <h4>Copper Signal</h4><div class="mode">evolve · sinal âmbar em vez de verde</div>
+      <div class="sw"><div style="background:#132952"></div><div style="background:#0E6E68"></div><div style="background:#F5F7F4;border-left:1px solid #DCE2E3"></div><div style="background:#BD7845"></div></div>
+      <ul><li><span>navy</span><span>#132952</span></li><li><span>teal muted</span><span>#0E6E68</span></li><li><span>sinal cobre</span><span>#BD7845</span></li></ul>
+      <p style="font-size:12px;color:var(--g-muted);margin-top:10px">Pareia bem com: B, G, E</p>
+    </div>
+    <div class="palcol">
+      <h4>Cold Luxury</h4><div class="mode">new · prata + azul elétrico</div>
+      <div class="sw"><div style="background:#1B1E22"></div><div style="background:#2D6CDF"></div><div style="background:#F4F5F6;border-left:1px solid #E2E4E7"></div><div style="background:#9FB3C8"></div></div>
+      <ul><li><span>tinta</span><span>#1B1E22</span></li><li><span>azul elétrico</span><span>#2D6CDF</span></li><li><span>fumaça</span><span>#F4F5F6</span></li></ul>
+      <p style="font-size:12px;color:var(--g-muted);margin-top:10px">Pareia bem com: C, D · demo abaixo</p>
+    </div>
+    <div class="palcol">
+      <h4>Terracotta Slate</h4><div class="mode">new · rust quente vs. ardósia fria</div>
+      <div class="sw"><div style="background:#24303A"></div><div style="background:#B5623A"></div><div style="background:#F3F1EC;border-left:1px solid #E4E0D6"></div><div style="background:#E3A26B"></div></div>
+      <ul><li><span>ardósia</span><span>#24303A</span></li><li><span>terracota</span><span>#B5623A</span></li><li><span>papel quente</span><span>#F3F1EC</span></li></ul>
+      <p style="font-size:12px;color:var(--g-muted);margin-top:10px">Pareia bem com: E, C · demo abaixo</p>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:34px"><b>Prova de desacoplamento:</b> o mesmo dashboard da Direção B (idêntica estrutura, mesmo componente, mesmos dados), só trocando os tokens de cor.</p>
+
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Operação · paleta Forest Command</div>
+  <div class="viewport"><div class="screen dB pal-forest"><div class="shell">
+    <aside class="rail">
+      <div class="logo"><span class="sym">C</span><span>CLUOS</span></div>
+      <div class="grp">Operação</div>
+      <a class="on" href="#">Visão geral</a>
+      <a href="#">Incidentes <span class="ct hot">2</span></a>
+      <a href="#">Conversas <span class="ct">14</span></a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a href="#">crm <span class="ct">p95</span></a><a href="#">sci</a><a href="#">did <span class="ct hot">!</span></a><a href="#">medframe</a><a href="#">aeo</a>
+    </aside>
+    <main class="main">
+      <div class="statusbar">
+        <span class="live"><i></i>Operação com atenção</span>
+        <span>7 serviços · 2 fora do alvo</span>
+        <span class="mono">atualizado 14:41:22</span>
+      </div>
+      <div class="content">
+        <h1>Visão geral da operação</h1>
+        <div class="gridkpi">
+          <div class="k"><div class="v">99,24<small> %</small></div><div class="l">Disponibilidade 30 d</div></div>
+          <div class="k bad"><div class="v">2</div><div class="l">Incidentes abertos</div></div>
+          <div class="k"><div class="v">14</div><div class="l">Conversas aguardando</div></div>
+          <div class="k"><div class="v">38<small> min</small></div><div class="l">MTTR 7 d</div></div>
+        </div>
+        <table>
+          <tr><th>Serviço</th><th>Status</th><th class="num">Uptime 30 d</th><th class="num">p95</th></tr>
+          <tr><td class="svc">did<small>identidade</small></td><td><span class="pill err">Incidente</span></td><td class="num">94,2%</td><td class="num">-</td></tr>
+          <tr><td class="svc">crm<small>conversas</small></td><td><span class="pill warn">Degradado</span></td><td class="num">97,1%</td><td class="num lat hot">480 ms</td></tr>
+          <tr><td class="svc">b3<small>mercado</small></td><td><span class="pill ok">Operacional</span></td><td class="num">99,98%</td><td class="num lat">42 ms</td></tr>
+          <tr><td class="svc">sci<small>científico</small></td><td><span class="pill ok">Operacional</span></td><td class="num">99,90%</td><td class="num lat">88 ms</td></tr>
+        </table>
+      </div>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>Forest Command aplicada à B.</b> A mesma central de comando, agora com identidade floresta + osso + sinal dourado.</p>
+
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Operação · paleta Cold Luxury</div>
+  <div class="viewport"><div class="screen dB pal-cold"><div class="shell">
+    <aside class="rail">
+      <div class="logo"><span class="sym">C</span><span>CLUOS</span></div>
+      <div class="grp">Operação</div>
+      <a class="on" href="#">Visão geral</a>
+      <a href="#">Incidentes <span class="ct hot">2</span></a>
+      <a href="#">Conversas <span class="ct">14</span></a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a href="#">crm <span class="ct">p95</span></a><a href="#">sci</a><a href="#">did <span class="ct hot">!</span></a><a href="#">medframe</a><a href="#">aeo</a>
+    </aside>
+    <main class="main">
+      <div class="statusbar">
+        <span class="live"><i></i>Operação com atenção</span>
+        <span>7 serviços · 2 fora do alvo</span>
+        <span class="mono">atualizado 14:41:22</span>
+      </div>
+      <div class="content">
+        <h1>Visão geral da operação</h1>
+        <div class="gridkpi">
+          <div class="k"><div class="v">99,24<small> %</small></div><div class="l">Disponibilidade 30 d</div></div>
+          <div class="k bad"><div class="v">2</div><div class="l">Incidentes abertos</div></div>
+          <div class="k"><div class="v">14</div><div class="l">Conversas aguardando</div></div>
+          <div class="k"><div class="v">38<small> min</small></div><div class="l">MTTR 7 d</div></div>
+        </div>
+        <table>
+          <tr><th>Serviço</th><th>Status</th><th class="num">Uptime 30 d</th><th class="num">p95</th></tr>
+          <tr><td class="svc">did<small>identidade</small></td><td><span class="pill err">Incidente</span></td><td class="num">94,2%</td><td class="num">-</td></tr>
+          <tr><td class="svc">crm<small>conversas</small></td><td><span class="pill warn">Degradado</span></td><td class="num">97,1%</td><td class="num lat hot">480 ms</td></tr>
+          <tr><td class="svc">b3<small>mercado</small></td><td><span class="pill ok">Operacional</span></td><td class="num">99,98%</td><td class="num lat">42 ms</td></tr>
+          <tr><td class="svc">sci<small>científico</small></td><td><span class="pill ok">Operacional</span></td><td class="num">99,90%</td><td class="num lat">88 ms</td></tr>
+        </table>
+      </div>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>Cold Luxury aplicada à B.</b> Prata, fumaça e azul elétrico como único acento saturado.</p>
+
+  <div class="mock"><div class="bar"><i></i><i></i><i></i>&nbsp;suporte.cluos.online · Operação · paleta Terracotta Slate</div>
+  <div class="viewport"><div class="screen dB pal-terracotta"><div class="shell">
+    <aside class="rail">
+      <div class="logo"><span class="sym">C</span><span>CLUOS</span></div>
+      <div class="grp">Operação</div>
+      <a class="on" href="#">Visão geral</a>
+      <a href="#">Incidentes <span class="ct hot">2</span></a>
+      <a href="#">Conversas <span class="ct">14</span></a>
+      <div class="grp">Produtos</div>
+      <a href="#">b3</a><a href="#">crm <span class="ct">p95</span></a><a href="#">sci</a><a href="#">did <span class="ct hot">!</span></a><a href="#">medframe</a><a href="#">aeo</a>
+    </aside>
+    <main class="main">
+      <div class="statusbar">
+        <span class="live"><i></i>Operação com atenção</span>
+        <span>7 serviços · 2 fora do alvo</span>
+        <span class="mono">atualizado 14:41:22</span>
+      </div>
+      <div class="content">
+        <h1>Visão geral da operação</h1>
+        <div class="gridkpi">
+          <div class="k"><div class="v">99,24<small> %</small></div><div class="l">Disponibilidade 30 d</div></div>
+          <div class="k bad"><div class="v">2</div><div class="l">Incidentes abertos</div></div>
+          <div class="k"><div class="v">14</div><div class="l">Conversas aguardando</div></div>
+          <div class="k"><div class="v">38<small> min</small></div><div class="l">MTTR 7 d</div></div>
+        </div>
+        <table>
+          <tr><th>Serviço</th><th>Status</th><th class="num">Uptime 30 d</th><th class="num">p95</th></tr>
+          <tr><td class="svc">did<small>identidade</small></td><td><span class="pill err">Incidente</span></td><td class="num">94,2%</td><td class="num">-</td></tr>
+          <tr><td class="svc">crm<small>conversas</small></td><td><span class="pill warn">Degradado</span></td><td class="num">97,1%</td><td class="num lat hot">480 ms</td></tr>
+          <tr><td class="svc">b3<small>mercado</small></td><td><span class="pill ok">Operacional</span></td><td class="num">99,98%</td><td class="num lat">42 ms</td></tr>
+          <tr><td class="svc">sci<small>científico</small></td><td><span class="pill ok">Operacional</span></td><td class="num">99,90%</td><td class="num lat">88 ms</td></tr>
+        </table>
+      </div>
+    </main>
+  </div></div></div></div>
+  <p class="caption"><b>Terracotta Slate aplicada à B.</b> Rust quente contra ardósia fria, sem bege genérico.</p>
+</div></section>
+
+<!-- ================================================================ DECISÃO -->
+<section class="block" id="decision"><div class="wrap">
+  <div class="kicker">D · Recomendação &nbsp;·&nbsp; E · Como isso vira a biblioteca canônica</div>
+  <h2>Seis arquétipos aprovados, escolha contextual por tela</h2>
+  <p class="lede">Rafael descartou <b>F · Grid Manifest</b> e pediu para manter os demais como opções vivas, escolhidas conforme a tela sendo trabalhada, em vez de travar um único vencedor agora. Isso é exatamente o papel da skill <code>design-gallery</code>: uma biblioteca de arquétipos reutilizável, não uma decisão de mão única. A combinação de maior valor para começar segue sendo a família Thermal Nocturne: <b>B</b> para operar, <b>G</b> como appearance escura dos mesmos tokens para monitoramento, e o padrão editorial da <b>C</b> para Relatórios e visão executiva; <b>A</b> e <b>D</b> ficam como opções de menor custo para telas simples; <b>E</b> para superfícies voltadas ao universo hospitalar premium.</p>
+  <div class="decision">
+    <p style="margin-bottom:10px"><b>Para destravar a implementação canônica, preciso de:</b></p>
+    <ol>
+      <li><b>Confirmação da biblioteca:</b> A, B, C, D, E, G entram como arquétipos oficiais do <code>design-archetypes.yaml</code>, cada um com sua tese e superfícies recomendadas registradas nesta página.</li>
+      <li><b>Default por tipo de tela</b> (opcional, ajuda o roteador nível N2/N3 a sugerir automaticamente): ex. dashboards operacionais → B, relatórios → C, telas hospitalares → E.</li>
+      <li><b>Paleta:</b> veja a biblioteca ampliada abaixo. Cada arquétipo pode ser pareado com qualquer paleta compatível com seu modo (preserve/evolve/new), não só a paleta com que foi mockado aqui.</li>
+    </ol>
+    <p style="margin-top:14px;color:var(--g-muted);font-size:13.5px">Após a confirmação: registro a decisão em <code>profiles/cluos/design-decisions.yaml</code>, escrevo o plano de implementação (skills canônicas + instalador Claude/Codex + refatoração token-first do DS), e executo em etapas com Design Critic e Design QA antes de qualquer handoff.</p>
+  </div>
+</div></section>
+
+<footer><div class="wrap">CluOS Design System v2 · galeria de direções · gerada localmente para decisão · dados de demonstração · nenhuma alteração aplicada a produtos ou skills até a escolha registrada.</div></footer>

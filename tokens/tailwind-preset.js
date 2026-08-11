@@ -41,6 +41,33 @@ module.exports = {
           error:      "#8A3A3A",
           "error-bg":   "#F5EAEA",
         },
+        /**
+         * Semantic role colors (v2) — resolve live against whichever
+         * [data-cluos-style]/[data-cluos-palette] is active on the page.
+         * Prefer these over the raw `cluos-*` scale above for new work; see
+         * ../agent-skills/shared/design-archetypes.yaml and
+         * ../docs/cluos-design-system-v2/06-design-foundations.md.
+         *
+         *   className="bg-cluosc-canvas text-cluosc-fg-primary"
+         */
+        cluosc: {
+          canvas:            "var(--cluos-color-bg-canvas)",
+          surface:           "var(--cluos-color-bg-surface)",
+          elevated:          "var(--cluos-color-bg-elevated)",
+          subtle:            "var(--cluos-color-bg-subtle)",
+          "fg-primary":      "var(--cluos-color-fg-primary)",
+          "fg-secondary":    "var(--cluos-color-fg-secondary)",
+          "fg-muted":        "var(--cluos-color-fg-muted)",
+          border:            "var(--cluos-color-border-default)",
+          "border-strong":   "var(--cluos-color-border-strong)",
+          action:            "var(--cluos-color-action-primary)",
+          "action-hover":    "var(--cluos-color-action-primary-hover)",
+          success:           "var(--cluos-color-status-success)",
+          warning:           "var(--cluos-color-status-warning)",
+          danger:            "var(--cluos-color-status-danger)",
+          info:              "var(--cluos-color-status-info)",
+          signal:            "var(--cluos-color-signal)",
+        },
       },
       fontFamily: {
         sans: ['"Inter"', '"Inter Tight"', 'system-ui', 'sans-serif'],

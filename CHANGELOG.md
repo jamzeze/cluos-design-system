@@ -42,6 +42,58 @@ explicitly promoted.
   single source of truth — that decision belongs to whoever owns the
   promotion call.
 
+## [Unreleased] — 2026-08-10 — Anti-slop skills + style/palette architecture
+
+Full canonical implementation, approved by Rafael. Not yet a version bump —
+`package.json` stays at 0.3.0 per this repo's Alpha-readiness freeze
+(`.github/workflows/release.yml`); a maintainer decides when to cut a
+release. See `docs/cluos-design-system-v2/` for the complete audit,
+decision log, and skill provenance behind this change.
+
+### Added
+
+- `agent-skills/` — canonical source for five frontend skills
+  (`anti-ai-slop-frontend`, `design-gallery`, `frontend-craftsman`,
+  `design-critic`, `design-system-refactor-director`), a shared reference
+  library (`design-archetypes.yaml`, `palette-policy.md`,
+  `anti-slop-rubric.md`, `routing-matrix.yaml`), and the CluOS profile
+  (`profiles/cluos/`). Installed into `~/.claude/skills/` and
+  `~/.codex/skills/` via `scripts/sync-agent-skills.sh` (idempotent) —
+  installed and validated clean as of this entry.
+- `design-gallery/index.html` — the canonical Design Gallery artifact: an
+  interactive style+palette workbench plus full three-screen mockups for
+  six approved archetypes, rendered on real `suporte.cluos.online` content.
+- **`tokens/tokens.css`**: a new semantic role layer
+  (`--cluos-color-bg-canvas`, `--cluos-color-action-primary`, etc.)
+  selectable via `[data-cluos-style="A".."G"]` and composable with
+  `[data-cluos-palette="pal-*"]` (six archetypes × seven palettes,
+  including dark-register-tuned compound overrides for style `G`). This IS
+  Thermal Nocturne v0.4 finally reconciled with v0.3 — both are now
+  first-class style options rather than two competing systems.
+- `tokens/tokens.js` / `tokens.ts`: `styles`, `palettes`, `palettesDark`,
+  and `resolveTheme()` mirroring the CSS cascade exactly (verified against
+  each other, not just visually).
+- `tokens/tailwind-preset.js`: `cluosc-*` color utilities resolving live
+  against the active `data-cluos-*` attributes.
+
+### Changed
+
+- `tokens-experimental/thermal-nocturne-tokens.css` header comment
+  corrected — it no longer claims to be "the current canonical identity"
+  (that claim became inaccurate the moment a second, non-Thermal-Nocturne
+  archetype was approved). Values in the file are unchanged.
+
+### Compatibility
+
+Zero regressions: every `--cluos-*` (v0.3) custom property keeps its
+existing value; the new semantic layer defaults to Archetype A's palette
+(closest to v0.3) when no `data-cluos-style` is set. Confirmed via
+computed-style assertions in a real browser
+(`docs/cluos-design-system-v2/skill-provenance.md` records the verification
+method). No current repo imports this package as a live dependency (see
+`docs/cluos-design-system-v2/00-baseline.md`), so there is no consumer to
+break.
+
 ## [0.3.0] — Product action color variants
 
 ### Added
