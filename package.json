@@ -30,6 +30,7 @@
       "require": "./tokens/tokens.js"
     },
     "./tokens.css": "./tokens/tokens.css",
+    "./mms-canonical.yaml": "./tokens/mms-canonical.yaml",
     "./tailwind-preset": "./tokens/tailwind-preset.js",
     "./brand-assets/*": "./brand-assets/*",
     "./guides/*": "./guides/*",

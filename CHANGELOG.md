@@ -3,6 +3,27 @@
 All notable changes to the Cluos design system are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com).
 
+## [Unreleased] — 2026-08-30 — MMS identity promoted to global canon
+
+### Changed
+
+- Promoted `cluos-mms-v1` to the default visual contract for CluOS and future
+  products: Swiss Ledger light surfaces, Manrope + Instrument Sans, deep navy,
+  medium blue, tech green, copper and oxblood semantic roles.
+- Rebuilt `DESIGN-preview.html` as the canonical specimen, including the
+  explicit chart motion (progressive line draw + rising bars) and reduced-motion
+  fallback.
+- Added `tokens/mms-canonical.yaml`; synchronized CSS, TypeScript, JavaScript,
+  Tailwind and package docs while retaining legacy selectors as opt-outs.
+- Superseded the 2026-08-10 “style/palette per task” decisions with an
+  append-only decision entry.
+
+### Migration
+
+- GCOS now records the canonical id and consumer contract.
+- MMS is the first aligned consumer; other catalogued products inherit the
+  contract in subsequent dependency/migration waves.
+
 ## [Unreleased] — Thermal Nocturne (experimental, not adopted)
 
 Preserves work originally built in a Codex sandbox

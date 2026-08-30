@@ -16,29 +16,39 @@ Conducts refactors that touch the foundation, not a single screen. If
    `docs/cluos-design-system-v2/01-current-system-audit.md` for the CluOS
    baseline as of 2026-08-10).
 3. Princípios — what this refactor is optimizing for.
-4. Direções visuais — via `design-gallery`.
-5. Decisão de paleta — via `palette-policy.md`.
-6. Tokens.
-7. Primitives.
-8. Componentes.
-9. Padrões.
-10. Telas de referência (golden screens).
-11. Migração.
-12. Remoção ou compatibilidade com legado.
-13. Documentação.
-14. QA.
-15. Manutenção futura.
+4. Contratos de layout — record `not applicable` when no screen/flow structure
+   changes; otherwise use `ux-layout-architect` for golden screens and changed
+   flows, and approve structure before visual exploration.
+5. Direção visual — `cluos-mms-v1` por padrão; use `design-gallery` somente
+   para comparação ou opt-out explícito, preservando contratos aprovados.
+6. Decisão de paleta — só para uma exceção registrada em `palette-policy.md`.
+7. Tokens.
+8. Primitives.
+9. Componentes.
+10. Padrões.
+11. Telas de referência (golden screens).
+12. Migração.
+13. Remoção ou compatibilidade com legado.
+14. Documentação.
+15. QA.
+16. Manutenção futura.
 
 ## CluOS-specific state (read before starting any new N3 work)
 
-As of 2026-08-10, phases 1-6 for the *skill infrastructure and token
-architecture* are done — see `docs/cluos-design-system-v2/`. Phases
-7-10 (primitives, components, patterns, golden screens as real shipped UI)
-are **not** done: no real product surface has been migrated, because no
-single direction was chosen to migrate toward (see
-`profiles/cluos/design-decisions.yaml`, decision dated 2026-08-10). The
-next N3 pass that has a real target screen picks up at phase 7 for that
-screen's chosen archetype.
+Resolve support roots as one complete pair before reading project state:
+
+- Installed client: `../../shared/cluos-design-system` and
+  `../../profiles/cluos-design-system/cluos`.
+- Canonical source checkout: `../../shared` and `../../profiles/cluos`.
+
+Use the first complete pair. Stop if either half is missing or if the pair is
+mixed; do not silently fall back to stale global copies.
+
+As of 2026-08-30, `cluos-mms-v1` is the global direction for the token
+architecture and all new product surfaces. The A–G archetype library remains
+available for explicit legacy opt-outs and comparative review. A real target
+screen migrates from phase 7 using the canonical MMS contract unless an
+append-only decision records a temporary exception.
 
 ## Migration strategy (when there IS a real target)
 
@@ -53,6 +63,7 @@ screen's chosen archetype.
 
 ## Handoff
 
-`design-gallery` (direction) → `writing-plans` (before any code) →
+`ux-layout-architect` for changed golden screens/flows → `design-gallery`
+(direction) → `writing-plans` (before any code) →
 `frontend-craftsman` (implementation) → `design-critic` → `design-qa` →
 `verification-before-completion`.

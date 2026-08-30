@@ -1,23 +1,34 @@
 ---
 name: design-gallery
-description: Generates real, comparable visual alternatives before implementation for N2/N3 frontend work — a library of design archetypes and palettes, not a template catalog. Use after anti-ai-slop-frontend classifies a task as N2 or N3, or whenever more than one visual direction is genuinely relevant to an N1 task. For CluOS, this skill presents the existing archetype+palette library and requires an explicit human choice per task — it does not pick a default.
+description: Generates real, comparable visual alternatives for N2/N3 frontend work when a comparison or explicit opt-out is needed. The canonical default is cluos-mms-v1; this skill never changes it implicitly.
 ---
 
 # design-gallery
 
 Produces real, comparable visual alternatives — not a template catalog, not
 a list of adjectives. For CluOS specifically, most of this work is already
-done: read `../../shared/design-archetypes.yaml` and
-`../../shared/palette-policy.md` first. In the common case this skill's job
-is to **present the existing library and capture a choice**, not to invent
-new archetypes from scratch.
+done. Resolve the support roots first: installed clients use
+`../../shared/cluos-design-system` and
+`../../profiles/cluos-design-system/cluos`; the canonical source checkout uses
+`../../shared` and `../../profiles/cluos`. Use the first complete pair and
+stop on a missing or mixed pair. Read `design-archetypes.yaml` and
+`palette-policy.md` from the resolved shared root. In the common case this
+skill's job is to **compare the existing library or document a deliberate
+opt-out**, not to replace the canonical default.
+
+For N2, and N3 when screens/flows change, read the approved
+`ux-layout-contract.md` first. Visual alternatives must preserve its task flow,
+zones, co-visibility, P0/P1 priority, action boundaries, and DOM/focus order.
+If the contract is absent, provisional, blocked, or structurally changed by an
+option, stop and return to `ux-layout-architect` for explicit approval.
 
 ## When new archetypes/palettes ARE needed
 
 Only generate a genuinely new archetype or palette when none of the
 registered options fit the surface (e.g. a marketing/landing surface, which
 the current library was not designed for — see
-`profiles/cluos/surface-inventory.md` "Not yet inventoried"). When you do:
+`surface-inventory.md` in the resolved profile root, "Not yet inventoried").
+When you do:
 
 - Generate exactly 3 options per round unless told otherwise.
 - Each option must differ in composition, hierarchy, density, and
@@ -40,13 +51,13 @@ the current library was not designed for — see
 3. Present each candidate with: name, thesis, native palette, and a link
    to its mockup in `design-gallery/index.html` (or the live workbench at
    `design-gallery/index.html#workbench` for a quick live compare).
-4. Present the palette table from `palette-policy.md` §3 alongside, noting
-   this is chosen **independently** of archetype.
-5. Wait for an explicit choice of archetype **and** palette. Do not
-   proceed to `frontend-craftsman` without both, for any N2/N3 task.
+4. Present the canonical MMS contract first. Show the palette table only when
+   the task explicitly requests a comparison or legacy opt-out.
+5. A human choice is required only for a non-canonical opt-out; otherwise
+   proceed with `cluos-mms-v1`.
 6. Record the choice: append an entry to
-   `profiles/cluos/design-decisions.yaml` (style) and
-   `profiles/cluos/palette-decisions.yaml` (palette) if it's a new pairing
+   `design-decisions.yaml` (style) and `palette-decisions.yaml` (palette) in
+   the resolved profile root if it's a new pairing
    not already logged, and write the pairing into `design-decision.md` for
    this specific task/PR.
 
@@ -61,7 +72,8 @@ the current library was not designed for — see
 | D · Swiss Ledger | preserve | telas simples, baixo risco |
 | E · Clinic Premium | evolve | superfícies para clientes hospitalares |
 
-7 palettes registered independently — see `palette-policy.md`.
+The legacy palette library remains registered for compatibility — see
+`palette-policy.md`.
 
 ## Artifact requirement
 
@@ -84,4 +96,5 @@ Save, per task:
 
 ## Handoff
 
-→ `frontend-craftsman` with the recorded archetype + palette choice.
+→ `frontend-craftsman` with the recorded archetype + palette choice and the
+approved layout contract when one is required.

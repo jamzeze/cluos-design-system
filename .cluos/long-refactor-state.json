@@ -1,0 +1,74 @@
+{
+  "mode": "LONG_REFACTOR",
+  "status": "committed",
+  "objective": "Promover cluos-mms-v1 como identidade visual canônica do GCOS, cluos-design-system, MMS e produtos futuros.",
+  "non_goals": [
+    "Não editar repositórios de produtos ausentes localmente.",
+    "Não publicar pacote, tag, release ou deploy nesta execução.",
+    "Não alterar identidade de conteúdo de clientes do MMS."
+  ],
+  "affected_areas": [
+    "cluos-design-system/tokens, preview e documentação canônica",
+    "global-copilot-os/config e cluos-harness/canonical",
+    "MMS/src/styles, MMS/src/app shell, MMS/tailwind.config.ts, MMS adoption docs"
+  ],
+  "invariants": [
+    "Tech green e azuis são identidade estrutural e de ação positiva.",
+    "Copper é aviso/revisão; oxblood é negação/erro/risco.",
+    "Manrope é display; Instrument Sans é interface e dados.",
+    "Swiss Ledger usa superfície clara, hairlines, raio zero e sombra zero por padrão.",
+    "Movimento é lento, explícito, sem autoplay/loop e respeita reduced-motion.",
+    "Um writer por arquivo; mudanças existentes fora do escopo permanecem intactas."
+  ],
+  "writer": {
+    "branch": "working-tree",
+    "worktree": "/Users/rafacosta/Documents/GitHub/cluos-design-system"
+  },
+  "validation_candidates": [
+    "git diff --check",
+    "YAML parse for canonical files",
+    "python3 scripts/gcos_instruction_lint.py",
+    "npm pack --dry-run",
+    "render DESIGN-preview.html and MMS shell"
+  ],
+  "known_risks": [
+    "O worktree do cluos-design-system já contém alterações não relacionadas.",
+    "Consumidores que importam os aliases legados verão mudança de default visual.",
+    "MMS ainda contém CSS de superfícies operacionais escuras e componentes com classes legadas.",
+    "MMS ainda não declara @cluos/design-system como dependência; o fallback local precisa ser reconciliado quando o pacote for adotado.",
+    "Produtos do catálogo sem checkout local precisam de uma onda posterior de consumo do pacote."
+  ],
+  "tokenops": {
+    "enabled": false,
+    "profile": "safe",
+    "metrics": {
+      "commands": 0,
+      "variant_a_tokens": 0,
+      "variant_b_tokens": 0,
+      "fallback_raw_cases": 0
+    }
+  },
+  "validation_status": {
+    "design_system": [
+      "git diff --check: passed",
+      "Node token import and Tailwind syntax: passed",
+      "canonical YAML and supporting YAML files: parsed",
+      "npm pack --dry-run: passed",
+      "validate-agent-skills.sh: passed",
+      "rendered DESIGN-preview smoke check: passed"
+    ],
+    "global_copilot_os": [
+      "python3 scripts/gcos_instruction_lint.py: 31 checks passed",
+      "git diff --check: passed"
+    ],
+    "mms": [
+      "npm ci from lockfile: passed",
+      "npm test: passed",
+      "npm run typecheck: passed",
+      "npm run lint: passed with 34 pre-existing warnings",
+      "npm run build: passed with fsmonitor IPC trace-copy warning",
+      "git diff --check: passed"
+    ]
+  },
+  "user_test_decision": "both"
+}

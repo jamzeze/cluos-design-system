@@ -24,7 +24,7 @@ chosen for it.
 | Distinção de marca | Genérico, trocável por qualquer SaaS | Reconhecível com esforço | Inconfundível sem logo |
 | Hierarquia | Tudo com o mesmo peso | Hierarquia parcial | Um foco primário claro por tela |
 | Composição | Grid uniforme sem relação com conteúdo | Composição correta mas sem intenção | Forma reflete a tarefa |
-| Tipografia | Default sem decisão (Inter porque sim) | Escala consistente, sem personalidade | Escala + peso fazem trabalho de hierarquia |
+| Tipografia | Default sem decisão (fonte arbitrária) | Escala consistente, sem personalidade | Manrope + Instrument Sans; escala + peso fazem trabalho de hierarquia |
 | Densidade | Errada para a tarefa | Aceitável | Proporcional e intencional |
 | Disciplina de tokens | Valores arbitrários espalhados | Maioria via token | 100% via token semântico |
 | Economia de componentes | Card dentro de card, ornamento sem função | Componentes corretos mas redundantes | Cada elemento justifica sua existência |

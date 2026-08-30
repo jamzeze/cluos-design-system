@@ -1,5 +1,9 @@
 # 04 — Selected Direction
 
+> Historical record from 2026-08-10. Superseded on 2026-08-30 by the global
+> `cluos-mms-v1` contract. New products inherit MMS Swiss Ledger; the options
+> below remain only as explicit compatibility opt-outs.
+
 ## The decision, stated precisely
 
 There is **no single selected direction**. On 2026-08-10 Rafael reviewed

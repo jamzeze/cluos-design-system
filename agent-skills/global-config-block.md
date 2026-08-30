@@ -1,22 +1,30 @@
 <!-- BEGIN CLUOS FRONTEND WORKFLOW -->
-# CluOS Frontend Workflow (canonical, installed 2026-08-10)
+# CluOS Frontend Workflow (canonical, installed 2026-08-17)
 
-Source of truth: `cluos-design-system/agent-skills/` (this block is
-generated from it — do not hand-edit divergently; re-run
-`cluos-design-system/scripts/sync-agent-skills.sh` after changing the
-source, which also re-syncs the skill files themselves).
+Source of truth: `cluos-design-system/agent-skills/`. Do not hand-edit installed
+copies divergently. After changing skills/support, run
+`cluos-design-system/scripts/sync-agent-skills.sh`; after changing this block,
+also run `cluos-design-system/scripts/sync-global-config.sh`.
 
 For any change touching frontend, UI, UX visual design, design system, CSS,
 layout, typography, color, responsiveness, animation, components, or pages:
 
 - Invoke `anti-ai-slop-frontend` before writing any code. It classifies the
   task (N0-N3) and starts the correct skill chain.
-- Tela, fluxo, ou redesign (N2) e refatoração de design system (N3) exigem
-  contexto, escolha explícita de estilo, e escolha explícita de paleta antes
-  da implementação — via `design-gallery`. CluOS mantém seis arquétipos
-  aprovados como biblioteca reutilizável (`agent-skills/shared/design-archetypes.yaml`)
-  e sete paletas (`agent-skills/shared/palette-policy.md`); o estilo é
-  escolhido a cada tarefa, não fixado (decisão de Rafael, 2026-08-10).
+- Para telas, fluxos, dashboards, tabelas/formulários complexos, workbenches,
+  ou qualquer pedido sobre posicionamento/hierarquia de elementos, use
+  `ux-layout-architect` para gerar `ux-layout-contract.md` antes de escolher
+  direção visual ou implementar. Em N2, e em N3 quando telas/fluxos mudarem,
+  isso é obrigatório antes de `design-gallery`.
+- `ux-layout-architect` owns task-to-placement and the approved layout contract.
+  Use UI UX Pro Max only for targeted pattern lookup; use Impeccable Shape
+  upstream for unresolved product scope and Impeccable/Layout/Critic after the
+  structure exists. Downstream visual/code work must preserve the contract.
+- Tela, fluxo, ou redesign (N2) e refatoração de design system (N3) herdam
+  `cluos-mms-v1` por padrão: Swiss Ledger claro, Manrope + Instrument Sans,
+  deep navy/medium blue e tech green. `design-gallery` passa a ser ferramenta
+  de comparação ou de opt-out explícito; a biblioteca legada não governa novos
+  produtos (decisão de Rafael, 2026-08-30).
 - Refatorações sistêmicas (N3) exigem `design-system-refactor-director`.
 - A implementação usa `frontend-craftsman`.
 - Antes do handoff, execute `design-critic`, `design-qa`, e

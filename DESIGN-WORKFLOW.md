@@ -5,10 +5,11 @@ refactors should not start from memory or from prose alone.
 
 ## Source of truth order
 
-1. `DESIGN-preview.html` — the canonical visual specimen.
-2. `DESIGN.md` — the narrative contract that explains the preview.
-3. `tokens/` — machine-readable values that must match both.
-4. `brand-assets/` — shipped SVG artwork and naming conventions.
+1. `tokens/mms-canonical.yaml` — the machine-readable identity contract.
+2. `DESIGN-preview.html` — the canonical visual specimen.
+3. `DESIGN.md` — the narrative contract that explains the preview.
+4. `tokens/` runtime exports — values that must match the contract and preview.
+5. `brand-assets/` — shipped artwork and bundled typography.
 
 If two layers disagree, resolve the conflict in that order.
 
@@ -21,8 +22,8 @@ override the official source-of-truth order above.
    before editing code.
 2. Match spacing, radius, typography, color, shadows, and motion to the
    preview.
-3. If the refactor changes the official system, update the preview
-   first.
+3. If the refactor changes the official system, update
+   `tokens/mms-canonical.yaml` and the preview together.
 4. In the same PR, sync `DESIGN.md`, `tokens/`, and any relevant asset
    docs so the repository has no split brain.
 5. Run `npm pack --dry-run` before release or publish-related changes.
@@ -33,6 +34,7 @@ Any change to `DESIGN-preview.html` is a design-system change, not just
 a demo tweak. The same change must update, when relevant:
 
 - `DESIGN.md`
+- `tokens/mms-canonical.yaml`
 - `tokens/tokens.css`
 - `tokens/tokens.ts`
 - `tokens/tokens.js`
@@ -55,6 +57,7 @@ a demo tweak. The same change must update, when relevant:
 ## Validation checklist
 
 - Preview still opens cleanly in a browser.
+- The canonical YAML parses and its identity id is `cluos-mms-v1`.
 - Token values still match the preview.
 - Asset filenames and usage notes still match `brand-assets/README.md`.
 - `npm pack --dry-run` includes `DESIGN-preview.html`, `DESIGN.md`,

@@ -2,7 +2,7 @@
 
 ## Mission
 
-`cluos-design-system` is the **single, canonical source** of CluOS visual identity, design tokens, UX principles, product patterns, and agent governance.
+`cluos-design-system` is the **single, canonical source** of CluOS visual identity, design tokens, UX principles, product patterns, and agent governance. Its active identity is `cluos-mms-v1` (MMS Swiss Ledger).
 
 Every product (`crm-cluos`, `automatic-aeo`, `medframe`, `b3`, `scireg`, `prognus-ui`, `suporte`) must consume this package for all design decisions.
 No other repository may define colors, typography, spacing, or interaction patterns from scratch.
@@ -31,7 +31,7 @@ No other repository may define colors, typography, spacing, or interaction patte
 - Treat release artifacts, docs, and tokens as one coherent system.
 - Never define a new color or spacing value without adding it to `tokens/tokens.css`, `tokens/tokens.ts`, and `tokens/tokens.js`.
 - Never hardcode a hex value, RGB value, or pixel measurement in any example, component, or documentation. Always use `var(--cluos-*)`.
-- The primary accent is `#008080` (--cluos-teal). Do not introduce alternative accent colors.
+- The primary positive action is `var(--cluos-tech-green)`; `var(--cluos-operational-teal)` is reserved for progress/execution. Copper and oxblood remain semantic warning/denial roles and are never positive CTAs.
 
 ---
 
@@ -43,29 +43,32 @@ No other repository may define colors, typography, spacing, or interaction patte
 - Do not fork or shadow tokens locally in consuming repos.
 
 ### Colors
-- Accent: `var(--cluos-teal)` only. No secondary brand colors.
-- Text: `var(--cluos-navy)`, `var(--cluos-text)`, `var(--cluos-text-muted)`, `var(--cluos-text-subtle)`.
+- Canonical structure: `var(--cluos-deep-navy)` and `var(--cluos-medium-blue)`.
+- Positive action/signal: `var(--cluos-tech-green)`; execution: `var(--cluos-operational-teal)`.
+- Warning/review: `var(--cluos-status-warn)` (copper); denial/error/risk: `var(--cluos-status-error)` (oxblood).
+- Text: `var(--cluos-text)`, `var(--cluos-text-muted)`, `var(--cluos-text-subtle)`.
 - Status: `success`, `warn`, `error`, `info` — use the token, never a raw hex.
 - Background: `var(--cluos-bg)`, `var(--cluos-bg-subtle)`, `var(--cluos-bg-muted)`.
-- Light mode only in MVP. No dark mode tokens yet.
+- Light Swiss Ledger is the default. Dark tokens remain only for explicit operational surfaces.
 
 ### Typography
-- Font: Inter (system-ui fallback). `var(--cluos-font-sans)`.
+- Display: Manrope (`var(--cluos-font-display)`). Interface/data: Instrument Sans (`var(--cluos-font-sans)` / `var(--cluos-font-data)`).
 - Scale: `var(--cluos-text-xs)` through `var(--cluos-text-4xl)`.
-- Weights: 400 (body), 500 (labels/buttons), 600 (headings). Never 700+ in product UI.
+- Weights: 300 (display base), 400 (body/headings), 550 (labels/buttons), 650
+  only for the meaningful product word/value. Never 700+ in product UI.
 
 ### Buttons
 - One primary action per visual region (card, section, page). Never two `btn-primary` side by side.
-- Primary: `var(--cluos-teal)` background.
+- Primary: `var(--cluos-tech-green)` background with deep-navy text.
 - Secondary: border + text, no fill.
-- Ghost: text-only, teal color.
+- Ghost: text-only, operational-teal color.
 - Destructive: `var(--cluos-status-error)` background, used only in confirm dialogs.
 
 ### Layout
 - Max container (product): `var(--cluos-container-product)` (960px).
 - Max container (narrow): `var(--cluos-container-narrow)` (640px).
 - Spacing scale: `var(--cluos-space-*)`.
-- Border radius: `var(--cluos-radius-sm/md/lg/xl)`.
+- Border radius: zero by default (`var(--cluos-radius-sm/md/lg/xl)`); use `var(--cluos-radius-full)` only when a control explicitly requires a circular affordance.
 
 ---
 
@@ -86,7 +89,7 @@ No other repository may define colors, typography, spacing, or interaction patte
 
 Answer YES to all before marking a UI task complete:
 
-- [ ] Is there only one primary action (teal button) per visual region?
+- [ ] Is there only one primary action (tech-green button) per visual region?
 - [ ] Can the user understand the next step within 3 seconds?
 - [ ] Are advanced options progressively disclosed (collapsed by default)?
 - [ ] Does every data-fetching component have a loading skeleton?

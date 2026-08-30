@@ -1,5 +1,9 @@
 # PRODUCT-THEME-VARIANTS.md — CluOS
 
+> **Compatibilidade legada.** Desde 2026-08-30, `cluos-mms-v1` é a identidade
+> padrão global. As variações abaixo não são uma escolha válida para novos
+> produtos; só podem permanecer em superfícies existentes com opt-out explícito.
+
 CluOS é um ecossistema coeso com uma identidade visual única. Para dar personalidade operacional distinta a cada produto sem criar marcas separadas, o sistema utiliza **variações de cor de ação** sobre uma base comum.
 
 > A cor de ação muda a temperatura do produto. Ela não vira a marca inteira.
@@ -10,19 +14,20 @@ CluOS é um ecossistema coeso com uma identidade visual única. Para dar persona
 
 | Elemento | Valor |
 | --- | --- |
-| Fundo dark mode | Navy `#1B2F36` |
-| Fundo light mode | Off-white `#FAFAF8` |
-| Tipografia UI | Inter / Inter Tight |
+| Fundo padrão | Branco `#FFFFFF` |
+| Fundo operacional explícito | Deep navy `#010D28` |
+| Tipografia display | Manrope |
+| Tipografia UI/dados | Instrument Sans |
 | Tipografia técnica | JetBrains Mono |
 | Autoridade visual | Navy como âncora |
-| Estrutura de card | Bordas finas, sombras leves, radius consistente |
+| Estrutura de card | Hairlines, sem sombra, raio zero |
 | Grid | Sutil, operacional |
 | Símbolo | CluOS |
 | Estética | Moderna, técnica, confiável, premium |
 
 ---
 
-## As 8 variações oficiais
+## Catálogo de variações legadas
 
 | Variant name | Appearance | Action color | Primary use |
 | --- | --- | --- | --- |
@@ -37,7 +42,7 @@ CluOS é um ecossistema coeso com uma identidade visual única. Para dar persona
 
 ---
 
-## Mapa recomendado por produto
+## Mapa histórico por produto (não aplicar a novos produtos)
 
 | Produto | Variant | Razão |
 | --- | --- | --- |
@@ -54,7 +59,7 @@ CluOS é um ecossistema coeso com uma identidade visual única. Para dar persona
 
 ---
 
-## Explicação por produto
+## Notas históricas por produto
 
 ### CluOS Hub — `claro-teal`
 
@@ -100,9 +105,9 @@ Documentação neutra, legível e organizada. O teal como ação padrão mantém
 
 ## Regras semânticas das cores de ação
 
-### Teal
+### Teal (legado)
 
-- Ação padrão da plataforma
+- Ação padrão da plataforma legada
 - Saúde do sistema e status online
 - Confirmações e sucesso neutro
 - Produto técnico confiável e acessível

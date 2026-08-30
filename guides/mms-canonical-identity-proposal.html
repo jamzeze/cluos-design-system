@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="pt-BR" data-cluos-style="MMS" data-cluos-canonical="cluos-mms-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>CluOS — identidade MMS canônica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens/tokens.css">
+  <style>
+    :root {
+      --mms-display: "Manrope", var(--cluos-font-sans);
+      --mms-sans: "Instrument Sans", var(--cluos-font-sans);
+      --mms-action: var(--cluos-tech-green);
+      --mms-action-text: var(--cluos-deep-navy);
+      --mms-canvas: var(--cluos-white);
+      --mms-surface: var(--cluos-white);
+      --mms-muted-surface: var(--cluos-bg-muted);
+      --mms-ink: var(--cluos-deep-navy);
+      --mms-secondary-ink: var(--cluos-medium-blue);
+      --mms-line: var(--cluos-border);
+      --mms-radius: 0;
+      --mms-shadow: none;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--mms-canvas);
+      color: var(--mms-ink);
+      font-family: var(--mms-sans);
+      font-size: var(--cluos-text-base);
+      line-height: var(--cluos-leading-normal);
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: none;
+      box-shadow: var(--cluos-ring-focus);
+    }
+
+    .proposal-banner {
+      border-bottom: thin solid var(--mms-line);
+      background: var(--mms-muted-surface);
+      color: var(--cluos-text-muted);
+      font-size: var(--cluos-text-xs);
+      letter-spacing: 0.08em;
+      padding: var(--cluos-space-2) var(--cluos-space-6);
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .shell {
+      margin: 0 auto;
+      max-width: var(--cluos-container-wide);
+      padding: 0 var(--cluos-space-6);
+    }
+
+    .topbar {
+      align-items: center;
+      border-bottom: thin solid var(--mms-line);
+      display: flex;
+      gap: var(--cluos-space-6);
+      justify-content: space-between;
+      min-height: calc(var(--cluos-space-16) + var(--cluos-space-4));
+    }
+
+    .product-lockup {
+      align-items: center;
+      display: inline-flex;
+      gap: var(--cluos-space-3);
+      min-width: 0;
+      text-decoration: none;
+    }
+
+    .product-lockup__name {
+      color: var(--mms-ink);
+      font-family: var(--mms-display);
+      font-size: var(--cluos-text-xl);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .product-lockup__name span { font-weight: 300; }
+
+    .product-lockup__name strong { font-weight: 650; }
+
+    .product-lockup__descriptor {
+      border-left: thin solid var(--mms-line);
+      color: var(--cluos-text-muted);
+      font-family: var(--mms-sans);
+      font-size: var(--cluos-text-xs);
+      font-weight: 450;
+      letter-spacing: 0.12em;
+      line-height: 1;
+      padding-left: var(--cluos-space-3);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .topbar nav {
+      display: flex;
+      font-size: var(--cluos-text-sm);
+      gap: var(--cluos-space-6);
+    }
+
+    .topbar nav a {
+      color: var(--cluos-text-muted);
+      text-decoration: none;
+    }
+
+    .topbar nav a[aria-current="page"] { color: var(--mms-ink); }
+
+    main { padding-bottom: var(--cluos-space-24); }
+
+    .hero {
+      border-bottom: thin solid var(--mms-line);
+      padding: var(--cluos-space-24) 0 var(--cluos-space-16);
+    }
+
+    .eyebrow,
+    .section-kicker,
+    .token-name,
+    th,
+    .lockup-rule__label {
+      color: var(--cluos-text-subtle);
+      font-size: var(--cluos-text-xs);
+      font-weight: 550;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow { color: var(--mms-secondary-ink); }
+
+    h1,
+    h2,
+    h3,
+    p { margin: 0; }
+
+    h1 {
+      font-family: var(--mms-display);
+      font-size: var(--cluos-text-6xl);
+      font-weight: 350;
+      letter-spacing: -0.055em;
+      line-height: var(--cluos-leading-tight);
+      margin-top: var(--cluos-space-4);
+      max-width: var(--cluos-container-docs);
+    }
+
+    h1 strong { font-weight: 650; }
+
+    .hero__copy {
+      color: var(--cluos-text-muted);
+      font-size: var(--cluos-text-lg);
+      line-height: var(--cluos-leading-relaxed);
+      margin-top: var(--cluos-space-6);
+      max-width: var(--cluos-container-prose);
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--cluos-space-3);
+      margin-top: var(--cluos-space-8);
+    }
+
+    .button {
+      align-items: center;
+      border: thin solid transparent;
+      border-radius: var(--mms-radius);
+      display: inline-flex;
+      font-family: var(--mms-sans);
+      font-size: var(--cluos-text-sm);
+      font-weight: 550;
+      justify-content: center;
+      min-height: calc(var(--cluos-space-8) + var(--cluos-space-2));
+      padding: 0 var(--cluos-space-4);
+      text-decoration: none;
+      transition: background-color var(--cluos-dur-fast) var(--cluos-ease-out), color var(--cluos-dur-fast) var(--cluos-ease-out), border-color var(--cluos-dur-fast) var(--cluos-ease-out);
+    }
+
+    .button--primary {
+      background: var(--mms-action);
+      color: var(--mms-action-text);
+    }
+
+    .button--primary:hover { background: var(--cluos-signal-deep); }
+
+    .button--secondary {
+      border-color: var(--cluos-border-strong);
+      color: var(--mms-ink);
+    }
+
+    .button--secondary:hover { background: var(--mms-muted-surface); }
+
+    .button--secondary[aria-pressed="true"] {
+      border-color: var(--mms-secondary-ink);
+      color: var(--mms-secondary-ink);
+    }
+
+    .section { padding-top: var(--cluos-space-16); }
+
+    .section__head {
+      align-items: baseline;
+      border-bottom: thin solid var(--mms-line);
+      display: flex;
+      gap: var(--cluos-space-4);
+      justify-content: space-between;
+      padding-bottom: var(--cluos-space-4);
+    }
+
+    .section__head h2 {
+      font-family: var(--mms-display);
+      font-size: var(--cluos-text-3xl);
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      line-height: var(--cluos-leading-tight);
+    }
+
+    .section__head p {
+      color: var(--cluos-text-muted);
+      font-size: var(--cluos-text-sm);
+      max-width: var(--cluos-container-prose);
+    }
+
+    .lockup-stage {
+      align-items: center;
+      border-bottom: thin solid var(--mms-line);
+      display: grid;
+      gap: var(--cluos-space-8);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      padding: var(--cluos-space-12) 0;
+    }
+
+    .lockup-stage__sample {
+      align-items: center;
+      background: var(--mms-surface);
+      border: thin solid var(--mms-line);
+      display: flex;
+      justify-content: center;
+      min-height: var(--cluos-space-24);
+      padding: var(--cluos-space-8);
+    }
+
+    .lockup-stage__sample .product-lockup__name { font-size: var(--cluos-text-4xl); }
+
+    .lockup-stage__sample .product-lockup__descriptor { font-size: var(--cluos-text-sm); }
+
+    .lockup-rules { display: grid; gap: var(--cluos-space-4); }
+
+    .lockup-rule {
+      border-bottom: thin solid var(--mms-line);
+      display: grid;
+      gap: var(--cluos-space-3);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      padding-bottom: var(--cluos-space-3);
+    }
+
+    .lockup-rule p { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
+
+    .type-specimen {
+      border-bottom: thin solid var(--mms-line);
+      display: grid;
+      gap: var(--cluos-space-8);
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      padding: var(--cluos-space-12) 0;
+    }
+
+    .type-display {
+      font-family: var(--mms-display);
+      font-size: var(--cluos-text-5xl);
+      font-weight: 300;
+      letter-spacing: -0.055em;
+      line-height: var(--cluos-leading-tight);
+    }
+
+    .type-display strong { font-weight: 650; }
+
+    .type-detail {
+      align-content: start;
+      display: grid;
+      gap: var(--cluos-space-4);
+    }
+
+    .type-detail p { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .color-token {
+      border-bottom: thin solid var(--mms-line);
+      border-right: thin solid var(--mms-line);
+      display: grid;
+      gap: var(--cluos-space-3);
+      padding: var(--cluos-space-4);
+    }
+
+    .color-token:first-child { border-left: thin solid var(--mms-line); }
+
+    .color-token__swatch { aspect-ratio: 1; }
+
+    .swatch--navy { background: var(--cluos-deep-navy); }
+    .swatch--blue { background: var(--cluos-medium-blue); }
+    .swatch--green { background: var(--cluos-tech-green); }
+    .swatch--copper { background: var(--cluos-status-warn); }
+    .swatch--oxblood { background: var(--cluos-status-error); }
+
+    .color-token h3 {
+      font-family: var(--mms-display);
+      font-size: var(--cluos-text-lg);
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: var(--cluos-leading-snug);
+    }
+
+    .color-token p { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
+
+    .surface-demo {
+      background: var(--cluos-deep-navy);
+      border: thin solid var(--cluos-medium-blue);
+      display: grid;
+      gap: var(--cluos-space-8);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      margin-top: var(--cluos-space-8);
+      padding: var(--cluos-space-8);
+    }
+
+    .surface-demo__title {
+      color: var(--cluos-white);
+      font-family: var(--mms-display);
+      font-size: var(--cluos-text-3xl);
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      line-height: var(--cluos-leading-tight);
+    }
+
+    .surface-demo__title span { color: var(--cluos-tech-green); }
+
+    .surface-demo__copy { color: var(--cluos-neutral-100); font-size: var(--cluos-text-sm); margin-top: var(--cluos-space-3); }
+
+    .surface-demo__rows { border-top: thin solid var(--cluos-medium-blue); }
+
+    .surface-demo__row {
+      align-items: center;
+      border-bottom: thin solid var(--cluos-medium-blue);
+      color: var(--cluos-neutral-100);
+      display: flex;
+      font-size: var(--cluos-text-sm);
+      justify-content: space-between;
+      padding: var(--cluos-space-3) 0;
+    }
+
+    .status {
+      align-items: center;
+      display: inline-flex;
+      font-size: var(--cluos-text-xs);
+      font-weight: 550;
+      gap: var(--cluos-space-2);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .status::before { background: currentColor; content: ""; height: var(--cluos-space-2); width: var(--cluos-space-2); }
+    .status--active { color: var(--cluos-tech-green); }
+    .status--warning { color: var(--cluos-status-warn); }
+    .status--error { color: var(--cluos-status-error); }
+
+    .state-grid {
+      display: grid;
+      gap: var(--cluos-space-4);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      padding-top: var(--cluos-space-8);
+    }
+
+    .state-card { border: thin solid var(--mms-line); padding: var(--cluos-space-6); }
+
+    .state-card h3 {
+      font-family: var(--mms-display);
+      font-size: var(--cluos-text-xl);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+    }
+
+    .state-card p { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); margin-top: var(--cluos-space-2); }
+
+    .state-card .status { margin-top: var(--cluos-space-6); }
+
+    .motion-lab {
+      border: thin solid var(--mms-line);
+      display: grid;
+      gap: var(--cluos-space-8);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      margin-top: var(--cluos-space-8);
+      padding: var(--cluos-space-8);
+    }
+
+    .motion-lab__title {
+      font-family: var(--mms-display);
+      font-size: var(--cluos-text-2xl);
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      line-height: var(--cluos-leading-tight);
+    }
+
+    .motion-lab__copy {
+      color: var(--cluos-text-muted);
+      font-size: var(--cluos-text-sm);
+      margin-top: var(--cluos-space-3);
+    }
+
+    .motion-lab__feedback {
+      color: var(--cluos-text-subtle);
+      font-size: var(--cluos-text-xs);
+      margin-top: var(--cluos-space-3);
+    }
+
+    .motion-lab__samples {
+      border-top: thin solid var(--mms-line);
+      display: grid;
+    }
+
+    .motion-sample {
+      align-items: center;
+      border-bottom: thin solid var(--mms-line);
+      display: grid;
+      gap: var(--cluos-space-3);
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      padding: var(--cluos-space-4) 0;
+      transition: background-color var(--cluos-dur-fast) var(--cluos-ease-out), color var(--cluos-dur-fast) var(--cluos-ease-out);
+    }
+
+    .motion-sample:hover { background: var(--mms-muted-surface); }
+
+    .motion-sample__marker {
+      background: var(--mms-secondary-ink);
+      height: var(--cluos-space-3);
+      transform: scale(0.72);
+      transition: background-color var(--cluos-dur-base) var(--cluos-ease-in-out), transform var(--cluos-dur-base) var(--cluos-ease-in-out);
+      width: var(--cluos-space-3);
+    }
+
+    .motion-sample__marker--action { background: var(--cluos-tech-green); }
+    .motion-sample__marker--warning { background: var(--cluos-status-warn); }
+    .motion-sample__marker--error { background: var(--cluos-status-error); }
+
+    .motion-sample strong {
+      color: var(--mms-ink);
+      font-size: var(--cluos-text-sm);
+      font-weight: 550;
+    }
+
+    .motion-sample span:last-child {
+      color: var(--cluos-text-subtle);
+      font-size: var(--cluos-text-xs);
+      text-align: right;
+    }
+
+    .motion-lab.is-playing .motion-sample { animation: mms-enter var(--cluos-dur-base) var(--cluos-ease-out) both; }
+
+    .motion-lab.is-playing .motion-sample__marker { transform: scale(1); }
+
+    @keyframes mms-enter {
+      from { opacity: 0; transform: translateY(var(--cluos-space-2)); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .table-wrap { border: thin solid var(--mms-line); margin-top: var(--cluos-space-8); overflow-x: auto; }
+
+    table { border-collapse: collapse; min-width: var(--cluos-container-product); width: 100%; }
+
+    th, td { border-bottom: thin solid var(--mms-line); padding: var(--cluos-space-4); text-align: left; }
+
+    th { background: var(--mms-muted-surface); color: var(--cluos-text-subtle); }
+
+    td { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
+
+    td:first-child { color: var(--mms-ink); font-weight: 550; }
+
+    tbody tr:last-child td { border-bottom: 0; }
+
+    .footer {
+      border-top: thin solid var(--mms-line);
+      padding: var(--cluos-space-8) 0;
+    }
+
+    .footer__inner { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); max-width: var(--cluos-container-prose); }
+
+    @media (max-width: 64rem) {
+      .color-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .color-token:nth-child(4) { border-left: thin solid var(--mms-line); }
+    }
+
+    @media (max-width: 48rem) {
+      .shell { padding: 0 var(--cluos-space-4); }
+      .topbar { align-items: flex-start; flex-direction: column; justify-content: center; padding: var(--cluos-space-4) 0; }
+      .topbar nav { gap: var(--cluos-space-4); overflow-x: auto; width: 100%; }
+      .section__head { align-items: flex-start; flex-direction: column; }
+      h1 { font-size: var(--cluos-text-5xl); }
+      .lockup-stage,
+      .type-specimen,
+      .surface-demo,
+      .motion-lab { grid-template-columns: minmax(0, 1fr); }
+      .state-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    @media (max-width: 32rem) {
+      .product-lockup { align-items: flex-start; flex-direction: column; gap: var(--cluos-space-2); }
+      .product-lockup__descriptor { border-left: 0; padding-left: 0; }
+      .color-grid { grid-template-columns: minmax(0, 1fr); }
+      .color-token { border-left: thin solid var(--mms-line); }
+      .lockup-stage__sample .product-lockup__name { font-size: var(--cluos-text-3xl); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto; transition-duration: 0.01ms; }
+      .motion-lab.is-playing .motion-sample { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="proposal-banner">Referência aprovada — cluos-mms-v1 · 2026-08-30</div>
+
+  <div class="shell">
+    <header class="topbar">
+      <a class="product-lockup" href="#inicio" aria-label="CluOS MMS, Marketing Studio">
+        <span class="product-lockup__name"><span>CluOS</span> <strong>MMS</strong></span>
+        <span class="product-lockup__descriptor">Marketing Studio</span>
+      </a>
+      <nav aria-label="Navegação da proposta">
+        <a href="#lockup" aria-current="page">Lockup</a>
+        <a href="#tipografia">Tipografia</a>
+        <a href="#paleta">Paleta</a>
+        <a href="#estados">Estados</a>
+        <a href="#movimento">Movimento</a>
+      </nav>
+    </header>
+
+    <main id="inicio">
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">CluOS · Direção de identidade</p>
+        <h1 id="hero-title">Minimalismo técnico com <strong>clareza operacional.</strong></h1>
+        <p class="hero__copy">A linguagem do MMS vira a referência: tipografia precisa, superfície clara, linhas como estrutura e cor aplicada apenas quando comunica estado, decisão ou consequência.</p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="#lockup">Ver componente canônico</a>
+          <a class="button button--secondary" href="#paleta">Ver semântica de cor</a>
+        </div>
+      </section>
+
+      <section class="section" id="lockup" aria-labelledby="lockup-title">
+        <div class="section__head">
+          <div>
+            <p class="section-kicker">01 · Identidade de produto</p>
+            <h2 id="lockup-title">Product identity lockup</h2>
+          </div>
+          <p>Componente candidato para cabeçalhos, produtos e breadcrumbs de primeiro nível.</p>
+        </div>
+
+        <div class="lockup-stage">
+          <div class="lockup-stage__sample" aria-label="Exemplo de lockup CluOS MMS Marketing Studio">
+            <div class="product-lockup">
+              <span class="product-lockup__name"><span>CluOS</span> <strong>MMS</strong></span>
+              <span class="product-lockup__descriptor">Marketing Studio</span>
+            </div>
+          </div>
+          <div class="lockup-rules">
+            <div class="lockup-rule">
+              <span class="lockup-rule__label">Marca-base</span>
+              <p>“CluOS” em Manrope leve. Mantém a marca silenciosa e precisa.</p>
+            </div>
+            <div class="lockup-rule">
+              <span class="lockup-rule__label">Nome do produto</span>
+              <p>“MMS” em Manrope de maior peso. O produto é legível na primeira leitura.</p>
+            </div>
+            <div class="lockup-rule">
+              <span class="lockup-rule__label">Descritor</span>
+              <p>“Marketing Studio” em Instrument Sans fina, caixa alta e espaçada. Explica sem competir.</p>
+            </div>
+            <div class="lockup-rule">
+              <span class="lockup-rule__label">Separação</span>
+              <p>Uma única hairline vertical. Sem cápsula, sombra, ícone decorativo ou cor de ação.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="tipografia" aria-labelledby="type-title">
+        <div class="section__head">
+          <div>
+            <p class="section-kicker">02 · Tipografia</p>
+            <h2 id="type-title">Contraste por peso, não por ornamento</h2>
+          </div>
+          <p>Títulos conduzem. Dados e contexto permanecem objetivos.</p>
+        </div>
+
+        <div class="type-specimen">
+          <p class="type-display">CluOS <strong>MMS</strong><br>Marketing Studio</p>
+          <div class="type-detail">
+            <div>
+              <p class="token-name">Display · Manrope</p>
+              <p>Títulos e nome de produto com tracking fechado, peso leve como base e contraste pontual no nome.</p>
+            </div>
+            <div>
+              <p class="token-name">Interface · Instrument Sans</p>
+              <p>Navegação, tabelas, descrição e dados em leitura direta, com labels discretos em caixa alta.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="paleta" aria-labelledby="palette-title">
+        <div class="section__head">
+          <div>
+            <p class="section-kicker">03 · Semântica de cor</p>
+            <h2 id="palette-title">Azuis como estrutura. Verde como ação.</h2>
+          </div>
+          <p>Copper e oxblood entram por consequência, não como decoração.</p>
+        </div>
+
+        <div class="color-grid" role="list" aria-label="Paleta proposta">
+          <article class="color-token" role="listitem">
+            <div class="color-token__swatch swatch--navy" aria-hidden="true"></div>
+            <p class="token-name">--cluos-deep-navy</p>
+            <h3>Deep navy</h3>
+            <p>Texto, superfícies densas e autoridade técnica.</p>
+          </article>
+          <article class="color-token" role="listitem">
+            <div class="color-token__swatch swatch--blue" aria-hidden="true"></div>
+            <p class="token-name">--cluos-medium-blue</p>
+            <h3>Medium blue</h3>
+            <p>Estrutura, navegação e contraste de contexto.</p>
+          </article>
+          <article class="color-token" role="listitem">
+            <div class="color-token__swatch swatch--green" aria-hidden="true"></div>
+            <p class="token-name">--cluos-tech-green</p>
+            <h3>Tech green</h3>
+            <p>Ação principal, seleção e confirmação.</p>
+          </article>
+          <article class="color-token" role="listitem">
+            <div class="color-token__swatch swatch--copper" aria-hidden="true"></div>
+            <p class="token-name">--cluos-status-warn</p>
+            <h3>Copper</h3>
+            <p>Atenção necessária, prioridade e aviso não bloqueante.</p>
+          </article>
+          <article class="color-token" role="listitem">
+            <div class="color-token__swatch swatch--oxblood" aria-hidden="true"></div>
+            <p class="token-name">--cluos-status-error</p>
+            <h3>Oxblood</h3>
+            <p>Negação, erro, risco e ação destrutiva confirmada.</p>
+          </article>
+        </div>
+
+        <div class="surface-demo" aria-label="Exemplo de superfície operacional noturna">
+          <div>
+            <p class="surface-demo__title">Visão de <span>operação</span></p>
+            <p class="surface-demo__copy">O escuro é reservado para contexto operacional concentrado — nunca para ornamentar uma tela clara.</p>
+          </div>
+          <div class="surface-demo__rows" role="list">
+            <div class="surface-demo__row" role="listitem"><span>Sincronização de métricas</span><span class="status status--active">Concluída</span></div>
+            <div class="surface-demo__row" role="listitem"><span>Revisão de conteúdo</span><span class="status status--warning">Atenção</span></div>
+            <div class="surface-demo__row" role="listitem"><span>Publicação bloqueada</span><span class="status status--error">Negada</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="estados" aria-labelledby="states-title">
+        <div class="section__head">
+          <div>
+            <p class="section-kicker">04 · Estados e densidade</p>
+            <h2 id="states-title">Pouca superfície. Significado explícito.</h2>
+          </div>
+          <p>Linhas organizam; o estado vem acompanhado de texto.</p>
+        </div>
+
+        <div class="state-grid">
+          <article class="state-card">
+            <h3>Ação principal</h3>
+            <p>Tech green aparece uma vez por região para indicar o próximo passo.</p>
+            <a class="button button--primary" href="#inicio">Atualizar métricas</a>
+          </article>
+          <article class="state-card">
+            <h3>Aviso operacional</h3>
+            <p>Copper informa que algo merece revisão sem interromper o fluxo.</p>
+            <span class="status status--warning">Revisar antes de publicar</span>
+          </article>
+          <article class="state-card">
+            <h3>Negação e risco</h3>
+            <p>Oxblood comunica bloqueio, erro ou consequência irreversível.</p>
+            <span class="status status--error">Publicação negada</span>
+          </article>
+        </div>
+
+        <div class="motion-lab" id="movimento" aria-labelledby="motion-title">
+          <div>
+            <p class="section-kicker">05 · Movimento</p>
+            <h3 class="motion-lab__title" id="motion-title">Feedback calmo, nunca decoração.</h3>
+            <p class="motion-lab__copy">A prévia usa o contrato cluos-mms-v1: hover e foco em 180ms, estados em 280ms e mudanças de contexto em 600ms.</p>
+            <button class="button button--secondary" id="motion-replay" type="button" aria-pressed="false" aria-describedby="motion-feedback">Reproduzir movimento</button>
+            <p class="motion-lab__feedback" id="motion-feedback" aria-live="polite">Pronto para reproduzir. Sem autoplay e sem loop.</p>
+          </div>
+          <div class="motion-lab__samples" aria-label="Amostra de movimentos">
+            <div class="motion-sample">
+              <span class="motion-sample__marker motion-sample__marker--action" aria-hidden="true"></span>
+              <strong>Ação primária</strong>
+              <span>hover e foco · 180ms</span>
+            </div>
+            <div class="motion-sample">
+              <span class="motion-sample__marker motion-sample__marker--warning" aria-hidden="true"></span>
+              <strong>Aviso operacional</strong>
+              <span>mudança de estado · 280ms</span>
+            </div>
+            <div class="motion-sample">
+              <span class="motion-sample__marker motion-sample__marker--error" aria-hidden="true"></span>
+              <strong>Negação e risco</strong>
+              <span>mudança de contexto · 600ms</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Elemento</th>
+                <th scope="col">Tratamento</th>
+                <th scope="col">Evitar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cards e blocos</td>
+                <td>Hairline e espaço; sem sombra e sem raio.</td>
+                <td>Card dentro de card e superfícies decorativas.</td>
+              </tr>
+              <tr>
+                <td>Labels</td>
+                <td>Instrument Sans, caixa alta e baixa intensidade.</td>
+                <td>Badges em cápsula usados como decoração.</td>
+              </tr>
+              <tr>
+                <td>Tabelas e métricas</td>
+                <td>Valores tabulares, linhas de separação e leitura horizontal.</td>
+                <td>Gráficos ou cards quando não orientam decisão.</td>
+              </tr>
+              <tr>
+                <td>Cor</td>
+                <td>Uma semântica por estado, sempre acompanhada de texto.</td>
+                <td>Usar copper ou oxblood como CTA positivo.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__inner">Origem da proposta MMS, promovida a referência cluos-mms-v1. A fonte operacional é `tokens/mms-canonical.yaml` e a prévia canônica é `DESIGN-preview.html`.</p>
+    </footer>
+  </div>
+  <script>
+    (() => {
+      const motionLab = document.querySelector('.motion-lab');
+      const replayButton = document.querySelector('#motion-replay');
+      const feedback = document.querySelector('#motion-feedback');
+
+      if (!motionLab || !replayButton || !feedback) return;
+
+      replayButton.addEventListener('click', () => {
+        motionLab.classList.remove('is-playing');
+        void motionLab.offsetWidth;
+        motionLab.classList.add('is-playing');
+        replayButton.setAttribute('aria-pressed', 'true');
+        feedback.textContent = 'Movimentos reproduzidos: 180ms para interação, 280ms para estado e 600ms para contexto.';
+      });
+
+      motionLab.addEventListener('animationend', (event) => {
+        if (event.target.matches('.motion-sample')) {
+          replayButton.setAttribute('aria-pressed', 'false');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

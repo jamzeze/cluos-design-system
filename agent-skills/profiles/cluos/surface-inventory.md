@@ -25,10 +25,10 @@ this refactor.
 
 ## Other product repos (local copies of tokens, not live package consumers)
 
-- `MMS` — has its own `src/styles/cluos-tokens.css` (Thermal Nocturne
-  variable names) and a comment noting intent to adopt
-  `@cluos/design-system` "quando MMS virar produto." Confirmed 2026-08-10:
-  no current import of the real package.
+- `MMS` — its shell now follows `cluos-mms-v1` and keeps
+  `src/styles/cluos-tokens.css` as a checked-in fallback until the package is
+  installed. Adoption and the explicit legacy dark surface are documented in
+  `MMS/docs/design/2026-08-30-cluos-mms-canonical-adoption.md`.
 - `estrut/estrut-mvp/dashboard` — has a `cluos-tokens.css` explicitly
   labeled "cópia local sincronizada," sourced from MMS, not from this
   package.

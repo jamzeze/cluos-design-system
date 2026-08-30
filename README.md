@@ -3,14 +3,15 @@
 The single source of truth for the CluOS visual language, UX principles, product patterns, and agent governance.
 Tokens, logos, patterns, and rules — consumed by every CluOS repository.
 
-> **v0.3.0** — Added interactive light/dark design preview with action color selector (teal, copper, champagne, oxblood) and 8 approved product variants.
+> **Canonical v1 (`cluos-mms-v1`)** — MMS Swiss Ledger is the default identity for new and existing CluOS product chrome. Legacy style/palette variants remain only as explicit migration opt-outs.
 
 ---
 
 ## What lives here
 
-- **`DESIGN-preview.html`** — the canonical interactive visual reference. Includes light/dark mode toggle and action color selector (teal / copper / champagne / oxblood). Open in a browser when working on any CluOS product.
-- **`PRODUCT-THEME-VARIANTS.md`** — the 8 approved product visual variants, recommended variant per product, and semantic rules for action colors.
+- **`DESIGN-preview.html`** — the canonical MMS specimen: lockup, typography, palette, semantic states, motion and chart animation. Open it before working on any CluOS product.
+- **`tokens/mms-canonical.yaml`** — machine-readable identity contract consumed by GCOS and future products.
+- **`PRODUCT-THEME-VARIANTS.md`** — the legacy compatibility catalog and its semantic rules; new products use `cluos-mms-v1` instead.
 - **`DESIGN.md`** — the full narrative spec. Explains the preview and must stay in sync with it.
 - **`DESIGN-WORKFLOW.md`** — the preview-first refactor workflow for humans and agents.
 - **`PRODUCT-SIMPLICITY-CANON.md`** — mandatory product simplicity canon: reduce cognitive load, remove unnecessary complexity, improve perceived quality, and make the main user action obvious.
@@ -47,8 +48,9 @@ module.exports = {
 };
 ```
 
-Then use classes like `bg-cluos-teal`, `text-cluos-navy`,
-`rounded-cluos-md`, `shadow-cluos-sm`, `bg-cluos-brand-hero`.
+Then use semantic classes like `bg-cluosc-action`, `text-cluosc-fg-primary`,
+`border-cluosc-border`, `font-display` and `duration-cluos-data`. The
+`cluos-*` aliases remain for compatibility.
 
 ### Option B — CSS / SCSS
 
@@ -57,7 +59,9 @@ Then use classes like `bg-cluos-teal`, `text-cluos-navy`,
 @import "@cluos/design-system/tokens.css";
 ```
 
-Then use vars: `color: var(--cluos-navy)`, `background: var(--cluos-teal)`.
+Then use vars: `color: var(--cluos-color-fg-primary)`,
+`background: var(--cluos-color-action-primary)`. Copper and oxblood are
+semantic warning/error roles, never positive CTAs.
 
 ### Option C — CSS-in-JS
 
@@ -65,8 +69,8 @@ Then use vars: `color: var(--cluos-navy)`, `background: var(--cluos-teal)`.
 import tokens from "@cluos/design-system";
 
 const Button = styled.button`
-  background: ${tokens.color.teal};
-  color: ${tokens.color.textOnTeal};
+  background: ${tokens.action.primary.base};
+  color: ${tokens.action.primary.text};
   padding: ${tokens.space[3]} ${tokens.space[4]};
   border-radius: ${tokens.radius.md};
 `;
@@ -108,15 +112,15 @@ your `package.json`:
 
 ## Updating the system
 
-1. Edit `DESIGN-preview.html` first for visual changes.
+1. Edit `tokens/mms-canonical.yaml` and `DESIGN-preview.html` together for visual changes.
 2. For product-governance changes, edit `PRODUCT-SIMPLICITY-CANON.md` first.
 3. Sync `DESIGN.md`, `DESIGN-WORKFLOW.md`, `APPLE-INSPIRED-PRODUCT-UX.md`, and any affected token or asset docs in the same change.
 4. Update `guides/` and `brand-assets/` if the source artwork changed.
-5. Run `npm pack --dry-run`.
-6. Bump `version` in `package.json` (semver).
+5. Run `npm pack --dry-run` and inspect the rendered preview.
+6. Record a superseding decision in `agent-skills/profiles/cluos/*-decisions.yaml`.
 7. Update `CHANGELOG.md`.
 8. Tag and push: `git tag v0.x.y && git push --tags`.
-9. The release workflow publishes automatically to GitHub Packages.
+9. The release workflow publishes automatically to GitHub Packages after an explicit release decision.
 
 ## Consuming repos stay in sync
 
@@ -205,4 +209,9 @@ See [`MIGRATION-AUDIT.md`](MIGRATION-AUDIT.md) for the full unification audit.
 
 ## The CluOS brand in one paragraph
 
-CluOS is **quiet confidence**. One shared identity across all products. Teal as the default action color, copper for priority, champagne for premium, oxblood for risk. Navy anchors every surface. Inter and Inter Tight for UI, JetBrains Mono for technical metadata. The wordmark gradient drifts from black → navy → champagne → silver. Restrained weights, generous whitespace, and one semantic action temperature per product.
+CluOS is **quiet confidence**. One shared identity across all products:
+`cluos-mms-v1` uses Manrope for display, Instrument Sans for interface/data,
+deep navy and medium blue for structure, tech green for positive action,
+operational teal for execution, copper for warning/review and oxblood for
+denial/error. White space, hairlines and typography carry hierarchy; color
+communicates state rather than decoration.

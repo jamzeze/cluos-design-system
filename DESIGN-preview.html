@@ -1,1303 +1,245 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!doctype html>
+<html lang="pt-BR" data-cluos-style="MMS" data-cluos-canonical="cluos-mms-v1">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CluOS — Design Preview v0.3.0</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-/* ============================================================
-   BASE TOKENS
-   ============================================================ */
-:root {
-  /* Brand palette — official */
-  --teal:          #008080;
-  --teal-deep:     #006666;
-  --teal-soft:     #4DA3A3;
-  --navy:          #1B2F36;
-  --black:         #1D1D1B;
-  --champagne:     #C8C1AE;
-  --champagne-deep:#AFA58E;
-  --silver:        #B5B4B5;
-  --white:         #FFFFFF;
-  --copper:        #BD7845;
-  --copper-deep:   #965D34;
-  --oxblood:       #8A3A3A;
-  --oxblood-deep:  #662828;
-
-  /* Light mode surfaces */
-  --bg:            #FAFAF8;
-  --surface:       #FFFFFF;
-  --surface-soft:  #F3F4F1;
-  --line:          #E7E8E3;
-  --line-strong:   #CFD1CA;
-  --text:          #1B2F36;
-  --muted:         #5A6570;
-  --subtle:        #8A939B;
-  --dark:          #0F1B20;
-  --dark-2:        #13252C;
-  --grid:          rgba(27,47,54,0.05);
-
-  /* Typography */
-  --font-sans:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-display: "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono:    "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
-
-  /* Radius */
-  --r-sm: 6px;
-  --r-md: 8px;
-  --r-lg: 12px;
-  --r-xl: 16px;
-
-  /* Motion */
-  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --dur:  200ms;
-}
-
-/* ============================================================
-   ACTION THEME VARIANTS
-   ============================================================ */
-body[data-theme="teal"] {
-  --action:       var(--teal);
-  --action-deep:  var(--teal-deep);
-  --action-soft:  rgba(0,128,128,.10);
-  --action-line:  rgba(0,128,128,.20);
-  --action-text:  #FFFFFF;
-  --theme-halo:   rgba(0,128,128,.18);
-}
-body[data-theme="copper"] {
-  --action:       var(--copper);
-  --action-deep:  var(--copper-deep);
-  --action-soft:  rgba(189,120,69,.12);
-  --action-line:  rgba(189,120,69,.25);
-  --action-text:  #FFFFFF;
-  --theme-halo:   rgba(189,120,69,.20);
-}
-body[data-theme="champagne"] {
-  --action:       var(--champagne);
-  --action-deep:  var(--champagne-deep);
-  --action-soft:  rgba(200,193,174,.22);
-  --action-line:  rgba(200,193,174,.48);
-  --action-text:  var(--navy);
-  --theme-halo:   rgba(200,193,174,.34);
-}
-body[data-theme="oxblood"] {
-  --action:       var(--oxblood);
-  --action-deep:  var(--oxblood-deep);
-  --action-soft:  rgba(138,58,58,.11);
-  --action-line:  rgba(138,58,58,.22);
-  --action-text:  #FFFFFF;
-  --theme-halo:   rgba(138,58,58,.18);
-}
-
-/* ============================================================
-   DARK / NAVY APPEARANCE
-   ============================================================ */
-body[data-appearance="dark"] {
-  --bg:          #1B2F36;
-  --surface:     #13252C;
-  --surface-soft:#0F1B20;
-  --line:        rgba(255,255,255,.10);
-  --line-strong: rgba(255,255,255,.18);
-  --text:        #F7F8F5;
-  --muted:       rgba(247,248,245,.68);
-  --subtle:      rgba(247,248,245,.46);
-  --grid:        rgba(255,255,255,.045);
-  background:
-    radial-gradient(circle at 82% 2%, var(--theme-halo), transparent 30%),
-    radial-gradient(circle at 10% 12%, rgba(200,193,174,.14), transparent 26%),
-    linear-gradient(180deg, #1B2F36 0%, #0F1B20 100%);
-}
-
-/* Dark mode — h1 accent gradient */
-body[data-appearance="dark"] h1 .accent {
-  background: linear-gradient(135deg, #F7F8F5 0%, var(--action) 48%, #C8C1AE 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Dark mode — h1 base color */
-body[data-appearance="dark"] h1 {
-  color: #F7F8F5;
-}
-
-/* Dark mode — champagne action text on dark bg */
-body[data-appearance="dark"][data-theme="champagne"] .btn-primary {
-  color: var(--navy);
-}
-
-/* ============================================================
-   RESET & BASE
-   ============================================================ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--text);
-  background-color: var(--bg);
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 48px 48px;
-  min-height: 100vh;
-  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a { color: inherit; text-decoration: none; }
-img { display: block; max-width: 100%; }
-
-:focus-visible {
-  outline: 2px solid var(--action);
-  outline-offset: 2px;
-  border-radius: 3px;
-}
-.theme-btn:focus-visible,
-.appearance-toggle:focus-visible,
-.btn:focus-visible {
-  outline: 2px solid var(--action);
-  outline-offset: 2px;
-}
-
-/* ============================================================
-   TOPBAR
-   ============================================================ */
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 0 24px;
-  background: rgba(250,250,248,.86);
-  backdrop-filter: blur(12px) saturate(1.4);
-  -webkit-backdrop-filter: blur(12px) saturate(1.4);
-  border-bottom: 1px solid var(--line);
-  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-}
-body[data-appearance="dark"] .topbar {
-  background: rgba(19,37,44,.88);
-}
-
-.topbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-.topbar-symbol {
-  width: 22px;
-  height: 22px;
-  border-radius: 5px;
-  background: var(--action);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background var(--dur) var(--ease);
-}
-.topbar-symbol svg { width: 14px; height: 14px; fill: none; }
-.topbar-name {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.01em;
-}
-.topbar-subtitle {
-  font-size: 11px;
-  font-family: var(--font-mono);
-  color: var(--subtle);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.topbar-center {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.theme-selector {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px;
-  background: var(--surface-soft);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-}
-.theme-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  border-radius: 7px;
-  border: none;
-  background: transparent;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--muted);
-  cursor: pointer;
-  transition: all var(--dur) var(--ease);
-  white-space: nowrap;
-}
-.theme-btn:hover { color: var(--text); background: var(--surface); }
-.theme-btn.active {
-  background: var(--surface);
-  color: var(--text);
-  box-shadow: 0 1px 3px rgba(27,47,54,.10), 0 1px 2px rgba(27,47,54,.06);
-}
-body[data-appearance="dark"] .theme-btn.active {
-  background: rgba(255,255,255,.08);
-  box-shadow: none;
-}
-.theme-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.dot-teal      { background: #008080; }
-.dot-copper    { background: #BD7845; }
-.dot-champagne { background: #C8C1AE; border: 1px solid rgba(0,0,0,.12); }
-.dot-oxblood   { background: #8A3A3A; }
-
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.appearance-toggle {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--r-md);
-  border: 1px solid var(--line);
-  background: var(--surface);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted);
-  transition: all var(--dur) var(--ease);
-}
-.appearance-toggle:hover { color: var(--text); border-color: var(--line-strong); }
-.appearance-toggle svg { width: 15px; height: 15px; }
-.icon-sun, .icon-moon { pointer-events: none; }
-body[data-appearance="light"] .icon-moon { display: none; }
-body[data-appearance="dark"]  .icon-sun  { display: none; }
-
-.live-pill {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 3px 8px;
-  border-radius: 20px;
-  border: 1px solid var(--action-line);
-  background: var(--action-soft);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--action);
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  transition: all var(--dur) var(--ease);
-}
-.live-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--action);
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: .4; }
-}
-
-/* ============================================================
-   PAGE WRAPPER
-   ============================================================ */
-.page {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero {
-  padding: 80px 0 64px;
-  position: relative;
-}
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--action);
-  margin-bottom: 20px;
-  padding: 4px 10px;
-  border: 1px solid var(--action-line);
-  border-radius: 20px;
-  background: var(--action-soft);
-  transition: all var(--dur) var(--ease);
-}
-
-h1 {
-  margin: 0;
-  max-width: 880px;
-  font-family: var(--font-display);
-  font-size: clamp(42px, 5.8vw, 74px);
-  line-height: 1.03;
-  letter-spacing: -0.038em;
-  font-weight: 560;
-  color: var(--navy);
-  text-wrap: balance;
-}
-h1 .accent {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--action) 52%, var(--champagne) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  transition: background var(--dur) var(--ease);
-}
-
-.hero-sub {
-  margin-top: 24px;
-  max-width: 600px;
-  font-size: 17px;
-  line-height: 1.65;
-  color: var(--muted);
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 36px;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0.625rem 1.125rem;
-  border-radius: var(--r-md);
-  border: 1px solid transparent;
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1;
-  cursor: pointer;
-  transition: all var(--dur) var(--ease);
-  text-decoration: none;
-}
-.btn-primary {
-  background: var(--action);
-  color: var(--action-text);
-  border-color: var(--action);
-}
-.btn-primary:hover { background: var(--action-deep); border-color: var(--action-deep); }
-
-.btn-secondary {
-  background: transparent;
-  color: var(--text);
-  border-color: var(--line-strong);
-}
-.btn-secondary:hover { border-color: var(--text); background: var(--surface-soft); }
-body[data-appearance="dark"] .btn-secondary { border-color: var(--line); }
-body[data-appearance="dark"] .btn-secondary:hover { border-color: var(--line-strong); background: rgba(255,255,255,.06); }
-
-/* ============================================================
-   NOTE CARDS
-   ============================================================ */
-.note-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin: 48px 0;
-}
-@media (max-width: 768px) {
-  .note-grid { grid-template-columns: 1fr; }
-}
-.note-card {
-  padding: 20px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-}
-body[data-appearance="dark"] .note-card { background: rgba(19,37,44,.86); }
-.note-card-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 6px;
-}
-.note-card-title::before {
-  content: "→ ";
-  color: var(--action);
-  transition: color var(--dur) var(--ease);
-}
-.note-card-body {
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--muted);
-}
-
-/* ============================================================
-   SECTION LABEL
-   ============================================================ */
-.section-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--subtle);
-  margin-bottom: 20px;
-}
-.section-label::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--line);
-  max-width: 200px;
-}
-
-/* ============================================================
-   COMMAND CARD
-   ============================================================ */
-.command-card {
-  background: #0F1B20;
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: var(--r-xl);
-  padding: 32px;
-  margin: 0 0 64px;
-  position: relative;
-  overflow: hidden;
-}
-.command-card::before {
-  content: "";
-  position: absolute;
-  top: -60px;
-  right: -60px;
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(circle, var(--theme-halo), transparent 65%);
-  pointer-events: none;
-  transition: background var(--dur) var(--ease);
-}
-.command-card-header {
-  margin-bottom: 24px;
-}
-.command-card-title {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 600;
-  color: #F7F8F5;
-  letter-spacing: -0.02em;
-}
-.command-card-sub {
-  font-size: 13px;
-  color: rgba(247,248,245,.52);
-  margin-top: 4px;
-}
-
-.command-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
-}
-@media (max-width: 768px) {
-  .command-grid { grid-template-columns: 1fr; }
-}
-
-/* Terminal */
-.terminal {
-  background: rgba(0,0,0,.38);
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: var(--r-md);
-  padding: 16px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.8;
-}
-.terminal-line { display: flex; align-items: baseline; gap: 6px; }
-.term-prompt { color: var(--action); transition: color var(--dur) var(--ease); flex-shrink: 0; }
-.term-cmd    { color: rgba(247,248,245,.80); }
-.term-out    { color: rgba(247,248,245,.46); padding-left: 12px; }
-.term-ok     { color: #4DA3A3; padding-left: 12px; }
-
-/* Metrics */
-.metrics {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.metric {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 12px;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: var(--r-md);
-}
-.metric-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: rgba(247,248,245,.52);
-}
-.metric-value {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--action);
-  transition: color var(--dur) var(--ease);
-}
-
-/* Task list */
-.task-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.task-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.06);
-  border-radius: var(--r-md);
-}
-.task-check {
-  width: 14px;
-  height: 14px;
-  border-radius: 3px;
-  background: var(--action);
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background var(--dur) var(--ease);
-}
-.task-check svg { width: 8px; height: 8px; stroke: #fff; stroke-width: 2.5; fill: none; }
-.task-text {
-  font-size: 13px;
-  color: rgba(247,248,245,.72);
-}
-
-/* ============================================================
-   VARIANT CARDS
-   ============================================================ */
-.variants-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 64px;
-}
-@media (max-width: 900px) {
-  .variants-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 520px) {
-  .variants-grid { grid-template-columns: 1fr; }
-}
-
-.variant-card {
-  padding: 20px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-  position: relative;
-  overflow: hidden;
-}
-body[data-appearance="dark"] .variant-card { background: rgba(19,37,44,.86); }
-.variant-card-swatch {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--r-md);
-  margin-bottom: 12px;
-  flex-shrink: 0;
-}
-.swatch-teal      { background: #008080; }
-.swatch-copper    { background: #BD7845; }
-.swatch-champagne { background: #C8C1AE; border: 1px solid rgba(0,0,0,.10); }
-.swatch-oxblood   { background: #8A3A3A; }
-
-.variant-card-name {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.01em;
-  margin-bottom: 4px;
-}
-.variant-card-hex {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--subtle);
-  margin-bottom: 10px;
-}
-.variant-card-body {
-  font-size: 12.5px;
-  line-height: 1.6;
-  color: var(--muted);
-}
-
-/* Active variant card */
-body[data-theme="teal"]      .variant-card[data-variant="teal"],
-body[data-theme="copper"]    .variant-card[data-variant="copper"],
-body[data-theme="champagne"] .variant-card[data-variant="champagne"],
-body[data-theme="oxblood"]   .variant-card[data-variant="oxblood"] {
-  border-color: var(--action-line);
-  background: var(--action-soft);
-}
-body[data-appearance="dark"][data-theme="teal"]      .variant-card[data-variant="teal"],
-body[data-appearance="dark"][data-theme="copper"]    .variant-card[data-variant="copper"],
-body[data-appearance="dark"][data-theme="champagne"] .variant-card[data-variant="champagne"],
-body[data-appearance="dark"][data-theme="oxblood"]   .variant-card[data-variant="oxblood"] {
-  background: rgba(255,255,255,.05);
-  border-color: var(--action-line);
-}
-
-/* ============================================================
-   MATRIX TABLE
-   ============================================================ */
-.matrix-section {
-  margin-bottom: 64px;
-}
-.table-wrap {
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  transition: border-color var(--dur) var(--ease);
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-thead { background: var(--surface-soft); }
-body[data-appearance="dark"] thead { background: rgba(255,255,255,.04); }
-th {
-  padding: 10px 16px;
-  text-align: left;
-  font-weight: 600;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--subtle);
-  border-bottom: 1px solid var(--line);
-}
-td {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--line);
-  color: var(--text);
-  vertical-align: middle;
-}
-tr:last-child td { border-bottom: none; }
-tbody tr:hover { background: var(--action-soft); }
-body[data-appearance="dark"] tbody tr:hover { background: rgba(255,255,255,.03); }
-
-.variant-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 3px 8px;
-  border-radius: 20px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  white-space: nowrap;
-  border: 1px solid transparent;
-}
-.badge-teal      { background: rgba(0,128,128,.10);    color: #006666; border-color: rgba(0,128,128,.18);    }
-.badge-copper    { background: rgba(189,120,69,.12);   color: #965D34; border-color: rgba(189,120,69,.22);   }
-.badge-champagne { background: rgba(200,193,174,.22);  color: #6B6050; border-color: rgba(200,193,174,.48);  }
-.badge-oxblood   { background: rgba(138,58,58,.11);    color: #662828; border-color: rgba(138,58,58,.20);    }
-body[data-appearance="dark"] .badge-teal      { color: #4DA3A3; }
-body[data-appearance="dark"] .badge-copper    { color: #E2A46F; }
-body[data-appearance="dark"] .badge-champagne { color: #D4C9B4; }
-body[data-appearance="dark"] .badge-oxblood   { color: #C47070; }
-
-.badge-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.bd-teal      { background: #008080; }
-.bd-copper    { background: #BD7845; }
-.bd-champagne { background: #C8C1AE; }
-.bd-oxblood   { background: #8A3A3A; }
-
-/* ============================================================
-   GOVERNANCE SECTION
-   ============================================================ */
-.governance-section {
-  margin-bottom: 64px;
-}
-.governance-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-@media (max-width: 768px) {
-  .governance-grid { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 480px) {
-  .governance-grid { grid-template-columns: 1fr; }
-}
-.gov-card {
-  padding: 18px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--r-lg);
-  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-}
-body[data-appearance="dark"] .gov-card { background: rgba(19,37,44,.86); }
-.gov-chip {
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.chip-teal      { background: rgba(0,128,128,.10);   color: #006666; }
-.chip-copper    { background: rgba(189,120,69,.12);  color: #965D34; }
-.chip-champagne { background: rgba(200,193,174,.22); color: #6B6050; }
-.chip-oxblood   { background: rgba(138,58,58,.11);   color: #662828; }
-.chip-navy      { background: rgba(27,47,54,.08);    color: #1B2F36; }
-body[data-appearance="dark"] .chip-navy { background: rgba(255,255,255,.06); color: rgba(247,248,245,.72); }
-body[data-appearance="dark"] .chip-teal      { color: #4DA3A3; }
-body[data-appearance="dark"] .chip-copper    { color: #E2A46F; }
-body[data-appearance="dark"] .chip-champagne { color: #D4C9B4; }
-body[data-appearance="dark"] .chip-oxblood   { color: #C47070; }
-.gov-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 6px;
-}
-.gov-body {
-  font-size: 12.5px;
-  line-height: 1.6;
-  color: var(--muted);
-}
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-.footer {
-  border-top: 1px solid var(--line);
-  padding: 40px 0;
-  margin-top: 32px;
-  transition: border-color var(--dur) var(--ease);
-}
-.footer-inner {
-  max-width: 680px;
-}
-.footer-title {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 10px;
-  letter-spacing: -0.01em;
-}
-.footer-body {
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--muted);
-}
-.footer-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 1px solid var(--line);
-}
-.footer-tag {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--subtle);
-  letter-spacing: 0.04em;
-}
-.footer-tag strong {
-  color: var(--action);
-  font-weight: 600;
-  transition: color var(--dur) var(--ease);
-}
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width: 640px) {
-  .topbar { flex-wrap: wrap; height: auto; padding: 8px 16px; gap: 8px; }
-  .topbar-center { order: 3; width: 100%; justify-content: flex-start; overflow-x: auto; }
-  .theme-selector { width: max-content; }
-  .topbar-right { margin-left: auto; }
-  .live-pill { display: none; }
-  .hero { padding: 48px 0 40px; }
-  .page { padding: 0 16px; }
-  .command-card { padding: 20px 16px; }
-}
-@media (max-width: 480px) {
-  .topbar-subtitle { display: none; }
-}
-</style>
-</head>
-<body data-theme="teal" data-appearance="light">
-
-<!-- ============================================================
-     TOPBAR
-     ============================================================ -->
-<header class="topbar" role="banner">
-  <div class="topbar-brand">
-    <div class="topbar-symbol" aria-hidden="true">
-      <svg viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-        <path d="M11 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <path d="M9.5 4.5 L12 2" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <span class="topbar-name">CluOS</span>
-    <span class="topbar-subtitle">Action Color System</span>
-  </div>
-
-  <nav class="topbar-center" aria-label="Theme selector">
-    <div class="theme-selector" role="group" aria-label="Select action color theme">
-      <button class="theme-btn active" data-set-theme="teal" aria-pressed="true">
-        <span class="theme-dot dot-teal" aria-hidden="true"></span>Teal
-      </button>
-      <button class="theme-btn" data-set-theme="copper" aria-pressed="false">
-        <span class="theme-dot dot-copper" aria-hidden="true"></span>Copper
-      </button>
-      <button class="theme-btn" data-set-theme="champagne" aria-pressed="false">
-        <span class="theme-dot dot-champagne" aria-hidden="true"></span>Champagne
-      </button>
-      <button class="theme-btn" data-set-theme="oxblood" aria-pressed="false">
-        <span class="theme-dot dot-oxblood" aria-hidden="true"></span>Oxblood
-      </button>
-    </div>
-  </nav>
-
-  <div class="topbar-right">
-    <div class="live-pill" aria-live="polite" aria-label="Current variant active">
-      <span class="live-dot" aria-hidden="true"></span>Live variant
-    </div>
-    <button
-      class="appearance-toggle"
-      aria-label="Toggle light/dark appearance"
-      aria-pressed="false"
-      title="Toggle light/dark mode"
-    >
-      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-      </svg>
-      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-      </svg>
-    </button>
-  </div>
-</header>
-
-<!-- ============================================================
-     HERO
-     ============================================================ -->
-<main>
-  <div class="page">
-
-    <section class="hero" aria-labelledby="hero-heading">
-      <div class="hero-eyebrow" aria-label="Design system version">
-        v0.3.0 — Identity
-      </div>
-
-      <h1 id="hero-heading">
-        Uma identidade CluOS.<br>
-        <span class="accent">Quatro temperaturas</span> de produto.
-      </h1>
-
-      <p class="hero-sub">
-        Esta prévia testa variações de cor de ação dentro da mesma paleta.
-        A estrutura, tipografia e marca permanecem consistentes; o que muda é
-        a personalidade operacional de cada produto.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#variants" class="btn btn-primary">Ver variações</a>
-        <a href="#matrix" class="btn btn-secondary">Mapa de uso</a>
-        <a href="#governance" class="btn btn-secondary">Regras</a>
-      </div>
-    </section>
-
-    <!-- NOTE CARDS -->
-    <div class="note-grid" role="list">
-      <div class="note-card" role="listitem">
-        <div class="note-card-title">Não é trocar tudo</div>
-        <p class="note-card-body">A cor de ação muda botões, estados ativos e halos, não toda a interface.</p>
-      </div>
-      <div class="note-card" role="listitem">
-        <div class="note-card-title">Base comum</div>
-        <p class="note-card-body">Navy, branco, Inter e cards técnicos preservam o reconhecimento de marca.</p>
-      </div>
-      <div class="note-card" role="listitem">
-        <div class="note-card-title">Produtos distintos</div>
-        <p class="note-card-body">Cada serviço ganha temperatura própria sem sair da paleta oficial.</p>
-      </div>
-    </div>
-
-    <!-- COMMAND CARD -->
-    <section aria-label="Command surface demo">
-      <div class="section-label">
-        <span>01</span> Command surface
-      </div>
-      <div class="command-card">
-        <div class="command-card-header">
-          <div class="command-card-title">Command surface</div>
-          <div class="command-card-sub">A mesma UI muda de personalidade com a cor de ação.</div>
-        </div>
-
-        <div class="command-grid">
-          <!-- Terminal -->
-          <div class="terminal" role="log" aria-label="Terminal output">
-            <div class="terminal-line">
-              <span class="term-prompt">$</span>
-              <span class="term-cmd">load brand tokens</span>
-            </div>
-            <div class="terminal-line">
-              <span class="term-out">→ action color applied</span>
-            </div>
-            <div class="terminal-line">
-              <span class="term-out">→ navy surfaces preserved</span>
-            </div>
-            <div class="terminal-line">
-              <span class="term-out">→ contrast and hierarchy checked</span>
-            </div>
-            <div class="terminal-line">
-              <span class="term-ok">✓ product identity ready</span>
-            </div>
-          </div>
-
-          <!-- Metrics -->
-          <div class="metrics" role="list" aria-label="Visual metrics">
-            <div class="metric" role="listitem">
-              <span class="metric-label">Visual temperature</span>
-              <span class="metric-value">4x</span>
-            </div>
-            <div class="metric" role="listitem">
-              <span class="metric-label">Shared identity</span>
-              <span class="metric-value">1</span>
-            </div>
-            <div class="metric" role="listitem">
-              <span class="metric-label">Action color</span>
-              <span class="metric-value">8%</span>
-            </div>
-            <div class="metric" role="listitem">
-              <span class="metric-label">Risk</span>
-              <span class="metric-value">low</span>
-            </div>
-          </div>
-
-          <!-- Task list -->
-          <div class="task-list" role="list" aria-label="Active states">
-            <div class="task-item" role="listitem">
-              <div class="task-check" aria-hidden="true">
-                <svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg>
-              </div>
-              <span class="task-text">Primary action</span>
-            </div>
-            <div class="task-item" role="listitem">
-              <div class="task-check" aria-hidden="true">
-                <svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg>
-              </div>
-              <span class="task-text">Active state</span>
-            </div>
-            <div class="task-item" role="listitem">
-              <div class="task-check" aria-hidden="true">
-                <svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg>
-              </div>
-              <span class="task-text">Brand halo</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- VARIANT CARDS -->
-    <section id="variants" aria-labelledby="variants-heading">
-      <div class="section-label">
-        <span>02</span> Variações
-      </div>
-      <h2 id="variants-heading" style="font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-0.02em;color:var(--text);margin-bottom:20px;">As quatro temperaturas</h2>
-
-      <div class="variants-grid">
-        <div class="variant-card" data-variant="teal">
-          <div class="variant-card-swatch swatch-teal" aria-hidden="true"></div>
-          <div class="variant-card-name">Teal Platform</div>
-          <div class="variant-card-hex">#008080 — default</div>
-          <p class="variant-card-body">Melhor para Hub, status geral, autenticação, CRM base e produtos onde a ação precisa parecer segura, neutra e operacional.</p>
-        </div>
-        <div class="variant-card" data-variant="copper">
-          <div class="variant-card-swatch swatch-copper" aria-hidden="true"></div>
-          <div class="variant-card-name">Copper Ops</div>
-          <div class="variant-card-hex">#BD7845 — priority</div>
-          <p class="variant-card-body">Melhor para Suporte, central CEO, decisões humanas, automação, filas, riscos moderados e áreas onde há prioridade operacional.</p>
-        </div>
-        <div class="variant-card" data-variant="champagne">
-          <div class="variant-card-swatch swatch-champagne" aria-hidden="true"></div>
-          <div class="variant-card-name">Champagne Premium</div>
-          <div class="variant-card-hex">#C8C1AE — premium</div>
-          <p class="variant-card-body">Melhor para AEO, páginas públicas, conteúdos editoriais, onboarding premium, relatórios e áreas que precisam parecer sofisticadas.</p>
-        </div>
-        <div class="variant-card" data-variant="oxblood">
-          <div class="variant-card-swatch swatch-oxblood" aria-hidden="true"></div>
-          <div class="variant-card-name">Oxblood Critical</div>
-          <div class="variant-card-hex">#8A3A3A — risk</div>
-          <p class="variant-card-body">Melhor para B3, risco, auditoria, falhas críticas, segurança, compliance, logs sensíveis e ações de alta atenção.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- MATRIX TABLE -->
-    <section id="matrix" aria-labelledby="matrix-heading" class="matrix-section">
-      <div class="section-label">
-        <span>03</span> Mapa de aplicação
-      </div>
-      <h2 id="matrix-heading" style="font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-0.02em;color:var(--text);margin-bottom:20px;">Variant por produto</h2>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Produto</th>
-              <th scope="col">Variant</th>
-              <th scope="col">Aparência</th>
-              <th scope="col">Razão</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>CluOS Hub</strong></td>
-              <td><span class="variant-badge badge-teal"><span class="badge-dot bd-teal" aria-hidden="true"></span>claro-teal</span></td>
-              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">light</td>
-              <td style="color:var(--muted);">Entrada institucional — seguro, calmo</td>
-            </tr>
-            <tr>
-              <td><strong>CRM CluOS</strong></td>
-              <td><span class="variant-badge badge-copper"><span class="badge-dot bd-copper" aria-hidden="true"></span>claro-copper</span></td>
-              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">light</td>
-              <td style="color:var(--muted);">Comercial, relacional, prioridade humana</td>
-            </tr>
-            <tr>
-              <td><strong>Suporte / Edge</strong></td>
-              <td><span class="variant-badge badge-copper"><span class="badge-dot bd-copper" aria-hidden="true"></span>dark-copper</span></td>
-              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">dark</td>
-              <td style="color:var(--muted);">Command center — navy + copper destacam prioridade</td>
-            </tr>
-            <tr>
-              <td><strong>AEO Engine</strong></td>
-              <td><span class="variant-badge badge-champagne"><span class="badge-dot bd-champagne" aria-hidden="true"></span>claro-champagne</span></td>
-              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">light</td>
-              <td style="color:var(--muted);">Editorial, premium, autoridade de publicação</td>
-            </tr>
-            <tr>
-              <td><strong>MedFrame</strong></td>
-              <td><span class="variant-badge badge-copper"><span class="badge-dot bd-copper" aria-hidden="true"></span>dark-copper</span></td>
-              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">dark</td>
-              <td style="color:var(--muted);">Estúdio técnico — dark + copper para exportações</td>
-            </tr>
-            <tr>
-              <td><strong>DID</strong></td>
-              <td><span class="variant-badge badge-champagne"><span class="badge-dot bd-champagne" aria-hidden="true"></span>dark-champagne</span></td>
-              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">dark</td>
-              <td style="color:var(--muted);">Identidade digital — dark + champagne premium</td>
-            </tr>
-            <tr>
-              <td><strong>Sci-OS</strong></td>
-              <td><span class="variant-badge badge-teal"><span class="badge-dot bd-teal" aria-hidden="true"></span>claro-teal</span></td>
-              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">light</td>
-              <td style="color:var(--muted);">Científico, limpo, documental e confiável</td>
-            </tr>
-            <tr>
-              <td><strong>B3</strong></td>
-              <td><span class="variant-badge badge-oxblood"><span class="badge-dot bd-oxblood" aria-hidden="true"></span>dark-oxblood</span></td>
-              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">dark</td>
-              <td style="color:var(--muted);">Risco, auditoria — oxblood marca alta atenção</td>
-            </tr>
-            <tr>
-              <td><strong>Loteca</strong></td>
-              <td><span class="variant-badge badge-oxblood"><span class="badge-dot bd-oxblood" aria-hidden="true"></span>claro-oxblood</span></td>
-              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">light</td>
-              <td style="color:var(--muted);">Probabilidade, risco e previsão</td>
-            </tr>
-            <tr>
-              <td><strong>Docs</strong></td>
-              <td><span class="variant-badge badge-teal"><span class="badge-dot bd-teal" aria-hidden="true"></span>claro-teal</span></td>
-              <td style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">light</td>
-              <td style="color:var(--muted);">Documentação neutra, legível e organizada</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- GOVERNANCE -->
-    <section id="governance" aria-labelledby="governance-heading" class="governance-section">
-      <div class="section-label">
-        <span>04</span> Governança visual
-      </div>
-      <h2 id="governance-heading" style="font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-0.02em;color:var(--text);margin-bottom:20px;">Regras semânticas</h2>
-
-      <div class="governance-grid">
-        <div class="gov-card">
-          <div class="gov-chip chip-teal">Teal</div>
-          <div class="gov-title">Não é decoração</div>
-          <p class="gov-body">Ação padrão, saúde do sistema, status online, produto neutro e confiável. Só aparece onde há função.</p>
-        </div>
-        <div class="gov-card">
-          <div class="gov-chip chip-copper">Copper</div>
-          <div class="gov-title">É prioridade</div>
-          <p class="gov-body">Decisão humana necessária, urgência moderada, pipeline comercial, operação em andamento.</p>
-        </div>
-        <div class="gov-card">
-          <div class="gov-chip chip-champagne">Champagne</div>
-          <div class="gov-title">É premium</div>
-          <p class="gov-body">Editorial, institucional, sofisticado. Botão champagne sempre usa texto navy — não branco.</p>
-        </div>
-        <div class="gov-card">
-          <div class="gov-chip chip-oxblood">Oxblood</div>
-          <div class="gov-title">É crítico</div>
-          <p class="gov-body">Risco, auditoria, alta atenção. Não usar como CTA positivo genérico. Não é vermelho de erro.</p>
-        </div>
-        <div class="gov-card">
-          <div class="gov-chip chip-navy">Navy</div>
-          <div class="gov-title">Ancora tudo</div>
-          <p class="gov-body">Autoridade técnica e estrutura. Fundo do dark mode, texto primário, superfícies densas.</p>
-        </div>
-        <div class="gov-card">
-          <div class="gov-chip chip-teal">Regra geral</div>
-          <div class="gov-title">Uma temperatura por produto</div>
-          <p class="gov-body">Não misturar cores de ação no mesmo produto. Cada serviço tem uma temperatura — não uma marca separada.</p>
-        </div>
-      </div>
-    </section>
-
-  </div><!-- /.page -->
-</main>
-
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
-<footer class="footer" role="contentinfo">
-  <div class="page">
-    <div class="footer-inner">
-      <div class="footer-title">Direção de uso</div>
-      <p class="footer-body">
-        Use cores de ação diferentes por produto, mas não transforme cada serviço em uma marca separada.
-        O reconhecimento CluOS vem do navy, da tipografia, dos componentes, do grid, da densidade visual e do símbolo.
-        A cor de ação só muda a temperatura e a intenção da interface.
-      </p>
-      <div class="footer-meta">
-        <span class="footer-tag"><strong>v0.3.0</strong></span>
-        <span class="footer-tag">@cluos/design-system</span>
-        <span class="footer-tag">PRODUCT-THEME-VARIANTS.md</span>
-        <span class="footer-tag">tokens/tokens.css</span>
-        <span class="footer-tag">8 variações oficiais</span>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<!-- ============================================================
-     JAVASCRIPT
-     ============================================================ -->
-<script>
-(function () {
-  'use strict';
-
-  var body = document.body;
-  var themeBtns = document.querySelectorAll('[data-set-theme]');
-  var appearanceToggle = document.querySelector('.appearance-toggle');
-
-  function setTheme(theme) {
-    body.setAttribute('data-theme', theme);
-    themeBtns.forEach(function (btn) {
-      var isActive = btn.dataset.setTheme === theme;
-      btn.classList.toggle('active', isActive);
-      btn.setAttribute('aria-pressed', String(isActive));
-    });
-  }
-
-  function setAppearance(appearance) {
-    body.setAttribute('data-appearance', appearance);
-    var isDark = appearance === 'dark';
-    if (appearanceToggle) {
-      appearanceToggle.setAttribute('aria-pressed', String(isDark));
-      appearanceToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>CluOS — identidade MMS canônica</title>
+  <link rel="stylesheet" href="tokens/tokens.css">
+  <style>
+    @font-face {
+      font-family: "Manrope";
+      src: url("brand-assets/fonts/manrope-latin-variable.woff2") format("woff2");
+      font-weight: 200 800;
+      font-style: normal;
+      font-display: swap;
     }
-  }
+    @font-face {
+      font-family: "Instrument Sans";
+      src: url("brand-assets/fonts/instrument-sans-latin-variable.woff2") format("woff2");
+      font-weight: 400 700;
+      font-stretch: 75% 100%;
+      font-style: normal;
+      font-display: swap;
+    }
 
-  // Theme selector
-  themeBtns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      setTheme(btn.dataset.setTheme);
-    });
-  });
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--cluos-bg);
+      color: var(--cluos-text);
+      font-family: var(--cluos-font-sans);
+      line-height: var(--cluos-leading-normal);
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible {
+      outline: none;
+      box-shadow: var(--cluos-ring-focus);
+    }
+    .shell { max-width: var(--cluos-container-wide); margin: 0 auto; padding: 0 var(--cluos-space-6); }
+    .topbar {
+      min-height: calc(var(--cluos-space-16) + var(--cluos-space-4));
+      display: flex; align-items: center; justify-content: space-between; gap: var(--cluos-space-6);
+      border-bottom: thin solid var(--cluos-border);
+    }
+    .lockup { display: inline-flex; align-items: center; gap: var(--cluos-space-3); text-decoration: none; }
+    .lockup__name { display: inline-flex; align-items: baseline; gap: .28em; font-family: var(--cluos-font-display); font-size: var(--cluos-text-xl); letter-spacing: -.04em; line-height: 1; }
+    .lockup__name span { font-weight: 300; }
+    .lockup__name strong { font-weight: 650; }
+    .lockup__descriptor { border-left: thin solid var(--cluos-border); padding-left: var(--cluos-space-3); color: var(--cluos-text-muted); font-size: var(--cluos-text-xs); letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+    nav { display: flex; gap: var(--cluos-space-6); color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
+    nav a { text-decoration: none; }
+    nav a:hover, nav a[aria-current="page"] { color: var(--cluos-text); }
+    main { padding-bottom: var(--cluos-space-24); }
+    .hero { padding: var(--cluos-space-24) 0 var(--cluos-space-16); border-bottom: thin solid var(--cluos-border); }
+    .eyebrow, .kicker, .token-name, th { color: var(--cluos-text-subtle); font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); letter-spacing: .11em; text-transform: uppercase; }
+    .eyebrow { color: var(--cluos-medium-blue); }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { font-family: var(--cluos-font-display); font-weight: 400; letter-spacing: -.045em; line-height: var(--cluos-leading-tight); }
+    h1 { max-width: var(--cluos-container-docs); margin-top: var(--cluos-space-4); font-size: clamp(2.75rem, 6vw, var(--cluos-text-6xl)); font-weight: 300; }
+    h1 strong { font-weight: 650; }
+    .hero__copy { max-width: var(--cluos-container-prose); margin-top: var(--cluos-space-6); color: var(--cluos-text-muted); font-size: var(--cluos-text-lg); line-height: var(--cluos-leading-relaxed); }
+    .actions { display: flex; flex-wrap: wrap; gap: var(--cluos-space-3); margin-top: var(--cluos-space-8); }
+    button, .button { min-height: calc(var(--cluos-space-8) + var(--cluos-space-2)); display: inline-flex; align-items: center; justify-content: center; padding: 0 var(--cluos-space-4); border: thin solid transparent; border-radius: var(--cluos-radius-md); font: 550 var(--cluos-text-sm)/1 var(--cluos-font-sans); text-decoration: none; cursor: pointer; transition: background-color var(--cluos-dur-fast) var(--cluos-ease-out), color var(--cluos-dur-fast) var(--cluos-ease-out), border-color var(--cluos-dur-fast) var(--cluos-ease-out); }
+    .button--primary { background: var(--cluos-action-primary); color: var(--cluos-action-primary-text); }
+    .button--primary:hover { background: var(--cluos-action-primary-deep); }
+    .button--secondary { background: transparent; border-color: var(--cluos-border-strong); color: var(--cluos-text); }
+    .button--secondary:hover { background: var(--cluos-bg-muted); }
+    .section { padding-top: var(--cluos-space-16); }
+    .section__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--cluos-space-4); padding-bottom: var(--cluos-space-4); border-bottom: thin solid var(--cluos-border); }
+    .section__head h2 { margin-top: var(--cluos-space-2); font-size: var(--cluos-text-3xl); }
+    .section__head p { max-width: var(--cluos-container-prose); color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
+    .lockup-stage, .type-stage, .motion-stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--cluos-space-8); padding: var(--cluos-space-12) 0; border-bottom: thin solid var(--cluos-border); }
+    .stage { min-height: var(--cluos-space-24); display: grid; place-items: center; padding: var(--cluos-space-8); border: thin solid var(--cluos-border); }
+    .stage .lockup__name { font-size: var(--cluos-text-4xl); }
+    .stage .lockup__descriptor { font-size: var(--cluos-text-sm); }
+    .rules { display: grid; gap: var(--cluos-space-4); }
+    .rule { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--cluos-space-3); padding-bottom: var(--cluos-space-3); border-bottom: thin solid var(--cluos-border); }
+    .rule p, .type-detail p { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
+    .type-display { font-family: var(--cluos-font-display); font-size: clamp(2.25rem, 5vw, var(--cluos-text-5xl)); font-weight: 300; letter-spacing: -.055em; line-height: var(--cluos-leading-tight); }
+    .type-display strong { font-weight: 650; }
+    .type-detail { display: grid; align-content: start; gap: var(--cluos-space-6); }
+    .type-detail .token-name { margin-bottom: var(--cluos-space-2); }
+    .palette-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .swatch { display: grid; gap: var(--cluos-space-3); padding: var(--cluos-space-4); border-right: thin solid var(--cluos-border); border-bottom: thin solid var(--cluos-border); }
+    .swatch:first-child { border-left: thin solid var(--cluos-border); }
+    .swatch__color { aspect-ratio: 1; border: thin solid var(--cluos-border); }
+    .swatch h3 { font-size: var(--cluos-text-lg); letter-spacing: -.025em; }
+    .swatch p:last-child { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
+    .surface { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--cluos-space-8); margin-top: var(--cluos-space-8); padding: var(--cluos-space-8); background: var(--cluos-deep-navy); color: var(--cluos-white); }
+    .surface h3 { font-size: var(--cluos-text-3xl); }
+    .surface h3 span { color: var(--cluos-tech-green); }
+    .surface p { margin-top: var(--cluos-space-3); color: var(--cluos-neutral-100); font-size: var(--cluos-text-sm); }
+    .surface__rows { border-top: thin solid var(--cluos-medium-blue); }
+    .surface__row { display: flex; align-items: center; justify-content: space-between; gap: var(--cluos-space-4); padding: var(--cluos-space-3) 0; border-bottom: thin solid var(--cluos-medium-blue); font-size: var(--cluos-text-sm); }
+    .status { display: inline-flex; align-items: center; gap: var(--cluos-space-2); font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); letter-spacing: .08em; text-transform: uppercase; }
+    .status::before { width: var(--cluos-space-2); height: var(--cluos-space-2); background: currentColor; content: ""; }
+    .status--success { color: var(--cluos-status-success); }
+    .status--warn { color: var(--cluos-status-warn); }
+    .status--error { color: var(--cluos-status-error); }
+    .state-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--cluos-space-4); padding-top: var(--cluos-space-8); }
+    .state { display: grid; align-content: start; gap: var(--cluos-space-3); padding: var(--cluos-space-6); border: thin solid var(--cluos-border); }
+    .state h3 { font-size: var(--cluos-text-xl); letter-spacing: -.03em; }
+    .state p { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
+    .motion-stage { padding-bottom: 0; border-bottom: 0; }
+    .motion-copy { display: grid; align-content: start; gap: var(--cluos-space-3); }
+    .motion-copy p { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
+    .motion-feedback { color: var(--cluos-text-subtle) !important; font-size: var(--cluos-text-xs) !important; }
+    .chart { border: thin solid var(--cluos-border); padding: var(--cluos-space-6); }
+    .chart__header { display: flex; align-items: baseline; justify-content: space-between; gap: var(--cluos-space-4); padding-bottom: var(--cluos-space-4); border-bottom: thin solid var(--cluos-border); }
+    .chart__header strong { font: 500 var(--cluos-text-lg)/1 var(--cluos-font-display); }
+    .chart__header span { color: var(--cluos-text-subtle); font-size: var(--cluos-text-xs); }
+    .chart__plot { position: relative; height: 15rem; margin-top: var(--cluos-space-6); border-bottom: thin solid var(--cluos-border-strong); border-left: thin solid var(--cluos-border-strong); }
+    .chart__grid { position: absolute; inset: 0; display: grid; align-content: space-between; pointer-events: none; }
+    .chart__grid i { display: block; border-top: thin solid var(--cluos-border); }
+    .chart__bars { position: absolute; inset: var(--cluos-space-4) var(--cluos-space-4) 0; display: flex; align-items: end; justify-content: space-around; gap: var(--cluos-space-3); }
+    .bar { width: 9%; height: var(--bar-height); transform-origin: bottom; background: var(--cluos-tech-green); transform: scaleY(0); }
+    .chart.is-playing .bar { animation: rise var(--cluos-motion-trail) var(--cluos-ease-out) forwards; animation-delay: calc(var(--bar-index) * var(--cluos-motion-stagger)); }
+    .chart__line { position: absolute; inset: var(--cluos-space-4) var(--cluos-space-4) 0; width: calc(100% - var(--cluos-space-8)); height: calc(100% - var(--cluos-space-4)); overflow: visible; }
+    .chart__line path { fill: none; stroke: var(--cluos-operational-teal); stroke-width: 3; stroke-linecap: square; stroke-dasharray: 1000; stroke-dashoffset: 1000; }
+    .chart.is-playing .chart__line path { animation: draw var(--cluos-motion-data) var(--cluos-ease-in-out) .2s forwards; }
+    @keyframes rise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    table { width: 100%; margin-top: var(--cluos-space-8); border-collapse: collapse; }
+    th, td { padding: var(--cluos-space-4); border-bottom: thin solid var(--cluos-border); text-align: left; }
+    th { background: var(--cluos-bg-muted); }
+    td { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
+    td:first-child { color: var(--cluos-text); font-weight: 550; }
+    footer { padding: var(--cluos-space-8) 0; border-top: thin solid var(--cluos-border); color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
+    @media (max-width: 64rem) { .palette-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 48rem) {
+      .shell { padding: 0 var(--cluos-space-4); }
+      .topbar { align-items: flex-start; flex-direction: column; justify-content: center; padding: var(--cluos-space-4) 0; }
+      nav { width: 100%; gap: var(--cluos-space-4); overflow-x: auto; }
+      .section__head { align-items: flex-start; flex-direction: column; }
+      .lockup-stage, .type-stage, .surface, .motion-stage { grid-template-columns: minmax(0, 1fr); }
+      .state-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 32rem) {
+      .lockup { align-items: flex-start; flex-direction: column; gap: var(--cluos-space-2); }
+      .lockup__descriptor { border-left: 0; padding-left: 0; }
+      .palette-grid { grid-template-columns: minmax(0, 1fr); }
+      .swatch { border-left: thin solid var(--cluos-border); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+      .bar { transform: scaleY(1); }
+      .chart__line path { stroke-dashoffset: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="lockup" href="#identity" aria-label="CluOS MMS Marketing Studio">
+        <span class="lockup__name"><span>CluOS</span> <strong>MMS</strong></span>
+        <span class="lockup__descriptor">Marketing Studio</span>
+      </a>
+      <nav aria-label="Seções da identidade">
+        <a href="#identity" aria-current="page">Identidade</a>
+        <a href="#type">Tipografia</a>
+        <a href="#palette">Paleta</a>
+        <a href="#states">Estados</a>
+        <a href="#motion">Movimento</a>
+      </nav>
+    </header>
 
-  // Appearance toggle
-  if (appearanceToggle) {
-    appearanceToggle.addEventListener('click', function () {
-      var currentAppearance = body.getAttribute('data-appearance') || 'light';
-      setAppearance(currentAppearance === 'dark' ? 'light' : 'dark');
-    });
-  }
+    <main id="identity">
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">CluOS · identidade canônica · cluos-mms-v1</p>
+        <h1 id="hero-title">Minimalismo técnico com <strong>clareza operacional.</strong></h1>
+        <p class="hero__copy">O MMS define a linha visual global: tipografia precisa, superfície clara, linhas como estrutura e cor aplicada apenas quando comunica ação, estado ou consequência.</p>
+        <div class="actions">
+          <a class="button button--primary" href="#lockup">Ver lockup</a>
+          <a class="button button--secondary" href="#palette">Ver semântica de cor</a>
+        </div>
+      </section>
 
-  // Keyboard support for theme buttons
-  themeBtns.forEach(function (btn) {
-    btn.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        setTheme(btn.dataset.setTheme);
-      }
-    });
-  });
+      <section class="section" id="lockup" aria-labelledby="lockup-title">
+        <div class="section__head"><div><p class="kicker">01 · Identidade de produto</p><h2 id="lockup-title">O lockup que todos os produtos reconhecem</h2></div><p>CluOS permanece leve. MMS ancora a leitura. Marketing Studio explica sem competir.</p></div>
+        <div class="lockup-stage">
+          <div class="stage"><div class="lockup"><span class="lockup__name"><span>CluOS</span> <strong>MMS</strong></span><span class="lockup__descriptor">Marketing Studio</span></div></div>
+          <div class="rules">
+            <div class="rule"><span class="token-name">Marca-base</span><p>Manrope leve, caixa normal e tracking fechado.</p></div>
+            <div class="rule"><span class="token-name">Produto</span><p>Manrope 650 para o nome significativo: MMS.</p></div>
+            <div class="rule"><span class="token-name">Descritor</span><p>Instrument Sans fina, uppercase e espaçada.</p></div>
+            <div class="rule"><span class="token-name">Separação</span><p>Uma única hairline vertical. Sem cápsula, sombra ou ícone decorativo.</p></div>
+          </div>
+        </div>
+      </section>
 
-  // Initialize
-  setTheme(body.getAttribute('data-theme') || 'teal');
-  setAppearance(body.getAttribute('data-appearance') || 'light');
-}());
-</script>
+      <section class="section" id="type" aria-labelledby="type-title">
+        <div class="section__head"><div><p class="kicker">02 · Tipografia</p><h2 id="type-title">Contraste por peso, não por ornamento</h2></div><p>Títulos conduzem. Dados e contexto permanecem objetivos.</p></div>
+        <div class="type-stage">
+          <p class="type-display">CluOS <strong>MMS</strong><br>Marketing Studio</p>
+          <div class="type-detail"><div><p class="token-name">Display · Manrope</p><p>Lockups, títulos, nomes de produto e métricas. Leve como base, bold só no que importa.</p></div><div><p class="token-name">Interface/data · Instrument Sans</p><p>Navegação, tabelas, descrições e dados em leitura direta.</p></div></div>
+        </div>
+      </section>
 
+      <section class="section" id="palette" aria-labelledby="palette-title">
+        <div class="section__head"><div><p class="kicker">03 · Semântica de cor</p><h2 id="palette-title">Azuis como estrutura. Verde como ação.</h2></div><p>Copper e oxblood entram por consequência, não como decoração.</p></div>
+        <div class="palette-grid" role="list" aria-label="Paleta canônica">
+          <article class="swatch" role="listitem"><div class="swatch__color" style="background:var(--cluos-deep-navy)"></div><p class="token-name">deep navy</p><h3>Estrutura</h3><p>Texto e superfícies densas.</p></article>
+          <article class="swatch" role="listitem"><div class="swatch__color" style="background:var(--cluos-medium-blue)"></div><p class="token-name">medium blue</p><h3>Contexto</h3><p>Navegação e contraste.</p></article>
+          <article class="swatch" role="listitem"><div class="swatch__color" style="background:var(--cluos-tech-green)"></div><p class="token-name">tech green</p><h3>Ação</h3><p>Próximo passo e sucesso.</p></article>
+          <article class="swatch" role="listitem"><div class="swatch__color" style="background:var(--cluos-copper)"></div><p class="token-name">copper</p><h3>Aviso</h3><p>Revisão não bloqueante.</p></article>
+          <article class="swatch" role="listitem"><div class="swatch__color" style="background:var(--cluos-oxblood)"></div><p class="token-name">oxblood</p><h3>Negação</h3><p>Erro, risco e bloqueio.</p></article>
+        </div>
+        <div class="surface"><div><h3>Visão de <span>operação</span></h3><p>O escuro é reservado para contexto operacional concentrado — nunca para ornamentar a tela clara.</p></div><div class="surface__rows" role="list"><div class="surface__row" role="listitem"><span>Sincronização</span><span class="status status--success">Concluída</span></div><div class="surface__row" role="listitem"><span>Revisão de conteúdo</span><span class="status status--warn">Atenção</span></div><div class="surface__row" role="listitem"><span>Publicação</span><span class="status status--error">Negada</span></div></div></div>
+      </section>
+
+      <section class="section" id="states" aria-labelledby="states-title">
+        <div class="section__head"><div><p class="kicker">04 · Estados</p><h2 id="states-title">Pouca superfície. Significado explícito.</h2></div><p>Linhas organizam; o estado vem acompanhado de texto.</p></div>
+        <div class="state-grid"><article class="state"><h3>Ação principal</h3><p>Tech green aparece uma vez por região para indicar o próximo passo.</p><a class="button button--primary" href="#motion">Atualizar dados</a></article><article class="state"><h3>Aviso operacional</h3><p>Copper informa o que merece revisão sem interromper o fluxo.</p><span class="status status--warn">Revisar antes de publicar</span></article><article class="state"><h3>Negação e risco</h3><p>Oxblood comunica bloqueio, erro ou consequência irreversível.</p><span class="status status--error">Publicação negada</span></article></div>
+        <table><thead><tr><th scope="col">Elemento</th><th scope="col">Tratamento canônico</th><th scope="col">Evitar</th></tr></thead><tbody><tr><td>Cards e blocos</td><td>Hairline, espaço, raio zero e sombra zero.</td><td>Card dentro de card e superfícies decorativas.</td></tr><tr><td>Labels</td><td>Instrument Sans, caixa alta e baixa intensidade.</td><td>Badges cápsula como decoração.</td></tr><tr><td>Gráficos</td><td>Linha desenha e barras sobem após atualização explícita.</td><td>Autoplay, loop, bounce ou animação de rolagem.</td></tr><tr><td>Cor</td><td>Uma semântica por estado, sempre com texto.</td><td>Copper/oxblood como CTA positivo.</td></tr></tbody></table>
+      </section>
+
+      <section class="section" id="motion" aria-labelledby="motion-title"><div class="section__head"><div><p class="kicker">05 · Movimento</p><h2 id="motion-title">Feedback calmo, visível e determinístico</h2></div><p>Reproduza a atualização para ver a trilha, a linha desenhada e as barras subindo.</p></div><div class="motion-stage"><div class="motion-copy"><p>Interações usam 180–280ms. Mudanças de contexto usam 600ms. Dados usam 1200ms, com stagger de 120ms.</p><button class="button button--secondary" id="motion-replay" type="button">Reproduzir atualização</button><p class="motion-feedback" id="motion-feedback" aria-live="polite">Pronto para reproduzir. Sem autoplay e sem loop.</p></div><div class="chart" id="chart" aria-label="Gráfico demonstrativo com linha e barras"><div class="chart__header"><strong>Sinal de campanha</strong><span>últimos 7 dias</span></div><div class="chart__plot"><div class="chart__grid" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="chart__bars" aria-hidden="true"><span class="bar" style="--bar-height:34%;--bar-index:0"></span><span class="bar" style="--bar-height:52%;--bar-index:1"></span><span class="bar" style="--bar-height:44%;--bar-index:2"></span><span class="bar" style="--bar-height:70%;--bar-index:3"></span><span class="bar" style="--bar-height:58%;--bar-index:4"></span><span class="bar" style="--bar-height:88%;--bar-index:5"></span><span class="bar" style="--bar-height:76%;--bar-index:6"></span></div><svg class="chart__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,74 L16,60 L32,66 L48,40 L64,50 L80,18 L100,28"></path></svg></div></div></div></section>
+    </main>
+    <footer><p>Fonte canônica: `tokens/mms-canonical.yaml`. Este preview é a referência visual global do CluOS e deve permanecer alinhado aos tokens.</p></footer>
+  </div>
+  <script>
+    (() => {
+      const chart = document.querySelector('#chart');
+      const button = document.querySelector('#motion-replay');
+      const feedback = document.querySelector('#motion-feedback');
+      if (!chart || !button || !feedback) return;
+      button.addEventListener('click', () => {
+        chart.classList.remove('is-playing');
+        void chart.offsetWidth;
+        chart.classList.add('is-playing');
+        button.disabled = true;
+        feedback.textContent = 'Atualização em andamento: linha desenhando e barras subindo.';
+      });
+      chart.addEventListener('animationend', (event) => {
+        if (event.animationName === 'draw') {
+          button.disabled = false;
+          feedback.textContent = 'Atualização concluída. Resultado mantido na tela.';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

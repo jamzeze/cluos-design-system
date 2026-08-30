@@ -1,15 +1,26 @@
 # Palette Policy — CluOS
 
+## Canonical default (2026-08-30)
+
+`cluos-mms-v1` is the global default palette. New products inherit it without
+setting a palette class: deep navy and medium blue provide structure, tech
+green is the positive action/signal, operational teal is progress, copper is
+warning/review, and oxblood is denial/error/risk. The full contract lives in
+`../../tokens/mms-canonical.yaml` in the source checkout.
+
+The composable palette library below is retained as a compatibility API for
+existing surfaces only. It is not a valid global default for new work. Any
+explicit legacy palette must be documented as a temporary opt-out and must
+not change the semantic meaning of copper or oxblood.
+
 Governs how color is chosen and applied across CluOS surfaces. Read this
 before changing any color in a CluOS product.
 
 ## 1. Palette is decoupled from archetype
 
-As of 2026-08-10, Rafael confirmed that visual style (archetype, see
-`design-archetypes.yaml`) and color palette are chosen **independently, per
-task**, not fixed as a single canonical pair. Any palette compatible with an
-archetype's mode can be applied to it. This is implemented in the token
-architecture (`tokens/tokens.css`) as a two-layer system:
+The 2026-08-10 per-task library decision is superseded for the global default
+by the 2026-08-30 `cluos-mms-v1` decision. The legacy style/palette API remains
+implemented in the token architecture for controlled migration:
 
 - Each archetype's component CSS reads **semantic role tokens**
   (`--u-accent`, `--u-ink`, `--u-bg`, `--u-surface`, `--u-line`, `--u-line2`,
@@ -69,7 +80,10 @@ Full token values (including `-deep`/`-dark` variants) live in
 - No brand color used for every semantic state.
 - No dependence on color alone to convey state.
 - No new palette applied globally without a decision recorded in
-  `profiles/cluos/palette-decisions.yaml`.
+  `palette-decisions.yaml` in the resolved CluOS profile root. From this file,
+  that root is `../../profiles/cluos-design-system/cluos` when installed and
+  `../profiles/cluos` in the canonical source checkout. Stop if neither exact
+  path is complete.
 - `err` stays oxblood-family (`#8A3A3A` light / `#C46A6A` dark) across every
   registered palette — status colors are semantic, not decorative, and
   changing error red per palette would break pattern-recognition across

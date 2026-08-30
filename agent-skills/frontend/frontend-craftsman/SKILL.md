@@ -1,6 +1,6 @@
 ---
 name: frontend-craftsman
-description: Implements the chosen design direction as functional, responsive, accessible, consistent frontend code. Use after anti-ai-slop-frontend has classified the task and (for N2/N3) design-gallery has captured an explicit archetype+palette choice. Does not invent a new visual direction during implementation.
+description: Implements the canonical cluos-mms-v1 direction as functional, responsive and accessible frontend code. Use after anti-ai-slop-frontend; a legacy archetype/palette requires an explicit opt-out record.
 ---
 
 # frontend-craftsman
@@ -12,17 +12,24 @@ improvise.
 
 ## Before writing code
 
-Confirm you have, for N2/N3 tasks: the archetype id and palette id from
-`design-decision.md` (written by `design-gallery`). For N0/N1, confirm
+Confirm you have, for N2/N3 tasks: the canonical `cluos-mms-v1` contract or
+an explicit opt-out record from `design-decision.md`. For N0/N1, confirm
 which existing tokens/components apply.
+
+For N2, for N3 when screens/flows change, and for structural N1 work, also
+read the approved `ux-layout-contract.md`. Preserve its task flow, stable IDs,
+zones, P0/P1 visibility, co-visibility, action boundaries, responsive
+constraints, and visual/DOM/focus order. If implementation pressure requires a
+structural change, stop and return to `ux-layout-architect`; do not improvise a
+new topology in code.
 
 ## Responsibilities
 
 - Map the chosen archetype to `tokens/tokens.css` custom properties — never
   hardcode a hex value that already has a token.
-- If the archetype needs a palette override, apply the `.pal-*` class (or
-  `data-cluos-palette` attribute) from `palette-policy.md` — do not
-  hand-roll a one-off color set.
+- Do not apply a legacy `.pal-*` class or `data-cluos-palette` globally unless
+  the opt-out is explicitly recorded; canonical surfaces use the default
+  semantic roles from `tokens/mms-canonical.yaml`.
 - Preserve routes, data, events, and flows exactly as they exist.
 - Implement real states: default, hover, active, focus-visible, loading,
   empty, error, success, disabled.
@@ -43,7 +50,11 @@ rules) follows test-first when the project has a test setup. Appearance is
 verified through rendering + `design-critic`/`design-qa`, not unit tests —
 don't try to substitute visual judgment with assertions on class names.
 
-## Anti-patterns (see `../../shared/anti-slop-rubric.md` for the full list)
+## Anti-patterns
+
+Read `anti-slop-rubric.md` from the installed support root
+`../../shared/cluos-design-system`, or from canonical source root
+`../../shared` when working in this repository.
 
 - Card as universal separator.
 - Brand color reused for every semantic state.

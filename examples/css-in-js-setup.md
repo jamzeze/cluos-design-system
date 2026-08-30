@@ -23,14 +23,14 @@ export default function App({ children }) {
 import styled from "styled-components";
 
 export const Button = styled.button`
-  background: ${({ theme }) => theme.color.teal};
-  color: ${({ theme }) => theme.color.textOnTeal};
+  background: ${({ theme }) => theme.action.primary.base};
+  color: ${({ theme }) => theme.action.primary.text};
   padding: ${({ theme }) => `${theme.space[3]} ${theme.space[4]}`};
   border-radius: ${({ theme }) => theme.radius.md};
   font-family: ${({ theme }) => theme.font.sans};
   transition: background ${({ theme }) => theme.motion.durFast} ${({ theme }) => theme.motion.easeOut};
 
-  &:hover { background: ${({ theme }) => theme.color.tealDeep}; }
+  &:hover { background: ${({ theme }) => theme.action.primary.deep}; }
 `;
 ```
 

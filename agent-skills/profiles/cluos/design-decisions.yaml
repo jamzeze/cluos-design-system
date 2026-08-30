@@ -53,3 +53,22 @@ decisions:
       unreachable under this decision and are reported as N/A with reason,
       not as passed.
     supersedes: null
+
+  - date: "2026-08-30"
+    decision: "MMS Swiss Ledger é a direção visual canônica global do CluOS."
+    made_by: rafael
+    detail: >
+      Rafael escolheu o perímetro GCOS + cluos-design-system + MMS e confirmou
+      que a identidade do MMS deve valer também para novos produtos futuros.
+      O lockup CluOS leve + MMS bold + Marketing Studio fino, Manrope para
+      display, Instrument Sans para interface/dados, fundo claro, hairlines,
+      raio zero, sombra zero, deep navy/medium blue e tech green passa a ser a
+      linha de base compartilhada.
+    consequence: >
+      cluos-mms-v1 é o default dos tokens e do preview. A biblioteca A–G e as
+      paletas continuam somente como compatibilidade explícita e temporária;
+      novos produtos não podem escolher outra direção global por padrão.
+      Produtos existentes migram por ondas usando o contrato de consumo.
+    supersedes:
+      - "2026-08-10: Style is chosen per task, not fixed to a single canonical direction."
+      - "2026-08-10: No single 'winning' visual direction — Subproject D reframed."

@@ -1,8 +1,9 @@
 # Routing Matrix — frontend work classification
 #
 # Consumed by anti-ai-slop-frontend. Levels gate which skills are mandatory.
-# See profiles/cluos/product-context.md for the CluOS-specific surface list
-# this routes against.
+# In the canonical checkout, see ../profiles/cluos/product-context.md for the
+# CluOS-specific surface list this routes against. Installed skills use the
+# resolved namespaced profile root.
 
 version: 1
 
@@ -17,26 +18,29 @@ levels:
   N1:
     name: "Componente ou seção"
     examples: [novo componente, refatoração de tabela, modal, formulário, navegação parcial]
-    flow: [anti-ai-slop-frontend, get-context, frontend-craftsman, design-critic, design-qa, verification-before-completion]
+    flow: [anti-ai-slop-frontend, get-context, "ux-layout-architect (se posicionamento/hierarquia estiverem em escopo)", frontend-craftsman, design-critic, design-qa, verification-before-completion]
     gallery_required: "quando houver mais de uma direção visual relevante"
     selection_required: false
 
   N2:
     name: "Tela, fluxo ou redesign"
     examples: [dashboard, landing page, onboarding, área administrativa, redesign de uma tela inteira]
-    flow: [anti-ai-slop-frontend, get-context, design-gallery, "seleção humana (estilo + paleta)", frontend-craftsman, design-critic, design-qa, verification-before-completion]
-    gallery_required: true
-    selection_required: true
-    note: "Para CluOS, 'seleção humana' significa: apresentar as opções relevantes de design-archetypes.yaml + palette-policy.md, Rafael escolhe estilo e paleta para ESTA tela especificamente. Não presumir um default fixo."
+    flow: [anti-ai-slop-frontend, get-context, ux-layout-architect, frontend-craftsman, design-critic, design-qa, verification-before-completion]
+    gallery_required: false
+    selection_required: false
+    default_style: cluos-mms-v1
+    note: "Novas superfícies herdam cluos-mms-v1. Design Gallery só é necessária para um opt-out explícito ou comparação de alternativas registrada."
 
   N3:
     name: "Design system ou múltiplas superfícies"
     examples: [refatoração do design system, mudança de paleta global, novo primitive compartilhado]
-    flow: [anti-ai-slop-frontend, design-system-refactor-director, audit, get-context, design-gallery, "seleção humana", writing-plans, frontend-craftsman, design-critic, design-qa, verification-before-completion]
-    gallery_required: true
-    selection_required: true
+    flow: [anti-ai-slop-frontend, design-system-refactor-director, audit, get-context, "ux-layout-architect (quando fluxos/telas mudarem)", writing-plans, frontend-craftsman, design-critic, design-qa, verification-before-completion]
+    gallery_required: false
+    selection_required: false
+    default_style: cluos-mms-v1
+    note: "O contrato MMS é o alvo global. Qualquer direção alternativa precisa de decisão de supersessão."
 
-# Matriz de teste (12 prompts, §18.4 do metaprompt). Validado por leitura e
+# Matriz de teste (14 prompts, §18.4 do metaprompt + layout contract). Validado por leitura e
 # classificação manual em 2026-08-10 — NÃO validado como comportamento real
 # de agente em execução (isso exigiria sessões live do Claude e do Codex,
 # fora do escopo do que pode ser executado nesta sessão). Ver
@@ -46,62 +50,91 @@ test_matrix:
   - prompt: "Corrija o alinhamento deste botão."
     level: N0
     skills: [anti-ai-slop-frontend, frontend-craftsman]
+    layout_contract: false
     gallery: false
     selection: false
   - prompt: "Crie um novo componente de filtro."
     level: N1
     skills: [anti-ai-slop-frontend, get-context, frontend-craftsman, design-critic, design-qa]
+    layout_contract: false
     gallery: false
     selection: false
   - prompt: "Refatore esta tabela."
     level: N1
-    skills: [anti-ai-slop-frontend, get-context, frontend-craftsman, design-critic, design-qa]
+    skills: [anti-ai-slop-frontend, get-context, ux-layout-architect, frontend-craftsman, design-critic, design-qa]
+    layout_contract: true
     gallery: "condicional (se densidade/estrutura mudar substancialmente)"
     selection: false
   - prompt: "Crie uma tela de dashboard."
     level: N2
-    skills: [anti-ai-slop-frontend, get-context, design-gallery, frontend-craftsman, design-critic, design-qa]
-    gallery: true
-    selection: true
+    skills: [anti-ai-slop-frontend, get-context, ux-layout-architect, frontend-craftsman, design-critic, design-qa]
+    layout_contract: true
+    gallery: "condicional (comparação ou opt-out explícito)"
+    selection: false
+    note: "A tela herda cluos-mms-v1 por padrão."
   - prompt: "Redesenhe o onboarding."
     level: N2
-    skills: [anti-ai-slop-frontend, get-context, design-gallery, frontend-craftsman, design-critic, design-qa]
-    gallery: true
-    selection: true
+    skills: [anti-ai-slop-frontend, get-context, ux-layout-architect, frontend-craftsman, design-critic, design-qa]
+    layout_contract: true
+    gallery: "condicional (comparação ou opt-out explícito)"
+    selection: false
+    note: "O fluxo herda cluos-mms-v1 por padrão."
   - prompt: "Mude a paleta do produto."
     level: N3
     skills: [anti-ai-slop-frontend, design-system-refactor-director, design-gallery, writing-plans]
+    layout_contract: false
     gallery: true
     selection: true
     note: "Bloqueia sem decisão registrada em palette-decisions.yaml."
   - prompt: "Refatore o design system."
     level: N3
-    skills: [anti-ai-slop-frontend, design-system-refactor-director, audit, get-context, design-gallery, writing-plans, frontend-craftsman, design-critic, design-qa]
-    gallery: true
-    selection: true
+    skills: [anti-ai-slop-frontend, design-system-refactor-director, audit, get-context, writing-plans, frontend-craftsman, design-critic, design-qa]
+    layout_contract: false
+    gallery: false
+    selection: false
+    note: "Sem mudança explícita de estrutura de tela/fluxo, registrar a fase de contrato como não aplicável."
+  - prompt: "Refatore o design system e a estrutura das telas de referência."
+    level: N3
+    skills: [anti-ai-slop-frontend, design-system-refactor-director, audit, get-context, ux-layout-architect, writing-plans, frontend-craftsman, design-critic, design-qa]
+    layout_contract: true
+    gallery: "condicional (comparação ou opt-out explícito)"
+    selection: false
+    note: "A estrutura herda cluos-mms-v1 por padrão; comparar alternativas só mediante registro."
   - prompt: "Implemente esta imagem."
     level: N1
     skills: [anti-ai-slop-frontend, image-to-code, frontend-craftsman, design-critic, design-qa]
+    layout_contract: false
     gallery: false
     selection: false
   - prompt: "Melhore o frontend."
     level: "ambíguo — pedir esclarecimento (qual superfície?) antes de classificar"
     skills: []
+    layout_contract: null
     gallery: null
     selection: null
   - prompt: "Adicione uma animação ao modal."
     level: N0
     skills: [anti-ai-slop-frontend, frontend-craftsman]
+    layout_contract: false
     gallery: false
     selection: false
   - prompt: "Corrija um bug de teclado no combobox."
     level: N0
     skills: [anti-ai-slop-frontend, systematic-debugging, frontend-craftsman]
+    layout_contract: false
     gallery: false
     selection: false
   - prompt: "Crie uma landing page."
     level: N2
-    skills: [anti-ai-slop-frontend, get-context, design-gallery, frontend-craftsman, design-critic, design-qa]
-    gallery: true
-    selection: true
-    note: "Fora do inventário atual de superfícies CluOS (produto é operacional, não marketing) — confirmar com Rafael antes de aplicar arquétipos B/D/G que foram desenhados para densidade operacional."
+    skills: [anti-ai-slop-frontend, get-context, ux-layout-architect, frontend-craftsman, design-critic, design-qa]
+    layout_contract: true
+    gallery: "condicional (comparação ou opt-out explícito)"
+    selection: false
+    note: "Superfícies de marketing também herdam cluos-mms-v1; só registrar comparação/opt-out quando houver uma direção alternativa necessária."
+  - prompt: "Otimize a disposição dos elementos na tela de laudo do Azigos."
+    level: N2
+    skills: [anti-ai-slop-frontend, get-context, ux-layout-architect, frontend-craftsman, design-critic, design-qa]
+    layout_contract: true
+    gallery: "condicional (comparação ou opt-out explícito)"
+    selection: false
+    note: "Tela clínica complexa: o contrato de posicionamento continua obrigatório; a direção visual herda cluos-mms-v1."

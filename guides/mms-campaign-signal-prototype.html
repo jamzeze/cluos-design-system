@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="pt-BR" data-cluos-style="MMS" data-cluos-canonical="cluos-mms-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>CluOS MMS — Sinal de campanha</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens/tokens.css">
+  <style>
+    :root {
+      --mms-display: "Manrope", var(--cluos-font-sans);
+      --mms-sans: "Instrument Sans", var(--cluos-font-sans);
+      --mms-canvas: var(--cluos-white);
+      --mms-ink: var(--cluos-deep-navy);
+      --mms-blue: var(--cluos-medium-blue);
+      --mms-line: var(--cluos-border);
+      --mms-muted: var(--cluos-text-muted);
+      --mms-motion-trail: calc(var(--cluos-dur-slow) + var(--cluos-dur-base));
+      --mms-motion-chart: calc(var(--cluos-dur-slow) + var(--cluos-dur-slow) + var(--cluos-dur-slow));
+      --mms-motion-bar: calc(var(--cluos-dur-slow) + var(--cluos-dur-base));
+      --mms-motion-line-delay: var(--cluos-dur-base);
+      --mms-motion-bar-delay: calc(var(--cluos-dur-slow) + var(--cluos-dur-base));
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      background: var(--mms-canvas);
+      color: var(--mms-ink);
+      font-family: var(--mms-sans);
+      font-size: var(--cluos-text-base);
+      line-height: var(--cluos-leading-normal);
+      margin: 0;
+      text-rendering: optimizeLegibility;
+    }
+
+    button { font: inherit; }
+
+    button:focus-visible,
+    a:focus-visible {
+      box-shadow: var(--cluos-ring-focus);
+      outline: none;
+    }
+
+    .prototype-banner {
+      background: var(--cluos-bg-muted);
+      border-bottom: thin solid var(--mms-line);
+      color: var(--cluos-text-muted);
+      font-size: var(--cluos-text-xs);
+      letter-spacing: 0.1em;
+      padding: var(--cluos-space-2) var(--cluos-space-6);
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .shell {
+      margin: 0 auto;
+      max-width: var(--cluos-container-wide);
+      padding: 0 var(--cluos-space-6);
+    }
+
+    .masthead {
+      align-items: center;
+      border-bottom: thin solid var(--mms-line);
+      display: flex;
+      justify-content: space-between;
+      min-height: calc(var(--cluos-space-16) + var(--cluos-space-4));
+    }
+
+    .lockup {
+      align-items: center;
+      color: var(--mms-ink);
+      display: inline-flex;
+      gap: var(--cluos-space-3);
+      text-decoration: none;
+    }
+
+    .lockup__name {
+      font-family: var(--mms-display);
+      font-size: var(--cluos-text-xl);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .lockup__name span { font-weight: 300; }
+    .lockup__name strong { font-weight: 650; }
+
+    .lockup__descriptor {
+      border-left: thin solid var(--mms-line);
+      color: var(--cluos-text-muted);
+      font-size: var(--cluos-text-xs);
+      letter-spacing: 0.12em;
+      padding-left: var(--cluos-space-3);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .masthead nav { display: flex; gap: var(--cluos-space-6); }
+
+    .masthead nav a {
+      color: var(--cluos-text-muted);
+      font-size: var(--cluos-text-sm);
+      text-decoration: none;
+    }
+
+    .masthead nav a[aria-current="page"] { color: var(--mms-ink); }
+
+    .campaign-hero {
+      border-bottom: thin solid var(--mms-line);
+      display: grid;
+      gap: var(--cluos-space-12);
+      grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+      padding: var(--cluos-space-24) 0 var(--cluos-space-12);
+    }
+
+    .eyebrow,
+    .section-label,
+    .metric dt,
+    .trail__label,
+    .status-card__label,
+    .source-note,
+    .chart figcaption {
+      color: var(--cluos-text-subtle);
+      font-size: var(--cluos-text-xs);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow { color: var(--mms-blue); }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      font-family: var(--mms-display);
+      font-size: var(--cluos-text-6xl);
+      font-weight: 300;
+      letter-spacing: -0.06em;
+      line-height: var(--cluos-leading-tight);
+      margin-top: var(--cluos-space-4);
+    }
+
+    h1 strong { font-weight: 650; }
+
+    .hero-copy {
+      color: var(--mms-muted);
+      font-size: var(--cluos-text-lg);
+      line-height: var(--cluos-leading-relaxed);
+      margin-top: var(--cluos-space-6);
+      max-width: var(--cluos-container-prose);
+    }
+
+    .hero-actions { margin-top: var(--cluos-space-8); }
+
+    .button {
+      align-items: center;
+      background: transparent;
+      border: thin solid transparent;
+      border-radius: 0;
+      color: var(--mms-ink);
+      cursor: pointer;
+      display: inline-flex;
+      font-size: var(--cluos-text-sm);
+      font-weight: 600;
+      justify-content: center;
+      min-height: calc(var(--cluos-space-8) + var(--cluos-space-2));
+      padding: 0 var(--cluos-space-4);
+      transition: background-color var(--cluos-dur-fast) var(--cluos-ease-out), border-color var(--cluos-dur-fast) var(--cluos-ease-out), color var(--cluos-dur-fast) var(--cluos-ease-out);
+    }
+
+    .button--primary { background: var(--cluos-tech-green); }
+    .button--primary:hover { background: var(--cluos-signal-deep); }
+    .button:disabled { cursor: wait; opacity: 0.72; }
+
+    .status-card {
+      align-self: start;
+      border: thin solid var(--mms-line);
+      display: grid;
+      gap: var(--cluos-space-3);
+      padding: var(--cluos-space-6);
+    }
+
+    .status-card__row { align-items: center; display: flex; gap: var(--cluos-space-3); }
+
+    .status-card__mark {
+      background: var(--cluos-tech-green);
+      display: grid;
+      flex: 0 0 auto;
+      height: var(--cluos-space-8);
+      place-items: center;
+      width: var(--cluos-space-8);
+    }
+
+    .status-card__mark::after {
+      border-bottom: thin solid var(--mms-ink);
+      border-left: thin solid var(--mms-ink);
+      content: "";
+      height: var(--cluos-space-2);
+      transform: rotate(-45deg) translateY(calc(var(--cluos-space-1) / -2));
+      width: var(--cluos-space-4);
+    }
+
+    .status-card__value { color: var(--mms-ink); font-size: var(--cluos-text-sm); font-weight: 600; }
+    .status-card__detail { color: var(--mms-muted); font-size: var(--cluos-text-sm); }
+
+    .operational-trail {
+      border-bottom: thin solid var(--mms-line);
+      padding: var(--cluos-space-8) 0 var(--cluos-space-12);
+    }
+
+    .trail-heading {
+      align-items: baseline;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--cluos-space-6);
+    }
+
+    .trail-heading p:last-child { color: var(--mms-muted); font-size: var(--cluos-text-sm); }
+
+    .trail {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    .trail::before,
+    .trail::after {
+      background: var(--mms-line);
+      content: "";
+      height: calc(var(--cluos-space-1) / 2);
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: calc(var(--cluos-space-2) - (var(--cluos-space-1) / 4));
+      transform-origin: left center;
+    }
+
+    .trail::after {
+      background: var(--cluos-tech-green);
+      right: auto;
+      transform: scaleX(1);
+      width: 100%;
+    }
+
+    .trail__item { display: grid; gap: var(--cluos-space-2); position: relative; }
+    .trail__item:nth-child(n + 2) { padding-left: var(--cluos-space-4); }
+
+    .trail__node {
+      background: var(--mms-blue);
+      height: var(--cluos-space-3);
+      position: relative;
+      width: var(--cluos-space-3);
+      z-index: 1;
+    }
+
+    .trail__item:nth-child(4) .trail__node { background: var(--cluos-tech-green); }
+    .trail__label { color: var(--mms-blue); margin-top: var(--cluos-space-2); }
+    .trail__item:nth-child(4) .trail__label { color: var(--mms-ink); }
+    .trail__detail { color: var(--mms-muted); font-size: var(--cluos-text-sm); }
+
+    .signal-grid {
+      border-bottom: thin solid var(--mms-line);
+      display: grid;
+      gap: var(--cluos-space-8);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+      padding: var(--cluos-space-12) 0;
+    }
+
+    .message-panel,
+    .chart { min-width: 0; }
+
+    .message-panel {
+      border: thin solid var(--mms-line);
+      display: grid;
+      gap: var(--cluos-space-6);
+      padding: var(--cluos-space-4);
+    }
+
+    .message-panel__body {
+      align-items: stretch;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    }
+
+    .message-panel__field {
+      background: var(--cluos-deep-navy);
+      color: var(--cluos-white);
+      display: flex;
+      font-family: var(--mms-display);
+      font-size: var(--cluos-text-lg);
+      font-weight: 300;
+      line-height: var(--cluos-leading-snug);
+      padding: var(--cluos-space-4);
+    }
+
+    .message-panel__copy {
+      display: grid;
+      gap: var(--cluos-space-4);
+      padding: var(--cluos-space-4);
+    }
+
+    .message-panel__copy h2 {
+      font-family: var(--mms-display);
+      font-size: var(--cluos-text-3xl);
+      font-weight: 400;
+      letter-spacing: -0.05em;
+      line-height: var(--cluos-leading-tight);
+    }
+
+    .message-panel__copy p { color: var(--mms-muted); font-size: var(--cluos-text-sm); }
+
+    .text-link {
+      color: var(--mms-ink);
+      font-size: var(--cluos-text-sm);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .text-link::after { content: " →"; }
+
+    .chart { display: grid; gap: var(--cluos-space-4); }
+
+    .chart figcaption { color: var(--mms-blue); }
+
+    .line-chart {
+      border-bottom: thin solid var(--mms-line);
+      min-height: calc(var(--cluos-space-24) + var(--cluos-space-16));
+      width: 100%;
+    }
+
+    .chart-grid { stroke: var(--mms-line); stroke-width: calc(var(--cluos-space-1) / 4); }
+    .chart-axis { stroke: var(--cluos-border-strong); stroke-width: calc(var(--cluos-space-1) / 4); }
+    .chart-data { fill: none; stroke: var(--mms-blue); stroke-linecap: square; stroke-linejoin: miter; stroke-width: calc(var(--cluos-space-1) + (var(--cluos-space-1) / 2)); }
+    .chart-marker { fill: var(--cluos-white); stroke: var(--mms-blue); stroke-width: calc(var(--cluos-space-1) + (var(--cluos-space-1) / 2)); }
+    .chart-label { fill: var(--mms-muted); font-family: var(--mms-sans); font-size: var(--cluos-text-xs); }
+
+    .bar-chart {
+      align-items: end;
+      border-bottom: thin solid var(--mms-line);
+      display: grid;
+      gap: var(--cluos-space-3);
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      min-height: calc(var(--cluos-space-24) + var(--cluos-space-16));
+      padding: var(--cluos-space-8) 0 var(--cluos-space-3);
+    }
+
+    .bar-group { align-items: end; display: grid; gap: var(--cluos-space-2); grid-template-rows: 1fr auto; min-height: 100%; }
+
+    .bar {
+      align-self: end;
+      background: var(--mms-blue);
+      height: var(--bar-size);
+      transform: scaleY(1);
+      transform-origin: bottom center;
+    }
+
+    .bar-group:nth-child(1) .bar { background: var(--cluos-deep-navy); }
+    .bar-group:nth-child(3) .bar { background: var(--cluos-tech-green); }
+    .bar-group:nth-child(4) .bar { background: var(--cluos-status-warn); }
+    .bar-group:nth-child(5) .bar { background: var(--cluos-status-error); }
+    .bar-group span { color: var(--mms-muted); font-size: var(--cluos-text-xs); text-align: center; }
+
+    .metrics {
+      border-bottom: thin solid var(--mms-line);
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .metric { border-right: thin solid var(--mms-line); margin: 0; padding: var(--cluos-space-6); }
+    .metric:first-child { border-left: thin solid var(--mms-line); }
+    .metric dd { color: var(--mms-ink); font-family: var(--mms-display); font-size: var(--cluos-text-2xl); font-weight: 450; letter-spacing: -0.04em; margin: var(--cluos-space-2) 0 0; }
+    .metric p { color: var(--mms-muted); font-size: var(--cluos-text-xs); margin-top: var(--cluos-space-2); }
+
+    .metric p span { color: var(--mms-blue); font-weight: 600; }
+    .metric--warning p span { color: var(--cluos-status-warn); }
+
+    .source-row {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: var(--cluos-space-6) 0;
+    }
+
+    .source-note { color: var(--mms-muted); font-weight: 400; letter-spacing: 0; text-transform: none; }
+
+    .sync-feedback { color: var(--mms-muted); font-size: var(--cluos-text-sm); }
+
+    .campaign-prototype.is-animating .trail::after { animation: advance-trail var(--mms-motion-trail) var(--cluos-ease-out) both; }
+    .campaign-prototype.is-animating .chart-data { animation: draw-line var(--mms-motion-chart) var(--cluos-ease-out) var(--mms-motion-line-delay) both; stroke-dasharray: 1; }
+    .campaign-prototype.is-animating .chart-marker { animation: reveal-marker var(--cluos-dur-base) var(--cluos-ease-out) calc(var(--mms-motion-line-delay) + var(--mms-motion-chart)) both; }
+    .campaign-prototype.is-animating .bar { animation: rise-bar var(--mms-motion-bar) var(--cluos-ease-out) both; }
+    .campaign-prototype.is-animating .bar-group:nth-child(1) .bar { animation-delay: var(--mms-motion-bar-delay); }
+    .campaign-prototype.is-animating .bar-group:nth-child(2) .bar { animation-delay: calc(var(--mms-motion-bar-delay) + var(--cluos-dur-fast)); }
+    .campaign-prototype.is-animating .bar-group:nth-child(3) .bar { animation-delay: calc(var(--mms-motion-bar-delay) + var(--cluos-dur-fast) + var(--cluos-dur-fast)); }
+    .campaign-prototype.is-animating .bar-group:nth-child(4) .bar { animation-delay: calc(var(--mms-motion-bar-delay) + var(--cluos-dur-fast) + var(--cluos-dur-fast) + var(--cluos-dur-fast)); }
+    .campaign-prototype.is-animating .bar-group:nth-child(5) .bar { animation-delay: calc(var(--mms-motion-bar-delay) + var(--cluos-dur-fast) + var(--cluos-dur-fast) + var(--cluos-dur-fast) + var(--cluos-dur-fast)); }
+
+    @keyframes advance-trail {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes draw-line {
+      from { stroke-dashoffset: 1; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes reveal-marker {
+      from { opacity: 0; transform: scale(0); transform-origin: center; }
+      to { opacity: 1; transform: scale(1); transform-origin: center; }
+    }
+
+    @keyframes rise-bar {
+      from { transform: scaleY(0); }
+      to { transform: scaleY(1); }
+    }
+
+    @media (max-width: 64rem) {
+      .signal-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+      .message-panel { grid-column: 1 / -1; }
+      .metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .metric:nth-child(4) { border-left: thin solid var(--mms-line); }
+    }
+
+    @media (max-width: 48rem) {
+      .shell { padding: 0 var(--cluos-space-4); }
+      .masthead { align-items: flex-start; flex-direction: column; justify-content: center; padding: var(--cluos-space-4) 0; }
+      .masthead nav { overflow-x: auto; width: 100%; }
+      .campaign-hero { grid-template-columns: minmax(0, 1fr); }
+      h1 { font-size: var(--cluos-text-5xl); }
+      .trail { gap: var(--cluos-space-3); grid-template-columns: minmax(0, 1fr); }
+      .trail::before, .trail::after { bottom: 0; height: auto; left: calc(var(--cluos-space-2) - (var(--cluos-space-1) / 4)); right: auto; top: 0; transform: scaleY(1); transform-origin: top center; width: calc(var(--cluos-space-1) / 2); }
+      .trail::after { height: 100%; }
+      .trail__item, .trail__item:nth-child(n + 2) { padding-left: var(--cluos-space-8); }
+      .trail__node { left: calc(var(--cluos-space-2) * -1); }
+      .signal-grid { grid-template-columns: minmax(0, 1fr); }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .metric:nth-child(n) { border-left: thin solid var(--mms-line); }
+      .source-row { align-items: flex-start; flex-direction: column; gap: var(--cluos-space-3); }
+      .campaign-prototype.is-animating .trail::after { animation-name: advance-trail-vertical; }
+    }
+
+    @media (max-width: 32rem) {
+      .lockup { align-items: flex-start; flex-direction: column; gap: var(--cluos-space-2); }
+      .lockup__descriptor { border-left: 0; padding-left: 0; }
+      .message-panel__body { grid-template-columns: minmax(0, 1fr); }
+      .metrics { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto; transition-duration: 0.01ms; }
+      .campaign-prototype.is-animating .trail__progress,
+      .campaign-prototype.is-animating .chart-data,
+      .campaign-prototype.is-animating .chart-marker,
+      .campaign-prototype.is-animating .bar { animation: none; }
+    }
+
+    @keyframes advance-trail-vertical {
+      from { transform: scaleY(0); }
+      to { transform: scaleY(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="prototype-banner">Protótipo canônico — cluos-mms-v1 · atualização explícita</div>
+
+  <div class="shell campaign-prototype" id="campaign-prototype" data-sync-state="ready">
+    <header class="masthead">
+      <a class="lockup" href="#sinal" aria-label="CluOS MMS, Marketing Studio">
+        <span class="lockup__name"><span>CluOS</span> <strong>MMS</strong></span>
+        <span class="lockup__descriptor">Marketing Studio</span>
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="#sinal" aria-current="page">Sinal de campanha</a>
+        <a href="#mensagem">Campanhas</a>
+        <a href="#dados">Relatórios</a>
+      </nav>
+    </header>
+
+    <main id="sinal">
+      <section class="campaign-hero" aria-labelledby="signal-title">
+        <div>
+          <p class="eyebrow">MMS · Leitura editorial e operacional</p>
+          <h1 id="signal-title">Sinal de <strong>campanha.</strong></h1>
+          <p class="hero-copy">A mensagem permanece legível; a operação revela a evidência. Quando uma atualização chega, a trilha explica o processo antes de a linha ser desenhada e as barras subirem.</p>
+          <div class="hero-actions">
+            <button class="button button--primary" id="sync-button" type="button" aria-describedby="sync-feedback">Reproduzir atualização</button>
+          </div>
+        </div>
+
+        <aside class="status-card" aria-labelledby="sync-status">
+          <div class="status-card__row">
+            <span class="status-card__mark" aria-hidden="true"></span>
+            <div>
+              <p class="status-card__label">Estado dos dados</p>
+              <p class="status-card__value" id="sync-status">Dados sincronizados</p>
+            </div>
+          </div>
+          <p class="status-card__detail">Última atualização: agora. Todas as fontes estão disponíveis.</p>
+          <p class="sync-feedback" id="sync-feedback" aria-live="polite">Clique em “Reproduzir atualização” para ver: trilha, linha e barras.</p>
+        </aside>
+      </section>
+
+      <section class="operational-trail" aria-labelledby="trail-title">
+        <div class="trail-heading">
+          <p class="section-label" id="trail-title">Trilha operacional</p>
+          <p>Dados e movimento correspondem ao mesmo evento.</p>
+        </div>
+        <ol class="trail">
+          <li class="trail__item">
+            <span class="trail__node" aria-hidden="true"></span>
+            <span class="trail__label">Briefing</span>
+            <span class="trail__detail">Concluído</span>
+          </li>
+          <li class="trail__item">
+            <span class="trail__node" aria-hidden="true"></span>
+            <span class="trail__label">Planejamento</span>
+            <span class="trail__detail">Concluído</span>
+          </li>
+          <li class="trail__item">
+            <span class="trail__node" aria-hidden="true"></span>
+            <span class="trail__label">Coleta de dados</span>
+            <span class="trail__detail">Validada</span>
+          </li>
+          <li class="trail__item">
+            <span class="trail__node" aria-hidden="true"></span>
+            <span class="trail__label">Sinal atualizado</span>
+            <span class="trail__detail">Pronto para leitura</span>
+          </li>
+        </ol>
+      </section>
+
+      <section class="signal-grid" id="dados" aria-label="Mensagem e desempenho da campanha">
+        <article class="message-panel" id="mensagem" aria-labelledby="message-title">
+          <p class="section-label">Mensagem da campanha</p>
+          <div class="message-panel__body">
+            <p class="message-panel__field">CluOS MMS<br>Marketing Studio</p>
+            <div class="message-panel__copy">
+              <h2 id="message-title">Menos ruído.<br>Mais decisão.</h2>
+              <p>Clareza operacional para transformar dados em ação de campanha.</p>
+              <a class="text-link" href="#dados">Ver mensagem</a>
+            </div>
+          </div>
+        </article>
+
+        <figure class="chart" aria-labelledby="line-caption">
+          <figcaption id="line-caption">Desempenho acumulado</figcaption>
+          <svg class="line-chart" viewBox="0 0 360 228" role="img" aria-labelledby="line-title line-description">
+            <title id="line-title">Linha de desempenho acumulado</title>
+            <desc id="line-description">A evolução acumulada sobe gradualmente do início da campanha até a atualização atual.</desc>
+            <path class="chart-grid" d="M30 38 H346 M30 84 H346 M30 130 H346 M30 176 H346"></path>
+            <path class="chart-axis" d="M30 176 H346"></path>
+            <path class="chart-data" pathLength="1" d="M30 176 L62 166 L86 154 L112 130 L136 130 L162 102 L188 96 L212 78 L236 70 L264 45 L294 45 L324 28"></path>
+            <circle class="chart-marker" cx="324" cy="28" r="5"></circle>
+            <text class="chart-label" x="30" y="206">00:00</text>
+            <text class="chart-label" x="116" y="206">08:00</text>
+            <text class="chart-label" x="204" y="206">16:00</text>
+            <text class="chart-label" x="306" y="206">agora</text>
+          </svg>
+        </figure>
+
+        <figure class="chart" aria-labelledby="bars-caption">
+          <figcaption id="bars-caption">Desempenho por canal</figcaption>
+          <div class="bar-chart" role="img" aria-label="Barras de desempenho por canal: site 35, email 62, social 78, display 41 e push 18.">
+            <div class="bar-group"><span class="bar" style="--bar-size: 45%"></span><span>Site</span></div>
+            <div class="bar-group"><span class="bar" style="--bar-size: 72%"></span><span>Email</span></div>
+            <div class="bar-group"><span class="bar" style="--bar-size: 86%"></span><span>Social</span></div>
+            <div class="bar-group"><span class="bar" style="--bar-size: 51%"></span><span>Display</span></div>
+            <div class="bar-group"><span class="bar" style="--bar-size: 28%"></span><span>Push</span></div>
+          </div>
+        </figure>
+      </section>
+
+      <section class="metrics" aria-label="Dados operacionais">
+        <dl class="metric"><dt>Impressões</dt><dd>1,25 M</dd><p>vs. ontem <span>+ 12,4%</span></p></dl>
+        <dl class="metric"><dt>Cliques</dt><dd>78.392</dd><p>vs. ontem <span>+ 8,7%</span></p></dl>
+        <dl class="metric"><dt>Taxa de clique</dt><dd>6,27%</dd><p>vs. ontem <span>+ 3,1 pp</span></p></dl>
+        <dl class="metric"><dt>Conversões</dt><dd>4.862</dd><p>vs. ontem <span>+ 15,6%</span></p></dl>
+        <dl class="metric metric--warning"><dt>Custo por conversão</dt><dd>R$ 18,42</dd><p>vs. ontem <span>− 4,3%</span></p></dl>
+        <dl class="metric"><dt>ROI</dt><dd>6,12×</dd><p>vs. ontem <span>+ 1,2×</span></p></dl>
+      </section>
+    </main>
+
+    <footer class="source-row">
+      <p class="source-note">Fontes: GA4, Ads, Meta, LinkedIn, CRM e plataforma de email.</p>
+      <p class="source-note">O movimento só ocorre quando dados entram ou mudam.</p>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const prototype = document.querySelector('#campaign-prototype');
+      const syncButton = document.querySelector('#sync-button');
+      const syncStatus = document.querySelector('#sync-status');
+      const feedback = document.querySelector('#sync-feedback');
+
+      if (!prototype || !syncButton || !syncStatus || !feedback) return;
+
+      const finishUpdate = () => {
+        prototype.classList.remove('is-animating');
+        prototype.dataset.syncState = 'ready';
+        prototype.setAttribute('aria-busy', 'false');
+        syncButton.disabled = false;
+        syncStatus.textContent = 'Dados sincronizados';
+        feedback.textContent = 'Dados sincronizados. A linha foi redesenhada e as barras representam a atualização atual.';
+      };
+
+      syncButton.addEventListener('click', () => {
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        prototype.classList.remove('is-animating');
+        void prototype.offsetWidth;
+        prototype.dataset.syncState = 'syncing';
+        prototype.setAttribute('aria-busy', 'true');
+        syncButton.disabled = true;
+        syncStatus.textContent = 'Atualizando dados';
+        feedback.textContent = reducedMotion
+          ? 'Atualizando dados. A visualização será atualizada sem movimento.'
+          : 'Atualizando dados. A trilha avança, depois a linha e as barras revelam o novo sinal.';
+        if (reducedMotion) {
+          finishUpdate();
+          return;
+        }
+
+        const completeAfterFinalBar = (event) => {
+          if (event.animationName !== 'rise-bar' || !event.target.matches('.bar-group:nth-child(5) .bar')) return;
+          prototype.removeEventListener('animationend', completeAfterFinalBar);
+          finishUpdate();
+        };
+
+        prototype.addEventListener('animationend', completeAfterFinalBar);
+        prototype.classList.add('is-animating');
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,5 +1,9 @@
 # Decision Log
 
+> Historical v2 decisions are retained for traceability. The 2026-08-30
+> append-only decision promotes `cluos-mms-v1` to the global default; consult
+> `DESIGN.md` and `tokens/mms-canonical.yaml` for the active contract.
+
 Human-readable log. Machine-readable source of truth:
 `agent-skills/profiles/cluos/design-decisions.yaml` and
 `palette-decisions.yaml`. Append-only.

@@ -18,3 +18,41 @@ decisions:
       Removing a palette = delete its class + its row in palette-policy.md;
       zero impact on other palettes or on archetypes (alias fallback to
       native colors if a referenced class is ever missing).
+
+  - date: "2026-08-24"
+    scope: mms
+    decision: "MMS adota aparência CLARA dos tokens canônicos (paleta 'cores do Azigos') com arquétipo Swiss Ledger no produto."
+    mode: preserve
+    made_by: rafael
+    detail: >
+      Pedido explícito de Rafael (sessão 2026-08-23/24): "apenas as cores do
+      azigos, esquema bem mais minimalista e mais clean". As cores da marca
+      Azigos são exatamente as brand foundations canônicas dos tokens CluOS
+      (#010D28 deep-navy, #132952 medium-blue, #C4DB7B tech-green, neutros
+      #EAEAEA/#A5A5A5) — nenhuma cor nova entra; o MMS troca a aparência
+      dark (Thermal Nocturne noturno) pela aparência light nativa + camada
+      Swiss Ledger (radius 0, sem sombra, hairlines) via override local no
+      globals.css do MMS. Arquétipo escolhido por Rafael em AskUserQuestion:
+      Swiss Ledger (D), fundo claro.
+    rollback: >
+      Reverter o bloco "Swiss Ledger — Azigos light" no globals.css do
+      MMS-mms-v1 e restaurar data-appearance="dark" no layout.tsx. Tokens
+      compartilhados intocados.
+
+  - date: "2026-08-30"
+    scope: global
+    decision: "A paleta MMS/Swiss Ledger passa a ser a paleta global padrão do CluOS."
+    mode: preserve
+    made_by: rafael
+    detail: >
+      Deep navy (#010D28) e medium blue (#132952) estruturam a interface;
+      tech green (#C4DB7B) é ação/sinal positivo; operational teal (#16A39A)
+      representa execução; copper (#BD7845) é aviso/revisão; oxblood
+      (#8A3A3A) é negação/erro/risco. Fundo branco, neutral-100 e neutral-500
+      completam o registro claro. A decisão vale para GCOS, MMS,
+      cluos-design-system e novos produtos futuros.
+    rollback: >
+      Restaurar o default de tokens para Teal Classic/arquétipo por tarefa,
+      reverter o contrato cluos-mms-v1 no GCOS e manter esta entrada histórica;
+      aliases legados permitem rollback sem apagar os valores antigos.
+    supersedes: "2026-08-10: No single global palette. 7 palettes registered as first-class, selectable per task."

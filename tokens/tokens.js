@@ -1,35 +1,43 @@
 /**
  * Cluos Design System — TypeScript tokens
  * Single source of truth. Use in CSS-in-JS projects.
- * Core color values are the official Cluos brand palette.
+ * Canonical color values are the MMS Swiss Ledger CluOS palette.
  */
 const tokens = {
   color: {
-    teal:       "#008080",
-    navy:       "#1B2F36",
+    deepNavy:   "#010D28",
+    mediumBlue: "#132952",
+    techGreen:  "#C4DB7B",
+    operationalTeal: "#16A39A",
+    copper:     "#BD7845",
+    oxblood:    "#8A3A3A",
+    neutral100: "#EAEAEA",
+    neutral500: "#A5A5A5",
+    teal:       "#16A39A", // compatibility alias for operational teal
+    navy:       "#010D28", // compatibility alias for deep navy
     black:      "#1D1D1B",
     champagne:  "#C8C1AE",
     silver:     "#B5B4B5",
     white:      "#FFFFFF",
 
-    tealDeep:  "#006666",
-    tealSoft:  "#4DA3A3",
+    tealDeep:  "#08736E",
+    tealSoft:  "#6FC7C0",
 
     bg:           "#FFFFFF",
-    bgSubtle:     "#FAFAF8",
-    bgMuted:      "#F3F4F1",
-    border:       "#E7E8E3",
-    borderStrong: "#CFD1CA",
+    bgSubtle:     "#FFFFFF",
+    bgMuted:      "#EAEAEA",
+    border:       "#EAEAEA",
+    borderStrong: "#132952",
 
-    text:         "#1B2F36",
-    textMuted:    "#5A6570",
-    textSubtle:   "#8A939B",
+    text:         "#010D28",
+    textMuted:    "#132952",
+    textSubtle:   "#A5A5A5",
     textOnTeal:   "#FFFFFF",
-    textOnNavy:   "#FAFAF8",
+    textOnNavy:   "#FFFFFF",
   },
   status: {
-    success:    "#008080",
-    successBg:  "#E6F2F2",
+    success:    "#6F8F19",
+    successBg:  "#F1F6DF",
     info:       "#3E6E82",
     infoBg:     "#EDF1F4",
     warn:       "#BD7845",
@@ -39,16 +47,18 @@ const tokens = {
   },
   gradient: {
     primary:
-      "linear-gradient(135deg, #1D1D1B 0%, #1B2F36 18%, #C8C1AE 67%, #B5B4B5 100%)",
+      "linear-gradient(135deg, #010D28 0%, #132952 42%, #16A39A 72%, #C4DB7B 100%)",
     soft:
-      "linear-gradient(135deg, #1B2F36 0%, #C8C1AE 100%)",
+      "linear-gradient(135deg, #010D28 0%, #132952 66%, #16A39A 100%)",
     mono:
-      "linear-gradient(135deg, #1B2F36 0%, #B5B4B5 100%)",
+      "linear-gradient(135deg, #010D28 0%, #132952 100%)",
     brandHero:
-      "radial-gradient(ellipse at 85% 25%, #C8C1AE 0%, #008080 55%, #006666 100%)",
+      "radial-gradient(circle at 72% 24%, rgba(196, 219, 123, 0.34), transparent 28rem), radial-gradient(circle at 30% 74%, rgba(22, 163, 154, 0.24), transparent 24rem), #010D28",
   },
   font: {
-    sans: '"Inter", "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    display: '"Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    sans: '"Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    data: '"Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
     mono: '"JetBrains Mono", "SF Mono", Menlo, Consolas, monospace',
   },
   fontSize: {
@@ -87,31 +97,41 @@ const tokens = {
     wide:    "80rem",
   },
   radius: {
-    sm:    "6px",
-    md:    "8px",
-    lg:    "12px",
-    xl:    "16px",
-    "2xl": "24px",
+    sm:    "0",
+    md:    "0",
+    lg:    "0",
+    xl:    "0",
+    "2xl": "0",
+    full:  "999px",
   },
   shadow: {
-    xs: "0 1px 2px rgba(27, 47, 54, 0.04)",
-    sm: "0 1px 3px rgba(27, 47, 54, 0.06), 0 1px 2px rgba(27, 47, 54, 0.04)",
-    md: "0 4px 12px rgba(27, 47, 54, 0.06), 0 2px 4px rgba(27, 47, 54, 0.04)",
-    lg: "0 12px 32px rgba(27, 47, 54, 0.08), 0 4px 8px rgba(27, 47, 54, 0.04)",
-    ringFocus: "0 0 0 3px rgba(0, 128, 128, 0.30)",
+    xs: "none",
+    sm: "none",
+    md: "none",
+    lg: "none",
+    ringFocus: "0 0 0 2px #C4DB7B",
   },
   motion: {
     easeOut:   "cubic-bezier(0.2, 0.8, 0.2, 1)",
     easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
-    durFast:   "120ms",
-    durBase:   "200ms",
-    durSlow:   "400ms",
+    durFast:   "180ms",
+    durBase:   "280ms",
+    durSlow:   "600ms",
+    data:      "1200ms",
+    trail:     "600ms",
+    stagger:   "120ms",
   },
   action: {
+    primary: {
+      base:  "#C4DB7B",
+      deep:  "#A6C05D",
+      soft:  "rgba(196, 219, 123, 0.18)",
+      text:  "#010D28",
+    },
     teal: {
-      base:  "#008080",
-      deep:  "#006666",
-      soft:  "rgba(0, 128, 128, 0.10)",
+      base:  "#16A39A",
+      deep:  "#08736E",
+      soft:  "rgba(22, 163, 154, 0.12)",
       text:  "#FFFFFF",
     },
     copper: {
@@ -124,7 +144,7 @@ const tokens = {
       base:  "#C8C1AE",
       deep:  "#AFA58E",
       soft:  "rgba(200, 193, 174, 0.22)",
-      text:  "#1B2F36",
+      text:  "#010D28",
     },
     oxblood: {
       base:  "#8A3A3A",
@@ -135,42 +155,45 @@ const tokens = {
   },
   appearance: {
     light: {
-      bg:          "#FAFAF8",
+      bg:          "#FFFFFF",
       bgSubtle:    "#FFFFFF",
-      bgMuted:     "#F3F4F1",
-      border:      "#E7E8E3",
-      borderStrong:"#CFD1CA",
-      text:        "#1B2F36",
-      textMuted:   "#5A6570",
-      textSubtle:  "#8A939B",
+      bgMuted:     "#EAEAEA",
+      border:      "#EAEAEA",
+      borderStrong:"#132952",
+      text:        "#010D28",
+      textMuted:   "#132952",
+      textSubtle:  "#A5A5A5",
     },
     dark: {
-      bg:          "#1B2F36",
-      bgSubtle:    "#13252C",
-      bgMuted:     "#0F1B20",
-      border:      "rgba(255, 255, 255, 0.10)",
-      borderStrong:"rgba(255, 255, 255, 0.18)",
+      bg:          "#010D28",
+      bgSubtle:    "#081634",
+      bgMuted:     "#132952",
+      border:      "rgba(255, 255, 255, 0.15)",
+      borderStrong:"rgba(255, 255, 255, 0.26)",
       text:        "#F7F8F5",
-      textMuted:   "rgba(247, 248, 245, 0.68)",
-      textSubtle:  "rgba(247, 248, 245, 0.46)",
+      textMuted:   "rgba(247, 248, 245, 0.72)",
+      textSubtle:  "rgba(247, 248, 245, 0.54)",
     },
   },
 };
 
 /**
- * Style + palette architecture (v2). JS/TS mirror of the CSS custom
- * properties defined under [data-cluos-style]/[data-cluos-palette] in
- * tokens.css. See ../agent-skills/shared/design-archetypes.yaml and
- * palette-policy.md for the full spec, and
- * ../docs/cluos-design-system-v2/04-selected-direction.md for why this is
- * a library (six styles, seven palettes, chosen per task) rather than one
- * canonical theme.
+ * Style + palette architecture. MMS is the canonical default; the other
+ * style ids remain explicit legacy opt-outs for a controlled migration.
  *
  * Usage: pick a style's role object, shallow-merge a palette's override
  * on top if one was chosen. Never merge a palette into a role object for
  * bg/fg/border — palettes only override action/status/signal roles.
  */
 const styles = {
+  MMS: {
+    bgCanvas: "#FFFFFF", bgSurface: "#FFFFFF", bgElevated: "#FFFFFF", bgSubtle: "#FFFFFF",
+    fgPrimary: "#010D28", fgSecondary: "#132952", fgMuted: "#A5A5A5",
+    borderDefault: "#EAEAEA", borderStrong: "#132952",
+    actionPrimary: "#C4DB7B", actionPrimaryHover: "#A6C05D", focusRing: "rgba(196, 219, 123, 0.72)",
+    statusSuccess: "#6F8F19", statusWarning: "#BD7845", statusDanger: "#8A3A3A", statusInfo: "#3E6E82",
+    signal: "#C4DB7B",
+  },
   A: {
     bgCanvas: "#FBFBF9", bgSurface: "#FFFFFF", bgElevated: "#FFFFFF", bgSubtle: "#F3F4F1",
     fgPrimary: "#1B2F36", fgSecondary: "#5A6570", fgMuted: "#8A939B",
@@ -247,7 +270,7 @@ const palettesDark = {
  * action/status/signal only; uses the -dark tuned variant when style is G).
  */
 function resolveTheme(styleId, paletteId) {
-  const base = styles[styleId] || styles.A;
+  const base = styles[styleId] || styles.MMS;
   if (!paletteId) return { ...base };
   const table = styleId === "G" ? palettesDark : palettes;
   const override = table[paletteId];

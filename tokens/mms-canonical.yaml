@@ -1,0 +1,114 @@
+version: 1
+canonical_id: cluos-mms-v1
+status: active
+approved_by: rafael
+approved_at: "2026-08-30"
+source: guides/mms-canonical-identity-proposal.html
+summary: >-
+  Identidade MMS/Swiss Ledger como padrão global do CluOS: minimalista,
+  técnica, clara e orientada a estado.
+
+lockup:
+  brand: CluOS
+  product: MMS
+  descriptor: Marketing Studio
+  brand_weight: 300
+  product_weight: 650
+  descriptor_weight: 450
+  descriptor_case: uppercase
+  descriptor_tracking: 0.12em
+  separator: hairline
+
+typography:
+  display:
+    family: Manrope
+    fallback: [system-ui, sans-serif]
+    weight_range: "200 800"
+    usage: [lockup, headings, product_names, metrics]
+  interface:
+    family: Instrument Sans
+    fallback: [system-ui, sans-serif]
+    weight_range: "400 700"
+    usage: [navigation, body, labels, tables, controls]
+  data:
+    family: Instrument Sans
+    fallback: [system-ui, sans-serif]
+    usage: [charts, tabular_numbers, operational_metadata]
+  mono:
+    family: "JetBrains Mono"
+    fallback: [SFMono-Regular, Menlo, Consolas, monospace]
+
+palette:
+  deep_navy:
+    value: "#010D28"
+    role: [primary_text, dense_surfaces, authority]
+  medium_blue:
+    value: "#132952"
+    role: [structure, navigation, contextual_contrast]
+  tech_green:
+    value: "#C4DB7B"
+    role: [primary_action, selection, success_signal]
+  operational_teal:
+    value: "#16A39A"
+    role: [progress, execution, informational_activity]
+  copper:
+    value: "#BD7845"
+    role: [warning, review, non_blocking_priority]
+  oxblood:
+    value: "#8A3A3A"
+    role: [denial, error, risk, destructive_confirmation]
+  white:
+    value: "#FFFFFF"
+    role: [canvas, surfaces, text_on_dark]
+  neutral_100:
+    value: "#EAEAEA"
+    role: [hairlines, muted_surface]
+  neutral_500:
+    value: "#A5A5A5"
+    role: [subtle_text, disabled_context]
+
+geometry:
+  mode: swiss-ledger
+  canvas: white
+  default_radius: 0
+  default_shadow: none
+  border: hairline
+  container_product: 72rem
+  container_docs: 48rem
+  container_prose: 42rem
+  spacing_scale: cluos-space
+
+motion:
+  policy: state_transition_only
+  reduced_motion: immediate_result
+  ease_out: "cubic-bezier(0.2, 0.8, 0.2, 1)"
+  ease_in_out: "cubic-bezier(0.4, 0, 0.2, 1)"
+  fast: 180ms
+  base: 280ms
+  slow: 600ms
+  data_draw: 1200ms
+  trail: 600ms
+  stagger: 120ms
+  charts:
+    line: draw_progressively
+    bars: rise_progressively
+    trigger: explicit_data_update
+    autoplay: false
+    loop: false
+
+consumer_contract:
+  package: "@cluos/design-system"
+  css_entrypoint: "@cluos/design-system/tokens.css"
+  runtime_attributes:
+    style: 'data-cluos-style="MMS"'
+    canonical: 'data-cluos-canonical="cluos-mms-v1"'
+  default_style: cluos-mms-v1
+  local_token_forks: forbidden
+  unregistered_global_palettes: forbidden
+  explicit_legacy_opt_out: required
+  future_products: inherit_by_default
+
+compatibility:
+  legacy_style_palette_api: retained
+  legacy_aliases: retained
+  migration: default_changes_to_mms; explicit_legacy_attributes_are_temporary

@@ -1,5 +1,8 @@
 # 06 — Design Foundations
 
+> Historical v2 foundation (2026-08-10). The active global foundation is now
+> `cluos-mms-v1`; this file describes compatibility archetypes only.
+
 Because CluOS runs six archetypes as a permanent library rather than one
 committed identity (`04-selected-direction.md`), foundations split into two
 tiers: **cross-archetype primitives** (apply everywhere, regardless of

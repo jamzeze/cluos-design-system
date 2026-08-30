@@ -3,8 +3,9 @@
 # Source of truth for the design-gallery skill and for anti-ai-slop-frontend's
 # routing. Each archetype is a full visual system (composition, typography,
 # density, color strategy, radius/elevation, iconography, motion) that can be
-# selected independently per screen or surface. There is no single canonical
-# direction: Rafael confirmed on 2026-08-10 that style is chosen per task.
+# selected independently per screen or surface. Since 2026-08-30, the MMS
+# Swiss Ledger direction is the global default; this library is retained for
+# explicit legacy opt-outs and comparative review only.
 #
 # identifier stability: never rename an id once shipped. Add new archetypes,
 # do not silently redefine existing ones.
@@ -25,8 +26,10 @@
 # so it is not silently reintroduced.
 
 version: 1
-last_updated: "2026-08-10"
-decision_source: docs/cluos-design-system-v2/04-selected-direction.md
+last_updated: "2026-08-30"
+decision_source: tokens/mms-canonical.yaml + docs/cluos-design-system-v2/04-selected-direction.md
+canonical_default: cluos-mms-v1
+legacy_opt_out_required: true
 
 archetypes:
   - id: cluos-calm-command

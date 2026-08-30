@@ -6,8 +6,10 @@ description: Independent, demanding visual reviewer for both AI-slop patterns an
 # design-critic
 
 Independent critique, not target-vs-implementation comparison (that's
-`design-qa`). Apply `../../shared/anti-slop-rubric.md` in full: the identity
-test, the 50-point rubric, severity classification.
+`design-qa`). Apply `anti-slop-rubric.md` in full from the installed support
+root `../../shared/cluos-design-system`, or from canonical source root
+`../../shared` when working in this repository: the identity test, the 50-point
+rubric, severity classification.
 
 ## Workflow
 
@@ -36,6 +38,6 @@ history rather than silently overwriting the earlier verdict.
 - Does not compare against the chosen archetype mockup pixel-by-pixel —
   that's `design-qa`.
 - Does not implement fixes itself — routes back to `frontend-craftsman`.
-- Does not approve N2/N3 work whose archetype+palette choice wasn't
-  recorded in `design-decision.md` — that's a process failure to flag, not
-  something to critique visually.
+- Does not approve N2/N3 work that lacks the canonical `cluos-mms-v1` contract
+  or an explicit, recorded legacy opt-out in `design-decision.md` — that's a
+  process failure to flag, not something to critique visually.
