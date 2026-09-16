@@ -1,0 +1,174 @@
+// =============================================================================
+// Telegram Message Router — Example
+// Shared routing logic for both webhook and polling modes.
+// =============================================================================
+
+// ─── Access control ───────────────────────────────────────────────────────────
+
+/**
+ * Returns true if the sender is in the allowed list.
+ * Silently rejects unknown senders (no error reply).
+ */
+function isAuthorized(senderId) {
+  const allowedIds = (process.env.TELEGRAM_ALLOWED_USER_IDS || "")
+    .split(",")
+    .map((id) => id.trim())
+    .filter(Boolean);
+  return allowedIds.includes(String(senderId));
+}
+
+// ─── Command parser ───────────────────────────────────────────────────────────
+
+/**
+ * Parses a Telegram message text into a structured command or free-text intent.
+ *
+ * Returns:
+ *   { type: "command", name: "/status", args: [] }
+ *   { type: "command", name: "/approve", args: ["<uuid>"] }
+ *   { type: "text", content: "Lista os issues abertos" }
+ */
+function parseMessage(text) {
+  const trimmed = (text || "").trim();
+
+  if (trimmed.startsWith("/")) {
+    const parts = trimmed.split(/\s+/);
+    const name = parts[0].toLowerCase();
+    const args = parts.slice(1);
+    return { type: "command", name, args };
+  }
+
+  return { type: "text", content: trimmed };
+}
+
+// ─── Built-in command handlers ────────────────────────────────────────────────
+
+async function handleStatus(agentContext) {
+  // Read-only — safe in all modes
+  const connectors = await agentContext.getConnectorHealth();
+  const pending = await agentContext.getPendingCount();
+
+  const lines = connectors.map((c) => {
+    const icon = c.healthy ? "✅" : "⚠️";
+    return `${icon} ${c.name}`;
+  });
+
+  return [
+    "📊 *Status do sistema*",
+    "",
+    lines.join("\n"),
+    "",
+    `⏳ Ações pendentes: ${pending}`,
+  ].join("\n");
+}
+
+async function handlePending(agentContext) {
+  const queue = await agentContext.getPendingApprovals();
+
+  if (queue.length === 0) {
+    return "✅ Nenhuma ação aguardando aprovação.";
+  }
+
+  const lines = queue.map((action) => {
+    const risk = action.risk === "require-approval" ? "🔴" : "🟠";
+    return `${risk} \`${action.id}\` — ${action.description}`;
+  });
+
+  return ["📋 *Ações pendentes*", "", ...lines, "", "Use /approve <id> ou /reject <id>"].join(
+    "\n"
+  );
+}
+
+async function handleApprove(actionId, agentContext) {
+  if (!actionId) {
+    return "❌ Informe o ID: /approve <uuid>";
+  }
+
+  const result = await agentContext.executeApproved(actionId);
+
+  if (!result.found) {
+    return `❌ Ação \`${actionId}\` não encontrada ou expirada.`;
+  }
+
+  return [
+    "✅ *Ação executada*",
+    "",
+    `ID: \`${actionId}\``,
+    `Ação: ${result.description}`,
+    `Conector: ${result.connector}`,
+    `Status: ${result.outcome}`,
+    "",
+    `📝 Registrado em Obsidian`,
+  ].join("\n");
+}
+
+async function handleReject(actionId, agentContext) {
+  if (!actionId) {
+    return "❌ Informe o ID: /reject <uuid>";
+  }
+
+  const result = await agentContext.cancelAction(actionId);
+
+  if (!result.found) {
+    return `❌ Ação \`${actionId}\` não encontrada ou expirada.`;
+  }
+
+  return [
+    "✅ *Ação cancelada*",
+    "",
+    `ID: \`${actionId}\``,
+    `Ação: ${result.description}`,
+    `Status: rejeitada pelo CEO`,
+    "",
+    "Nenhuma modificação foi feita.",
+  ].join("\n");
+}
+
+// ─── Main router ──────────────────────────────────────────────────────────────
+
+/**
+ * Route a parsed message to the appropriate handler.
+ *
+ * @param {object} update - Telegram update object
+ * @param {object} agentContext - CEO Agent context (connectors, queue, LLM)
+ * @returns {string|null} - Reply text, or null if no reply needed
+ */
+async function route(update, agentContext) {
+  const message = update.message;
+  if (!message) return null;
+
+  const senderId = message.from?.id;
+  const text = message.text || "";
+
+  // Access control
+  if (!isAuthorized(senderId)) {
+    return null; // silent reject
+  }
+
+  const parsed = parseMessage(text);
+
+  if (parsed.type === "command") {
+    switch (parsed.name) {
+      case "/status":
+        return await handleStatus(agentContext);
+      case "/pending":
+        return await handlePending(agentContext);
+      case "/approve":
+        return await handleApprove(parsed.args[0], agentContext);
+      case "/reject":
+        return await handleReject(parsed.args[0], agentContext);
+      case "/start":
+        return "👋 CluOS CEO Agent ativo. Envie uma mensagem em linguagem natural.";
+      default:
+        return `❓ Comando não reconhecido: ${parsed.name}`;
+    }
+  }
+
+  // Free text — route to CEO Agent LLM
+  if (parsed.content.length < 3) {
+    return null; // ignore very short messages
+  }
+
+  return await agentContext.processNaturalLanguage(parsed.content, senderId);
+}
+
+module.exports = { route, isAuthorized, parseMessage };

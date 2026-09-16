@@ -1,0 +1,148 @@
+// =============================================================================
+// Telegram Webhook Handler — Example
+// Adapt this to your runtime (Node/Express, Cloudflare Worker, Python/FastAPI…)
+// Never commit with real tokens.
+// =============================================================================
+
+// --- Node.js / Express example ---
+// Install: npm install express
+
+const express = require("express");
+const crypto = require("crypto");
+
+const app = express();
+app.use(express.json());
+
+// Loaded from environment — never hardcoded
+const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const ALLOWED_USER_IDS = (process.env.TELEGRAM_ALLOWED_USER_IDS || "")
+  .split(",")
+  .map((id) => id.trim())
+  .filter(Boolean);
+const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET_TOKEN; // set when registering webhook
+
+// ─── Security: verify Telegram webhook signature ──────────────────────────────
+function verifyTelegramSignature(req) {
+  if (!WEBHOOK_SECRET) return true; // skip if not configured (dev only)
+  const signature = req.headers["x-telegram-bot-api-secret-token"];
+  return signature === WEBHOOK_SECRET;
+}
+
+// ─── Webhook endpoint ─────────────────────────────────────────────────────────
+app.post("/telegram/webhook", async (req, res) => {
+  // Always respond 200 immediately (Telegram retry logic)
+  res.sendStatus(200);
+
+  if (!verifyTelegramSignature(req)) {
+    console.warn("[webhook] Invalid signature — ignoring");
+    return;
+  }
+
+  const update = req.body;
+  await handleUpdate(update);
+});
+
+// ─── Update handler ───────────────────────────────────────────────────────────
+async function handleUpdate(update) {
+  const message = update.message || update.callback_query?.message;
+  if (!message) return;
+
+  const senderId = String(message.from?.id || "");
+  const chatId = message.chat?.id;
+  const text = message.text || "";
+
+  // Access control — silently ignore unauthorized senders
+  if (!ALLOWED_USER_IDS.includes(senderId)) {
+    // No reply — do not reveal bot existence to unauthorized users
+    return;
+  }
+
+  // Route to CEO Agent (replace with your actual agent call)
+  try {
+    const response = await routeToCeoAgent({ senderId, chatId, text });
+    if (response) {
+      await sendTelegramMessage(chatId, response);
+    }
+  } catch (err) {
+    console.error("[webhook] Agent error:", err.message);
+    await sendTelegramMessage(chatId, "⚠️ Erro interno. Tente novamente.");
+  }
+}
+
+// ─── Routing logic ────────────────────────────────────────────────────────────
+async function routeToCeoAgent({ senderId, chatId, text }) {
+  // Built-in commands
+  if (text.startsWith("/status")) {
+    return await getSystemStatus();
+  }
+  if (text.startsWith("/pending")) {
+    return await getPendingApprovals();
+  }
+  if (text.startsWith("/approve ")) {
+    const actionId = text.split(" ")[1];
+    return await approveAction(actionId);
+  }
+  if (text.startsWith("/reject ")) {
+    const actionId = text.split(" ")[1];
+    return await rejectAction(actionId);
+  }
+
+  // Natural language — route to CEO Agent LLM
+  return await callCeoAgentLLM({ text, senderId });
+}
+
+// ─── Telegram send helper ─────────────────────────────────────────────────────
+async function sendTelegramMessage(chatId, text) {
+  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+  await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ chat_id: chatId, text, parse_mode: "Markdown" }),
+  });
+}
+
+// ─── Stub implementations (replace with real Hermes calls) ───────────────────
+async function getSystemStatus() {
+  // TODO: call connector healthchecks
+  return "✅ *Status do sistema*\nConectores: verificando...\nPendentes: 0";
+}
+
+async function getPendingApprovals() {
+  // TODO: read approval queue
+  return "📋 *Ações pendentes*\nNenhuma ação aguardando aprovação.";
+}
+
+async function approveAction(actionId) {
+  // TODO: execute queued action from approval store
+  return `✅ Aprovação recebida para ID: \`${actionId}\`\nExecutando...`;
+}
+
+async function rejectAction(actionId) {
+  // TODO: cancel queued action
+  return `✅ Ação cancelada: \`${actionId}\``;
+}
+
+async function callCeoAgentLLM({ text, senderId }) {
+  // TODO: call Hermes API or Claude API with system prompt + router + user message
+  const HERMES_API_URL = process.env.HERMES_API_URL;
+  const HERMES_API_KEY = process.env.HERMES_API_KEY;
+
+  const response = await fetch(`${HERMES_API_URL}/chat`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${HERMES_API_KEY}`,
+    },
+    body: JSON.stringify({ message: text, user_id: senderId }),
+  });
+
+  const data = await response.json();
+  return data.reply || "Sem resposta do agente.";
+}
+
+// ─── Start server ─────────────────────────────────────────────────────────────
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Telegram webhook listening on :${PORT}/telegram/webhook`);
+  // Note: token is not logged
+});

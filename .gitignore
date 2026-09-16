@@ -1,8 +1,44 @@
 node_modules/
 .DS_Store
 *.log
+
+# Secrets — never commit real values
 .env
 .env.local
+.env.*.local
+*.env
+secrets/.env
+secrets/export.sh
+secrets/exported-*
+
+# Bitwarden session and exports
+.bw-session
+bw-export-*
+*.bw.json
+
+# Telegram session / bot state
+telegram/session.json
+telegram/*.session
+telegram/token.txt
+
+# OAuth tokens / credentials
+*.token
+*.credentials.json
+*.service-account.json
+refresh_token.txt
+access_token.txt
+google-credentials.json
+github-token.txt
+browserbase-session.json
+
+# Browser cookies / storage
+cookies.json
+*.cookies
+playwright-state/
+
+# CI/CD
+.github/workflows/.env
+
 dist/
 build/
 .cache/
