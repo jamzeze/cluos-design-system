@@ -1,0 +1,6 @@
+interface:
+  display_name: "UX Layout Architect"
+  short_description: "Task-first, risk-aware screen placement"
+  default_prompt: "Use $ux-layout-architect to decide what belongs where and produce a UX layout contract before visual design or code."
+policy:
+  allow_implicit_invocation: false

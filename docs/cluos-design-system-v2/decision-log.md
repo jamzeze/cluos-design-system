@@ -52,3 +52,22 @@ starting; four concrete corrections applied per its review:
 continuous single-writer pass (per `/Users/rafacosta/Documents/GitHub/CLAUDE.md`),
 ending in a full diff review and one question about tests/commit — not
 per-file check-ins.
+
+## 2026-09-16 — Routing v2: exit level, lean N0, real design-qa
+
+Audit `_cluos-maintenance/reports/2026-09-16-agentic-workflow-audit.md`
+found that N0 was defined three incompatible ways in this package, that the
+router loaded ~4,500 words of archetypes/palette/profile before classifying,
+and that `design-qa`, `get-context`, `audit` and `image-to-code` were
+mandated by the matrix but existed nowhere. Baseline failure (documented
+before the change): a two-rule geometry change in azigos and a state
+authorization bug in termos both ran the full five-step chain.
+
+Rafael approved resolving all audit findings. Delivered: `N-skip`, N0 without
+critic/QA, `loads` per level, `design-qa` skill, test allowlist reduced,
+third-party frontend skills demoted to manual invocation.
+
+**Consequence:** the visual direction decision of 2026-08-30 is unchanged.
+Live activation of the new routing has not been observed yet; the static
+test passes. Open decision: whether products will install
+`@cluos/design-system` as a package (see `AGENTS.md` Mission).

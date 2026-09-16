@@ -1,0 +1,10 @@
+{
+  "name": "cluos-frontend",
+  "displayName": "CluOS Frontend Workflow",
+  "version": "2.0.0",
+  "description": "CluOS frontend routing chain: anti-ai-slop-frontend router (N-skip, N0-N3), ux-layout-architect, frontend-craftsman, design-critic, design-qa, design-gallery, design-system-refactor-director, plus fresh-context reviewer subagents.",
+  "author": {
+    "name": "CluOS / Rafael Costa"
+  },
+  "skills": "./frontend"
+}

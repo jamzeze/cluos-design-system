@@ -58,13 +58,13 @@ MANIFEST="$REPO_ROOT/agent-skills/manifest.yaml"
 if [ ! -f "$MANIFEST" ]; then
   fail "manifest.yaml not found at $MANIFEST"
 else
-  for slug in $(grep -E 'slug:' "$MANIFEST" | sed -E 's/^.*slug:[[:space:]]*//'); do
+  while IFS= read -r slug; do
     if [ ! -f "$SRC/$slug/SKILL.md" ]; then
       fail "manifest references '$slug' but $SRC/$slug/SKILL.md does not exist"
     else
       ok "manifest entry '$slug' resolves"
     fi
-  done
+  done < <(grep -E 'slug:' "$MANIFEST" | sed -E 's/^.*slug:[[:space:]]*//')
 fi
 
 echo ""
@@ -78,8 +78,60 @@ for f in design-archetypes.yaml palette-policy.md anti-slop-rubric.md routing-ma
 done
 
 echo ""
-echo "== install drift (canonical vs ~/.claude/skills, ~/.codex/skills) =="
-"$REPO_ROOT/scripts/sync-agent-skills.sh" --check || true
+echo "== install drift (canonical vs ~/.claude/skills, ~/.codex/skills, ~/.agents/skills) =="
+if "$REPO_ROOT/scripts/sync-agent-skills.sh" --check; then
+  ok "installed skills and support files match canonical source"
+else
+  fail "installed skills or support files drift from canonical source"
+fi
+
+echo ""
+echo "== routing matrix consistency =="
+if "$REPO_ROOT/scripts/test-frontend-routing.sh"; then
+  ok "frontend routing matrix"
+else
+  fail "frontend routing matrix inconsistency"
+fi
+
+echo ""
+echo "== ux-layout-architect contract and scenarios =="
+if python3 "$REPO_ROOT/scripts/test-ux-layout-architect.py"; then
+  ok "ux-layout-architect contract"
+else
+  fail "ux-layout-architect contract or scenario coverage"
+fi
+
+echo ""
+echo "== installed path and support namespace resolution =="
+if python3 "$REPO_ROOT/scripts/test-skill-install-layouts.py"; then
+  ok "installed skill/support layouts"
+else
+  fail "installed skill/support layout mismatch"
+fi
+
+echo ""
+echo "== sync isolation and symlink safety =="
+if python3 "$REPO_ROOT/scripts/test-sync-safety.py"; then
+  ok "sync safety regression"
+else
+  fail "sync safety regression"
+fi
+
+echo ""
+echo "== path-scoped Claude rules in product repos =="
+if "$REPO_ROOT/scripts/sync-claude-rules.sh" --check; then
+  ok "cluos-frontend.md / cluos-ops.md rules match canonical sources"
+else
+  fail "path-scoped rules drift"
+fi
+
+echo ""
+echo "== global frontend workflow block =="
+if "$REPO_ROOT/scripts/sync-global-config.sh" --check; then
+  ok "global frontend workflow block matches canonical source"
+else
+  fail "global frontend workflow block drift"
+fi
 
 echo ""
 if [ "$PROBLEMS" -eq 0 ]; then

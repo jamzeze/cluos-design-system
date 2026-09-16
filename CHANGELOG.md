@@ -3,6 +3,56 @@
 All notable changes to the Cluos design system are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com).
 
+## [Unreleased] — 2026-09-16 — Frontend routing v2
+
+### Changed
+
+- `routing-matrix.yaml` v2: new `N-skip` level for domain/state/geometry logic
+  that only renders differently (exits the chain after the router); `N0` is
+  router + `frontend-craftsman` + render, without critic or QA; every level
+  now declares `loads` (support files read only after classification) and
+  `artifacts`.
+- `anti-ai-slop-frontend` rewritten as a router with trigger, non-trigger,
+  predicate table, a single output file for `N1`+, a 4-call budget and stop
+  conditions. It no longer reads archetypes, palette policy or the profile
+  before classifying.
+- `frontend-craftsman`, `design-critic`, `design-gallery` and
+  `design-system-refactor-director` trimmed; artifacts of one task live in
+  `docs/frontend-routing/<YYYY-MM-DD>-<slug>/` of the consuming repo.
+- Global block rewritten; third-party frontend skills declared manual-only.
+- `AGENTS.md` consumer list now names the repos that exist and states that no
+  product installs the package yet.
+- `EXPERIMENTAL-THERMAL-NOCTURNE.md` marked superseded.
+
+### Added
+
+- `design-qa` skill: compares the rendered implementation with its approved
+  target. Previously referenced by every flow but never installed.
+- `test-frontend-routing.sh` now fails on any skill reference that does not
+  exist (allowlist reduced to superpowers skills and manual checks) and
+  checks `N-skip`/`N0` do not run critic or QA.
+- `sync-agent-skills.sh --check` lists unmanaged skills per client root
+  (informational).
+
+### Removed
+
+- References to `get-context`, `audit` and `image-to-code`, which never
+  existed as skills.
+
+### Added (same day, second pass)
+
+- `agent-skills/agents/design-critic.md` and `design-qa.md`: reviewer
+  subagents (fresh context, no Edit, sonnet), installed to `~/.claude/agents/`
+  by `sync-agent-skills.sh`.
+- `agent-skills/.claude-plugin/plugin.json` and `agent-skills/evals/`: the
+  chain as a Claude Code plugin with a `claude plugin eval` suite (five
+  cases, free graders) for the routing matrix.
+- `scripts/sync-claude-rules.sh`: installs the frontend block as the
+  path-scoped rule `<repo>/.claude/rules/cluos-frontend.md` (loads only when a
+  UI file is read) and `cluos-ops.md` from GCOS into each product repo.
+- `sync-global-config.sh` now targets only `~/.codex/AGENTS.md`; the Claude
+  global and the workspace root carry a pointer instead of the block.
+
 ## [Unreleased] — 2026-08-30 — MMS identity promoted to global canon
 
 ### Changed

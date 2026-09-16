@@ -1,20 +1,18 @@
 ---
 name: design-gallery
-description: Generates real, comparable visual alternatives for N2/N3 frontend work when a comparison or explicit opt-out is needed. The canonical default is cluos-mms-v1; this skill never changes it implicitly.
+description: Use when an N2 or N3 frontend task needs a recorded comparison of visual alternatives or an explicit legacy opt-out from cluos-mms-v1. Never runs for the default direction and never changes it.
 ---
 
 # design-gallery
 
 Produces real, comparable visual alternatives — not a template catalog, not
-a list of adjectives. For CluOS specifically, most of this work is already
-done. Resolve the support roots first: installed clients use
-`../../shared/cluos-design-system` and
-`../../profiles/cluos-design-system/cluos`; the canonical source checkout uses
-`../../shared` and `../../profiles/cluos`. Use the first complete pair and
-stop on a missing or mixed pair. Read `design-archetypes.yaml` and
-`palette-policy.md` from the resolved shared root. In the common case this
-skill's job is to **compare the existing library or document a deliberate
-opt-out**, not to replace the canonical default.
+a list of adjectives. Runs only for a recorded comparison or an explicit
+legacy opt-out; `cluos-mms-v1` is the default and this skill never changes
+it. Support files: installed clients use `../../shared/cluos-design-system`
+and `../../profiles/cluos-design-system/cluos`; the canonical checkout uses
+`../../shared` and `../../profiles/cluos`. Use the first complete pair; stop
+if either half is missing. Read `design-archetypes.yaml` and
+`palette-policy.md` from the resolved shared root.
 
 For N2, and N3 when screens/flows change, read the approved
 `ux-layout-contract.md` first. Visual alternatives must preserve its task flow,
@@ -58,8 +56,8 @@ When you do:
 6. Record the choice: append an entry to
    `design-decisions.yaml` (style) and `palette-decisions.yaml` (palette) in
    the resolved profile root if it's a new pairing
-   not already logged, and write the pairing into `design-decision.md` for
-   this specific task/PR.
+   not already logged, and write the pairing into `design-decision.md` in
+   the task's `docs/frontend-routing/<YYYY-MM-DD>-<slug>/`.
 
 ## Registered library snapshot (see design-archetypes.yaml for full detail)
 

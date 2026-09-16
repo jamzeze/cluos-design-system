@@ -1,6 +1,6 @@
 ---
 name: design-system-refactor-director
-description: Conducts systemic design system refactors — prevents polishing isolated screens while leaving a weak foundation in place. Use for N3-level work (routed here by anti-ai-slop-frontend): design system refactors, global palette/token changes, new shared primitives. Not for single-screen or single-component work.
+description: Use when anti-ai-slop-frontend classifies a task N3 — a design system refactor, a global palette or token change, or a new shared primitive. Not for single-screen or single-component work.
 ---
 
 # design-system-refactor-director
@@ -64,6 +64,8 @@ append-only decision records a temporary exception.
 ## Handoff
 
 `ux-layout-architect` for changed golden screens/flows → `design-gallery`
-(direction) → `writing-plans` (before any code) →
-`frontend-craftsman` (implementation) → `design-critic` → `design-qa` →
-`verification-before-completion`.
+only for a recorded comparison or opt-out → `writing-plans` (before any
+code) → `frontend-craftsman` → `design-critic` → `design-qa` →
+`verification-before-completion`. The audit of phase 2 is this skill's own
+work, not a separate skill. Artifacts go in the task's
+`docs/frontend-routing/<YYYY-MM-DD>-<slug>/`.

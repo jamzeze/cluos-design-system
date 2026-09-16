@@ -1,43 +1,63 @@
 ---
 name: design-critic
-description: Independent, demanding visual reviewer for both AI-slop patterns and usability/hierarchy/identity/consistency problems. Use after frontend-craftsman implements anything, before design-qa. Does not compare against a chosen target (that's design-qa's job) — evaluates the work on its own merits against the anti-slop rubric.
+description: Use when a frontend implementation classified N1, N2 or N3 by anti-ai-slop-frontend has been rendered and must be judged on its own merits for AI-slop patterns, hierarchy, identity, consistency and usability, before design-qa.
 ---
 
 # design-critic
 
-Independent critique, not target-vs-implementation comparison (that's
-`design-qa`). Apply `anti-slop-rubric.md` in full from the installed support
-root `../../shared/cluos-design-system`, or from canonical source root
-`../../shared` when working in this repository: the identity test, the 50-point
-rubric, severity classification.
+Independent critique of the rendered work against `anti-slop-rubric.md`. Not
+a comparison with the approved target; that is `design-qa`. Does not
+implement.
+
+## Support files
+
+`anti-slop-rubric.md` from `../../shared/cluos-design-system` (installed
+client) or `../../shared` (canonical checkout): identity test, 50-point
+rubric, severity scale.
+
+## Run as a subagent when available
+
+When the `design-critic` subagent is installed (`~/.claude/agents/design-critic.md`,
+synced from `agent-skills/agents/`), delegate to it with the task directory and
+the render URL or command. It runs this skill in a fresh context without Edit,
+so the author's reasoning cannot anchor the verdict. Review inline only when
+the subagent is unavailable.
 
 ## Workflow
 
-1. Open the rendered result. Never critique from source code alone.
-2. Run the identity test (7 questions, `anti-slop-rubric.md`).
-3. Score all 10 dimensions, 0-5 each, with evidence (file, selector,
-   screenshot) for every score.
-4. Classify every finding P0-P3.
-5. Write `design-critic.md` (adapt path to the task/PR) with: score,
-   findings ordered by severity, evidence, impact, concrete fix, file or
-   selector, result: `passed` or `blocked`.
+1. Open the rendered result. Source alone is not evidence.
+2. Run the identity test (7 questions).
+3. Score the 10 dimensions, 0–5 each, with evidence (file, selector,
+   screenshot) per score.
+4. Classify every finding P0–P3.
+5. Write `design-critic.md` in the task's
+   `docs/frontend-routing/<YYYY-MM-DD>-<slug>/`:
 
-## Approval bar
+```
+Score: <total>/50, lowest dimension: <name> <n>/5
+Findings: <P0–P3, evidence, impact, concrete fix, file or selector>
+Result: passed | blocked
+```
 
-Total ≥ 42/50, no dimension below 4, zero open P0/P1/P2. Score never
-substitutes judgment.
+## Bar
+
+Total ≥ 42/50, no dimension below 4, zero open P0/P1/P2. The score never
+replaces judgment.
 
 ## On P0/P1/P2
 
-Block handoff. Hand back to `frontend-craftsman` with the concrete fix.
-After the fix: re-render, re-review, append to the same `design-critic.md`
-history rather than silently overwriting the earlier verdict.
+Block. Hand back to `frontend-craftsman` with the concrete fix. After the fix:
+re-render, re-review, append to the same `design-critic.md` instead of
+overwriting the earlier verdict.
 
-## What this skill does NOT do
+## Not this skill
 
-- Does not compare against the chosen archetype mockup pixel-by-pixel —
-  that's `design-qa`.
-- Does not implement fixes itself — routes back to `frontend-craftsman`.
-- Does not approve N2/N3 work that lacks the canonical `cluos-mms-v1` contract
-  or an explicit, recorded legacy opt-out in `design-decision.md` — that's a
-  process failure to flag, not something to critique visually.
+- Comparison with the contract or mockup: `design-qa`.
+- Fixing anything.
+- Approving N2/N3 work that has neither the `cluos-mms-v1` contract nor a
+  recorded opt-out: flag it as a process failure and stop.
+
+## Budget
+
+8 tool calls per screen. More means the render is not available: stop and
+ask for it.

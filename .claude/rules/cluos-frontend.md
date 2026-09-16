@@ -1,3 +1,17 @@
+---
+paths:
+  - "**/*.{tsx,jsx,vue,svelte,astro,css,scss,html}"
+  - "ui/**"
+  - "apps/web/**"
+  - "app/**"
+  - "components/**"
+  - "frontend/**"
+  - "src/components/**"
+  - "src/app/**"
+  - "**/tailwind.config.*"
+  - "**/tokens*.css"
+---
+
 <!-- BEGIN CLUOS FRONTEND WORKFLOW -->
 # CluOS Frontend Workflow (canonical, revisado 2026-09-16)
 

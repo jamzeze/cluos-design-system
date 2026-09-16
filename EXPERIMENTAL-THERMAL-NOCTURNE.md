@@ -2,8 +2,8 @@
 
 Experimental mode: **Thermal Nocturne**
 
-Status: approved design direction, not yet a replacement for the canonical CluOS
-Design System.
+Status: superseded on 2026-08-30 by `cluos-mms-v1` (see `DESIGN.md`). Kept for
+history only; not a valid opt-out target for any CluOS surface.
 
 This document defines the visual contract for the experimental showcase and for
 future evaluation in CluOS products. Existing official CluOS logo artwork remains

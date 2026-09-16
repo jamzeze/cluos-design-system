@@ -4,8 +4,8 @@
 
 `cluos-design-system` is the **single, canonical source** of CluOS visual identity, design tokens, UX principles, product patterns, and agent governance. Its active identity is `cluos-mms-v1` (MMS Swiss Ledger).
 
-Every product (`crm-cluos`, `automatic-aeo`, `medframe`, `b3`, `scireg`, `prognus-ui`, `suporte`) must consume this package for all design decisions.
-No other repository may define colors, typography, spacing, or interaction patterns from scratch.
+Target consumers are the active CluOS product repos (`MMS`, `azigos`, `automatic-aeo`, `termos`, `suporte`, `medframe`, `sci-os`). As of 2026-09-16 none installs `@cluos/design-system` as a package dependency and `MMS` carries a local copy of the tokens. Until the package migration is decided and recorded in `agent-skills/profiles/cluos/design-decisions.yaml`, products follow `cluos-mms-v1` by convention: same roles, fonts, radius and elevation, tokens copied verbatim from `tokens/`, no new global palette.
+No repository may define colors, typography, spacing, or interaction patterns from scratch.
 
 ---
 
