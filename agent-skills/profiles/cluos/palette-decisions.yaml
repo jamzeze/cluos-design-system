@@ -56,3 +56,20 @@ decisions:
       reverter o contrato cluos-mms-v1 no GCOS e manter esta entrada histórica;
       aliases legados permitem rollback sem apagar os valores antigos.
     supersedes: "2026-08-10: No single global palette. 7 palettes registered as first-class, selectable per task."
+
+  - date: "2026-09-23"
+    scope: sci-os
+    decision: "A nova página /custos do sci-os mantém o visual atual do sci-os (Teal Classic), com opt-out do cluos-mms-v1 só nesta tarefa."
+    mode: preserve
+    made_by: rafael
+    detail: >
+      Escolha de Rafael em AskUserQuestion (2026-09-23) ao aprovar o contrato
+      de layout da página de custos de IA (N2). O sci-os inteiro ainda usa a
+      paleta Teal Classic (--cluos-navy #1B2F36, --cluos-teal #008080,
+      Inter); uma tela isolada em cluos-mms-v1 ficaria diferente de todas as
+      outras. A migração do sci-os para cluos-mms-v1 continua sendo uma
+      tarefa N3 separada. Registro da tarefa:
+      sci-os/docs/frontend-routing/2026-09-23-cost-counter/design-decision.md.
+    rollback: >
+      Reestilizar /custos e o cartão do Painel com os tokens do cluos-mms-v1
+      quando o sci-os migrar; nenhum token compartilhado muda nesta decisão.
