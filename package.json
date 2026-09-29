@@ -4,6 +4,9 @@
   "description": "Cluos brand design system — tokens, assets, UX principles, product patterns, and documentation for all Cluos repositories",
   "main": "tokens/tokens.js",
   "types": "tokens/index.ts",
+  "scripts": {
+    "test": "node --test scripts/test-status-contrast.mjs"
+  },
   "files": [
     "tokens/",
     "brand-assets/",
