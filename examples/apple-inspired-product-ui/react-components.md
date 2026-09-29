@@ -194,10 +194,10 @@ interface InlineFeedbackProps {
 }
 
 const colors: Record<FeedbackVariant, string> = {
-  success: "var(--cluos-status-success)",
-  error:   "var(--cluos-status-error)",
-  warn:    "var(--cluos-status-warn)",
-  info:    "var(--cluos-status-info)",
+  success: "var(--cluos-status-success-text)",
+  error:   "var(--cluos-status-error-text)",
+  warn:    "var(--cluos-status-warn-text)",
+  info:    "var(--cluos-status-info-text)",
 };
 
 export function InlineFeedback({ message, variant }: InlineFeedbackProps) {

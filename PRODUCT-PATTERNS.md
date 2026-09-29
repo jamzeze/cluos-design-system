@@ -71,7 +71,7 @@ Visão geral dos sistemas do ecossistema CluOS.
 - Cada card: nome do sistema, status (online/atenção/offline), botão "Abrir".
 - Detalhes técnicos (último deploy, healthcheck, versão) recolhidos por padrão — disponíveis em "Ver detalhes".
 - Filtro por status no topo (todos/online/atenção/offline) — discreto, não dominante.
-- Status "atenção" usa `--cluos-status-warn`, status "offline" usa `--cluos-status-error`, "online" usa `--cluos-status-success`.
+- Status "atenção" usa `--cluos-status-warn`, status "offline" usa `--cluos-status-error`, "online" usa `--cluos-status-success`. Esses tokens colorem o marcador; o rótulo em texto usa o token `-text` do mesmo status.
 
 **SystemCard anatomy:**
 ```

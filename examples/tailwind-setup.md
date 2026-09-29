@@ -35,7 +35,7 @@ module.exports = {
   Hero block with on-brand radial gradient
 </div>
 
-<span className="inline-flex items-center gap-1.5 bg-cluos-warn-bg text-cluos-warn text-xs font-medium px-3 py-1 rounded-full">
+<span className="inline-flex items-center gap-1.5 bg-cluos-warn-bg text-cluos-warn-text text-xs font-medium px-3 py-1 rounded-full">
   Warning — copper
 </span>
 ```

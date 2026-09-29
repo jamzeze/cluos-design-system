@@ -44,6 +44,16 @@ export const tokens = {
     warnBg:     "#F8EBDF",
     error:      "#8A3A3A",
     errorBg:    "#F5EAEA",
+    // Text: 4.5:1 or more on the matching Bg tint and on every light surface.
+    successText: "#546D13",
+    infoText:    "#3E6E82",
+    warnText:    "#8A5A2B",
+    errorText:   "#8A3A3A",
+    // Text and marker on deep navy. Success and warn repeat their fills, which pass there.
+    successOnNavy: "#6F8F19",
+    infoOnNavy:    "#6FA8C4",
+    warnOnNavy:    "#BD7845",
+    errorOnNavy:   "#C46A6A",
   },
   gradient: {
     primary:
@@ -163,6 +173,10 @@ export const tokens = {
       text:        "#010D28",
       textMuted:   "#132952",
       textSubtle:  "#A5A5A5",
+      statusSuccessText: "#546D13",
+      statusWarningText: "#8A5A2B",
+      statusDangerText:  "#8A3A3A",
+      statusInfoText:    "#3E6E82",
     },
     dark: {
       bg:          "#010D28",
@@ -173,6 +187,10 @@ export const tokens = {
       text:        "#F7F8F5",
       textMuted:   "rgba(247, 248, 245, 0.72)",
       textSubtle:  "rgba(247, 248, 245, 0.54)",
+      statusSuccessText: "#9CC24A",
+      statusWarningText: "#D08A54",
+      statusDangerText:  "#C46A6A",
+      statusInfoText:    "#6FA8C4",
     },
   },
 } as const;
@@ -210,6 +228,11 @@ export interface CluosThemeRoles {
   statusWarning: string;
   statusDanger: string;
   statusInfo: string;
+  /** Status as text: 4.5:1 or more on every surface of the style. */
+  statusSuccessText: string;
+  statusWarningText: string;
+  statusDangerText: string;
+  statusInfoText: string;
   signal: string;
 }
 
@@ -220,6 +243,7 @@ export const styles: Record<CluosStyleId, CluosThemeRoles> = {
     borderDefault: "#EAEAEA", borderStrong: "#132952",
     actionPrimary: "#C4DB7B", actionPrimaryHover: "#A6C05D", focusRing: "rgba(196, 219, 123, 0.72)",
     statusSuccess: "#6F8F19", statusWarning: "#BD7845", statusDanger: "#8A3A3A", statusInfo: "#3E6E82",
+    statusSuccessText: "#546D13", statusWarningText: "#8A5A2B", statusDangerText: "#8A3A3A", statusInfoText: "#3E6E82",
     signal: "#C4DB7B",
   },
   A: {
@@ -228,6 +252,7 @@ export const styles: Record<CluosStyleId, CluosThemeRoles> = {
     borderDefault: "#E6E7E1", borderStrong: "#D4D6CD",
     actionPrimary: "#008080", actionPrimaryHover: "#005959", focusRing: "rgba(0, 128, 128, 0.30)",
     statusSuccess: "#008080", statusWarning: "#B06A34", statusDanger: "#8A3A3A", statusInfo: "#3E6E82",
+    statusSuccessText: "#006666", statusWarningText: "#8A5A2B", statusDangerText: "#8A3A3A", statusInfoText: "#3E6E82",
     signal: "#008080",
   },
   B: {
@@ -236,6 +261,7 @@ export const styles: Record<CluosStyleId, CluosThemeRoles> = {
     borderDefault: "#DCE2E3", borderStrong: "#C2CDD1",
     actionPrimary: "#0E8F87", actionPrimaryHover: "#0A6B65", focusRing: "rgba(14, 143, 135, 0.20)",
     statusSuccess: "#6F8F19", statusWarning: "#BD7845", statusDanger: "#8A3A3A", statusInfo: "#3E6E82",
+    statusSuccessText: "#546D13", statusWarningText: "#8A5A2B", statusDangerText: "#8A3A3A", statusInfoText: "#3E6E82",
     signal: "#C4DB7B",
   },
   C: {
@@ -244,6 +270,7 @@ export const styles: Record<CluosStyleId, CluosThemeRoles> = {
     borderDefault: "#E4E3DD", borderStrong: "#CBCAC2",
     actionPrimary: "#2B49C7", actionPrimaryHover: "#1D339B", focusRing: "rgba(43, 73, 199, 0.24)",
     statusSuccess: "#3D7A46", statusWarning: "#A96A2F", statusDanger: "#973B3B", statusInfo: "#3E6E82",
+    statusSuccessText: "#2C5A34", statusWarningText: "#8A5A2B", statusDangerText: "#973B3B", statusInfoText: "#3E6E82",
     signal: "#2B49C7",
   },
   D: {
@@ -252,6 +279,7 @@ export const styles: Record<CluosStyleId, CluosThemeRoles> = {
     borderDefault: "#E3E4E1", borderStrong: "#111417",
     actionPrimary: "#007070", actionPrimaryHover: "#005050", focusRing: "rgba(0, 112, 112, 0.22)",
     statusSuccess: "#007070", statusWarning: "#A96A2F", statusDanger: "#8A3A3A", statusInfo: "#3E6E82",
+    statusSuccessText: "#007070", statusWarningText: "#8A5A2B", statusDangerText: "#8A3A3A", statusInfoText: "#3E6E82",
     signal: "#007070",
   },
   E: {
@@ -260,6 +288,7 @@ export const styles: Record<CluosStyleId, CluosThemeRoles> = {
     borderDefault: "#E7DFD2", borderStrong: "#D6CCBA",
     actionPrimary: "#0E6E68", actionPrimaryHover: "#0A524E", focusRing: "rgba(14, 110, 104, 0.18)",
     statusSuccess: "#0E6E68", statusWarning: "#A96A2F", statusDanger: "#8A3A3A", statusInfo: "#3E6E82",
+    statusSuccessText: "#0E6E68", statusWarningText: "#8A5A2B", statusDangerText: "#8A3A3A", statusInfoText: "#3E6E82",
     signal: "#0E6E68",
   },
   G: {
@@ -268,31 +297,33 @@ export const styles: Record<CluosStyleId, CluosThemeRoles> = {
     borderDefault: "rgba(199, 213, 235, 0.14)", borderStrong: "rgba(199, 213, 235, 0.26)",
     actionPrimary: "#1FB5AB", actionPrimaryHover: "#17958D", focusRing: "rgba(31, 181, 171, 0.30)",
     statusSuccess: "#9CC24A", statusWarning: "#D08A54", statusDanger: "#C46A6A", statusInfo: "#6FA8C4",
+    statusSuccessText: "#9CC24A", statusWarningText: "#D08A54", statusDangerText: "#C46A6A", statusInfoText: "#6FA8C4",
     signal: "#C4DB7B",
   },
 };
 
 type CluosPaletteRoles = Pick<
   CluosThemeRoles,
-  "actionPrimary" | "actionPrimaryHover" | "statusSuccess" | "statusWarning" | "statusDanger" | "signal"
+  | "actionPrimary" | "actionPrimaryHover" | "statusSuccess" | "statusWarning" | "statusDanger"
+  | "statusSuccessText" | "statusWarningText" | "statusDangerText" | "signal"
 >;
 
 export const palettes: Record<CluosPaletteId, CluosPaletteRoles> = {
-  "pal-tealcool":   { actionPrimary: "#008080", actionPrimaryHover: "#005959", statusSuccess: "#008080", statusWarning: "#B06A34", statusDanger: "#8A3A3A", signal: "#008080" },
-  "pal-tealink":    { actionPrimary: "#00696B", actionPrimaryHover: "#004F50", statusSuccess: "#00696B", statusWarning: "#B06A34", statusDanger: "#8A3A3A", signal: "#00696B" },
-  "pal-forest":     { actionPrimary: "#3D7A46", actionPrimaryHover: "#2C5A34", statusSuccess: "#3D7A46", statusWarning: "#B5773A", statusDanger: "#8A3A3A", signal: "#D9C27A" },
-  "pal-copper":     { actionPrimary: "#0E6E68", actionPrimaryHover: "#0A524E", statusSuccess: "#0E6E68", statusWarning: "#BD7845", statusDanger: "#8A3A3A", signal: "#BD7845" },
-  "pal-cold":       { actionPrimary: "#2D6CDF", actionPrimaryHover: "#1F4FAE", statusSuccess: "#2D6CDF", statusWarning: "#B5773A", statusDanger: "#8A3A3A", signal: "#9FB3C8" },
-  "pal-terracotta": { actionPrimary: "#B5623A", actionPrimaryHover: "#8F4B2B", statusSuccess: "#4A7A5E", statusWarning: "#B5623A", statusDanger: "#8A3A3A", signal: "#E3A26B" },
+  "pal-tealcool":   { actionPrimary: "#008080", actionPrimaryHover: "#005959", statusSuccess: "#008080", statusWarning: "#B06A34", statusDanger: "#8A3A3A", statusSuccessText: "#006666", statusWarningText: "#8A5A2B", statusDangerText: "#8A3A3A", signal: "#008080" },
+  "pal-tealink":    { actionPrimary: "#00696B", actionPrimaryHover: "#004F50", statusSuccess: "#00696B", statusWarning: "#B06A34", statusDanger: "#8A3A3A", statusSuccessText: "#00696B", statusWarningText: "#8A5A2B", statusDangerText: "#8A3A3A", signal: "#00696B" },
+  "pal-forest":     { actionPrimary: "#3D7A46", actionPrimaryHover: "#2C5A34", statusSuccess: "#3D7A46", statusWarning: "#B5773A", statusDanger: "#8A3A3A", statusSuccessText: "#2C5A34", statusWarningText: "#8A5A2B", statusDangerText: "#8A3A3A", signal: "#D9C27A" },
+  "pal-copper":     { actionPrimary: "#0E6E68", actionPrimaryHover: "#0A524E", statusSuccess: "#0E6E68", statusWarning: "#BD7845", statusDanger: "#8A3A3A", statusSuccessText: "#0E6E68", statusWarningText: "#8A5A2B", statusDangerText: "#8A3A3A", signal: "#BD7845" },
+  "pal-cold":       { actionPrimary: "#2D6CDF", actionPrimaryHover: "#1F4FAE", statusSuccess: "#2D6CDF", statusWarning: "#B5773A", statusDanger: "#8A3A3A", statusSuccessText: "#1F4FAE", statusWarningText: "#8A5A2B", statusDangerText: "#8A3A3A", signal: "#9FB3C8" },
+  "pal-terracotta": { actionPrimary: "#B5623A", actionPrimaryHover: "#8F4B2B", statusSuccess: "#4A7A5E", statusWarning: "#B5623A", statusDanger: "#8A3A3A", statusSuccessText: "#416C53", statusWarningText: "#8F4B2B", statusDangerText: "#8A3A3A", signal: "#E3A26B" },
 };
 
 export const palettesDark: Record<CluosPaletteId, CluosPaletteRoles> = {
-  "pal-tealcool":   { actionPrimary: "#3FB3B3", actionPrimaryHover: "#2D8F8F", statusSuccess: "#3FB3B3", statusWarning: "#D89A5D", statusDanger: "#C46A6A", signal: "#3FB3B3" },
-  "pal-tealink":    { actionPrimary: "#3FB3B3", actionPrimaryHover: "#2D8F8F", statusSuccess: "#3FB3B3", statusWarning: "#D89A5D", statusDanger: "#C46A6A", signal: "#3FB3B3" },
-  "pal-forest":     { actionPrimary: "#6FBE72", actionPrimaryHover: "#519A54", statusSuccess: "#6FBE72", statusWarning: "#D89A5D", statusDanger: "#C46A6A", signal: "#E8D28F" },
-  "pal-copper":     { actionPrimary: "#34A79E", actionPrimaryHover: "#268079", statusSuccess: "#34A79E", statusWarning: "#E0A46B", statusDanger: "#C46A6A", signal: "#E0A46B" },
-  "pal-cold":       { actionPrimary: "#6E9DF2", actionPrimaryHover: "#4E7DD1", statusSuccess: "#6E9DF2", statusWarning: "#D89A5D", statusDanger: "#C46A6A", signal: "#C3D2E0" },
-  "pal-terracotta": { actionPrimary: "#E08F63", actionPrimaryHover: "#C06F45", statusSuccess: "#6FBE72", statusWarning: "#E08F63", statusDanger: "#C46A6A", signal: "#F0C093" },
+  "pal-tealcool":   { actionPrimary: "#3FB3B3", actionPrimaryHover: "#2D8F8F", statusSuccess: "#3FB3B3", statusWarning: "#D89A5D", statusDanger: "#C46A6A", statusSuccessText: "#3FB3B3", statusWarningText: "#D89A5D", statusDangerText: "#C46A6A", signal: "#3FB3B3" },
+  "pal-tealink":    { actionPrimary: "#3FB3B3", actionPrimaryHover: "#2D8F8F", statusSuccess: "#3FB3B3", statusWarning: "#D89A5D", statusDanger: "#C46A6A", statusSuccessText: "#3FB3B3", statusWarningText: "#D89A5D", statusDangerText: "#C46A6A", signal: "#3FB3B3" },
+  "pal-forest":     { actionPrimary: "#6FBE72", actionPrimaryHover: "#519A54", statusSuccess: "#6FBE72", statusWarning: "#D89A5D", statusDanger: "#C46A6A", statusSuccessText: "#6FBE72", statusWarningText: "#D89A5D", statusDangerText: "#C46A6A", signal: "#E8D28F" },
+  "pal-copper":     { actionPrimary: "#34A79E", actionPrimaryHover: "#268079", statusSuccess: "#34A79E", statusWarning: "#E0A46B", statusDanger: "#C46A6A", statusSuccessText: "#34A79E", statusWarningText: "#E0A46B", statusDangerText: "#C46A6A", signal: "#E0A46B" },
+  "pal-cold":       { actionPrimary: "#6E9DF2", actionPrimaryHover: "#4E7DD1", statusSuccess: "#6E9DF2", statusWarning: "#D89A5D", statusDanger: "#C46A6A", statusSuccessText: "#6E9DF2", statusWarningText: "#D89A5D", statusDangerText: "#C46A6A", signal: "#C3D2E0" },
+  "pal-terracotta": { actionPrimary: "#E08F63", actionPrimaryHover: "#C06F45", statusSuccess: "#6FBE72", statusWarning: "#E08F63", statusDanger: "#C46A6A", statusSuccessText: "#6FBE72", statusWarningText: "#E08F63", statusDangerText: "#C46A6A", signal: "#F0C093" },
 };
 
 /** Mirrors the CSS cascade in tokens.css exactly. */

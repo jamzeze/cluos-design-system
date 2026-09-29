@@ -190,6 +190,12 @@
 - Atenção: `background: var(--cluos-status-warn)`.
 - Offline: `background: var(--cluos-status-error)`.
 
+**Tokens status label (texto):**
+- Online: `color: var(--cluos-status-success-text)`.
+- Atenção: `color: var(--cluos-status-warn-text)`.
+- Offline: `color: var(--cluos-status-error-text)`.
+- Sobre `--cluos-deep-navy`, dot e label usam `var(--cluos-status-*-on-navy)`.
+
 ---
 
 ## SystemCard
@@ -404,7 +410,7 @@
 
 **Tipos:** error / warning / success / info.
 
-**Tokens:** Use tokens de status (`--cluos-status-*`).
+**Tokens:** Texto: `--cluos-status-*-text`. Marcador, borda e ícone: `--cluos-status-*`. Fundo: `--cluos-status-*-bg`. O token sem sufixo não é cor de texto. O fundo `-bg` é claro em todo registro: sobre ele o texto é sempre `--cluos-status-*-text`, nunca o papel do registro escuro.
 
 ---
 

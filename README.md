@@ -116,7 +116,7 @@ your `package.json`:
 2. For product-governance changes, edit `PRODUCT-SIMPLICITY-CANON.md` first.
 3. Sync `DESIGN.md`, `DESIGN-WORKFLOW.md`, `APPLE-INSPIRED-PRODUCT-UX.md`, and any affected token or asset docs in the same change.
 4. Update `guides/` and `brand-assets/` if the source artwork changed.
-5. Run `npm pack --dry-run` and inspect the rendered preview.
+5. Run `npm test` (status text contrast and token mirrors) and `npm pack --dry-run`, and inspect the rendered preview.
 6. Record a superseding decision in `agent-skills/profiles/cluos/*-decisions.yaml`.
 7. Update `CHANGELOG.md`.
 8. Tag and push: `git tag v0.x.y && git push --tags`.

@@ -49,6 +49,17 @@ module.exports = {
           "warn-bg":    "var(--cluos-status-warn-bg)",
           error:      "var(--cluos-status-error)",
           "error-bg":   "var(--cluos-status-error-bg)",
+
+          // Status as text. The unsuffixed keys above are fills: text-cluos-warn
+          // is below 4.5:1, text-cluos-warn-text is not.
+          "success-text": "var(--cluos-status-success-text)",
+          "info-text":    "var(--cluos-status-info-text)",
+          "warn-text":    "var(--cluos-status-warn-text)",
+          "error-text":   "var(--cluos-status-error-text)",
+          "success-on-navy": "var(--cluos-status-success-on-navy)",
+          "info-on-navy":    "var(--cluos-status-info-on-navy)",
+          "warn-on-navy":    "var(--cluos-status-warn-on-navy)",
+          "error-on-navy":   "var(--cluos-status-error-on-navy)",
         },
         /**
          * Semantic role colors (v2) — resolve live against whichever
@@ -75,6 +86,10 @@ module.exports = {
           warning:           "var(--cluos-color-status-warning)",
           danger:            "var(--cluos-color-status-danger)",
           info:              "var(--cluos-color-status-info)",
+          "success-text":    "var(--cluos-color-status-success-text)",
+          "warning-text":    "var(--cluos-color-status-warning-text)",
+          "danger-text":     "var(--cluos-color-status-danger-text)",
+          "info-text":       "var(--cluos-color-status-info-text)",
           signal:            "var(--cluos-color-signal)",
         },
       },

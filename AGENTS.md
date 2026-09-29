@@ -46,6 +46,7 @@ No repository may define colors, typography, spacing, or interaction patterns fr
 - Canonical structure: `var(--cluos-deep-navy)` and `var(--cluos-medium-blue)`.
 - Positive action/signal: `var(--cluos-tech-green)`; execution: `var(--cluos-operational-teal)`.
 - Warning/review: `var(--cluos-status-warn)` (copper); denial/error/risk: `var(--cluos-status-error)` (oxblood).
+- Status text: `var(--cluos-status-*-text)` on light surfaces and tints, `var(--cluos-status-*-on-navy)` on deep navy, the roles `var(--cluos-color-status-*-text)` in a component that follows `data-cluos-style` or `data-appearance`. The unsuffixed status token is a fill (marker, bar, border), never a text colour.
 - Text: `var(--cluos-text)`, `var(--cluos-text-muted)`, `var(--cluos-text-subtle)`.
 - Status: `success`, `warn`, `error`, `info` — use the token, never a raw hex.
 - Background: `var(--cluos-bg)`, `var(--cluos-bg-subtle)`, `var(--cluos-bg-muted)`.
@@ -101,6 +102,7 @@ Answer YES to all before marking a UI task complete:
 - [ ] Does every interactive element have a visible focus ring (`var(--cluos-ring-focus)`)?
 - [ ] Are all colors from `var(--cluos-*)` tokens? (no raw hex values)
 - [ ] Does every status use the correct semantic token (success/warn/error/info)?
+- [ ] Is status-coloured text written with a `-text` or `-on-navy` token or a `-text` role, not the fill?
 - [ ] Is there no decorative animation without a motion-safe fallback?
 - [ ] Does the page have a proper heading hierarchy (h1 → h2 → h3)?
 - [ ] Is the layout max-width capped at `var(--cluos-container-product)` or narrower?

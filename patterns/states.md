@@ -85,6 +85,11 @@ Quando usar: Quando filtros ou busca retornam zero resultados (diferente de `emp
 
 ## Estados de feedback de ação
 
+Em cada estado abaixo, o token sem sufixo colore o marcador e o token `-text`
+escreve o texto. O fundo `-bg` é claro em todo registro: sobre ele o texto é
+sempre `--cluos-status-*-text`. Os papéis `--cluos-color-status-*-text` do
+registro escuro escrevem sobre as superfícies escuras, não sobre o `-bg`.
+
 ### `success`
 
 Quando usar: Após ação bem-sucedida.
@@ -96,7 +101,7 @@ Quando usar: Após ação bem-sucedida.
 
 **Texto:** Específico sobre o que mudou. "Conteúdo publicado em aeo.cluos.online.", não "Operação realizada com sucesso."
 
-**Tokens:** `--cluos-status-success`, `--cluos-status-success-bg`.
+**Tokens:** `--cluos-status-success` (marcador), `--cluos-status-success-text` (texto), `--cluos-status-success-bg` (fundo).
 
 ---
 
@@ -111,7 +116,7 @@ Quando usar: Atenção necessária mas não bloqueante.
 
 **Exemplo:** "Este conteúdo usa uma imagem sem alt text. Recomendamos adicionar antes de publicar."
 
-**Tokens:** `--cluos-status-warn`, `--cluos-status-warn-bg`.
+**Tokens:** `--cluos-status-warn` (marcador), `--cluos-status-warn-text` (texto), `--cluos-status-warn-bg` (fundo).
 
 ---
 
@@ -126,7 +131,7 @@ Quando usar: Operação falhou.
 
 **Texto:** O que aconteceu + causa provável + como resolver.
 
-**Tokens:** `--cluos-status-error`, `--cluos-status-error-bg`.
+**Tokens:** `--cluos-status-error` (marcador), `--cluos-status-error-text` (texto), `--cluos-status-error-bg` (fundo).
 
 **Detalhes técnicos:** Sempre recolhidos em `DetailsDisclosure`.
 
@@ -152,7 +157,7 @@ Quando usar: Recurso está aguardando processamento em fila.
 
 **Texto:** "Na fila — posição 3 de 7. Tempo estimado: 2 minutos."
 
-**Tokens:** Usar `--cluos-status-info`, `--cluos-status-info-bg`.
+**Tokens:** `--cluos-status-info` (marcador), `--cluos-status-info-text` (texto), `--cluos-status-info-bg` (fundo).
 
 ---
 

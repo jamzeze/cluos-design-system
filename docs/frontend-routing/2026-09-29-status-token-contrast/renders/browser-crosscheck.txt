@@ -1,0 +1,7 @@
+MMS: 40 browser pairs, 40 matched
+MMS dark: 36 browser pairs, 36 matched
+A: 40 browser pairs, 40 matched
+G: 36 browser pairs, 36 matched
+B + pal-forest: 40 browser pairs, 40 matched
+G + pal-copper: 36 browser pairs, 36 matched
+compared 228 pairs; largest difference 1.78e-15; mismatches 0

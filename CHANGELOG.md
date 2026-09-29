@@ -3,6 +3,57 @@
 All notable changes to the Cluos design system are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com).
 
+## [Unreleased] — 2026-09-29 — Status text contrast
+
+Decision record: `docs/frontend-routing/2026-09-29-status-token-contrast/design-decision.md`.
+Pending Rafael's review; no entry was added to the profile decision logs.
+
+### Added
+
+- Status text tokens `--cluos-status-{success,info,warn,error}-text`: 4.5:1 or
+  more on the matching `-bg` tint and on `--cluos-bg`, `--cluos-bg-subtle` and
+  `--cluos-bg-muted`. Success (`#546D13`) and warn (`#8A5A2B`) are darker tones
+  of their fills; info and error alias their fills, which already passed.
+- Status tokens for `--cluos-deep-navy`,
+  `--cluos-status-{success,info,warn,error}-on-navy`. Success and warn alias
+  their fills, which already passed there; info (`#6FA8C4`) and error
+  (`#C46A6A`) take the values style `G` already registered. In the dark
+  register success (`#9CC24A`) and warn (`#D08A54`) take the style `G` values
+  too.
+- Roles `--cluos-color-status-{success,warning,danger,info}-text` for `MMS`,
+  the dark appearance, the legacy styles `A`–`E` and `G`, and the six
+  palettes, including the palettes against the dark register.
+- Mirrors: `tokens.status.*Text` and `*OnNavy`; `status*Text` in `styles`,
+  `palettes`, `palettesDark`, `resolveTheme()` and `tokens.appearance`;
+  Tailwind keys `cluos-*-text`, `cluos-*-on-navy` and `cluosc-*-text`; a
+  `status_tokens` block in `tokens/mms-canonical.yaml`.
+- `npm test`: `scripts/test-status-contrast.mjs` parses `tokens.css` and
+  asserts every status text pair in 56 style, palette and register
+  combinations, the frozen fills and tints, the error family and the mirrors.
+  `node scripts/status-contrast.mjs` prints the measured report.
+
+### Changed
+
+- `DESIGN-preview.html`, `DESIGN.md`, `AGENTS.md`, `patterns/` and the examples
+  write status text with the text tokens. In the preview two labels change
+  colour and nothing else moves: warn on white goes from 3.54:1 to 5.87:1 and
+  error on deep navy from 2.52:1 to 5.16:1.
+- No existing token changed name or value. The status fills and tints render
+  as before.
+- `examples/apple-inspired-product-ui/next-tailwind.md` uses class names the
+  preset generates (`text-cluos-warn-text`, not `text-cluos-status-warn`).
+- `CluosThemeRoles` has four new required fields (`status*Text`).
+
+### Known limits
+
+- Error text on the dark `--cluos-bg-muted` (`#132952`) stays at 3.83:1. The
+  dark error value is fixed by `palette-policy.md`; a lighter oxblood is a
+  decision on the error family.
+- The status tints stay light in the dark register. They pair with
+  `--cluos-status-*-text`, not with the dark-register text roles.
+- The preview scrolls sideways at 375px and 360px and `--cluos-text-subtle`
+  is 2.05:1 to 2.46:1. Both are on `main` already and are not changed here.
+
 ## [Unreleased] — 2026-09-16 — Frontend routing v2
 
 ### Changed
