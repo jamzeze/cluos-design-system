@@ -105,7 +105,20 @@ Ratios on `--cluos-bg` / `--cluos-bg-subtle` / `--cluos-bg-muted`, measured by `
 
 ## 9. Review history
 
-Filled in as the reviewers run.
+**design-critic round 1** (on `8c51bbd`, report in `design-critic.md`): blocked. The branch introduces nothing above P3 and clears B1: 14 elements of `DESIGN-preview.html` go from 2.05–2.46:1 to 4.77–5.74:1 and no other pixel moves. The page bar is scored on the render that `main` becomes with both blocker fixes: 40/50, lowest dimensions Clareza de interação 3 and Acessibilidade 3. It still fails on P2 that are already on `main`:
+
+- F1: `--cluos-ring-focus`, 1.53:1 against white. No branch fixes it.
+- F2: two status text pairs, 2.52:1 and 3.54:1. Fixed on pull request #4.
+- F5: the table scrolls the page sideways. Fixed by the sibling branch.
+
+For this branch alone the score is 39/50; for `main` today, 38/50.
+
+| Finding | Severity | Resolution |
+|---|---|---|
+| T1. Light `--cluos-text-subtle` is 3.36:1 on deep navy, and nothing said it is for light surfaces | P3 | Fixed: `DESIGN.md` and `patterns/accessibility.md` say so and name `--cluos-text-on-navy` or the dark register for navy panels. No current consumer puts it on a dark surface. |
+| T2. Teal row said "só texto grande" while its `--cluos-bg-muted` value is 2.59:1 | P3 | Fixed: "só texto grande, e só sobre `--cluos-bg`". |
+| T3. `neutral_700` enters the contract without a log entry | P3 | Kept, and stated in the pull request: the value is a proposal; the `palette-decisions.yaml` entry is written when Rafael accepts it. |
+| T4. `--cluos-text-disabled` has no rendered consumer in the preview | P3 | Not done: a disabled control in the preview is a new element outside this fix. The specimen shows it in both registers. |
 
 ## 10. Out of scope, recorded for follow-up
 

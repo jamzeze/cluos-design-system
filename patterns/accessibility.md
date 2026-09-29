@@ -155,10 +155,12 @@ Prefira o `<select>` nativo quando possível — é mais acessível por padrão.
 | `--cluos-text-muted` | `#132952` | 14.32:1 | 11.90:1 | texto secundário |
 | `--cluos-text-subtle` | `#666666` | 5.74:1 | 4.77:1 | legendas, cabeçalhos de tabela, dicas |
 | `--cluos-text-disabled` | `#A5A5A5` | 2.46:1 | 2.05:1 | só o rótulo de um controle inativo (isento pela WCAG 1.4.3) |
-| `--cluos-operational-teal` | `#16A39A` | 3.12:1 | 2.59:1 | só texto grande |
+| `--cluos-operational-teal` | `#16A39A` | 3.12:1 | 2.59:1 | só texto grande, e só sobre `--cluos-bg` |
 | `--cluos-deep-teal` | `#08736E` | 5.69:1 | 4.73:1 | texto em teal |
 
 No registro escuro (`data-appearance="dark"`), sobre `--cluos-bg`, `--cluos-bg-subtle` e `--cluos-bg-muted`: `--cluos-text-subtle` fica entre 4.96:1 e 5.69:1 e `--cluos-text-disabled` entre 3.19:1 e 3.38:1.
+
+Os valores do registro claro são para superfícies claras: `--cluos-text-subtle` fica em 3.36:1 sobre `--cluos-deep-navy`. Num painel navy ou medium blue dentro de uma página clara, use `--cluos-text-on-navy` ou coloque o painel no registro escuro.
 
 ### Imagens e ícones
 

@@ -71,7 +71,10 @@ Each reaches 4.5:1 or more on `--cluos-bg`, `--cluos-bg-subtle` and
 `--cluos-bg-muted`, in the light and in the dark register.
 `--cluos-text-disabled` is only for the label of an inactive control, which
 WCAG 1.4.3 exempts; it stays dimmer than subtle text so a disabled control
-never reads as enabled.
+never reads as enabled. These light-register values are for light surfaces:
+`--cluos-text-subtle` is 3.36:1 on deep navy. On a navy or medium-blue panel
+inside a light page, write with `--cluos-text-on-navy` or put the panel in the
+dark register.
 
 Copper and oxblood are never positive CTAs. Every status also has a text
 label or icon; color alone never carries meaning. Teal may show ongoing
