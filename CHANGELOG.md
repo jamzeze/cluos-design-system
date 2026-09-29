@@ -3,6 +3,23 @@
 All notable changes to the Cluos design system are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com).
 
+## [Unreleased] — 2026-09-29 — Preview table on narrow screens
+
+Record: `docs/frontend-routing/2026-09-29-preview-table-phone/`.
+
+### Fixed
+
+- `DESIGN-preview.html`: the table of section Estados needed 373px, so the
+  page scrolled sideways at 375px and 360px and kept a 1px right gutter at
+  390px. The table now sits in a labelled, focusable scroll region, and below
+  32rem its cells use `--cluos-space-2` inline padding. The page no longer
+  scrolls sideways at 320px, 360px, 375px or 390px; the table scrolls inside
+  its region only below about 357px. At 1440px the render is identical.
+
+### Added
+
+- `PRODUCT-PATTERNS.md` §14: the narrow-screen rule for tables.
+
 ## [Unreleased] — 2026-09-16 — Frontend routing v2
 
 ### Changed

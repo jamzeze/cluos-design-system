@@ -1,0 +1,6 @@
+== 1440px, bundled fonts: main vs branch ==
+before (1440, 3541)  after (1440, 3541)
+identical
+== 1440px, fallback fonts: main vs branch ==
+before (1440, 3541)  after (1440, 3541)
+identical
