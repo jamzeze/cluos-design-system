@@ -212,3 +212,44 @@ Hover, focus and keyboard on the preview; the role-on-tint pairing in the dark r
 1. To Rafael, not back to frontend-craftsman: B1 is `neutral_500` (`--cluos-text-subtle`) of the frozen palette, out of the craftsman's reach, so another round would loop. Record an exception in design-decision.md and palette-decisions.yaml, or open a separate task for a neutral text token at 4.5:1 or better.
 2. B3: a separate CSS task, or in this branch if Rafael wants it. C1 is optional.
 3. After an exception or a fix: re-render at 1440, 390, 375 and 360 and append round 3. Nothing this diff introduces blocks a pass.
+
+## Round 3 (HEAD 1a1798a)
+Result: blocked
+
+Reviewer: design-critic, clean context, no edits to the repository except this append. Date 2026-09-29. Change since round 2 (3b3ddcf): 260e064 (tokens/tokens.css, scripts/status-contrast.mjs, DESIGN.md, CHANGELOG.md) and 1a1798a (docs). DESIGN-preview.html and renders/status-pairs.html are unchanged (git diff --stat is empty).
+Score: 44/50, lowest dimension: Acessibilidade 3/5 (Responsividade/adaptação also 3/5). Only Disciplina de tokens changes, 4 to 5.
+Why still blocked: B1 and B3 are open P2 present in origin/main, untouched, and no exception from Rafael is recorded. design-decision.md sections 9 and 10 record them as out of scope and say the gate stays blocked until he records an exception or they get their own tasks. Nothing this diff introduces is above P3.
+
+### What I rendered
+
+review-render.sh into /private/tmp/claude-501/-Users-rafacosta-Documents-GitHub-cluos-design-system--claude-worktrees-competent-proskuriakova-7879d6/b3fd690d-1562-4f2c-b9b6-46fb7cdd9a52/scratchpad/critic3/ (copies checked with cmp; true 1440 and 390 viewports; Manrope and Instrument Sans loaded; overflow list empty for the preview at 390). Every PNG was compared pixel by pixel with its round 2 counterpart in scratchpad/critic2/. I sampled the text colours of the `--cluos-bg` and `deep navy` columns in the two dark contexts, viewed specimen-mms-dark-1440.png and specimen-style-g-1440.png, and ran `npm test` (64 of 64 pass) and `node scripts/status-contrast.mjs`.
+
+### 1. The preview is identical to round 2
+
+Every preview PNG, crop and zoom has 0 changed pixels against round 2. The before/after pixel diff is the same two bands, 1465 px: at 1440 y2081-2090 x1231-1302 (#8A3A3A to #C46A6A) and y2444-2453 x561-757 (#BD7845 to #8A5A2B); at 390 y5079-5088 and y5738-5747. Heights 3541 and 7648. The light-register evidence renders (mms at 1440 and 390, style A, style B + pal-forest) are identical too. B1 and B3 are therefore unchanged from what I measured in round 2.
+
+### 2. C1: resolved
+
+- Evidence page, dark contexts only: the changed pixels are the `deep navy` column, success and warn rows, label and ratio caption (mms-dark x1172-1285; style G and style G + pal-copper x1225-1339). Nothing else on any page moved.
+- Round 2: on #010D28 the `--cluos-bg` column read success 9.39 and warn 6.83 while `deep navy` read 5.16 and 5.45. Round 3, sampled from the pixels: the two columns agree in all four rows of mms-dark (success #9CC24A 9.39, info #6FA8C4 7.41, warn #D08A54 6.83, error #C46A6A 5.16) and in the "depois" line of style G (same four values).
+- In style G the "antes" lines still differ between the two columns (deep navy shows the constant fill, 5.16 and 5.45; the surface column shows the style's role fill, 9.39 and 6.83). That is the "before" reference, not a defect.
+- Stylesheet: `[data-appearance="dark"], [data-cluos-style="G"]` now defines `--cluos-status-success-on-navy: #9CC24A` and `--cluos-status-warn-on-navy: #D08A54`, and the `[data-appearance="dark"]` roles reference the on-navy tokens instead of holding literals. In the light register the two tokens still alias the fills (root block). The two values still repeat style G's fills, as style blocks repeat hexes elsewhere in the file; not worth a finding.
+- The mms-dark `deep navy` column now shows the same values as the `--cluos-bg` column. They test two token paths, so keeping both is right; their equality is the proof of the fix.
+
+### 3. New findings: none
+
+No finding at any severity that this change introduces. Observations:
+- The two on-navy constants are now register-dependent (light: the fills, 5.16 and 5.45; dark: 9.39 and 6.83). DESIGN.md says so ("the register also writes on `--cluos-bg-muted`"), and `--cluos-text-on-navy` already differs by register the same way (#F7F8F5 in the dark block).
+- Script totals: 3224 pairs in 56 contexts (was 3168), 0 of 3208 counted pairs below 4.5:1 (was 0 of 3154), known-limit pairs 16 (was 14). The script now measures the on-navy constants on every dark surface; from its diff, the extra 2 are the error constant on #132952 in the two dark contexts, under the same limit as B2 (3.83:1). B2 is unchanged.
+
+### Round 2 scores
+
+Disciplina de tokens 4 to 5: the dark roles reference named tokens and the preview diff uses only var(--cluos-status-*). All other scores are unchanged, including Acessibilidade 3 (B1; focus and keyboard unchecked) and Responsividade 3 (B3). Total 43 to 44/50.
+
+### Not verified
+
+tokens.js and tokens.ts carry the root values only (successOnNavy #6F8F19, warnOnNavy #BD7845), as they already do for textOnNavy (#FFFFFF there, #F7F8F5 in the dark block); their tests compare the root register and pass. I did not check whether mms-canonical.yaml, which the preview names as the canonical source, should record the two dark tones (my grep missed its `on_navy` keys), nor other docs that mention the on-navy tokens (that grep errored). Hover, focus, keyboard and widths other than 1440 and 390 remain as in round 2.
+
+### Handoff
+
+Unchanged: Rafael records an exception for B1 and B3, or each gets its own task; then re-render at 1440, 390, 375 and 360 and append the next round. Optional P3: decide whether the yaml should carry the dark on-navy tones.

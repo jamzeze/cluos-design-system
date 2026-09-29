@@ -21,6 +21,7 @@ Status tokens exist in two layers of `tokens/tokens.css`:
 | `tokens/index.ts` | re-exports by name | unchanged |
 | `DESIGN-preview.html` | status colour as 12px text on white and on deep navy | edited |
 | `DESIGN.md`, `AGENTS.md`, `DESIGN-WORKFLOW.md`, `PRODUCT-PATTERNS.md` | usage rules | edited |
+| `README.md`, `CHANGELOG.md`, `package.json` | update steps, release notes, `scripts.test` | edited |
 | `patterns/components.md`, `patterns/states.md`, `patterns/accessibility.md` | token guidance per component and state | edited |
 | `examples/tailwind-setup.md` | badge: status text on its tint | edited |
 | `examples/apple-inspired-product-ui/css-tokens.md` | four badges: status text on its tint | edited |
@@ -296,7 +297,21 @@ Headless Chrome 154 through the DevTools protocol with a device-metrics override
 | B3. The Estados table of the preview scrolls the page sideways at 375px and 360px (scrollWidth 389); at 390px it leaves a 2px right gutter | P2, already in `main` | Not fixed: before and after are identical (`renders/preview-pixel-diff.txt`). It is a layout change to the canonical preview, outside this brief (section 10). The round 1 note "no horizontal overflow" holds at 390px and wider only. |
 | C1. Two dark tones were unnamed literals in `[data-appearance="dark"]`, and on `#010D28` the role and the on-navy token gave different tones | P3, from `7a6d2d2` | Fixed: D2, the dark register defines its own on-navy success and warn, and the roles reference them. |
 
-The reviewer's handoff is to Rafael, not to another implementation round: B1 is a palette value and B3 is a layout change. Until he records an exception or the two are fixed in their own tasks, the design-critic gate stays blocked and `design-qa` has no passed critic to start from.
+The reviewer's handoff is to Rafael, not to another implementation round: B1 is a palette value and B3 is a layout change. Until he records an exception or the two are fixed in their own tasks, the design-critic gate stays blocked.
+
+**design-critic round 3** (on `1a1798a`): blocked, 44/50. C1 resolved, no new finding, preview identical to round 2. Still blocked on B1 and B3 only.
+
+**design-qa** (on `1a1798a`): blocked. Its report is `design-qa.md`. It ran although its input, a passed design-critic, was not met, and says so. For what this branch changes, the six checks pass: structure, priority, identity, states, responsive at 1440px and 390px, behavior. For the page as rendered it records the same two P2, B1 and B3, both on `main`. Its P3 notes:
+
+| Note | Resolution |
+|---|---|
+| Q1. Four hex values are new to the system (`#546D13`, `#8A5A2B`, `#006666`, `#416C53`), and the `status_tokens` block sits in a file whose header reads `approved_by: rafael`, `2026-08-30` | Open, for Rafael. The block carries its own `added_at` and `decision_record`; the header describes the identity approved on 2026-08-30, not this block. |
+| Q3. "Negada" on navy changes from `#8A3A3A` to `#C46A6A` | Intended (D9): 2.52:1 to 5.16:1, with the dark oxblood of `palette-policy.md`. |
+| Q5. `CluosThemeRoles` gains four required fields | Section 8. |
+| Q6. Section 1 did not list `README.md` and `CHANGELOG.md` | Fixed. |
+| A2, B2 | As in round 2. |
+
+Not verified by either reviewer: hover, focus and keyboard (the branch touches no interactive element), and the styles and palettes that were measured by the script but not opened as renders.
 
 ## 10. Out of scope, recorded for follow-up
 
