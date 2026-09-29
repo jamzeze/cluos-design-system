@@ -145,14 +145,16 @@ Unchanged: `cluos-mms-v1`. Palette mode `preserve` (corrects contrast, no chroma
 | `--cluos-status-warn-on-navy` | `var(--cluos-status-warn)` | alias, the fill passes on deep navy (5.45:1) |
 | `--cluos-status-error-on-navy` | `#C46A6A` | the dark oxblood of `palette-policy.md` |
 
-Revised after design-critic round 1 (finding A1). The first version gave all four tokens the style `G` values, which lightened the success and warn labels of the preview although they already passed, and broke principle 3. The cost of the revision: the on-navy tokens are specified for deep navy only. On the dark `--cluos-bg-muted` the success and warn fills give 3.83:1 and 4.05:1, so the dark register does not use these constants for them (D3).
+Revised after design-critic round 1 (finding A1). The first version gave all four tokens the style `G` values, which lightened the success and warn labels of the preview although they already passed, and broke principle 3.
+
+In the dark register (`[data-appearance="dark"]` and style `G`) success and warn on-navy take `#9CC24A` and `#D08A54`, the values style `G` registers. A whole dark register also writes on `--cluos-bg-muted`, where the two fills give 3.83:1 and 4.05:1. So each status has one on-navy tone per register, and the dark one has a name (design-critic round 2, finding C1). A navy block inside a light page, as in the preview, is not the dark register and keeps the fills.
 
 **D3. Text roles in the role layer.** `--cluos-color-status-{success,warning,danger,info}-text`.
 
 | Selector | success-text | warning-text | danger-text | info-text |
 |---|---|---|---|---|
 | `:root`, `MMS` | `var(--cluos-status-success-text)` | `var(--cluos-status-warn-text)` | `var(--cluos-status-error-text)` | `var(--cluos-status-info-text)` |
-| `[data-appearance="dark"]` | `#9CC24A` | `#D08A54` | `#C46A6A` | `#6FA8C4` |
+| `[data-appearance="dark"]` | `var(--cluos-status-success-on-navy)` | `var(--cluos-status-warn-on-navy)` | `var(--cluos-status-error-on-navy)` | `var(--cluos-status-info-on-navy)` |
 | `A` | `#006666` | `#8A5A2B` | `#8A3A3A` | `#3E6E82` |
 | `B` | `#546D13` | `#8A5A2B` | `#8A3A3A` | `#3E6E82` |
 | `C` | `#2C5A34` | `#8A5A2B` | `#973B3B` | `#3E6E82` |
@@ -168,7 +170,7 @@ Revised after design-critic round 1 (finding A1). The first version gave all fou
 
 The table shows resolved values. In the stylesheet a text role that repeats a value references it (`var(--cluos-status-warn-text)`, `var(--cluos-color-status-danger)` and so on), so `#8A5A2B` is written once (design-critic finding A5).
 
-Dark appearance: the success and warn fills fail on the dark `--cluos-bg-muted`, so the roles take the four status values style `G` already registers.
+Dark appearance: the roles take the on-navy tokens as the dark register defines them (D2): `#9CC24A`, `#D08A54`, `#C46A6A`, `#6FA8C4`, the four status values style `G` already registers.
 
 Rule applied: where the fill passes on every light surface the text role repeats it (`D`, `E`, `pal-tealink`, `pal-copper`, every danger and info). Where it fails, the text role takes the deep tone that style or palette already registers as its action hover (`#2C5A34` forest, `#1F4FAE` cold, `#8F4B2B` terracotta). Two exceptions: teal takes `#006666`, the value of `--cluos-teal-text` in the `suporte` fix (`suporte` follows style `A`), instead of the registered `#005959`; `pal-terracotta` success has no registered deep tone and takes `#416C53`, its own hue at lightness 34%.
 
@@ -241,10 +243,10 @@ Measured by `node scripts/status-contrast.mjs` on this branch. Before: the fill 
 
 ### Totals
 
-- Pairs measured: 3168 in 56 contexts.
-- Below 4.5:1 before: 1371 of 3154.
-- Below 4.5:1 after: 0 of 3154.
-- Known limit (error text on the dark `--cluos-bg-muted` `#132952`): 14 pairs, 3.83 to 3.83; before 1.87.
+- Pairs measured: 3224 in 56 contexts.
+- Below 4.5:1 before: 1401 of 3208.
+- Below 4.5:1 after: 0 of 3208.
+- Known limit (error text on the dark `--cluos-bg-muted` `#132952`): 16 pairs, 3.83 to 3.83; before 1.87.
 
 ### Renders
 
@@ -286,12 +288,23 @@ Headless Chrome 154 through the DevTools protocol with a device-metrics override
 | B1. `--cluos-text-subtle` below AA (2.05:1 to 2.46:1) | P2, already in `main` | Not fixed: it is the `neutral_500` of the canonical palette, outside this brief. Needs Rafael's decision (section 10). |
 | B2. Error on the dark `--cluos-bg-muted`, 3.83:1 | P3, residual | D5. |
 
+**design-critic round 2** (on `3b3ddcf`): blocked, 43/50. No finding introduced by this diff is above P3. The block comes from two P2 that are on `main` already, B1 and B3, and from the two dimensions they cap (Acessibilidade 3, Responsividade 3).
+
+| Finding | Severity | Resolution |
+|---|---|---|
+| A1 | was P2 | Resolved, confirmed by the reviewer's pixel samples. A3, A5, N1, N2: resolved. A4: resolved as prescribed. A2, B2: open P3, accepted. |
+| B3. The Estados table of the preview scrolls the page sideways at 375px and 360px (scrollWidth 389); at 390px it leaves a 2px right gutter | P2, already in `main` | Not fixed: before and after are identical (`renders/preview-pixel-diff.txt`). It is a layout change to the canonical preview, outside this brief (section 10). The round 1 note "no horizontal overflow" holds at 390px and wider only. |
+| C1. Two dark tones were unnamed literals in `[data-appearance="dark"]`, and on `#010D28` the role and the on-navy token gave different tones | P3, from `7a6d2d2` | Fixed: D2, the dark register defines its own on-navy success and warn, and the roles reference them. |
+
+The reviewer's handoff is to Rafael, not to another implementation round: B1 is a palette value and B3 is a layout change. Until he records an exception or the two are fixed in their own tasks, the design-critic gate stays blocked and `design-qa` has no passed critic to start from.
+
 ## 10. Out of scope, recorded for follow-up
 
 - Dark-register tints (finding 6) and the dark error limit (D5): need a decision on new colours and on the error family.
 - `tokens.css` lacks the dark-tuned palette fills that `tokens.ts` registers (finding 7).
 - Fills as markers. On white every fill is above 3:1 (warn 3.54, success 3.74). On `--cluos-bg-muted` the warn fill is 2.94:1 and on deep navy the error fill is 2.52:1, below the 3:1 that WCAG 1.4.11 asks of a graphic that carries meaning alone. `DESIGN.md` requires a text label beside every status, and on navy the preview now marks with the on-navy tone; the fills themselves were frozen by the brief.
-- `--cluos-text-subtle` (`#A5A5A5`) is 2.46:1 on white and 2.05:1 on `--cluos-bg-muted`; the preview uses it for table headers and token labels. Not a status token; changing it changes `neutral_500` in the canonical palette.
+- `--cluos-text-subtle` (`#A5A5A5`) is 2.46:1 on white and 2.05:1 on `--cluos-bg-muted`; the preview uses it for table headers and token labels. Not a status token; changing it changes `neutral_500` in the canonical palette (design-critic B1).
+- `DESIGN-preview.html`: the table of section Estados has a minimum width of about 373px, so the page scrolls sideways at 375px and 360px (design-critic B3). On `main` already.
 - The two `guides/` pages and `design-gallery/index.html` keep their failing pairs (section 2.5).
 - `patterns/accessibility.md`, `patterns/components.md` and the examples still describe teal primary buttons and `#1B2F36` navy from before `cluos-mms-v1`.
 - `brand-assets/fonts/` and three test scripts called by `scripts/validate-agent-skills.sh` exist only as untracked files in the main checkout. A clean clone renders the preview in fallback fonts and fails that script.

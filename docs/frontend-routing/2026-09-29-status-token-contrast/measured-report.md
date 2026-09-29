@@ -129,7 +129,7 @@ Source: `tokens/tokens.css`. Threshold 4.5:1. Before: the fill used as text. Aft
 
 ## Totals
 
-- Pairs measured: 3168 in 56 contexts.
-- Below 4.5:1 before: 1371 of 3154.
-- Below 4.5:1 after: 0 of 3154.
-- Known limit (error text on the dark `--cluos-bg-muted` `#132952`): 14 pairs, 3.83 to 3.83; before 1.87.
+- Pairs measured: 3224 in 56 contexts.
+- Below 4.5:1 before: 1401 of 3208.
+- Below 4.5:1 after: 0 of 3208.
+- Known limit (error text on the dark `--cluos-bg-muted` `#132952`): 16 pairs, 3.83 to 3.83; before 1.87.

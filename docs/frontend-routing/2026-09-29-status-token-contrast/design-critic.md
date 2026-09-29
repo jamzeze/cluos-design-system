@@ -115,3 +115,100 @@ Not rendered: hover, focus and keyboard for the preview's links and buttons; sta
 
 Return to frontend-craftsman: (1) resolve A1 with option a or b; (2) shorten the new row or fix the table widths (A3); (3) render the preview and status-pairs.html at a true 390 px and send the images (N1). Then re-render, re-review and append to this file; do not overwrite this verdict.
 B1 and B2 were already there and are not attributable to this diff, but B1 is an open P2 on the page: the bar (no dimension below 4, zero open P2) cannot be met until B1 is fixed or Rafael records an exception.
+
+## Round 2 (HEAD 3b3ddcf)
+Result: blocked
+
+Reviewer: design-critic, clean context, no edits to the repository except this append. Date 2026-09-29. Level N3, direction cluos-mms-v1, layout contract not applicable (routing.md).
+Score: 43/50 over ten dimensions, lowest dimension: Acessibilidade 3/5 (Responsividade/adaptação also 3/5).
+Why blocked: no finding introduced by this diff is above P3. The bar fails on two P2 that are already in origin/main and visible in the rendered page (B1, B3), and on the two dimensions they cap. No exception from Rafael is recorded (design-decision.md line 6: no decision in it is his). The total clears 42; the bar does not.
+
+### What I rendered
+
+Chrome through the DevTools protocol with a device-metrics override, isolated profile, from scratch copies checked with cmp (after preview and tokens.css byte-identical to the worktree; before preview and tokens.css byte-identical to origin/main 3fc656f). Manrope and Instrument Sans loaded in every render.
+- DESIGN-preview.html before and after at 1440 (innerWidth 1440, scrollWidth 1440, height 3541 both) and at a true 390 (innerWidth 390, scrollWidth 390, height 7648 both, overflow list empty); pixel diff at both; 3x zooms of the two changed labels; pixel sampling of the PNGs (marker centre, farthest text pixel) with contrast computed from those pixels.
+- Layout viewports of 375 and 360 without the mobile flag (B3): extra2-{before,after}-{375,360}.png.
+- status-pairs.html at 1440 in mms, mms-dark, style A, style G, style B + pal-forest, style G + pal-copper (viewed: mms, mms-dark, style G) and mms at 390. At 390 its overflow probe lists the table, which sits inside `.scroll` (tabindex=0, role=region, aria-label); document scrollWidth is 390. Not a failure.
+- Run by me: `npm test` (64 of 64 pass); `node scripts/status-contrast.mjs`; git diff of the token mirrors against origin/main.
+- My files: /private/tmp/claude-501/-Users-rafacosta-Documents-GitHub-cluos-design-system--claude-worktrees-competent-proskuriakova-7879d6/b3fd690d-1562-4f2c-b9b6-46fb7cdd9a52/scratchpad/critic2/ (montage-A-zooms.png, crop-after-1440-navy-estados.png, montage-C-390.png, montage-D-390-page.png, specimen-mms-1440.png, specimen-mms-dark-1440.png, specimen-style-g-1440.png, extra2-*.png).
+
+### What the diff changes on screen
+
+Pixel diff, before against after: 1465 changed pixels in two bands, at 1440 (0.0287%) and at 390 (0.0491%). Page heights are equal (3541, 7648). Colours sampled from the rendered pixels:
+
+| Element | Before | After | On its surface |
+|---|---|---|---|
+| Navy NEGADA, label and marker | #8A3A3A | #C46A6A | 2.52 to 5.16 |
+| White "Revisar antes de publicar", label | #BD7845 | #8A5A2B | 3.54 to 5.87 |
+| White warn marker | #BD7845 | #BD7845 | 3.54, unchanged |
+| Navy CONCLUÍDA, label and marker | #6F8F19 | #6F8F19 | 5.16, unchanged |
+| Navy ATENÇÃO, label and marker | #BD7845 | #BD7845 | 5.45, unchanged |
+
+Everything else is pixel-identical, including "Publicação negada" (#8A3A3A on white, 7.64), the table and all content below it. The NEGADA marker changes because `.surface .status::before` uses currentColor; #C46A6A is already on origin/main (tokens.css line 257, style G danger), so no new hue enters the error family, and the marker rises from 2.52 to 5.16 against the 3:1 non-text threshold. Not a finding.
+
+### Identity test
+
+1. Logo and copy removed, still CluOS? Yes: hairline grid, zero radius, one deep-navy mass with the tech-green accent, Manrope over Instrument Sans (montage-D-390-page.png). The diff touches two labels.
+2. Attributable to 500 startups? No.
+3. Clear visual idea? Yes: operational clarity carried by rules, weight and one dark mass.
+4. Real positioning? Yes: the navy block now reads as an operations view whose three statuses are legible.
+5. Density matches the task? Yes for a specimen; the evidence page is dense on purpose.
+6. Brand in composition and details? Yes. Round 1's drift is gone: CONCLUÍDA and ATENÇÃO keep their fills. NEGADA reads pale rose beside the oxblood swatch of section 03: forced by AA and already shipped in style G, so not a deduction.
+7. Elements a generative model would add? None.
+
+### Rubric
+
+| Dimension | Score | Evidence |
+|---|---|---|
+| Distinção de marca | 5 | crop-after-1440-navy-estados.png: hairline grid, zero radius, one navy mass, tech green, Manrope. A1's drift is gone (pixel samples above). |
+| Hierarquia | 5 | One focal point (H1 with the bold last line, then the single tech-green CTA). Status labels stay tertiary: 12px uppercase, weight unchanged. |
+| Composição | 5 | Form follows the task at 1440. The diff changes no geometry: heights 3541 and 7648 unchanged, no band at the table. The phone-width gutter break is scored under Responsividade (B3). |
+| Tipografia | 5 | Both families loaded. At 390 the H1 wraps to four lines with a bold last line (montage-D slice 1); labels are legible at 12px in the 3x zooms. |
+| Densidade | 4 | Proportional at 1440. Not 5: at 390 the palette swatches are ~320px squares (7648px page) and the evidence page spends its first phone screen on a 245px header row (montage-C right panel). Unchanged by the diff. |
+| Disciplina de tokens | 4 | The preview diff uses only var(--cluos-status-*), no hex (DESIGN-preview.html lines 99-108). A5 fixed. Not 5: C1. |
+| Economia de componentes | 5 | No component added; round 1's table row is gone; the evidence page now merges same-colour surfaces into one column. |
+| Clareza de interação | 4 | Every state carries text plus marker and reads on white, tint, muted and navy (specimen-mms-1440.png). Not 5: A2. Hover, focus and keyboard not rendered (N3), so no higher than 4. |
+| Acessibilidade | 3 | Diff-attributable: status text is at or above 4.5:1 in all 56 contexts (0 of 3154 pairs below; script) except 14 known-limit pairs at 3.83:1 (B2), which the render flags "abaixo". Page as rendered, capped at 3 by B1, measured from pixels: #A5A5A5 on #EAEAEA 2.05:1 (table header labels), on white 2.46:1 (swatch captions). Focus and keyboard not checked. |
+| Responsividade/adaptação | 3 | 390 passes: no overflow, changed labels fit, height unchanged. Not 4: B3. |
+
+### Round 1 findings
+
+| Finding | Status | Evidence |
+|---|---|---|
+| A1 (P2) on-navy success and warn changed | Resolved | The pixel diff has the two bands above only. CONCLUÍDA #6F8F19 (5.16) and ATENÇÃO #BD7845 (5.45) are identical before and after; ATENÇÃO matches the Copper swatch again. `--cluos-status-success-on-navy` and `-warn-on-navy` now alias the fills. |
+| A2 (P3) warn label bronze, marker copper | Open, P3, accepted | montage-A-zooms.png: at 3x the marker (#BD7845) is visibly lighter than the label (#8A5A2B); subtle at 1x. DESIGN.md now states it ("the label is the darker of the two"). Needed for AA. |
+| A3 (P3) new row reflowed the table | Resolved | Row removed. Heights unchanged at both widths; no diff band at the table. |
+| A4 (P3) dark role on light tint | Resolved as prescribed | specimen-mms-dark-1440.png renders the tint column with the constants (5.31, 4.92, 5.01, 6.49) and drops the role-on-tint column. DESIGN.md and patterns/states.md say the tint pairs with the text token, never a dark role. Residual: nothing prevents building the failing pairing; I did not render it. |
+| A5 (P3) #8A5A2B repeated ten times | Resolved | tokens.css references `var(--cluos-status-warn-text)` and `var(--cluos-color-status-*)`. Remaining literals are distinct values. New P3 in C1. |
+| B1 (P2, in main) neutral text below AA | Open | Now measured by me from the render: #A5A5A5 on #EAEAEA 2.05:1, on white 2.46:1. Visible in crop-after-1440-navy-estados.png (ELEMENTO, TRATAMENTO CANÔNICO, EVITAR). design-decision.md §10 defers it; no exception recorded. |
+| B2 (P3) error on dark bg-muted 3.83 | Open, P3, pinned | specimen-mms-dark-1440.png and specimen-style-g-1440.png print "depois 3.83 abaixo"; the script counts 14 known-limit pairs (before 1.87). DESIGN.md gives the workaround. |
+| N1 phone width | Resolved at 390 | True 390 px viewport, no overflow. It surfaced B3. |
+| N2 scripts, tests, mirrors | Resolved | 64 of 64 tests. Script: 3168 pairs in 56 contexts, 0 of 3154 below 4.5:1 after (1371 before), 14 known-limit. tokens.js and tokens.ts: 12 palette lines each re-emitted, 0 values changed, 3 keys added (statusSuccessText, statusWarningText, statusDangerText). tokens.css and mms-canonical.yaml: no line removed against origin/main. The owner's constraints (fills keep values, error family, names added never removed) hold in what I checked. tailwind-preset.js not read; its test passes. |
+| N3 interaction, other contexts | Open in part | Hover, focus and keyboard not rendered; the diff touches no interactive element. Style A, style B + pal-forest, style G + pal-copper rendered but not viewed; the remaining contexts are covered by the script only. |
+
+### New findings
+
+#### B3. P2. Already in origin/main (before equals after). The Estados table breaks the gutter at 390 and scrolls the page sideways at 375 and 360
+
+- Evidence: montage-C-390.png (middle panel) and montage-D-390-page.png (slice 4). At 390 the table header band spans x16-388 of 390 while the cards stop at x373: left gutter 16px, right gutter 2px. With no mobile flag, layout viewports of 375 and 360 give scrollWidth 389 (extra2-{before,after}-{375,360}.png): horizontal page scroll of 14px and 29px. The probe lists table, thead, tr, th, tbody, td (and one `a` I did not identify). With the mobile flag Chrome widens the layout viewport to 389, which hides the failure.
+- Cause: the table's min-content width, about 373px, plus the 16px margin gives 389.
+- Impact: the author's "true 390px, no horizontal overflow" holds only at 389px and wider. Common phone widths scroll sideways and the canonical reference breaks its own gutter.
+- Fix, CSS only, separate task unless Rafael wants it here: put the table in the `.scroll` region pattern that status-pairs.html already uses, or let cells wrap (`th, td { overflow-wrap: anywhere }`) with a phone layout for the three columns. Re-measure at 360, 375 and 390.
+- Where: DESIGN-preview.html `#states table` and its @media block.
+
+#### C1. P3. Introduced by 7a6d2d2. Two dark tones are anonymous literals and disagree with the on-navy tokens on the same surface
+
+- Evidence: `[data-appearance="dark"]` writes #9CC24A and #D08A54 as the success and warning text roles. They repeat style G's fills and lost their names when `--cluos-status-success-on-navy` and `-warn-on-navy` became aliases of the fills. specimen-mms-dark-1440.png: `--cluos-bg` and `--cluos-deep-navy` are both #010D28 yet render different success and warn text (9.39 against 5.16; 6.83 against 5.45), in two columns.
+- Impact: two valid "success on navy" tones chosen by API path. DESIGN.md says roles for pages that follow data-appearance, so the rule exists. Drift risk only. I did not check whether a test ties the literals to style G.
+- Fix: name the two dark tones (names added, none removed) and reference them from `[data-appearance="dark"]` and style G, or state in DESIGN.md that a navy block inside a dark page takes the roles.
+- Where: tokens/tokens.css `[data-appearance="dark"]`.
+
+### Not verified
+
+Hover, focus and keyboard on the preview; the role-on-tint pairing in the dark register; widths other than 1440, 390, 375 and 360; style A, style B + pal-forest and style G + pal-copper renders (rendered, not viewed); the author's renders/*.png.
+
+### Handoff
+
+1. To Rafael, not back to frontend-craftsman: B1 is `neutral_500` (`--cluos-text-subtle`) of the frozen palette, out of the craftsman's reach, so another round would loop. Record an exception in design-decision.md and palette-decisions.yaml, or open a separate task for a neutral text token at 4.5:1 or better.
+2. B3: a separate CSS task, or in this branch if Rafael wants it. C1 is optional.
+3. After an exception or a fix: re-render at 1440, 390, 375 and 360 and append round 3. Nothing this diff introduces blocks a pass.
