@@ -92,7 +92,7 @@ Ratios on `--cluos-bg` / `--cluos-bg-subtle` / `--cluos-bg-muted`, measured by `
 | `--cluos-text-disabled`, light | not defined | `#A5A5A5` 2.46 / 2.46 / 2.05, exempt |
 | `--cluos-text-disabled`, dark | not defined | `rgba(247, 248, 245, 0.38)` 3.35 / 3.38 / 3.19, exempt |
 
-`npm test` on `main` values: 14 failing pairs (the two light tokens on seven surfaces) and 5 of 8 tests failing; after: 8 of 8 pass. Seven deliberate mutations (subtle back to `#A5A5A5`, subtle at `#6B6B6B`, dark disabled removed, `neutral-500` changed, a JS mirror drifting, the YAML role reverted, and a control) each fail the tests they should.
+`npm test` on `main` values: 14 failing pairs (the two light tokens on seven surfaces) and 5 of 8 tests failing; after: 8 of 8 pass. Six deliberate mutations (subtle back to `#A5A5A5`, subtle at `#6B6B6B`, dark disabled removed, `neutral-500` changed, a JS mirror drifting, the YAML role reverted) each fail the tests they should; a no-op control passes.
 
 `DESIGN-preview.html`, pixel diff against `main` (`renders/preview-pixel-diff.txt`): at 1440px, 7,206 pixels in 8 bands; at 390px, 7,209 pixels in 12 bands. In every band the dominant colour goes from `#A5A5A5` to `#666666`: rule labels, swatch labels, table headers, the motion feedback line and the chart period. The page height is unchanged. Crops: `renders/preview-{rules,palette,table}-before-after-1440.png`.
 
@@ -100,6 +100,7 @@ Ratios on `--cluos-bg` / `--cluos-bg-subtle` / `--cluos-bg-muted`, measured by `
 
 - Names: two added (`--cluos-neutral-700`, `--cluos-text-disabled`), none removed.
 - Values: `--cluos-text-subtle` (light) and its mirrors change from `#A5A5A5` to `#666666`. Every page that uses the token renders darker subtle text, including the two `guides/` pages.
+- Local copies do not follow. `MMS/src/styles/cluos-tokens.css` is a verbatim fallback copy (`AGENTS.md`); it still sets `--cluos-text-subtle: #A5A5A5`, has no `--cluos-text-disabled`, and 54 files under `MMS/src` use the token. `estrut/estrut-mvp/dashboard/cluos-tokens.css` carries an older `#8A939B`. MMS keeps rendering subtle text at 2.46:1 until its copy is reconciled; that is a change to the product repository and is not made here.
 - A consumer that used `--cluos-text-subtle` for a disabled label now renders it darker; it should move to `--cluos-text-disabled`.
 - Rollback: revert the commit.
 
