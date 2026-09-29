@@ -2,12 +2,14 @@
 
 Contract: UXLayoutContractV1
 Contract ID: cluos-design-system/design-preview/estados-table
-Revision ID: r1
+Revision ID: r2
 Status: provisional
 Approved by: unset
 Approved at: unset
 
 Written by the agent on 2026-09-29 for branch `agent/cluos-design-system/preview-table-phone-20260929`. An agent cannot approve a contract; review of the pull request is the approval path.
+
+r2 (after design-critic round 1): E5 states the width from which the three cells of a row are co-visible, and A2 records the cost of the focus stop. No zone, order or element changed.
 
 ## Job and risk
 
@@ -35,7 +37,7 @@ Non-goals: table content, typography, colour, other sections, the system focus t
 | E2 | Three state cards | P1 | every visit | E1 | Z2 | persistent | static; card link focusable | 2 | 2 | one column at ≤48rem (existing) | unchanged |
 | E3 | Table region (new wrapper) | P1 | every visit | E4, E5 | Z3 | persistent | focusable; scrolls only when the table is wider than the region | 3 | 3, one focus stop after the card link | full width of the shell content box at every width | lets the table scroll instead of the page |
 | E4 | Header row: Elemento, Tratamento canônico, Evitar | P1 | every visit | E5 | Z3 | persistent | static | inside E3 | inside E3 | three columns at every width | column labels |
-| E5 | Body rows: element, treatment, avoid | P1 | every visit | E4; the three cells of a row must stay co-visible | Z3 | persistent | static | inside E3 | inside E3 | three columns at every width; inline padding `--cluos-space-2` below 32rem | the comparison is the point of the table |
+| E5 | Body rows: element, treatment, avoid | P1 | every visit | E4; the three cells of a row stay co-visible from a viewport of about 357px (bundled fonts); narrower, the reader scrolls the region to reach "Evitar" and the row label scrolls out | Z3 | persistent | static | inside E3 | inside E3 | three columns at every width; inline padding `--cluos-space-2` below 32rem | the comparison is the point of the table |
 
 ## Topology decision
 
@@ -83,7 +85,7 @@ Unsupported unsafe tasks, if any: none.
 | Rule ID | Area | Required order/behavior | Validation |
 |---|---|---|---|
 | A1 | E3 | DOM and focus order: after the last state card link, before the section 05 button | tab order probe |
-| A2 | E3 | `role="region"`, `aria-label="Tratamento canônico por elemento"`, `tabindex="0"`, so keyboard users can scroll it; focus shows `var(--cluos-ring-focus)` like every other focusable element of the preview | markup review and focus render |
+| A2 | E3 | `role="region"`, `aria-label="Tratamento canônico por elemento"`, `tabindex="0"`, so keyboard users can scroll it; focus shows `var(--cluos-ring-focus)` like every other focusable element of the preview. Accepted cost: from about 357px nothing scrolls, and the region is still one tab stop and one landmark. Making `tabindex` conditional on overflow would need script and was not done | markup review and focus render |
 | A3 | E4, E5 | table semantics unchanged: `th scope="col"`; the region wraps the table and does not change its display | computed `display: table` on the table |
 
 The ring token itself measures 1.53:1 against white, below the 3:1 of WCAG 1.4.11. That is a property of `--cluos-ring-focus` on `main`, shared by every focusable element of the preview, and outside this contract.
@@ -103,6 +105,8 @@ Evidence inspected: `DESIGN-preview.html` on `origin/main@3fc656f` rendered thro
 Checks passed, on the implementation (`measurements.md`): R1 at 320px, 360px, 375px, 390px and 1440px with bundled and fallback fonts; R2; R3; R4 at 320px; R5 with both font sets; R6; A1; A2 (the ring is the system token); A3. Validation tests 1 to 7 of the skill: trunk, squint and relationship unchanged from `main`; no critical action in scope; keyboard order passes; states S1 and S2 render; responsive passes.
 Not yet validated: representative task testing with readers; Safari and Firefox keyboard behaviour.
 Open blockers/decisions: approval of this revision.
+
+design-critic round 1 (on `7da6f50`, report in `design-critic.md`): blocked. The branch's diff introduces nothing above P3; the page never scrolls sideways from 300px to 1440px. The page-level bar, scored on the render `main` becomes with this branch and the subtle-text branch, fails on F1: `--cluos-ring-focus` is 1.53:1 against white. That token is on `main`, and every focusable element of the preview uses it. F1 needs a decision on the focus colour and is not fixed here. P3 notes: F3, the row label scrolls out below about 357px, is recorded in E5 (r2). F4, the focus stop where nothing scrolls, is recorded in A2 (r2). F5, the pattern rule was worded for every table, is scoped in `PRODUCT-PATTERNS.md` §14 to tables where comparing columns is the task. F6 to F8 are on `main` and outside this contract: the hero word overflows at 320px under user text spacing; the last nav link is clipped at 375px and below; the footer shows literal backticks.
 
 ## Handoff
 
