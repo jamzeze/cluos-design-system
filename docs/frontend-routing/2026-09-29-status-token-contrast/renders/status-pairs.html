@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pt-BR" data-cluos-canonical="cluos-mms-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Status · texto sobre superfície</title>
+  <!--
+    Specimen for the status text tokens. Evidence for design-critic and
+    design-qa, not a product surface and not part of the package.
+
+    Context comes from the query string and is set on the root element, as a
+    consumer would: ?style=A  ?style=G  ?palette=pal-forest  ?appearance=dark
+
+    Every ratio on the page is computed in the browser from getComputedStyle,
+    so it checks the stylesheet independently of scripts/status-contrast.mjs.
+    The same numbers are written as JSON into #measured.
+  -->
+  <link rel="stylesheet" href="../../../../tokens/tokens.css">
+  <script>
+    (() => {
+      const params = new URLSearchParams(location.search);
+      const root = document.documentElement;
+      for (const [param, attribute] of [["style", "data-cluos-style"], ["palette", "data-cluos-palette"], ["appearance", "data-appearance"]]) {
+        if (params.get(param)) root.setAttribute(attribute, params.get(param));
+      }
+    })();
+  </script>
+  <style>
+    @font-face {
+      font-family: "Manrope";
+      src: url("../../../../brand-assets/fonts/manrope-latin-variable.woff2") format("woff2");
+      font-weight: 200 800;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Instrument Sans";
+      src: url("../../../../brand-assets/fonts/instrument-sans-latin-variable.woff2") format("woff2");
+      font-weight: 400 700;
+      font-stretch: 75% 100%;
+      font-display: swap;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: var(--cluos-space-8) var(--cluos-space-6) var(--cluos-space-12);
+      background: var(--cluos-color-bg-canvas);
+      color: var(--cluos-color-fg-primary);
+      font-family: var(--cluos-font-sans);
+      font-size: var(--cluos-text-sm);
+      line-height: var(--cluos-leading-snug);
+    }
+    main { max-width: var(--cluos-container-wide); margin: 0 auto; }
+    h1, h2, p { margin: 0; }
+    h1 { font-family: var(--cluos-font-display); font-size: var(--cluos-text-2xl); font-weight: 400; letter-spacing: -.03em; }
+    .context { margin-top: var(--cluos-space-2); color: var(--cluos-color-fg-secondary); }
+    .context code, caption code, th code { font-family: var(--cluos-font-mono); font-size: var(--cluos-text-xs); }
+    table { width: 100%; margin-top: var(--cluos-space-8); border-collapse: collapse; table-layout: fixed; }
+    caption { padding-bottom: var(--cluos-space-3); color: var(--cluos-color-fg-secondary); text-align: left; }
+    th, td { padding: var(--cluos-space-3); border: thin solid var(--cluos-color-border-default); text-align: left; vertical-align: top; }
+    th { font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); }
+    th span { display: block; font-weight: 400; color: var(--cluos-color-fg-secondary); }
+    .swatch { display: grid; gap: var(--cluos-space-3); padding: var(--cluos-space-3); border: thin solid var(--cluos-color-border-default); }
+    .sample { display: inline-flex; align-items: center; gap: var(--cluos-space-2); font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); letter-spacing: .08em; text-transform: uppercase; }
+    .sample::before { width: var(--cluos-space-2); height: var(--cluos-space-2); flex: none; background: var(--marker, currentColor); content: ""; }
+    .ratios { margin-top: var(--cluos-space-2); font-size: var(--cluos-text-xs); font-variant-numeric: tabular-nums; }
+    .ratios b { font-weight: var(--cluos-font-weight-label); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Status: texto sobre cada superfície</h1>
+    <p class="context" id="context"></p>
+    <table id="pairs">
+      <caption>Em cada célula, a primeira linha é o preenchimento usado como texto (antes) e a segunda é o token de texto (depois). Mínimo 4.5:1.</caption>
+      <thead><tr id="head"><th scope="col">Status</th></tr></thead>
+      <tbody id="body"></tbody>
+    </table>
+    <script type="application/json" id="measured"></script>
+  </main>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const dark = root.getAttribute("data-appearance") === "dark" || root.getAttribute("data-cluos-style") === "G";
+      const statuses = [
+        { status: "success", role: "success", label: "Concluída" },
+        { status: "info", role: "info", label: "Em fila" },
+        { status: "warn", role: "warning", label: "Atenção" },
+        { status: "error", role: "danger", label: "Negada" },
+      ];
+      const surfaces = [
+        ...(dark ? [] : [{ name: "tint do status", token: (s) => `--cluos-status-${s.status}-bg` }]),
+        { name: "bg", token: () => "--cluos-bg" },
+        { name: "bg-subtle", token: () => "--cluos-bg-subtle" },
+        { name: "bg-muted", token: () => "--cluos-bg-muted" },
+        { name: "canvas", token: () => "--cluos-color-bg-canvas" },
+        { name: "surface", token: () => "--cluos-color-bg-surface" },
+        { name: "subtle", token: () => "--cluos-color-bg-subtle" },
+        ...(dark ? [] : [{ name: "deep navy", token: () => "--cluos-deep-navy", navy: true }]),
+      ];
+
+      const channels = (color) => color.match(/[\d.]+/g).slice(0, 3).map(Number);
+      const luminance = (color) => {
+        const [r, g, b] = channels(color).map((channel) => {
+          const value = channel / 255;
+          return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+        });
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      };
+      const contrast = (a, b) => {
+        const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+        return (hi + 0.05) / (lo + 0.05);
+      };
+      const hex = (color) => "#" + channels(color).map((channel) => Math.round(channel).toString(16).padStart(2, "0")).join("").toUpperCase();
+
+      document.querySelector("#context").innerHTML =
+        "Contexto: <code>" +
+        (["data-cluos-style", "data-cluos-palette", "data-appearance"]
+          .filter((attribute) => root.hasAttribute(attribute))
+          .map((attribute) => `${attribute}="${root.getAttribute(attribute)}"`)
+          .join(" ") || ":root (MMS)") +
+        "</code> · registro " + (dark ? "escuro" : "claro") + ".";
+
+      const head = document.querySelector("#head");
+      for (const surface of surfaces) {
+        const th = document.createElement("th");
+        th.scope = "col";
+        th.innerHTML = `${surface.name}<span><code>${surface.token(statuses[0]).replace("success", "*")}</code></span>`;
+        head.append(th);
+      }
+
+      const measured = [];
+      const body = document.querySelector("#body");
+      for (const status of statuses) {
+        const row = document.createElement("tr");
+        body.append(row); // in the document before measuring: detached elements have no computed colour
+        const name = document.createElement("th");
+        name.scope = "row";
+        name.innerHTML = `${status.status}<span>${status.role}</span>`;
+        row.append(name);
+        for (const surface of surfaces) {
+          const onDark = dark || surface.navy;
+          const fill = surface.navy ? `--cluos-status-${status.status}` : `--cluos-color-status-${status.role}`;
+          const text = surface.navy ? `--cluos-status-${status.status}-on-navy` : `--cluos-color-status-${status.role}-text`;
+          const cell = document.createElement("td");
+          const swatch = document.createElement("div");
+          swatch.className = "swatch";
+          swatch.style.background = `var(${surface.token(status)})`;
+          const samples = [
+            { when: "before", token: fill, marker: fill },
+            { when: "after", token: text, marker: onDark ? text : fill },
+          ].map((sample) => {
+            const element = document.createElement("span");
+            element.className = "sample";
+            element.textContent = status.label;
+            element.style.color = `var(${sample.token})`;
+            element.style.setProperty("--marker", `var(${sample.marker})`);
+            swatch.append(element);
+            return { ...sample, element };
+          });
+          cell.append(swatch);
+          row.append(cell);
+
+          const background = getComputedStyle(swatch).backgroundColor;
+          const ratios = samples.map((sample) => contrast(getComputedStyle(sample.element).color, background));
+          const caption = document.createElement("p");
+          caption.className = "ratios";
+          caption.innerHTML = samples
+            .map((sample, at) => `${sample.when === "before" ? "antes" : "depois"} <b>${ratios[at].toFixed(2)}</b>${ratios[at] >= 4.5 ? "" : " abaixo"}`)
+            .join(" · ");
+          cell.append(caption);
+          measured.push({
+            status: status.status,
+            surface: surface.token(status),
+            bg: hex(background),
+            beforeToken: fill,
+            beforeFg: hex(getComputedStyle(samples[0].element).color),
+            beforeRatio: ratios[0],
+            token: text,
+            fg: hex(getComputedStyle(samples[1].element).color),
+            ratio: ratios[1],
+          });
+        }
+      }
+      document.querySelector("#measured").textContent = JSON.stringify(measured);
+    })();
+  </script>
+</body>
+</html>
