@@ -34,7 +34,7 @@
       text-rendering: optimizeLegibility;
     }
     a { color: inherit; }
-    a:focus-visible, button:focus-visible {
+    a:focus-visible, button:focus-visible, .table-region:focus-visible {
       outline: none;
       box-shadow: var(--cluos-ring-focus);
     }
@@ -122,7 +122,9 @@
     .chart.is-playing .chart__line path { animation: draw var(--cluos-motion-data) var(--cluos-ease-in-out) .2s forwards; }
     @keyframes rise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
     @keyframes draw { to { stroke-dashoffset: 0; } }
-    table { width: 100%; margin-top: var(--cluos-space-8); border-collapse: collapse; }
+    /* A table wider than the screen scrolls inside its region; the page never scrolls sideways. */
+    .table-region { margin-top: var(--cluos-space-8); overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
     th, td { padding: var(--cluos-space-4); border-bottom: thin solid var(--cluos-border); text-align: left; }
     th { background: var(--cluos-bg-muted); }
     td { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
@@ -142,6 +144,7 @@
       .lockup__descriptor { border-left: 0; padding-left: 0; }
       .palette-grid { grid-template-columns: minmax(0, 1fr); }
       .swatch { border-left: thin solid var(--cluos-border); }
+      th, td { padding-inline: var(--cluos-space-2); }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
@@ -213,7 +216,7 @@
       <section class="section" id="states" aria-labelledby="states-title">
         <div class="section__head"><div><p class="kicker">04 · Estados</p><h2 id="states-title">Pouca superfície. Significado explícito.</h2></div><p>Linhas organizam; o estado vem acompanhado de texto.</p></div>
         <div class="state-grid"><article class="state"><h3>Ação principal</h3><p>Tech green aparece uma vez por região para indicar o próximo passo.</p><a class="button button--primary" href="#motion">Atualizar dados</a></article><article class="state"><h3>Aviso operacional</h3><p>Copper informa o que merece revisão sem interromper o fluxo.</p><span class="status status--warn">Revisar antes de publicar</span></article><article class="state"><h3>Negação e risco</h3><p>Oxblood comunica bloqueio, erro ou consequência irreversível.</p><span class="status status--error">Publicação negada</span></article></div>
-        <table><thead><tr><th scope="col">Elemento</th><th scope="col">Tratamento canônico</th><th scope="col">Evitar</th></tr></thead><tbody><tr><td>Cards e blocos</td><td>Hairline, espaço, raio zero e sombra zero.</td><td>Card dentro de card e superfícies decorativas.</td></tr><tr><td>Labels</td><td>Instrument Sans, caixa alta e baixa intensidade.</td><td>Badges cápsula como decoração.</td></tr><tr><td>Gráficos</td><td>Linha desenha e barras sobem após atualização explícita.</td><td>Autoplay, loop, bounce ou animação de rolagem.</td></tr><tr><td>Cor</td><td>Uma semântica por estado, sempre com texto.</td><td>Copper/oxblood como CTA positivo.</td></tr></tbody></table>
+        <div class="table-region" role="region" aria-label="Tratamento canônico por elemento" tabindex="0"><table><thead><tr><th scope="col">Elemento</th><th scope="col">Tratamento canônico</th><th scope="col">Evitar</th></tr></thead><tbody><tr><td>Cards e blocos</td><td>Hairline, espaço, raio zero e sombra zero.</td><td>Card dentro de card e superfícies decorativas.</td></tr><tr><td>Labels</td><td>Instrument Sans, caixa alta e baixa intensidade.</td><td>Badges cápsula como decoração.</td></tr><tr><td>Gráficos</td><td>Linha desenha e barras sobem após atualização explícita.</td><td>Autoplay, loop, bounce ou animação de rolagem.</td></tr><tr><td>Cor</td><td>Uma semântica por estado, sempre com texto.</td><td>Copper/oxblood como CTA positivo.</td></tr></tbody></table></div>
       </section>
 
       <section class="section" id="motion" aria-labelledby="motion-title"><div class="section__head"><div><p class="kicker">05 · Movimento</p><h2 id="motion-title">Feedback calmo, visível e determinístico</h2></div><p>Reproduza a atualização para ver a trilha, a linha desenhada e as barras subindo.</p></div><div class="motion-stage"><div class="motion-copy"><p>Interações usam 180–280ms. Mudanças de contexto usam 600ms. Dados usam 1200ms, com stagger de 120ms.</p><button class="button button--secondary" id="motion-replay" type="button">Reproduzir atualização</button><p class="motion-feedback" id="motion-feedback" aria-live="polite">Pronto para reproduzir. Sem autoplay e sem loop.</p></div><div class="chart" id="chart" aria-label="Gráfico demonstrativo com linha e barras"><div class="chart__header"><strong>Sinal de campanha</strong><span>últimos 7 dias</span></div><div class="chart__plot"><div class="chart__grid" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="chart__bars" aria-hidden="true"><span class="bar" style="--bar-height:34%;--bar-index:0"></span><span class="bar" style="--bar-height:52%;--bar-index:1"></span><span class="bar" style="--bar-height:44%;--bar-index:2"></span><span class="bar" style="--bar-height:70%;--bar-index:3"></span><span class="bar" style="--bar-height:58%;--bar-index:4"></span><span class="bar" style="--bar-height:88%;--bar-index:5"></span><span class="bar" style="--bar-height:76%;--bar-index:6"></span></div><svg class="chart__line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0,74 L16,60 L32,66 L48,40 L64,50 L80,18 L100,28"></path></svg></div></div></div></section>

@@ -313,6 +313,7 @@ Configurações avançadas (watermark, resolução, codec) ficam em "Configuraç
 - Paginação ou scroll infinito — explícito, não ambíguo.
 - Estado de loading: skeleton de linhas.
 - Estado vazio: empty state com ação.
+- Em telas estreitas, quando a tarefa é comparar colunas, a tabela mantém colunas e ordem. Abaixo de 32rem o padding horizontal das células cai para `var(--cluos-space-2)`; se a tabela ainda for mais larga que a tela, ela rola dentro de uma região rotulada e focável (`role="region"`, `aria-label`, `tabindex="0"`), e não a página.
 
 ---
 
