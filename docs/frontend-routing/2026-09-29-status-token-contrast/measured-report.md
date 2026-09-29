@@ -23,26 +23,31 @@ Source: `tokens/tokens.css`. Threshold 4.5:1. Before: the fill used as text. Aft
 | error | `--cluos-bg-muted` `#EAEAEA` | `#8A3A3A` 6.35 | `#8A3A3A` 6.35 |
 | error | `--cluos-status-error-bg` `#F5EAEA` | `#8A3A3A` 6.49 | `#8A3A3A` 6.49 |
 
-## Canonical constants on dark surfaces
+## Canonical constants on deep navy
 
 | Status | Surface | Before | After |
 |---|---|---|---|
-| success | `--cluos-deep-navy` `#010D28` | `#6F8F19` 5.16 | `#9CC24A` 9.39 |
+| success | `--cluos-deep-navy` `#010D28` | `#6F8F19` 5.16 | `#6F8F19` 5.16 |
+| info | `--cluos-deep-navy` `#010D28` | `#3E6E82` 3.45 fail | `#6FA8C4` 7.41 |
+| warn | `--cluos-deep-navy` `#010D28` | `#BD7845` 5.45 | `#BD7845` 5.45 |
+| error | `--cluos-deep-navy` `#010D28` | `#8A3A3A` 2.52 fail | `#C46A6A` 5.16 |
+
+## Dark register (`data-appearance="dark"`), text roles
+
+| Role | Surface | Before | After |
+|---|---|---|---|
 | success | `--cluos-bg` `#010D28` | `#6F8F19` 5.16 | `#9CC24A` 9.39 |
 | success | `--cluos-bg-subtle` `#081634` | `#6F8F19` 4.78 | `#9CC24A` 8.71 |
 | success | `--cluos-bg-muted` `#132952` | `#6F8F19` 3.83 fail | `#9CC24A` 6.97 |
-| info | `--cluos-deep-navy` `#010D28` | `#3E6E82` 3.45 fail | `#6FA8C4` 7.41 |
 | info | `--cluos-bg` `#010D28` | `#3E6E82` 3.45 fail | `#6FA8C4` 7.41 |
 | info | `--cluos-bg-subtle` `#081634` | `#3E6E82` 3.20 fail | `#6FA8C4` 6.87 |
 | info | `--cluos-bg-muted` `#132952` | `#3E6E82` 2.56 fail | `#6FA8C4` 5.50 |
-| warn | `--cluos-deep-navy` `#010D28` | `#BD7845` 5.45 | `#D08A54` 6.83 |
-| warn | `--cluos-bg` `#010D28` | `#BD7845` 5.45 | `#D08A54` 6.83 |
-| warn | `--cluos-bg-subtle` `#081634` | `#BD7845` 5.05 | `#D08A54` 6.34 |
-| warn | `--cluos-bg-muted` `#132952` | `#BD7845` 4.05 fail | `#D08A54` 5.08 |
-| error | `--cluos-deep-navy` `#010D28` | `#8A3A3A` 2.52 fail | `#C46A6A` 5.16 |
-| error | `--cluos-bg` `#010D28` | `#8A3A3A` 2.52 fail | `#C46A6A` 5.16 |
-| error | `--cluos-bg-subtle` `#081634` | `#8A3A3A` 2.34 fail | `#C46A6A` 4.78 |
-| error | `--cluos-bg-muted` `#132952` | `#8A3A3A` 1.87 fail | `#C46A6A` 3.83 fail (known limit) |
+| warning | `--cluos-bg` `#010D28` | `#BD7845` 5.45 | `#D08A54` 6.83 |
+| warning | `--cluos-bg-subtle` `#081634` | `#BD7845` 5.05 | `#D08A54` 6.34 |
+| warning | `--cluos-bg-muted` `#132952` | `#BD7845` 4.05 fail | `#D08A54` 5.08 |
+| danger | `--cluos-bg` `#010D28` | `#8A3A3A` 2.52 fail | `#C46A6A` 5.16 |
+| danger | `--cluos-bg-subtle` `#081634` | `#8A3A3A` 2.34 fail | `#C46A6A` 4.78 |
+| danger | `--cluos-bg-muted` `#132952` | `#8A3A3A` 1.87 fail | `#C46A6A` 3.83 fail (known limit) |
 
 ## Roles by style, worst surface
 
@@ -124,7 +129,7 @@ Source: `tokens/tokens.css`. Threshold 4.5:1. Before: the fill used as text. Aft
 
 ## Totals
 
-- Pairs measured: 3496 in 56 contexts.
-- Below 4.5:1 before: 1549 of 3468.
-- Below 4.5:1 after: 0 of 3468.
-- Known limit (error text on the dark `--cluos-bg-muted` `#132952`): 28 pairs, 3.83 to 3.83; before 1.87.
+- Pairs measured: 3168 in 56 contexts.
+- Below 4.5:1 before: 1371 of 3154.
+- Below 4.5:1 after: 0 of 3154.
+- Known limit (error text on the dark `--cluos-bg-muted` `#132952`): 14 pairs, 3.83 to 3.83; before 1.87.

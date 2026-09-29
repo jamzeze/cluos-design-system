@@ -15,7 +15,7 @@ Status tokens exist in two layers of `tokens/tokens.css`:
 | Consumer | How it uses status tokens | In this change |
 |---|---|---|
 | `tokens/tokens.css` | defines both layers | edited |
-| `tokens/tokens.ts`, `tokens/tokens.js` | mirror: `tokens.status`, `styles`, `palettes`, `palettesDark`, `resolveTheme` | edited |
+| `tokens/tokens.ts`, `tokens/tokens.js` | mirror: `tokens.status`, `tokens.appearance`, `styles`, `palettes`, `palettesDark`, `resolveTheme` | edited |
 | `tokens/tailwind-preset.js` | `cluos.*` (8 status keys) and `cluosc.*` (4 status roles) | edited |
 | `tokens/mms-canonical.yaml` | names copper and oxblood roles; held no status values | `status_tokens` block added |
 | `tokens/index.ts` | re-exports by name | unchanged |
@@ -110,13 +110,14 @@ Worst light surface is `--cluos-bg-muted` `#EAEAEA`, which every light style inh
 
 - Additive. Every existing token keeps its name and value. Fills and tints render as before.
 - A text token is safe wherever its register can put it: on its own tint and on every surface token of that register.
-- No new hue. A text tone is a darker tone of its fill, or a value the file or a shipped CluOS product already uses.
+- A text token repeats its fill wherever the fill passes, and takes another tone only where the fill fails. What already rendered correctly does not move.
+- No new hue. A text tone is a darker tone of its fill, or a value the file or the `suporte` fix already uses.
 - The error family is not touched: `#8A3A3A` light, `#C46A6A` dark.
 - The pair is tested. The test parses the stylesheet; it does not restate the values.
 
 ## 4. Layout contract
 
-Not applicable. No zone, order, hierarchy or flow changes. The preview keeps its sections; one row is added to an existing table.
+Not applicable. No zone, order, hierarchy or flow changes. The preview markup is unchanged; only ten lines of its stylesheet change.
 
 ## 5. Visual direction
 
@@ -130,21 +131,28 @@ Unchanged: `cluos-mms-v1`. Palette mode `preserve` (corrects contrast, no chroma
 |---|---|---|
 | `--cluos-status-success-text` | `#546D13` | new: success fill hue (76°), lightness 33% to 25% |
 | `--cluos-status-info-text` | `var(--cluos-status-info)` | alias, the fill passes |
-| `--cluos-status-warn-text` | `#8A5A2B` | the value `suporte` ships as `--cluos-amber-text` |
+| `--cluos-status-warn-text` | `#8A5A2B` | the value of `--cluos-amber-text` in the `suporte` fix |
 | `--cluos-status-error-text` | `var(--cluos-status-error)` | alias, the fill passes |
 
-`#8A5A2B` was preferred to a same-hue darkening of copper (`#8B5831`, 26°) because it is already rendered and reviewed in `suporte`, and one value across repos avoids a fork. Its hue is 30°, 4° from copper and equal to the legacy warnings `#A96A2F` and `#B5773A`. `#965D34` was rejected (finding 4).
+`#8A5A2B` was preferred to a same-hue darkening of copper (`#8B5831`, 26°) because the `suporte` fix (branch `agent/suporte/status-pill-contrast-20260929`, not merged yet) already uses it and measured it in a real render, and one value across repos avoids a fork. Its hue is 30°, 4° from copper and equal to the legacy warnings `#A96A2F` and `#B5773A`. `#965D34` was rejected (finding 4).
 
-**D2. On-navy tokens in the canonical block.** `--cluos-status-success-on-navy: #9CC24A`, `-info-on-navy: #6FA8C4`, `-warn-on-navy: #D08A54`, `-error-on-navy: #C46A6A`. These are the four status values style `G` already registers; error is the dark oxblood of `palette-policy.md`. They serve text and marker on deep navy and on the dark register surfaces. Name follows `--cluos-text-on-navy`.
+**D2. On-navy tokens in the canonical block**, for text and marker on `--cluos-deep-navy`. Name follows `--cluos-text-on-navy`.
 
-Rejected: keeping the fills on navy where they pass (success, warn) and replacing only info and error. It leaves two rules for one surface.
+| Token | Value | Source |
+|---|---|---|
+| `--cluos-status-success-on-navy` | `var(--cluos-status-success)` | alias, the fill passes on deep navy (5.16:1) |
+| `--cluos-status-info-on-navy` | `#6FA8C4` | the info value style `G` registers |
+| `--cluos-status-warn-on-navy` | `var(--cluos-status-warn)` | alias, the fill passes on deep navy (5.45:1) |
+| `--cluos-status-error-on-navy` | `#C46A6A` | the dark oxblood of `palette-policy.md` |
+
+Revised after design-critic round 1 (finding A1). The first version gave all four tokens the style `G` values, which lightened the success and warn labels of the preview although they already passed, and broke principle 3. The cost of the revision: the on-navy tokens are specified for deep navy only. On the dark `--cluos-bg-muted` the success and warn fills give 3.83:1 and 4.05:1, so the dark register does not use these constants for them (D3).
 
 **D3. Text roles in the role layer.** `--cluos-color-status-{success,warning,danger,info}-text`.
 
 | Selector | success-text | warning-text | danger-text | info-text |
 |---|---|---|---|---|
 | `:root`, `MMS` | `var(--cluos-status-success-text)` | `var(--cluos-status-warn-text)` | `var(--cluos-status-error-text)` | `var(--cluos-status-info-text)` |
-| `[data-appearance="dark"]` | `var(--cluos-status-success-on-navy)` | `var(--cluos-status-warn-on-navy)` | `var(--cluos-status-error-on-navy)` | `var(--cluos-status-info-on-navy)` |
+| `[data-appearance="dark"]` | `#9CC24A` | `#D08A54` | `#C46A6A` | `#6FA8C4` |
 | `A` | `#006666` | `#8A5A2B` | `#8A3A3A` | `#3E6E82` |
 | `B` | `#546D13` | `#8A5A2B` | `#8A3A3A` | `#3E6E82` |
 | `C` | `#2C5A34` | `#8A5A2B` | `#973B3B` | `#3E6E82` |
@@ -158,7 +166,11 @@ Rejected: keeping the fills on navy where they pass (success, warn) and replacin
 | `pal-cold` | `#1F4FAE` | `#8A5A2B` | `#8A3A3A` | from style |
 | `pal-terracotta` | `#416C53` | `#8F4B2B` | `#8A3A3A` | from style |
 
-Rule applied: where the fill passes on every light surface the text role repeats it (`D`, `E`, `pal-tealink`, `pal-copper`, every danger and info). Where it fails, the text role takes the deep tone that style or palette already registers as its action hover (`#2C5A34` forest, `#1F4FAE` cold, `#8F4B2B` terracotta). Two exceptions: teal takes `#006666`, the value `suporte` (a style `A` product) ships as `--cluos-teal-text`, instead of the registered `#005959`; `pal-terracotta` success has no registered deep tone and takes `#416C53`, its own hue at lightness 34%.
+The table shows resolved values. In the stylesheet a text role that repeats a value references it (`var(--cluos-status-warn-text)`, `var(--cluos-color-status-danger)` and so on), so `#8A5A2B` is written once (design-critic finding A5).
+
+Dark appearance: the success and warn fills fail on the dark `--cluos-bg-muted`, so the roles take the four status values style `G` already registers.
+
+Rule applied: where the fill passes on every light surface the text role repeats it (`D`, `E`, `pal-tealink`, `pal-copper`, every danger and info). Where it fails, the text role takes the deep tone that style or palette already registers as its action hover (`#2C5A34` forest, `#1F4FAE` cold, `#8F4B2B` terracotta). Two exceptions: teal takes `#006666`, the value of `--cluos-teal-text` in the `suporte` fix (`suporte` follows style `A`), instead of the registered `#005959`; `pal-terracotta` success has no registered deep tone and takes `#416C53`, its own hue at lightness 34%.
 
 Dark register with a palette: compound selectors `[data-cluos-style="G"][data-cluos-palette="…"]` and `[data-appearance="dark"][data-cluos-palette="…"]` set the three text roles to the values `palettesDark` already registers in `tokens.ts`. Without them the palette selector, which comes later in the file, would put a light-register tone on a dark surface.
 
@@ -166,19 +178,19 @@ Dark register with a palette: compound selectors `[data-cluos-style="G"][data-cl
 
 **D5. Known limit, not fixed.** Error text on the dark `--cluos-bg-muted` (`#132952`) stays at 3.83:1. Fixing it needs a lighter oxblood, which is a change to the error family and is Rafael's decision. The test asserts the limit so the record stays true. Until then: on that surface, state the error in `--cluos-text` beside the marker.
 
-**D6. Tints stay as they are in the dark register.** A tint pairs with `--cluos-status-*-text` in every register, because both are constants. Dark tints would make the role layer fully themable, but they are new colours and a visible change to existing tokens. They also have little room: with `#C46A6A` fixed, an error tint of 15% over deep navy gives 4.46:1, and one of 8% over the dark `--cluos-bg-subtle` gives 4.43:1. Left for a separate decision (section 9).
+**D6. Tints stay as they are in the dark register.** A tint pairs with `--cluos-status-*-text` in every register, because both are constants. Dark tints would make the role layer fully themable, but they are new colours and a visible change to existing tokens. They also have little room: with `#C46A6A` fixed, an error tint of 15% over deep navy gives 4.46:1, and one of 8% over the dark `--cluos-bg-subtle` gives 4.43:1. Left for a separate decision (section 10).
 
-**D7. Mirrors.** `tokens.status` gains `successText`, `infoText`, `warnText`, `errorText`, `successOnNavy`, `infoOnNavy`, `warnOnNavy`, `errorOnNavy`. `CluosThemeRoles` gains `statusSuccessText`, `statusWarningText`, `statusDangerText`, `statusInfoText`; `palettes` and `palettesDark` gain the first three. The Tailwind preset gains `cluos.{success,info,warn,error}-text`, `cluos.{success,info,warn,error}-on-navy` and `cluosc.{success,warning,danger,info}-text`. `tokens/mms-canonical.yaml` gains a `status_tokens` block with fill, text, on-navy and background per status (the top-level key `status` already holds `active`).
+**D7. Mirrors.** `tokens.status` gains `successText`, `infoText`, `warnText`, `errorText`, `successOnNavy`, `infoOnNavy`, `warnOnNavy`, `errorOnNavy`. `CluosThemeRoles` gains `statusSuccessText`, `statusWarningText`, `statusDangerText`, `statusInfoText`; `tokens.appearance.light` and `.dark` gain the same four; `palettes` and `palettesDark` gain the first three. The Tailwind preset gains `cluos.{success,info,warn,error}-text`, `cluos.{success,info,warn,error}-on-navy` and `cluosc.{success,warning,danger,info}-text`. `tokens/mms-canonical.yaml` gains a `status_tokens` block with fill, text, on-navy, dark-register text and background per status (the top-level key `status` already holds `active`).
 
 **D8. Test.** `scripts/status-contrast.mjs` (parser, cascade, contrast, report) and `scripts/test-status-contrast.mjs` (`node:test`, no dependency). `package.json` gains `"test": "node --test scripts/test-status-contrast.mjs"`.
 
-**D9. Preview.** Status labels take the text tokens; the marker keeps the fill on light surfaces, so the only visible change on white is the label colour. On the navy surface label and marker take the on-navy tones. One row is added to the states table.
+**D9. Preview.** Status labels take the text tokens; the marker keeps the fill on light surfaces. On the navy surface label and marker take the on-navy tokens. Two things change on screen, at 1440px and at 390px: the warn label on white (`#BD7845` to `#8A5A2B`, marker unchanged) and the error label and marker on navy (`#8A3A3A` to `#C46A6A`). Every other pixel is identical and the page keeps its height (`renders/preview-pixel-diff.txt`). The table row that the first version added was removed (design-critic finding A3).
 
 **D10. Example classes.** `next-tailwind.md` is corrected to class names the preset generates (finding 8), since the lines change anyway.
 
 ## 7. Before and after
 
-Measured by `node scripts/status-contrast.mjs` on this branch. Before: the fill used as text. After: the text token on the same surface. The full output, with every legacy style and palette, is in `measured-report.md`. The browser computed the same ratios from `getComputedStyle` for 144 pairs in five contexts (`renders/browser-crosscheck.txt`, largest difference 1.8e-15).
+Measured by `node scripts/status-contrast.mjs` on this branch. Before: the fill used as text. After: the text token on the same surface. The full output, with every legacy style and palette, is in `measured-report.md`. The browser computed the same ratios from `getComputedStyle` for 228 pairs in six contexts (`renders/browser-crosscheck.txt`, largest difference 1.8e-15).
 
 ### Canonical status pairs, light register
 
@@ -201,44 +213,54 @@ Measured by `node scripts/status-contrast.mjs` on this branch. Before: the fill 
 | error | `--cluos-bg-muted` `#EAEAEA` | `#8A3A3A` 6.35 | `#8A3A3A` 6.35 |
 | error | `--cluos-status-error-bg` `#F5EAEA` | `#8A3A3A` 6.49 | `#8A3A3A` 6.49 |
 
-### Canonical status on dark surfaces
+### Canonical status on deep navy
 
 | Status | Surface | Before | After |
 |---|---|---|---|
-| success | `--cluos-deep-navy` `#010D28` | `#6F8F19` 5.16 | `#9CC24A` 9.39 |
+| success | `--cluos-deep-navy` `#010D28` | `#6F8F19` 5.16 | `#6F8F19` 5.16 |
+| info | `--cluos-deep-navy` `#010D28` | `#3E6E82` 3.45 fail | `#6FA8C4` 7.41 |
+| warn | `--cluos-deep-navy` `#010D28` | `#BD7845` 5.45 | `#BD7845` 5.45 |
+| error | `--cluos-deep-navy` `#010D28` | `#8A3A3A` 2.52 fail | `#C46A6A` 5.16 |
+
+### Dark register, text roles
+
+| Role | Surface | Before | After |
+|---|---|---|---|
 | success | `--cluos-bg` `#010D28` | `#6F8F19` 5.16 | `#9CC24A` 9.39 |
 | success | `--cluos-bg-subtle` `#081634` | `#6F8F19` 4.78 | `#9CC24A` 8.71 |
 | success | `--cluos-bg-muted` `#132952` | `#6F8F19` 3.83 fail | `#9CC24A` 6.97 |
-| info | `--cluos-deep-navy` `#010D28` | `#3E6E82` 3.45 fail | `#6FA8C4` 7.41 |
 | info | `--cluos-bg` `#010D28` | `#3E6E82` 3.45 fail | `#6FA8C4` 7.41 |
 | info | `--cluos-bg-subtle` `#081634` | `#3E6E82` 3.20 fail | `#6FA8C4` 6.87 |
 | info | `--cluos-bg-muted` `#132952` | `#3E6E82` 2.56 fail | `#6FA8C4` 5.50 |
-| warn | `--cluos-deep-navy` `#010D28` | `#BD7845` 5.45 | `#D08A54` 6.83 |
-| warn | `--cluos-bg` `#010D28` | `#BD7845` 5.45 | `#D08A54` 6.83 |
-| warn | `--cluos-bg-subtle` `#081634` | `#BD7845` 5.05 | `#D08A54` 6.34 |
-| warn | `--cluos-bg-muted` `#132952` | `#BD7845` 4.05 fail | `#D08A54` 5.08 |
-| error | `--cluos-deep-navy` `#010D28` | `#8A3A3A` 2.52 fail | `#C46A6A` 5.16 |
-| error | `--cluos-bg` `#010D28` | `#8A3A3A` 2.52 fail | `#C46A6A` 5.16 |
-| error | `--cluos-bg-subtle` `#081634` | `#8A3A3A` 2.34 fail | `#C46A6A` 4.78 |
-| error | `--cluos-bg-muted` `#132952` | `#8A3A3A` 1.87 fail | `#C46A6A` 3.83 fail (known limit) |
+| warning | `--cluos-bg` `#010D28` | `#BD7845` 5.45 | `#D08A54` 6.83 |
+| warning | `--cluos-bg-subtle` `#081634` | `#BD7845` 5.05 | `#D08A54` 6.34 |
+| warning | `--cluos-bg-muted` `#132952` | `#BD7845` 4.05 fail | `#D08A54` 5.08 |
+| danger | `--cluos-bg` `#010D28` | `#8A3A3A` 2.52 fail | `#C46A6A` 5.16 |
+| danger | `--cluos-bg-subtle` `#081634` | `#8A3A3A` 2.34 fail | `#C46A6A` 4.78 |
+| danger | `--cluos-bg-muted` `#132952` | `#8A3A3A` 1.87 fail | `#C46A6A` 3.83 fail (known limit) |
 
 ### Totals
 
-- Pairs measured: 3496 in 56 contexts.
-- Below 4.5:1 before: 1549 of 3468.
-- Below 4.5:1 after: 0 of 3468.
-- Known limit (error text on the dark `--cluos-bg-muted` `#132952`): 28 pairs, 3.83 to 3.83; before 1.87.
+- Pairs measured: 3168 in 56 contexts.
+- Below 4.5:1 before: 1371 of 3154.
+- Below 4.5:1 after: 0 of 3154.
+- Known limit (error text on the dark `--cluos-bg-muted` `#132952`): 14 pairs, 3.83 to 3.83; before 1.87.
 
 ### Renders
 
+Headless Chrome 154 through the DevTools protocol with a device-metrics override, so 390px is a real 390px viewport. Rendered from a scratch copy that links the bundled fonts, because `brand-assets/fonts/` is not in git (section 10).
+
 | File | Shows |
 |---|---|
-| `renders/preview-before.png`, `renders/preview-after.png` | `DESIGN-preview.html`, sections Paleta (navy surface) and Estados, 1440px |
-| `renders/specimen-mms.png` | every status on every light surface, `:root` |
-| `renders/specimen-mms-dark.png` | `data-appearance="dark"` |
-| `renders/specimen-style-a.png` | legacy style `A` (the system `suporte` follows) |
-| `renders/specimen-style-g.png` | legacy style `G` (dark), with the known limit on `--cluos-bg-muted` |
-| `renders/specimen-style-b-pal-forest.png` | style `B` with `pal-forest` |
+| `renders/preview-before-1440.png`, `renders/preview-after-1440.png` | `DESIGN-preview.html`, navy block and section Estados, 1440px |
+| `renders/preview-before-390.png`, `renders/preview-after-390.png` | the same region at 390px |
+| `renders/preview-pixel-diff.txt` | every changed region between before and after, both widths |
+| `renders/specimen-mms-1440.png`, `renders/specimen-mms-390.png` | every status on every light surface, `:root` |
+| `renders/specimen-mms-dark-1440.png` | `data-appearance="dark"`, with the known limit on `--cluos-bg-muted` |
+| `renders/specimen-style-a-1440.png` | legacy style `A` (the system `suporte` follows) |
+| `renders/specimen-style-g-1440.png` | legacy style `G` (dark) |
+| `renders/specimen-style-b-pal-forest-1440.png` | style `B` with `pal-forest` |
+| `renders/specimen-style-g-pal-copper-1440.png` | style `G` with `pal-copper` (dark-tuned palette text) |
 
 `renders/status-pairs.html` is the page behind the specimen renders. It reads `tokens/tokens.css` and takes the context from the query string.
 
@@ -247,12 +269,28 @@ Measured by `node scripts/status-contrast.mjs` on this branch. Before: the fill 
 - No name removed, no value changed. A consumer that does nothing renders exactly as before.
 - `CluosThemeRoles` gains four required fields. Code that builds such an object by hand must add them; code that reads `styles`, `palettes` or `resolveTheme()` is unaffected. No product installs the package today (`AGENTS.md`).
 - Rollback: revert the commit. Nothing outside this repository changes.
-- `suporte` can later replace its local `--cluos-amber-text` and `--cluos-teal-text` with the style `A` text roles; the values are equal.
+- `suporte` can later replace its local `--cluos-amber-text` and `--cluos-teal-text` with the style `A` text roles; the values are equal. If that fix changes its values before it merges, the two must be reconciled.
 
-## 9. Out of scope, recorded for follow-up
+## 9. Review history
+
+**design-critic round 1** (on `87ea15c`): blocked. Its report is `design-critic.md`.
+
+| Finding | Severity | Resolution |
+|---|---|---|
+| A1. On-navy success and warn changed although they passed | P2, from this diff | Fixed: D2 revised, the two tokens alias their fills. The navy block keeps its success and warn labels pixel for pixel. |
+| A2. Warn label is darker than its marker on light | P3 | Kept: AA needs the darker label and the marker is frozen with the fill. Stated in `DESIGN.md`. |
+| A3. The new table row reflowed the table | P3 | Fixed: row removed. Page height is 3541px before and after. |
+| A4. Dark-register role on a light tint fails, and no render showed it | P3 | Documented in `tokens.css`, `DESIGN.md`, `patterns/states.md` and `patterns/components.md`. The specimen now shows the tint column in the dark contexts, with the constants. Dark tints remain out of scope (section 10). |
+| A5. `#8A5A2B` repeated in ten blocks | P3 | Fixed: references. |
+| N1. 390px not rendered (headless Chrome floors the window at 500px) | blocks a score | Done through the DevTools protocol: true 390px, no horizontal overflow, same two changed regions. |
+| B1. `--cluos-text-subtle` below AA (2.05:1 to 2.46:1) | P2, already in `main` | Not fixed: it is the `neutral_500` of the canonical palette, outside this brief. Needs Rafael's decision (section 10). |
+| B2. Error on the dark `--cluos-bg-muted`, 3.83:1 | P3, residual | D5. |
+
+## 10. Out of scope, recorded for follow-up
 
 - Dark-register tints (finding 6) and the dark error limit (D5): need a decision on new colours and on the error family.
 - `tokens.css` lacks the dark-tuned palette fills that `tokens.ts` registers (finding 7).
+- Fills as markers. On white every fill is above 3:1 (warn 3.54, success 3.74). On `--cluos-bg-muted` the warn fill is 2.94:1 and on deep navy the error fill is 2.52:1, below the 3:1 that WCAG 1.4.11 asks of a graphic that carries meaning alone. `DESIGN.md` requires a text label beside every status, and on navy the preview now marks with the on-navy tone; the fills themselves were frozen by the brief.
 - `--cluos-text-subtle` (`#A5A5A5`) is 2.46:1 on white and 2.05:1 on `--cluos-bg-muted`; the preview uses it for table headers and token labels. Not a status token; changing it changes `neutral_500` in the canonical palette.
 - The two `guides/` pages and `design-gallery/index.html` keep their failing pairs (section 2.5).
 - `patterns/accessibility.md`, `patterns/components.md` and the examples still describe teal primary buttons and `#1B2F36` navy from before `cluos-mms-v1`.

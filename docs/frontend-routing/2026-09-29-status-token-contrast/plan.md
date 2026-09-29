@@ -458,6 +458,9 @@ Expected: all pass except `validate-agent-skills.sh`, which reports the same 4 p
 - Task 3 Step 6: the YAML key is `status_tokens`. The first attempt used `status`, which replaced the contract's `status: active`; the test now asserts both.
 - Task 4 Step 2: the new table row was shortened to keep the column widths of the states table.
 
+- After design-critic round 1: the on-navy tokens of Task 2 Step 1 were revised (success and warn alias their fills), the dark appearance roles of Step 3 take literal dark tones, the legacy and palette text roles of Steps 4 and 5 reference repeated values, the table row of Task 4 Step 2 was removed, `tokens.appearance` and the YAML field `dark_register_text` were added to Task 3, and the library measures the on-navy constants on `--cluos-deep-navy` only. The values in the tables above are the first version; `design-decision.md` holds the current ones.
+- Renders of Task 5 use the DevTools protocol with a device-metrics override, because `--window-size` cannot go below 500px in headless Chrome.
+
 ## Self-Review
 
 - Spec coverage: D1 and D2 are Task 2 Step 1; D3 is Task 2 Steps 2 to 6; D4 and D5 are tests of Task 1; D6 is the comment of Task 2 Step 3 and the rules of Task 4; D7 is Task 3; D8 is Task 1; D9 is Task 4 Steps 1 and 2; D10 is Task 4 Step 4. Section 7 of the spec is Task 5 Step 4.
