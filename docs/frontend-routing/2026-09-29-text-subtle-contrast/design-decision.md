@@ -64,7 +64,7 @@ Unchanged: `cluos-mms-v1`. Palette mode `preserve`, which `palette-policy.md` §
 
 ## 6. Decisions
 
-**D1. A darker neutral step, `--cluos-neutral-700: #666666`.** It is the same achromatic axis as `#EAEAEA` and `#A5A5A5`. Measured: 5.74:1 on white, 4.77:1 on `--cluos-bg-muted`. The lightest grey that clears 4.5:1 on `--cluos-bg-muted` is `#6A6A6A` at exactly 4.50; `#696969` gives 4.56. `#666666` keeps a margin of 0.27 on the worst surface. The name was unused on `main`.
+**D1. A darker neutral step, `--cluos-neutral-700: #666666`.** It is the same achromatic axis as `#EAEAEA` and `#A5A5A5`. Measured: 5.74:1 on white, 4.77:1 on `--cluos-bg-muted`. The lightest grey that clears 4.5:1 on `--cluos-bg-muted` is `#696969` (4.563); `#6A6A6A` falls just under (4.496). `#666666` keeps a margin of 0.27 on the worst surface. The name was unused on `main`.
 
 **D2. `--cluos-text-subtle: var(--cluos-neutral-700)`.** This is the fix: the value of an existing token changes. Every consumer that writes readable text in it now passes, with no edit. Dark `--cluos-text-subtle` is unchanged; it already passes (4.96–5.69).
 
@@ -78,7 +78,7 @@ Unchanged: `cluos-mms-v1`. Palette mode `preserve`, which `palette-policy.md` §
 
 **D7. Test.** `scripts/test-text-contrast.mjs` (`node:test`, no dependency, self-contained parser) asserts the three text tokens and the three foreground roles at 4.5:1 or more on every surface of both registers, disabled text below subtle text on every surface, the frozen palette values, and the mirrors. `package.json` gains `"test": "node --test scripts/test-*.mjs"`.
 
-**D8. Documentation.** `DESIGN.md` palette table and a note on text tokens; one bullet in the `AGENTS.md` colour rules; the contrast list of `patterns/accessibility.md` rewritten with measured values of the current tokens; the disabled button of `hub-systems.md` takes `text-cluos-text-disabled`.
+**D8. Documentation.** `DESIGN.md` palette table and a note on text tokens; one bullet in the `AGENTS.md` colour rules; the contrast list of `patterns/accessibility.md` rewritten with measured values of the current tokens, and its large-text threshold corrected to WCAG's 24px, or 18.66px in bold (it said 18px and 14px, the point sizes read as pixels); the disabled button of `hub-systems.md` takes `text-cluos-text-disabled`.
 
 ## 7. Before and after
 
@@ -119,6 +119,15 @@ For this branch alone the score is 39/50; for `main` today, 38/50.
 | T2. Teal row said "só texto grande" while its `--cluos-bg-muted` value is 2.59:1 | P3 | Fixed: "só texto grande, e só sobre `--cluos-bg`". |
 | T3. `neutral_700` enters the contract without a log entry | P3 | Kept, and stated in the pull request: the value is a proposal; the `palette-decisions.yaml` entry is written when Rafael accepts it. |
 | T4. `--cluos-text-disabled` has no rendered consumer in the preview | P3 | Not done: a disabled control in the preview is a new element outside this fix. The specimen shows it in both registers. |
+
+**design-qa** (on `33553c1`, report in `design-qa.md`): blocked. A passed critic is its input and that input is not met. The page also keeps three P2 findings that are already on `main`: the two status pairs (M1, fixed on pull request #4), the focus ring (M2, a decision for Rafael) and the table overflow (M3, fixed by the sibling). The six checks pass for what this branch changes: structure, priority, identity, states, responsive and behavior. The mirrors match leaf for leaf. `tokens.css` keeps every property name. The `palette` block changes only by the `neutral_500` role and the new `neutral_700` entry.
+
+| Note | Resolution |
+|---|---|
+| B1-1. D1 said `#6A6A6A` is exactly 4.50:1; it is 4.496 | Fixed in D1. |
+| B1-2. The large-text threshold correction was missing from D8 | Fixed in D8. |
+| B1-3, B1-4. `neutral_500` changes role; `neutral_700` has no log entry | Stated in the pull request as Rafael's to accept. |
+| B1-5. No disabled control renders in the preview | Same as T4. |
 
 ## 10. Out of scope, recorded for follow-up
 
