@@ -67,9 +67,9 @@
   .status-dot--warn    { background: var(--cluos-status-warn); }
   .status-dot--offline { background: var(--cluos-status-error); }
   .status-label { font-size: 0.75rem; font-weight: 500; }
-  .status-label--online  { color: var(--cluos-status-success); }
-  .status-label--warn    { color: var(--cluos-status-warn); }
-  .status-label--offline { color: var(--cluos-status-error); }
+  .status-label--online  { color: var(--cluos-status-success-text); }
+  .status-label--warn    { color: var(--cluos-status-warn-text); }
+  .status-label--offline { color: var(--cluos-status-error-text); }
   .system-card__name { font-size: 1rem; font-weight: 600; color: var(--cluos-navy); margin-bottom: 0.25rem; }
   .system-card__url  { font-size: 0.8125rem; color: var(--cluos-text-subtle); margin-bottom: 1rem; }
   .system-card__actions { display: flex; gap: 0.5rem; }
@@ -132,7 +132,7 @@
 <style>
   .field { display: flex; flex-direction: column; gap: 0.25rem; }
   .field__label { font-size: 0.8125rem; font-weight: 500; color: var(--cluos-navy); }
-  .field__label span { color: var(--cluos-status-error); margin-left: 0.2em; }
+  .field__label span { color: var(--cluos-status-error-text); margin-left: 0.2em; }
   .field__input {
     font-family: var(--cluos-font-sans);
     font-size: 0.875rem;
@@ -145,6 +145,6 @@
   }
   .field__input:focus { outline: none; border-color: var(--cluos-teal); box-shadow: var(--cluos-ring-focus); }
   .field__hint { font-size: 0.75rem; color: var(--cluos-text-subtle); }
-  .field__error { font-size: 0.75rem; color: var(--cluos-status-error); }
+  .field__error { font-size: 0.75rem; color: var(--cluos-status-error-text); }
 </style>
 ```

@@ -17,13 +17,13 @@ interface MetricCardProps {
 export function MetricCard({ label, value, variant = "default", trend }: MetricCardProps) {
   const valueColor = {
     default: "var(--cluos-navy)",
-    warn: "var(--cluos-status-warn)",
-    success: "var(--cluos-status-success)",
+    warn: "var(--cluos-status-warn-text)",
+    success: "var(--cluos-status-success-text)",
   }[variant];
 
   const trendColor = trend
-    ? trend.direction === "up" ? "var(--cluos-status-success)"
-      : trend.direction === "down" ? "var(--cluos-status-error)"
+    ? trend.direction === "up" ? "var(--cluos-status-success-text)"
+      : trend.direction === "down" ? "var(--cluos-status-error-text)"
       : "var(--cluos-text-subtle)"
     : undefined;
 
@@ -93,9 +93,9 @@ const recentItems = [
 ];
 
 const statusLabels: Record<string, { label: string; color: string }> = {
-  pending:   { label: "Aguardando revisão", color: "var(--cluos-status-warn)" },
-  published: { label: "Publicado", color: "var(--cluos-status-success)" },
-  error:     { label: "Com erro", color: "var(--cluos-status-error)" },
+  pending:   { label: "Aguardando revisão", color: "var(--cluos-status-warn-text)" },
+  published: { label: "Publicado", color: "var(--cluos-status-success-text)" },
+  error:     { label: "Com erro", color: "var(--cluos-status-error-text)" },
 };
 
 export default function DashboardPage() {

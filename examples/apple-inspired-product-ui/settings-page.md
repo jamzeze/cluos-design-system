@@ -91,14 +91,14 @@ export function FormField({ label, htmlFor, error, hint, required, children }: F
         style={{ fontSize: "0.8125rem", fontWeight: 500, color: "var(--cluos-navy)" }}
       >
         {label}
-        {required && <span style={{ color: "var(--cluos-status-error)", marginLeft: "0.25rem" }} aria-hidden="true">*</span>}
+        {required && <span style={{ color: "var(--cluos-status-error-text)", marginLeft: "0.25rem" }} aria-hidden="true">*</span>}
       </label>
       {children}
       {hint && !error && (
         <span style={{ fontSize: "0.75rem", color: "var(--cluos-text-subtle)" }}>{hint}</span>
       )}
       {error && (
-        <span role="alert" style={{ fontSize: "0.75rem", color: "var(--cluos-status-error)" }}>{error}</span>
+        <span role="alert" style={{ fontSize: "0.75rem", color: "var(--cluos-status-error-text)" }}>{error}</span>
       )}
     </div>
   );
@@ -179,7 +179,7 @@ export default function SettingsPage() {
           </SettingsSection>
 
           <div style={{ padding: "1rem 1.25rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            {saved && <span role="status" style={{ fontSize: "0.875rem", color: "var(--cluos-status-success)" }}>Alterações salvas</span>}
+            {saved && <span role="status" style={{ fontSize: "0.875rem", color: "var(--cluos-status-success-text)" }}>Alterações salvas</span>}
             {!saved && <span />}
             <button type="submit" style={{ background: "var(--cluos-teal)", color: "#fff", border: "none", borderRadius: "var(--cluos-radius-md)", padding: "0.5625rem 1.25rem", fontSize: "0.875rem", fontWeight: 500, cursor: "pointer" }}>
               Salvar alterações

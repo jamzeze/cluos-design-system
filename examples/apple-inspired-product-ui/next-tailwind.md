@@ -35,10 +35,10 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, description, status, primaryAction, secondaryAction }: PageHeaderProps) {
   const statusColors = {
-    success: "bg-cluos-status-success-bg text-cluos-status-success border border-cluos-status-success/20",
-    warn: "bg-cluos-status-warn-bg text-cluos-status-warn border border-cluos-status-warn/20",
-    error: "bg-cluos-status-error-bg text-cluos-status-error border border-cluos-status-error/20",
-    info: "bg-cluos-status-info-bg text-cluos-status-info border border-cluos-status-info/20",
+    success: "bg-cluos-success-bg text-cluos-success-text border border-cluos-success",
+    warn: "bg-cluos-warn-bg text-cluos-warn-text border border-cluos-warn",
+    error: "bg-cluos-error-bg text-cluos-error-text border border-cluos-error",
+    info: "bg-cluos-info-bg text-cluos-info-text border border-cluos-info",
   };
 
   return (

@@ -59,6 +59,8 @@ a demo tweak. The same change must update, when relevant:
 - Preview still opens cleanly in a browser.
 - The canonical YAML parses and its identity id is `cluos-mms-v1`.
 - Token values still match the preview.
+- `npm test` passes: every status text pair reaches 4.5:1 and the CSS, TS, JS,
+  Tailwind and YAML status values agree.
 - Asset filenames and usage notes still match `brand-assets/README.md`.
 - `npm pack --dry-run` includes `DESIGN-preview.html`, `DESIGN.md`,
   `DESIGN-WORKFLOW.md`, `tokens/`, `brand-assets/`, and `guides/`.

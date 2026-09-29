@@ -21,17 +21,17 @@ const statusConfig = {
   online: {
     dot: "bg-[var(--cluos-status-success)]",
     label: "Online",
-    text: "text-[var(--cluos-status-success)]",
+    text: "text-[var(--cluos-status-success-text)]",
   },
   attention: {
     dot: "bg-[var(--cluos-status-warn)]",
     label: "Atenção",
-    text: "text-[var(--cluos-status-warn)]",
+    text: "text-[var(--cluos-status-warn-text)]",
   },
   offline: {
     dot: "bg-[var(--cluos-status-error)]",
     label: "Offline",
-    text: "text-[var(--cluos-status-error)]",
+    text: "text-[var(--cluos-status-error-text)]",
   },
 };
 

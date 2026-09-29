@@ -153,6 +153,20 @@ Prefira o `<select>` nativo quando possível — é mais acessível por padrão.
 - `--cluos-text-muted (#5A6570)` sobre `--cluos-bg (#FFFFFF)`: ✓ ~5.5:1
 - `--cluos-text-subtle (#8A939B)` sobre `--cluos-bg (#FFFFFF)`: verificar — pode não passar em texto pequeno.
 
+**Texto de status (medido por `npm test`):**
+
+| Token de texto | Sobre o seu `-bg` | Sobre `--cluos-bg` | Sobre `--cluos-bg-muted` |
+|---|---|---|---|
+| `--cluos-status-success-text` | 5.31:1 | 5.88:1 | 4.88:1 |
+| `--cluos-status-info-text` | 4.92:1 | 5.59:1 | 4.65:1 |
+| `--cluos-status-warn-text` | 5.01:1 | 5.87:1 | 4.88:1 |
+| `--cluos-status-error-text` | 6.49:1 | 7.64:1 | 6.35:1 |
+
+Os tokens sem sufixo são preenchimento (marcador, barra, borda). Como texto,
+`--cluos-status-success` fica entre 3.11:1 e 3.74:1 e `--cluos-status-warn`
+entre 2.94:1 e 3.54:1. Sobre navy, texto e marcador usam
+`--cluos-status-*-on-navy` (5.16:1 a 9.39:1 sobre `--cluos-deep-navy`).
+
 ### Imagens e ícones
 
 ```html

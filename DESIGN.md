@@ -69,6 +69,32 @@ Copper and oxblood are never positive CTAs. Every status also has a text
 label or icon; color alone never carries meaning. Teal may show ongoing
 execution, but tech green remains the primary positive action.
 
+### Status tokens
+
+Each status has four tokens. The unsuffixed token is a fill, not a text
+colour: success and warn fall below 4.5:1 when written as text.
+
+| Status | Fill | Text | On navy | Background |
+| --- | --- | --- | --- | --- |
+| success | `--cluos-status-success` | `--cluos-status-success-text` | `--cluos-status-success-on-navy` | `--cluos-status-success-bg` |
+| info | `--cluos-status-info` | `--cluos-status-info-text` | `--cluos-status-info-on-navy` | `--cluos-status-info-bg` |
+| warn | `--cluos-status-warn` | `--cluos-status-warn-text` | `--cluos-status-warn-on-navy` | `--cluos-status-warn-bg` |
+| error | `--cluos-status-error` | `--cluos-status-error-text` | `--cluos-status-error-on-navy` | `--cluos-status-error-bg` |
+
+- **Fill** marks the state: marker, bar, border, icon.
+- **Text** writes the state on the light surfaces (`--cluos-bg`,
+  `--cluos-bg-subtle`, `--cluos-bg-muted`) and on the matching background
+  token.
+- **On navy** writes and marks the state on deep navy and on the dark
+  register surfaces. Error on the dark `--cluos-bg-muted` stays at 3.83:1:
+  there, write the state in `--cluos-text` beside the marker.
+- **Background** is the tint of a callout. It stays light in every register
+  and pairs with the text token.
+
+Components that follow `data-cluos-style` or `data-appearance` use the roles
+`--cluos-color-status-{success,warning,danger,info}-text`, which resolve per
+style, palette and register.
+
 ## Geometry and layout
 
 - Swiss Ledger is the default register: white canvas, hairline borders, zero
@@ -87,7 +113,8 @@ execution, but tech green remains the primary positive action.
 - Secondary actions are hairline + text. Ghost actions are text-only.
 - Warning uses `--cluos-status-warn` (copper); denial/error uses
   `--cluos-status-error` (oxblood). Both use a tinted background token and an
-  explicit explanation/action.
+  explicit explanation/action. The state written in its own colour uses
+  `--cluos-status-warn-text` or `--cluos-status-error-text`.
 - Every data-dependent surface implements loading, empty, error, processing
   and success states. State copy is direct: “Processando”, “Offline”,
   “Publicação negada”, “Tentar novamente”.
@@ -117,6 +144,8 @@ immediately.
 - Every control has a visible label and a `:focus-visible` ring from
   `--cluos-ring-focus`.
 - Maintain WCAG 2.1 AA contrast and do not encode state with color alone.
+  Status-coloured text uses a text or on-navy token, never the fill;
+  `npm test` measures every pair.
 - Preserve Portuguese product language: verb + object buttons, no jargon,
   no hidden system state.
 

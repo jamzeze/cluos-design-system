@@ -100,10 +100,10 @@ Or copy `tokens/tokens.css` into your project directly.
   padding: 0.25rem 0.625rem;
   border-radius: var(--cluos-radius-sm);
 }
-.badge-success { background: var(--cluos-status-success-bg); color: var(--cluos-status-success); }
-.badge-warn    { background: var(--cluos-status-warn-bg);    color: var(--cluos-status-warn); }
-.badge-error   { background: var(--cluos-status-error-bg);   color: var(--cluos-status-error); }
-.badge-info    { background: var(--cluos-status-info-bg);    color: var(--cluos-status-info); }
+.badge-success { background: var(--cluos-status-success-bg); color: var(--cluos-status-success-text); }
+.badge-warn    { background: var(--cluos-status-warn-bg);    color: var(--cluos-status-warn-text); }
+.badge-error   { background: var(--cluos-status-error-bg);   color: var(--cluos-status-error-text); }
+.badge-info    { background: var(--cluos-status-info-bg);    color: var(--cluos-status-info-text); }
 
 /* Status dot */
 .status-dot {
