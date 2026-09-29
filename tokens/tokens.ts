@@ -13,6 +13,7 @@ export const tokens = {
     oxblood:    "#8A3A3A",
     neutral100: "#EAEAEA",
     neutral500: "#A5A5A5",
+    neutral700: "#666666",
     teal:       "#16A39A", // compatibility alias for operational teal
     navy:       "#010D28", // compatibility alias for deep navy
     black:      "#1D1D1B",
@@ -31,7 +32,8 @@ export const tokens = {
 
     text:         "#010D28",
     textMuted:    "#132952",
-    textSubtle:   "#A5A5A5",
+    textSubtle:   "#666666",
+    textDisabled: "#A5A5A5", // labels of inactive controls only
     textOnTeal:   "#FFFFFF",
     textOnNavy:   "#FFFFFF",
   },
@@ -162,7 +164,8 @@ export const tokens = {
       borderStrong:"#132952",
       text:        "#010D28",
       textMuted:   "#132952",
-      textSubtle:  "#A5A5A5",
+      textSubtle:  "#666666",
+      textDisabled:"#A5A5A5",
     },
     dark: {
       bg:          "#010D28",
@@ -173,6 +176,7 @@ export const tokens = {
       text:        "#F7F8F5",
       textMuted:   "rgba(247, 248, 245, 0.72)",
       textSubtle:  "rgba(247, 248, 245, 0.54)",
+      textDisabled:"rgba(247, 248, 245, 0.38)",
     },
   },
 } as const;
@@ -216,7 +220,7 @@ export interface CluosThemeRoles {
 export const styles: Record<CluosStyleId, CluosThemeRoles> = {
   MMS: {
     bgCanvas: "#FFFFFF", bgSurface: "#FFFFFF", bgElevated: "#FFFFFF", bgSubtle: "#FFFFFF",
-    fgPrimary: "#010D28", fgSecondary: "#132952", fgMuted: "#A5A5A5",
+    fgPrimary: "#010D28", fgSecondary: "#132952", fgMuted: "#666666",
     borderDefault: "#EAEAEA", borderStrong: "#132952",
     actionPrimary: "#C4DB7B", actionPrimaryHover: "#A6C05D", focusRing: "rgba(196, 219, 123, 0.72)",
     statusSuccess: "#6F8F19", statusWarning: "#BD7845", statusDanger: "#8A3A3A", statusInfo: "#3E6E82",

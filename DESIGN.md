@@ -63,7 +63,15 @@ state, never as decoration.
 | `--cluos-oxblood` | `#8A3A3A` | denial, error, risk, destructive confirmation |
 | `--cluos-white` | `#FFFFFF` | canvas and surfaces |
 | `--cluos-neutral-100` | `#EAEAEA` | hairlines and muted surfaces |
-| `--cluos-neutral-500` | `#A5A5A5` | subtle text and disabled context |
+| `--cluos-neutral-500` | `#A5A5A5` | disabled context: labels of inactive controls, never readable text |
+| `--cluos-neutral-700` | `#666666` | subtle text |
+
+Readable text uses `--cluos-text`, `--cluos-text-muted` or `--cluos-text-subtle`.
+Each reaches 4.5:1 or more on `--cluos-bg`, `--cluos-bg-subtle` and
+`--cluos-bg-muted`, in the light and in the dark register.
+`--cluos-text-disabled` is only for the label of an inactive control, which
+WCAG 1.4.3 exempts; it stays dimmer than subtle text so a disabled control
+never reads as enabled.
 
 Copper and oxblood are never positive CTAs. Every status also has a text
 label or icon; color alone never carries meaning. Teal may show ongoing

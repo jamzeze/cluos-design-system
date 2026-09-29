@@ -49,6 +49,7 @@ No repository may define colors, typography, spacing, or interaction patterns fr
 - Text: `var(--cluos-text)`, `var(--cluos-text-muted)`, `var(--cluos-text-subtle)`.
 - Status: `success`, `warn`, `error`, `info` — use the token, never a raw hex.
 - Background: `var(--cluos-bg)`, `var(--cluos-bg-subtle)`, `var(--cluos-bg-muted)`.
+- Disabled: `var(--cluos-text-disabled)`, only for the label of an inactive control. Readable text never uses it or `var(--cluos-neutral-500)`.
 - Light Swiss Ledger is the default. Dark tokens remain only for explicit operational surfaces.
 
 ### Typography

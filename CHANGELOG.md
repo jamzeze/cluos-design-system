@@ -3,6 +3,43 @@
 All notable changes to the Cluos design system are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com).
 
+## [Unreleased] — 2026-09-29 — Subtle text contrast
+
+Record: `docs/frontend-routing/2026-09-29-text-subtle-contrast/design-decision.md`.
+The value is the agent's proposal; merging the pull request approves it. No
+entry was added to the profile decision logs.
+
+### Fixed
+
+- `--cluos-text-subtle` (light) failed WCAG AA as text: 2.46:1 on white and
+  2.05:1 on `--cluos-bg-muted`. It now resolves to a new neutral step,
+  `--cluos-neutral-700` (`#666666`): 5.74:1 and 4.77:1. The dark register
+  already passed and is unchanged. `--cluos-color-fg-muted` follows.
+
+### Added
+
+- `--cluos-neutral-700: #666666` and `palette.neutral_700` (role
+  `subtle_text`) in `tokens/mms-canonical.yaml`.
+- `--cluos-text-disabled`: `--cluos-neutral-500` in the light register,
+  `rgba(247, 248, 245, 0.38)` in the dark one, for labels of inactive controls
+  only. `palette.neutral_500` keeps its value and now holds only
+  `disabled_context`.
+- Mirrors in `tokens.ts`, `tokens.js` and the Tailwind preset
+  (`cluos-neutral-700`, `cluos-text-disabled`).
+- `npm test`: `scripts/test-text-contrast.mjs` checks every text token and
+  foreground role on every surface of both registers, the frozen palette
+  values and the mirrors.
+
+### Changed
+
+- Every page that writes in `--cluos-text-subtle` renders darker subtle text,
+  including `DESIGN-preview.html` and the two `guides/` pages.
+- `patterns/accessibility.md`: the contrast list shows the current tokens
+  with measured values, and the large-text threshold reads 24px, or 18.66px in
+  bold (it said 18px and 14px).
+- `examples/apple-inspired-product-ui/hub-systems.md`: the disabled "Abrir"
+  button uses `text-cluos-text-disabled`.
+
 ## [Unreleased] — 2026-09-16 — Frontend routing v2
 
 ### Changed

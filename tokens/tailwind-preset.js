@@ -30,6 +30,7 @@ module.exports = {
           oxblood:           "var(--cluos-oxblood)",
           "neutral-100":     "var(--cluos-neutral-100)",
           "neutral-500":     "var(--cluos-neutral-500)",
+          "neutral-700":     "var(--cluos-neutral-700)",
           "signal-deep":     "var(--cluos-signal-deep)",
           bg:              "var(--cluos-bg)",
           "bg-subtle":     "var(--cluos-bg-subtle)",
@@ -40,6 +41,7 @@ module.exports = {
           text:          "var(--cluos-text)",
           "text-muted":  "var(--cluos-text-muted)",
           "text-subtle": "var(--cluos-text-subtle)",
+          "text-disabled": "var(--cluos-text-disabled)",
 
           success:      "var(--cluos-status-success)",
           "success-bg": "var(--cluos-status-success-bg)",

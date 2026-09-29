@@ -142,16 +142,23 @@ Prefira o `<select>` nativo quando possível — é mais acessível por padrão.
 
 | Tipo de texto | Contraste mínimo |
 |-------------|-----------------|
-| Texto normal (< 18px) | 4.5:1 |
-| Texto grande (≥ 18px regular ou ≥ 14px bold) | 3:1 |
+| Texto normal (abaixo de 24px, ou de 18.66px em bold) | 4.5:1 |
+| Texto grande (a partir de 24px, ou de 18.66px em bold) | 3:1 |
 | Ícone funcional | 3:1 |
 | Estado de foco (focus ring) | 3:1 |
 
-**Tokens CluOS e contraste:**
-- `--cluos-navy (#1B2F36)` sobre `--cluos-bg (#FFFFFF)`: ✓ ~13:1
-- `--cluos-teal (#008080)` sobre `--cluos-bg (#FFFFFF)`: ✓ ~3.4:1 (OK para grande, verificar pequeno)
-- `--cluos-text-muted (#5A6570)` sobre `--cluos-bg (#FFFFFF)`: ✓ ~5.5:1
-- `--cluos-text-subtle (#8A939B)` sobre `--cluos-bg (#FFFFFF)`: verificar — pode não passar em texto pequeno.
+**Tokens CluOS e contraste** (medidos; `npm test` verifica os tokens de texto):
+
+| Token | Valor | Sobre `--cluos-bg` | Sobre `--cluos-bg-muted` | Uso |
+|---|---|---|---|---|
+| `--cluos-text` | `#010D28` | 19.27:1 | 16.02:1 | texto principal |
+| `--cluos-text-muted` | `#132952` | 14.32:1 | 11.90:1 | texto secundário |
+| `--cluos-text-subtle` | `#666666` | 5.74:1 | 4.77:1 | legendas, cabeçalhos de tabela, dicas |
+| `--cluos-text-disabled` | `#A5A5A5` | 2.46:1 | 2.05:1 | só o rótulo de um controle inativo (isento pela WCAG 1.4.3) |
+| `--cluos-operational-teal` | `#16A39A` | 3.12:1 | 2.59:1 | só texto grande |
+| `--cluos-deep-teal` | `#08736E` | 5.69:1 | 4.73:1 | texto em teal |
+
+No registro escuro (`data-appearance="dark"`), sobre `--cluos-bg`, `--cluos-bg-subtle` e `--cluos-bg-muted`: `--cluos-text-subtle` fica entre 4.96:1 e 5.69:1 e `--cluos-text-disabled` entre 3.19:1 e 3.38:1.
 
 ### Imagens e ícones
 

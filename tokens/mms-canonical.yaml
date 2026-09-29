@@ -65,7 +65,10 @@ palette:
     role: [hairlines, muted_surface]
   neutral_500:
     value: "#A5A5A5"
-    role: [subtle_text, disabled_context]
+    role: [disabled_context]
+  neutral_700:
+    value: "#666666"
+    role: [subtle_text]
 
 geometry:
   mode: swiss-ledger
