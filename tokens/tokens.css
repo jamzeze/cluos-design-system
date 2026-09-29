@@ -71,7 +71,8 @@
   --cluos-status-error-text:   var(--cluos-status-error);
 
   /* Status text and marker on --cluos-deep-navy. Success and warn repeat
-     their fills, which already pass there; info and error do not. */
+     their fills, which already pass there; info and error do not. The dark
+     register sets its own success and warn tones below. */
   --cluos-status-success-on-navy: var(--cluos-status-success);
   --cluos-status-info-on-navy:    #6FA8C4;
   --cluos-status-warn-on-navy:    var(--cluos-status-warn);
@@ -203,6 +204,10 @@
   --cluos-text-muted:    rgba(247, 248, 245, 0.72);
   --cluos-text-subtle:   rgba(247, 248, 245, 0.54);
   --cluos-text-on-navy:  #F7F8F5;
+  /* A whole dark register also puts status on bg-subtle and bg-muted, where
+     the success and warn fills fall below 4.5:1. */
+  --cluos-status-success-on-navy: #9CC24A;
+  --cluos-status-warn-on-navy:    #D08A54;
 }
 
 /* ========================================================================
@@ -233,12 +238,12 @@
   --cluos-color-signal:               var(--cluos-tech-green);
 }
 
-/* Dark register: status text roles take tones that pass on bg, bg-subtle and
-   bg-muted, where the success and warn fills do not. The -bg tints stay light
-   in every register: pair them with --cluos-status-*-text, not with a role. */
+/* Dark register: status text roles take the on-navy tones. The -bg tints stay
+   light in every register: pair them with --cluos-status-*-text, not with a
+   role. */
 [data-appearance="dark"] {
-  --cluos-color-status-success-text: #9CC24A;
-  --cluos-color-status-warning-text: #D08A54;
+  --cluos-color-status-success-text: var(--cluos-status-success-on-navy);
+  --cluos-color-status-warning-text: var(--cluos-status-warn-on-navy);
   --cluos-color-status-danger-text:  var(--cluos-status-error-on-navy);
   --cluos-color-status-info-text:    var(--cluos-status-info-on-navy);
 }

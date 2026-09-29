@@ -88,7 +88,9 @@ colour: success and warn fall below 4.5:1 when written as text.
   text token, so the label is the darker of the two.
 - **On navy** writes and marks the state on `--cluos-deep-navy`. Success and
   warn repeat their fills, which already pass there; info and error take a
-  lighter tone.
+  lighter tone. In the dark register (`data-appearance="dark"`) success and
+  warn take a lighter tone too, because the register also writes on
+  `--cluos-bg-muted`.
 - **Background** is the tint of a callout. It stays light in every register
   and pairs with the text token, never with a dark-register role.
 

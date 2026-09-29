@@ -17,7 +17,9 @@ Pending Rafael's review; no entry was added to the profile decision logs.
 - Status tokens for `--cluos-deep-navy`,
   `--cluos-status-{success,info,warn,error}-on-navy`. Success and warn alias
   their fills, which already passed there; info (`#6FA8C4`) and error
-  (`#C46A6A`) take the values style `G` already registered.
+  (`#C46A6A`) take the values style `G` already registered. In the dark
+  register success (`#9CC24A`) and warn (`#D08A54`) take the style `G` values
+  too.
 - Roles `--cluos-color-status-{success,warning,danger,info}-text` for `MMS`,
   the dark appearance, the legacy styles `A`–`E` and `G`, and the six
   palettes, including the palettes against the dark register.
@@ -49,8 +51,8 @@ Pending Rafael's review; no entry was added to the profile decision logs.
   decision on the error family.
 - The status tints stay light in the dark register. They pair with
   `--cluos-status-*-text`, not with the dark-register text roles.
-- The on-navy tokens are specified for `--cluos-deep-navy`. On the dark
-  `--cluos-bg-muted` success and warn need the dark-register roles.
+- The preview scrolls sideways at 375px and 360px and `--cluos-text-subtle`
+  is 2.05:1 to 2.46:1. Both are on `main` already and are not changed here.
 
 ## [Unreleased] — 2026-09-16 — Frontend routing v2
 

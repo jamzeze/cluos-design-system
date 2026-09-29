@@ -227,7 +227,7 @@ function measure(values, context, status, layer, token, beforeToken, surface) {
 // Every pair a status text token must satisfy in a context.
 //
 //   --cluos-status-*-text         light surfaces, and its own tint in every register
-//   --cluos-status-*-on-navy      --cluos-deep-navy
+//   --cluos-status-*-on-navy      --cluos-deep-navy, and every surface of the dark register
 //   --cluos-color-status-*-text   every surface of the register, and its own tint on light
 //
 // The tints stay light in every register, so a dark-register role has no tint pair.
@@ -244,7 +244,9 @@ export function pairs(rules, context) {
     for (const surface of light ? [...SURFACES, tint] : [tint]) add("constant", `${fill}-text`, fill, surface);
     for (const surface of light ? [...SURFACES, tint] : SURFACES) add("role", `${roleFill}-text`, roleFill, surface);
     // The constants do not vary with the palette: measured once per style.
-    if (!context.palette) add("constant", `${fill}-on-navy`, fill, NAVY);
+    if (!context.palette) {
+      for (const surface of light ? [NAVY] : [NAVY, ...SURFACES]) add("constant", `${fill}-on-navy`, fill, surface);
+    }
   }
   return out;
 }
