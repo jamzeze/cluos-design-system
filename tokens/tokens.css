@@ -28,6 +28,7 @@
   --cluos-white:            #FFFFFF;
   --cluos-neutral-100:      #EAEAEA;
   --cluos-neutral-500:      #A5A5A5;
+  --cluos-neutral-700:      #666666;
 
   /* Compatibility aliases — preserve names, change the default source. */
   --cluos-navy:             var(--cluos-deep-navy);
@@ -46,7 +47,10 @@
   --cluos-border-strong:    var(--cluos-medium-blue);
   --cluos-text:             var(--cluos-deep-navy);
   --cluos-text-muted:       var(--cluos-medium-blue);
-  --cluos-text-subtle:      var(--cluos-neutral-500);
+  --cluos-text-subtle:      var(--cluos-neutral-700);
+  /* Labels of inactive controls only (exempt from WCAG 1.4.3); never text a
+     user must read. */
+  --cluos-text-disabled:    var(--cluos-neutral-500);
   --cluos-text-on-teal:     var(--cluos-white);
   --cluos-text-on-signal:   var(--cluos-deep-navy);
   --cluos-text-on-navy:     var(--cluos-white);
@@ -186,6 +190,7 @@
   --cluos-text:          #F7F8F5;
   --cluos-text-muted:    rgba(247, 248, 245, 0.72);
   --cluos-text-subtle:   rgba(247, 248, 245, 0.54);
+  --cluos-text-disabled: rgba(247, 248, 245, 0.38);
   --cluos-text-on-navy:  #F7F8F5;
 }
 

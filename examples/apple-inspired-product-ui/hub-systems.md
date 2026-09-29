@@ -54,7 +54,7 @@ export function SystemCard({ name, url, status, statusMessage, href }: SystemCar
         {isOffline ? (
           <button
             disabled
-            className="px-4 py-2 bg-cluos-bg-muted text-cluos-text-subtle rounded-cluos-md text-sm font-medium cursor-not-allowed"
+            className="px-4 py-2 bg-cluos-bg-muted text-cluos-text-disabled rounded-cluos-md text-sm font-medium cursor-not-allowed"
             aria-label="Sistema offline — indisponível"
           >
             Abrir

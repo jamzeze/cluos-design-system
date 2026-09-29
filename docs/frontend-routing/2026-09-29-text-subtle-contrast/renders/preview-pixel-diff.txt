@@ -1,0 +1,26 @@
+== DESIGN-preview.html, 1440 px: main vs this branch ==
+before (1440, 3541)  after (1440, 3541)
+changed pixels: 7206 of 5099040 (0.1413%) in 8 band(s)
+  y 780-789  x 736-827  pixels 527  dominant before #A5A5A5 -> after #666666
+  y 831-840  x 736-802  pixels 367  dominant before #A5A5A5 -> after #666666
+  y 882-891  x 736-814  pixels 459  dominant before #A5A5A5 -> after #666666
+  y 931-945  x 736-819  pixels 509  dominant before #A5A5A5 -> after #666666
+  y 1803-1812  x 121-1172  pixels 2072  dominant before #A5A5A5 -> after #666666
+  y 2554-2566  x 120-914  pixels 1606  dominant before #A5A5A5 -> after #666666
+  y 3036-3046  x 1237-1310  pixels 375  dominant before #A5A5A5 -> after #666666
+  y 3119-3130  x 104-370  pixels 1291  dominant before #A5A5A5 -> after #666666
+== DESIGN-preview.html, 390 px: main vs this branch ==
+before (390, 7648)  after (390, 7648)
+changed pixels: 7209 of 2982720 (0.2417%) in 12 band(s)
+  y 1249-1258  x 16-107  pixels 527  dominant before #A5A5A5 -> after #666666
+  y 1323-1332  x 16-82  pixels 367  dominant before #A5A5A5 -> after #666666
+  y 1397-1406  x 16-94  pixels 459  dominant before #A5A5A5 -> after #666666
+  y 1467-1481  x 16-99  pixels 509  dominant before #A5A5A5 -> after #666666
+  y 2830-2838  x 33-111  pixels 386  dominant before #A5A5A5 -> after #666666
+  y 3286-3295  x 33-127  pixels 520  dominant before #A5A5A5 -> after #666666
+  y 3742-3751  x 33-120  pixels 463  dominant before #A5A5A5 -> after #666666
+  y 4198-4207  x 33-89  pixels 324  dominant before #A5A5A5 -> after #666666
+  y 4654-4663  x 33-99  pixels 391  dominant before #A5A5A5 -> after #666666
+  y 6008-6036  x 32-316  pixels 1597  dominant before #A5A5A5 -> after #666666
+  y 7021-7032  x 16-282  pixels 1291  dominant before #A5A5A5 -> after #666666
+  y 7099-7109  x 275-348  pixels 375  dominant before #A5A5A5 -> after #666666

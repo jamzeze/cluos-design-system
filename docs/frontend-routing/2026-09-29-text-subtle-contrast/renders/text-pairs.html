@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR" data-cluos-canonical="cluos-mms-v1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Texto · contraste por superfície</title>
+  <!--
+    Evidence page for the text tokens, not a product surface and not part of
+    the package. ?appearance=dark sets the dark register on the root element.
+    Every ratio is computed in the browser from getComputedStyle and written as
+    JSON into #measured.
+  -->
+  <link rel="stylesheet" href="../../../../tokens/tokens.css">
+  <script>
+    (() => {
+      const appearance = new URLSearchParams(location.search).get("appearance");
+      if (appearance) document.documentElement.setAttribute("data-appearance", appearance);
+    })();
+  </script>
+  <style>
+    @font-face {
+      font-family: "Manrope";
+      src: url("../../../../brand-assets/fonts/manrope-latin-variable.woff2") format("woff2");
+      font-weight: 200 800;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Instrument Sans";
+      src: url("../../../../brand-assets/fonts/instrument-sans-latin-variable.woff2") format("woff2");
+      font-weight: 400 700;
+      font-stretch: 75% 100%;
+      font-display: swap;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; padding: var(--cluos-space-8) var(--cluos-space-6); background: var(--cluos-bg); color: var(--cluos-text); font-family: var(--cluos-font-sans); font-size: var(--cluos-text-sm); line-height: var(--cluos-leading-snug); }
+    main { max-width: var(--cluos-container-docs); margin: 0 auto; }
+    h1, p { margin: 0; }
+    h1 { font-family: var(--cluos-font-display); font-size: var(--cluos-text-2xl); font-weight: 400; letter-spacing: -.03em; }
+    .context { margin-top: var(--cluos-space-2); color: var(--cluos-text-muted); }
+    code { font-family: var(--cluos-font-mono); font-size: var(--cluos-text-xs); }
+    table { width: 100%; margin-top: var(--cluos-space-6); border-collapse: collapse; table-layout: fixed; }
+    th, td { padding: var(--cluos-space-3); border: thin solid var(--cluos-border); text-align: left; vertical-align: top; }
+    th { font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); }
+    .swatch { padding: var(--cluos-space-3); }
+    .sample { font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); letter-spacing: .11em; text-transform: uppercase; }
+    .ratio { margin-top: var(--cluos-space-2); font-size: var(--cluos-text-xs); font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Texto: contraste por superfície</h1>
+    <p class="context" id="context"></p>
+    <table>
+      <thead><tr id="head"><th scope="col">Token</th></tr></thead>
+      <tbody id="body"></tbody>
+    </table>
+    <script type="application/json" id="measured"></script>
+  </main>
+  <script>
+    (() => {
+      const dark = document.documentElement.getAttribute("data-appearance") === "dark";
+      const tokens = ["--cluos-text", "--cluos-text-muted", "--cluos-text-subtle", "--cluos-text-disabled"];
+      const surfaces = ["--cluos-bg", "--cluos-bg-subtle", "--cluos-bg-muted"];
+      const channels = (color) => color.match(/[\d.]+/g).map(Number);
+      const luminance = ([r, g, b]) => [r, g, b].map((c) => { const v = c / 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }).reduce((sum, v, i) => sum + v * [0.2126, 0.7152, 0.0722][i], 0);
+      const contrast = (text, surface) => {
+        const [t, s] = [channels(text), channels(surface)];
+        const alpha = t.length > 3 ? t[3] : 1;
+        const shown = [0, 1, 2].map((i) => t[i] * alpha + s[i] * (1 - alpha));
+        const [hi, lo] = [luminance(shown), luminance(s)].sort((a, b) => b - a);
+        return (hi + 0.05) / (lo + 0.05);
+      };
+      document.querySelector("#context").innerHTML = `Registro ${dark ? "escuro (<code>data-appearance=\"dark\"</code>)" : "claro (<code>:root</code>)"}. Mínimo 4.5:1 para texto; <code>--cluos-text-disabled</code> é isento.`;
+      const head = document.querySelector("#head");
+      for (const surface of surfaces) {
+        const th = document.createElement("th");
+        th.scope = "col";
+        th.innerHTML = `<code>${surface}</code>`;
+        head.append(th);
+      }
+      const measured = [];
+      const body = document.querySelector("#body");
+      for (const token of tokens) {
+        const row = document.createElement("tr");
+        body.append(row);
+        const name = document.createElement("th");
+        name.scope = "row";
+        name.innerHTML = `<code>${token}</code>`;
+        row.append(name);
+        for (const surface of surfaces) {
+          const cell = document.createElement("td");
+          const swatch = document.createElement("div");
+          swatch.className = "swatch";
+          swatch.style.background = `var(${surface})`;
+          const sample = document.createElement("span");
+          sample.className = "sample";
+          sample.textContent = "Legenda de apoio";
+          sample.style.color = `var(${token})`;
+          swatch.append(sample);
+          cell.append(swatch);
+          row.append(cell);
+          const ratio = contrast(getComputedStyle(sample).color, getComputedStyle(swatch).backgroundColor);
+          const exempt = token === "--cluos-text-disabled";
+          const note = document.createElement("p");
+          note.className = "ratio";
+          note.textContent = `${ratio.toFixed(2)}:1${exempt ? " · isento" : ratio >= 4.5 ? "" : " · abaixo"}`;
+          cell.append(note);
+          measured.push({ token, surface, color: getComputedStyle(sample).color, background: getComputedStyle(swatch).backgroundColor, ratio });
+        }
+      }
+      document.querySelector("#measured").textContent = JSON.stringify(measured);
+    })();
+  </script>
+</body>
+</html>
