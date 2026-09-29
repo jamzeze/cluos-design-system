@@ -85,6 +85,11 @@ Quando usar: Quando filtros ou busca retornam zero resultados (diferente de `emp
 
 ## Estados de feedback de ação
 
+Em cada estado abaixo, o token sem sufixo colore o marcador e o token `-text`
+escreve o texto. O fundo `-bg` é claro em todo registro: sobre ele o texto é
+sempre `--cluos-status-*-text`. Os papéis `--cluos-color-status-*-text` do
+registro escuro escrevem sobre as superfícies escuras, não sobre o `-bg`.
+
 ### `success`
 
 Quando usar: Após ação bem-sucedida.

@@ -194,7 +194,7 @@
 - Online: `color: var(--cluos-status-success-text)`.
 - Atenção: `color: var(--cluos-status-warn-text)`.
 - Offline: `color: var(--cluos-status-error-text)`.
-- Sobre navy, dot e label usam `var(--cluos-status-*-on-navy)`.
+- Sobre `--cluos-deep-navy`, dot e label usam `var(--cluos-status-*-on-navy)`.
 
 ---
 
@@ -410,7 +410,7 @@
 
 **Tipos:** error / warning / success / info.
 
-**Tokens:** Texto: `--cluos-status-*-text`. Marcador, borda e ícone: `--cluos-status-*`. Fundo: `--cluos-status-*-bg`. O token sem sufixo não é cor de texto.
+**Tokens:** Texto: `--cluos-status-*-text`. Marcador, borda e ícone: `--cluos-status-*`. Fundo: `--cluos-status-*-bg`. O token sem sufixo não é cor de texto. O fundo `-bg` é claro em todo registro: sobre ele o texto é sempre `--cluos-status-*-text`, nunca o papel do registro escuro.
 
 ---
 

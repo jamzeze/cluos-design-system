@@ -49,10 +49,10 @@ export const tokens = {
     infoText:    "#3E6E82",
     warnText:    "#8A5A2B",
     errorText:   "#8A3A3A",
-    // Text and marker on deep navy and the dark register surfaces.
-    successOnNavy: "#9CC24A",
+    // Text and marker on deep navy. Success and warn repeat their fills, which pass there.
+    successOnNavy: "#6F8F19",
     infoOnNavy:    "#6FA8C4",
-    warnOnNavy:    "#D08A54",
+    warnOnNavy:    "#BD7845",
     errorOnNavy:   "#C46A6A",
   },
   gradient: {
@@ -173,6 +173,10 @@ export const tokens = {
       text:        "#010D28",
       textMuted:   "#132952",
       textSubtle:  "#A5A5A5",
+      statusSuccessText: "#546D13",
+      statusWarningText: "#8A5A2B",
+      statusDangerText:  "#8A3A3A",
+      statusInfoText:    "#3E6E82",
     },
     dark: {
       bg:          "#010D28",
@@ -183,6 +187,10 @@ export const tokens = {
       text:        "#F7F8F5",
       textMuted:   "rgba(247, 248, 245, 0.72)",
       textSubtle:  "rgba(247, 248, 245, 0.54)",
+      statusSuccessText: "#9CC24A",
+      statusWarningText: "#D08A54",
+      statusDangerText:  "#C46A6A",
+      statusInfoText:    "#6FA8C4",
     },
   },
 } as const;

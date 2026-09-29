@@ -70,10 +70,11 @@
   --cluos-status-warn-text:    #8A5A2B;
   --cluos-status-error-text:   var(--cluos-status-error);
 
-  /* Status text and marker on deep navy and the dark register surfaces. */
-  --cluos-status-success-on-navy: #9CC24A;
+  /* Status text and marker on --cluos-deep-navy. Success and warn repeat
+     their fills, which already pass there; info and error do not. */
+  --cluos-status-success-on-navy: var(--cluos-status-success);
   --cluos-status-info-on-navy:    #6FA8C4;
-  --cluos-status-warn-on-navy:    #D08A54;
+  --cluos-status-warn-on-navy:    var(--cluos-status-warn);
   --cluos-status-error-on-navy:   #C46A6A;
 
   /* ----- Canonical typography -------------------------------------- */
@@ -232,11 +233,12 @@
   --cluos-color-signal:               var(--cluos-tech-green);
 }
 
-/* Dark register: status text roles take the on-navy tones. The -bg tints stay
-   light in every register and pair with --cluos-status-*-text. */
+/* Dark register: status text roles take tones that pass on bg, bg-subtle and
+   bg-muted, where the success and warn fills do not. The -bg tints stay light
+   in every register: pair them with --cluos-status-*-text, not with a role. */
 [data-appearance="dark"] {
-  --cluos-color-status-success-text: var(--cluos-status-success-on-navy);
-  --cluos-color-status-warning-text: var(--cluos-status-warn-on-navy);
+  --cluos-color-status-success-text: #9CC24A;
+  --cluos-color-status-warning-text: #D08A54;
   --cluos-color-status-danger-text:  var(--cluos-status-error-on-navy);
   --cluos-color-status-info-text:    var(--cluos-status-info-on-navy);
 }
@@ -248,7 +250,7 @@
   --cluos-color-border-default: #E6E7E1; --cluos-color-border-strong: #D4D6CD;
   --cluos-color-action-primary: #008080; --cluos-color-action-primary-hover: #005959; --cluos-color-focus-ring: rgba(0, 128, 128, 0.30);
   --cluos-color-status-success: #008080; --cluos-color-status-warning: #B06A34; --cluos-color-status-danger: #8A3A3A; --cluos-color-status-info: #3E6E82; --cluos-color-signal: #008080;
-  --cluos-color-status-success-text: #006666; --cluos-color-status-warning-text: #8A5A2B; --cluos-color-status-danger-text: #8A3A3A; --cluos-color-status-info-text: #3E6E82;
+  --cluos-color-status-success-text: #006666; --cluos-color-status-warning-text: var(--cluos-status-warn-text); --cluos-color-status-danger-text: var(--cluos-color-status-danger); --cluos-color-status-info-text: var(--cluos-color-status-info);
 }
 [data-cluos-style="B"] {
   --cluos-color-bg-canvas: #F5F7F4; --cluos-color-bg-surface: #FFFFFF; --cluos-color-bg-elevated: #FFFFFF; --cluos-color-bg-subtle: #F5F7F4;
@@ -256,7 +258,7 @@
   --cluos-color-border-default: #DCE2E3; --cluos-color-border-strong: #C2CDD1;
   --cluos-color-action-primary: #0E8F87; --cluos-color-action-primary-hover: #0A6B65; --cluos-color-focus-ring: rgba(14, 143, 135, 0.20);
   --cluos-color-status-success: #6F8F19; --cluos-color-status-warning: #BD7845; --cluos-color-status-danger: #8A3A3A; --cluos-color-status-info: #3E6E82; --cluos-color-signal: #C4DB7B;
-  --cluos-color-status-success-text: #546D13; --cluos-color-status-warning-text: #8A5A2B; --cluos-color-status-danger-text: #8A3A3A; --cluos-color-status-info-text: #3E6E82;
+  --cluos-color-status-success-text: var(--cluos-status-success-text); --cluos-color-status-warning-text: var(--cluos-status-warn-text); --cluos-color-status-danger-text: var(--cluos-color-status-danger); --cluos-color-status-info-text: var(--cluos-color-status-info);
 }
 [data-cluos-style="C"] {
   --cluos-color-bg-canvas: #FAFAF7; --cluos-color-bg-surface: #FFFFFF; --cluos-color-bg-elevated: #FFFFFF; --cluos-color-bg-subtle: #FAFAF7;
@@ -264,7 +266,7 @@
   --cluos-color-border-default: #E4E3DD; --cluos-color-border-strong: #CBCAC2;
   --cluos-color-action-primary: #2B49C7; --cluos-color-action-primary-hover: #1D339B; --cluos-color-focus-ring: rgba(43, 73, 199, 0.24);
   --cluos-color-status-success: #3D7A46; --cluos-color-status-warning: #A96A2F; --cluos-color-status-danger: #973B3B; --cluos-color-status-info: #3E6E82; --cluos-color-signal: #2B49C7;
-  --cluos-color-status-success-text: #2C5A34; --cluos-color-status-warning-text: #8A5A2B; --cluos-color-status-danger-text: #973B3B; --cluos-color-status-info-text: #3E6E82;
+  --cluos-color-status-success-text: #2C5A34; --cluos-color-status-warning-text: var(--cluos-status-warn-text); --cluos-color-status-danger-text: var(--cluos-color-status-danger); --cluos-color-status-info-text: var(--cluos-color-status-info);
 }
 [data-cluos-style="D"] {
   --cluos-color-bg-canvas: #FFFFFF; --cluos-color-bg-surface: #FFFFFF; --cluos-color-bg-elevated: #FFFFFF; --cluos-color-bg-subtle: #FFFFFF;
@@ -272,7 +274,7 @@
   --cluos-color-border-default: #E3E4E1; --cluos-color-border-strong: #111417;
   --cluos-color-action-primary: #007070; --cluos-color-action-primary-hover: #005050; --cluos-color-focus-ring: rgba(0, 112, 112, 0.22);
   --cluos-color-status-success: #007070; --cluos-color-status-warning: #A96A2F; --cluos-color-status-danger: #8A3A3A; --cluos-color-status-info: #3E6E82; --cluos-color-signal: #007070;
-  --cluos-color-status-success-text: #007070; --cluos-color-status-warning-text: #8A5A2B; --cluos-color-status-danger-text: #8A3A3A; --cluos-color-status-info-text: #3E6E82;
+  --cluos-color-status-success-text: var(--cluos-color-status-success); --cluos-color-status-warning-text: var(--cluos-status-warn-text); --cluos-color-status-danger-text: var(--cluos-color-status-danger); --cluos-color-status-info-text: var(--cluos-color-status-info);
 }
 [data-cluos-style="E"] {
   --cluos-color-bg-canvas: #F6F3EE; --cluos-color-bg-surface: #FFFFFF; --cluos-color-bg-elevated: #FFFFFF; --cluos-color-bg-subtle: #F6F3EE;
@@ -280,7 +282,7 @@
   --cluos-color-border-default: #E7DFD2; --cluos-color-border-strong: #D6CCBA;
   --cluos-color-action-primary: #0E6E68; --cluos-color-action-primary-hover: #0A524E; --cluos-color-focus-ring: rgba(14, 110, 104, 0.18);
   --cluos-color-status-success: #0E6E68; --cluos-color-status-warning: #A96A2F; --cluos-color-status-danger: #8A3A3A; --cluos-color-status-info: #3E6E82; --cluos-color-signal: #0E6E68;
-  --cluos-color-status-success-text: #0E6E68; --cluos-color-status-warning-text: #8A5A2B; --cluos-color-status-danger-text: #8A3A3A; --cluos-color-status-info-text: #3E6E82;
+  --cluos-color-status-success-text: var(--cluos-color-status-success); --cluos-color-status-warning-text: var(--cluos-status-warn-text); --cluos-color-status-danger-text: var(--cluos-color-status-danger); --cluos-color-status-info-text: var(--cluos-color-status-info);
 }
 [data-cluos-style="G"] {
   --cluos-color-bg-canvas: #010D28; --cluos-color-bg-surface: #0B1B41; --cluos-color-bg-elevated: #0B1B41; --cluos-color-bg-subtle: #01081A;
@@ -288,7 +290,7 @@
   --cluos-color-border-default: rgba(199, 213, 235, 0.14); --cluos-color-border-strong: rgba(199, 213, 235, 0.26);
   --cluos-color-action-primary: #1FB5AB; --cluos-color-action-primary-hover: #17958D; --cluos-color-focus-ring: rgba(31, 181, 171, 0.30);
   --cluos-color-status-success: #9CC24A; --cluos-color-status-warning: #D08A54; --cluos-color-status-danger: #C46A6A; --cluos-color-status-info: #6FA8C4; --cluos-color-signal: #C4DB7B;
-  --cluos-color-status-success-text: #9CC24A; --cluos-color-status-warning-text: #D08A54; --cluos-color-status-danger-text: #C46A6A; --cluos-color-status-info-text: #6FA8C4;
+  --cluos-color-status-success-text: var(--cluos-color-status-success); --cluos-color-status-warning-text: var(--cluos-color-status-warning); --cluos-color-status-danger-text: var(--cluos-color-status-danger); --cluos-color-status-info-text: var(--cluos-color-status-info);
 }
 
 /* Palette attributes remain a legacy opt-out API. Oxblood/copper retain only semantic roles. */
@@ -299,13 +301,14 @@
 [data-cluos-palette="pal-cold"] { --cluos-color-action-primary: #2D6CDF; --cluos-color-action-primary-hover: #1F4FAE; --cluos-color-status-success: #2D6CDF; --cluos-color-status-warning: #B5773A; --cluos-color-status-danger: #8A3A3A; --cluos-color-signal: #9FB3C8; }
 [data-cluos-palette="pal-terracotta"] { --cluos-color-action-primary: #B5623A; --cluos-color-action-primary-hover: #8F4B2B; --cluos-color-status-success: #4A7A5E; --cluos-color-status-warning: #B5623A; --cluos-color-status-danger: #8A3A3A; --cluos-color-signal: #E3A26B; }
 
-/* Palette status text: a palette that overrides a status fill sets its text tone too. */
-[data-cluos-palette="pal-tealcool"] { --cluos-color-status-success-text: #006666; --cluos-color-status-warning-text: #8A5A2B; --cluos-color-status-danger-text: #8A3A3A; }
-[data-cluos-palette="pal-tealink"] { --cluos-color-status-success-text: #00696B; --cluos-color-status-warning-text: #8A5A2B; --cluos-color-status-danger-text: #8A3A3A; }
-[data-cluos-palette="pal-forest"] { --cluos-color-status-success-text: #2C5A34; --cluos-color-status-warning-text: #8A5A2B; --cluos-color-status-danger-text: #8A3A3A; }
-[data-cluos-palette="pal-copper"] { --cluos-color-status-success-text: #0E6E68; --cluos-color-status-warning-text: #8A5A2B; --cluos-color-status-danger-text: #8A3A3A; }
-[data-cluos-palette="pal-cold"] { --cluos-color-status-success-text: #1F4FAE; --cluos-color-status-warning-text: #8A5A2B; --cluos-color-status-danger-text: #8A3A3A; }
-[data-cluos-palette="pal-terracotta"] { --cluos-color-status-success-text: #416C53; --cluos-color-status-warning-text: #8F4B2B; --cluos-color-status-danger-text: #8A3A3A; }
+/* Palette status text: a palette that overrides a status fill sets its text tone too.
+   A text role that repeats a value references it. */
+[data-cluos-palette="pal-tealcool"] { --cluos-color-status-success-text: #006666; --cluos-color-status-warning-text: var(--cluos-status-warn-text); --cluos-color-status-danger-text: var(--cluos-color-status-danger); }
+[data-cluos-palette="pal-tealink"] { --cluos-color-status-success-text: var(--cluos-color-status-success); --cluos-color-status-warning-text: var(--cluos-status-warn-text); --cluos-color-status-danger-text: var(--cluos-color-status-danger); }
+[data-cluos-palette="pal-forest"] { --cluos-color-status-success-text: #2C5A34; --cluos-color-status-warning-text: var(--cluos-status-warn-text); --cluos-color-status-danger-text: var(--cluos-color-status-danger); }
+[data-cluos-palette="pal-copper"] { --cluos-color-status-success-text: var(--cluos-color-status-success); --cluos-color-status-warning-text: var(--cluos-status-warn-text); --cluos-color-status-danger-text: var(--cluos-color-status-danger); }
+[data-cluos-palette="pal-cold"] { --cluos-color-status-success-text: #1F4FAE; --cluos-color-status-warning-text: var(--cluos-status-warn-text); --cluos-color-status-danger-text: var(--cluos-color-status-danger); }
+[data-cluos-palette="pal-terracotta"] { --cluos-color-status-success-text: #416C53; --cluos-color-status-warning-text: #8F4B2B; --cluos-color-status-danger-text: var(--cluos-color-status-danger); }
 
 /* Against the dark register the text takes the dark-tuned tones that tokens.ts
    registers as palettesDark. */

@@ -84,16 +84,20 @@ colour: success and warn fall below 4.5:1 when written as text.
 - **Fill** marks the state: marker, bar, border, icon.
 - **Text** writes the state on the light surfaces (`--cluos-bg`,
   `--cluos-bg-subtle`, `--cluos-bg-muted`) and on the matching background
-  token.
-- **On navy** writes and marks the state on deep navy and on the dark
-  register surfaces. Error on the dark `--cluos-bg-muted` stays at 3.83:1:
-  there, write the state in `--cluos-text` beside the marker.
+  token. On a light surface the marker keeps the fill and the label takes the
+  text token, so the label is the darker of the two.
+- **On navy** writes and marks the state on `--cluos-deep-navy`. Success and
+  warn repeat their fills, which already pass there; info and error take a
+  lighter tone.
 - **Background** is the tint of a callout. It stays light in every register
-  and pairs with the text token.
+  and pairs with the text token, never with a dark-register role.
 
 Components that follow `data-cluos-style` or `data-appearance` use the roles
 `--cluos-color-status-{success,warning,danger,info}-text`, which resolve per
-style, palette and register.
+style, palette and register. In the dark register they pass on `--cluos-bg`,
+`--cluos-bg-subtle` and `--cluos-bg-muted`, with one exception: error on the
+dark `--cluos-bg-muted` stays at 3.83:1. There, write the state in
+`--cluos-text` beside the marker.
 
 ## Geometry and layout
 

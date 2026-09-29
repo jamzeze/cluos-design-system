@@ -134,13 +134,16 @@ test("error family", () => {
   }
 });
 
+// Not checked for a palette against the dark register: tokens.css has no
+// dark-tuned palette fills to compare with (design-decision.md, finding 7).
 test("text keeps the hue of its fill", () => {
   const distance = (a, b) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
-  for (const context of contexts().filter((candidate) => candidate.register === "light")) {
+  for (const context of contexts().filter((candidate) => candidate.register === "light" || !candidate.palette)) {
     const values = valuesOf(context.selectors);
     for (const { status, role } of STATUSES) {
       for (const [text, fill] of [
         [`--cluos-status-${status}-text`, `--cluos-status-${status}`],
+        [`--cluos-status-${status}-on-navy`, `--cluos-status-${status}`],
         [`--cluos-color-status-${role}-text`, `--cluos-color-status-${role}`],
       ]) {
         const [textValue, fillValue] = [resolve(values, text), resolve(values, fill)];
@@ -179,6 +182,9 @@ test("tokens.js mirrors tokens.css", () => {
     }
   };
   const allRoles = Object.keys(ROLE_KEYS);
+
+  compare("tokens.appearance.light", tokens.appearance.light, canonical, allRoles, ["Text"]);
+  compare("tokens.appearance.dark", tokens.appearance.dark, valuesOf([":root", '[data-appearance="dark"]']), allRoles, ["Text"]);
 
   for (const style of STYLES) {
     compare(`styles.${style}`, styles[style], valuesOf(styleSelectors(style)), allRoles, ["", "Text"]);
@@ -265,16 +271,18 @@ test("mms-canonical.yaml status_tokens block mirrors tokens.css", () => {
   assert.match(yaml, /^status: active$/m);
   const status = block(yaml, "status_tokens");
   const canonical = valuesOf([":root"]);
+  const dark = valuesOf([":root", '[data-appearance="dark"]']);
   assert.equal(Number(status.text_contrast_minimum), AA_TEXT);
-  for (const { status: name } of STATUSES) {
-    for (const [field, token] of [
-      ["fill", `--cluos-status-${name}`],
-      ["text", `--cluos-status-${name}-text`],
-      ["on_navy", `--cluos-status-${name}-on-navy`],
-      ["background", `--cluos-status-${name}-bg`],
+  for (const { status: name, role } of STATUSES) {
+    for (const [field, values, token] of [
+      ["fill", canonical, `--cluos-status-${name}`],
+      ["text", canonical, `--cluos-status-${name}-text`],
+      ["on_navy", canonical, `--cluos-status-${name}-on-navy`],
+      ["dark_register_text", dark, `--cluos-color-status-${role}-text`],
+      ["background", canonical, `--cluos-status-${name}-bg`],
     ]) {
       assert.ok(status[name], `status_tokens.${name} is missing`);
-      assert.ok(same(status[name][field], resolve(canonical, token)), `status_tokens.${name}.${field} is ${status[name][field]}, ${token} is ${resolve(canonical, token)}`);
+      assert.ok(same(status[name][field], resolve(values, token)), `status_tokens.${name}.${field} is ${status[name][field]}, ${token} is ${resolve(values, token)}`);
     }
   }
 });

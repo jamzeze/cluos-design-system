@@ -165,7 +165,10 @@ Prefira o `<select>` nativo quando possível — é mais acessível por padrão.
 Os tokens sem sufixo são preenchimento (marcador, barra, borda). Como texto,
 `--cluos-status-success` fica entre 3.11:1 e 3.74:1 e `--cluos-status-warn`
 entre 2.94:1 e 3.54:1. Sobre navy, texto e marcador usam
-`--cluos-status-*-on-navy` (5.16:1 a 9.39:1 sobre `--cluos-deep-navy`).
+`--cluos-status-*-on-navy` (5.16:1 a 7.41:1 sobre `--cluos-deep-navy`). No
+registro escuro, os papéis `--cluos-color-status-*-text` ficam entre 4.78:1 e
+9.39:1 sobre `--cluos-bg`, `--cluos-bg-subtle` e `--cluos-bg-muted`, com uma
+exceção: erro sobre `--cluos-bg-muted` fica em 3.83:1.
 
 ### Imagens e ícones
 

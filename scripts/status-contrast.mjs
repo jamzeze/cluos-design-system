@@ -38,6 +38,8 @@ const SURFACES = [
   "--cluos-color-bg-subtle",
 ];
 
+const NAVY = "--cluos-deep-navy";
+
 // palette-policy.md fixes dark error at #C46A6A. On the dark muted surface it
 // stays below AA; the limit is recorded, not hidden.
 const KNOWN_LIMIT = { register: "dark", status: "error", bg: "#132952" };
@@ -223,25 +225,26 @@ function measure(values, context, status, layer, token, beforeToken, surface) {
 }
 
 // Every pair a status text token must satisfy in a context.
+//
+//   --cluos-status-*-text         light surfaces, and its own tint in every register
+//   --cluos-status-*-on-navy      --cluos-deep-navy
+//   --cluos-color-status-*-text   every surface of the register, and its own tint on light
+//
+// The tints stay light in every register, so a dark-register role has no tint pair.
 export function pairs(rules, context) {
   const values = cascade(rules, context.selectors);
   const light = context.register === "light";
   const out = [];
   for (const { status, role } of STATUSES) {
-    const constantFill = `--cluos-status-${status}`;
-    const texts = [
-      { layer: "constant", token: `${constantFill}-${light ? "text" : "on-navy"}`, before: constantFill },
-      { layer: "role", token: `--cluos-color-status-${role}-text`, before: `--cluos-color-status-${role}` },
-    ];
-    // The tints do not change with the register: they pair with a text token only on light.
-    const surfaces = light ? [...SURFACES, `${constantFill}-bg`] : SURFACES;
-    for (const text of texts) {
-      for (const surface of surfaces) out.push(measure(values, context, status, text.layer, text.token, text.before, surface));
-    }
-    // A navy block inside a light page, as in DESIGN-preview.html.
-    if (light && !context.palette) {
-      out.push(measure(values, context, status, "constant", `${constantFill}-on-navy`, constantFill, "--cluos-deep-navy"));
-    }
+    const fill = `--cluos-status-${status}`;
+    const tint = `${fill}-bg`;
+    const roleFill = `--cluos-color-status-${role}`;
+    const add = (layer, token, before, surface) => out.push(measure(values, context, status, layer, token, before, surface));
+
+    for (const surface of light ? [...SURFACES, tint] : [tint]) add("constant", `${fill}-text`, fill, surface);
+    for (const surface of light ? [...SURFACES, tint] : SURFACES) add("role", `${roleFill}-text`, roleFill, surface);
+    // The constants do not vary with the palette: measured once per style.
+    if (!context.palette) add("constant", `${fill}-on-navy`, fill, NAVY);
   }
   return out;
 }
@@ -275,24 +278,28 @@ function report(rules) {
   say();
   say("| Status | Surface | Before | After |");
   say("|---|---|---|---|");
-  for (const pair of of("MMS", "constant").filter((pair) => !pair.surface.startsWith("--cluos-color-") && pair.surface !== "--cluos-deep-navy")) {
+  for (const pair of of("MMS", "constant").filter((pair) => !pair.surface.startsWith("--cluos-color-") && pair.surface !== NAVY)) {
     say(`| ${pair.status} | \`${pair.surface}\` \`${pair.bg}\` | ${cell(pair.beforeFg, pair.beforeRatio)} | ${cell(pair.fg, pair.ratio)} |`);
   }
   say();
 
-  say("## Canonical constants on dark surfaces");
+  say("## Canonical constants on deep navy");
   say();
   say("| Status | Surface | Before | After |");
   say("|---|---|---|---|");
-  const navy = [
-    ...of("MMS", "constant").filter((pair) => pair.surface === "--cluos-deep-navy"),
-    ...of("MMS dark", "constant").filter((pair) => !pair.surface.startsWith("--cluos-color-")),
-  ];
-  for (const { status } of STATUSES) {
-    for (const pair of navy.filter((candidate) => candidate.status === status)) {
-      const note = pair.knownLimit ? " (known limit)" : "";
-      say(`| ${pair.status} | \`${pair.surface}\` \`${pair.bg}\` | ${cell(pair.beforeFg, pair.beforeRatio)} | ${cell(pair.fg, pair.ratio)}${note} |`);
-    }
+  for (const pair of of("MMS", "constant").filter((candidate) => candidate.surface === NAVY)) {
+    say(`| ${pair.status} | \`${pair.surface}\` \`${pair.bg}\` | ${cell(pair.beforeFg, pair.beforeRatio)} | ${cell(pair.fg, pair.ratio)} |`);
+  }
+  say();
+
+  say('## Dark register (`data-appearance="dark"`), text roles');
+  say();
+  say("| Role | Surface | Before | After |");
+  say("|---|---|---|---|");
+  for (const pair of of("MMS dark", "role").filter((candidate) => !candidate.surface.startsWith("--cluos-color-"))) {
+    const note = pair.knownLimit ? " (known limit)" : "";
+    const role = STATUSES.find((entry) => entry.status === pair.status).role;
+    say(`| ${role} | \`${pair.surface}\` \`${pair.bg}\` | ${cell(pair.beforeFg, pair.beforeRatio)} | ${cell(pair.fg, pair.ratio)}${note} |`);
   }
   say();
 
