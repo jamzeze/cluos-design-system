@@ -50,38 +50,38 @@
     .shell { max-width: var(--cluos-container-wide); margin: 0 auto; padding: 0 var(--cluos-space-16); }
 
     /* Tipos de apoio do próprio documento */
-    .eyebrow { color: var(--cluos-medium-blue); font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); letter-spacing: .11em; line-height: var(--cluos-leading-normal); text-transform: uppercase; }
+    .eyebrow { color: var(--cluos-color-fg-secondary); font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); letter-spacing: .11em; line-height: var(--cluos-leading-normal); text-transform: uppercase; }
     .note { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); line-height: var(--cluos-leading-normal); }
-    .caption { margin-top: var(--cluos-space-3); color: var(--cluos-text-muted); font-size: var(--cluos-text-xs); line-height: var(--cluos-leading-normal); }
+    .caption { margin-top: var(--cluos-space-3); color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); line-height: var(--cluos-leading-normal); }
     .label { font-size: var(--cluos-text-sm); font-weight: var(--cluos-font-weight-label); line-height: var(--cluos-leading-snug); }
 
     /* ---------- Cabeçalho ---------- */
     .doc-head { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--cluos-space-12); align-items: end; padding: var(--cluos-space-24) 0 var(--cluos-space-16); }
     .doc-head h1 { margin-top: var(--cluos-space-6); font-family: var(--cluos-font-display); font-size: clamp(2.75rem, 6vw, var(--cluos-text-6xl)); font-weight: 300; letter-spacing: -.045em; line-height: var(--cluos-leading-tight); }
-    .doc-head__sub { margin-top: var(--cluos-space-3); color: var(--cluos-medium-blue); font-family: var(--cluos-font-display); font-size: var(--cluos-text-2xl); font-weight: 300; letter-spacing: -.025em; line-height: var(--cluos-leading-tight); }
+    .doc-head__sub { margin-top: var(--cluos-space-3); color: var(--cluos-color-fg-secondary); font-family: var(--cluos-font-display); font-size: var(--cluos-text-2xl); font-weight: 300; letter-spacing: -.025em; line-height: var(--cluos-leading-tight); }
     .doc-head__copy { max-width: var(--cluos-container-prose); margin-top: var(--cluos-space-8); color: var(--cluos-text-muted); font-size: var(--cluos-text-lg); line-height: var(--cluos-leading-relaxed); }
     .doc-head__date { margin-top: var(--cluos-space-6); }
     .legend { display: grid; gap: var(--cluos-space-4); padding-bottom: var(--cluos-space-2); }
     .legend__item { display: grid; grid-template-columns: var(--cluos-space-10) minmax(0, 1fr); gap: var(--cluos-space-4); align-items: start; }
-    .legend__mark { height: var(--cluos-space-10); border: thin solid var(--cluos-border); background: var(--cluos-bg-muted); }
-    .legend__mark--proposal { border: thin dashed var(--cluos-medium-blue); background: var(--cluos-bg); }
-    .legend__mark--bar { width: var(--doc-bar); height: var(--cluos-space-10); border: 0; background: var(--cluos-medium-blue); justify-self: center; }
-    .legend__item p:last-child { color: var(--cluos-text-muted); font-size: var(--cluos-text-xs); }
+    .legend__mark { height: var(--cluos-space-10); border: thin solid var(--cluos-color-border-default); background: var(--cluos-bg-muted); }
+    .legend__mark--proposal { border: 0; outline: var(--doc-bar) dashed var(--cluos-color-border-strong); outline-offset: calc(-1 * var(--doc-bar)); background: var(--cluos-bg); }
+    .legend__mark--bar { width: var(--doc-bar); height: var(--cluos-space-10); border: 0; background: var(--cluos-color-border-strong); justify-self: center; }
+    .legend__item p:last-child { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
 
     /* ---------- Seções ---------- */
-    .section { padding: var(--cluos-space-12) 0 var(--cluos-space-16); border-top: thin solid var(--cluos-border); }
+    .section { padding: var(--cluos-space-12) 0 var(--cluos-space-16); border-top: thin solid var(--cluos-color-border-default); }
     .section__head { display: grid; grid-template-columns: calc(var(--cluos-space-16) + var(--cluos-space-8)) minmax(0, 1fr); align-items: baseline; margin-bottom: var(--cluos-space-12); }
-    .section__num { color: var(--cluos-medium-blue); font-family: var(--cluos-font-display); font-size: var(--cluos-text-4xl); font-weight: 300; letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+    .section__num { color: var(--cluos-color-fg-secondary); font-family: var(--cluos-font-display); font-size: var(--cluos-text-4xl); font-weight: 300; letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
     .section__head h2 { font-family: var(--cluos-font-display); font-size: var(--cluos-text-5xl); font-weight: 300; letter-spacing: -.045em; line-height: var(--cluos-leading-tight); }
     .section__head p { grid-column: 2; max-width: var(--cluos-container-prose); margin-top: var(--cluos-space-3); color: var(--cluos-text-muted); font-size: var(--cluos-text-lg); line-height: var(--cluos-leading-relaxed); }
-    .subhead { padding-bottom: var(--cluos-space-3); border-bottom: thin solid var(--cluos-border); font-size: var(--cluos-text-base); font-weight: var(--cluos-font-weight-label); }
+    .subhead { padding-bottom: var(--cluos-space-3); border-bottom: thin solid var(--cluos-color-border-default); font-size: var(--cluos-text-base); font-weight: var(--cluos-font-weight-label); }
 
     /* ---------- 01 Cores primitivas ---------- */
     .swatch-group + .swatch-group { margin-top: var(--cluos-space-10); }
     .swatch-group > .eyebrow { margin-bottom: var(--cluos-space-4); }
     .swatches { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--cluos-space-8) var(--cluos-space-6); }
-    .swatch__chip { aspect-ratio: 3 / 2; background: var(--chip); border: thin solid var(--cluos-border); }
-    .swatch--proposal .swatch__chip { border: thin dashed var(--cluos-medium-blue); }
+    .swatch__chip { aspect-ratio: 3 / 2; background: var(--chip); border: thin solid var(--cluos-color-border-default); }
+    .swatch--proposal .swatch__chip, .sample--proposal { outline: var(--doc-bar) dashed var(--cluos-color-border-strong); outline-offset: var(--cluos-space-1); }
     .swatch h3 { margin-top: var(--cluos-space-4); font-size: var(--cluos-text-base); font-weight: var(--cluos-font-weight-label); line-height: var(--cluos-leading-snug); }
     .swatch__hex { margin-top: var(--cluos-space-1); font-size: var(--cluos-text-sm); font-variant-numeric: tabular-nums; }
     .swatch__token { color: var(--cluos-text-muted); font-size: var(--cluos-text-xs); overflow-wrap: anywhere; }
@@ -91,9 +91,9 @@
     .semantic { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--cluos-space-8); }
     .semantic ul { display: grid; gap: var(--cluos-space-4); margin-top: var(--cluos-space-6); }
     .role { display: grid; grid-template-columns: var(--cluos-space-8) minmax(0, 1fr); gap: var(--cluos-space-3); align-items: start; }
-    .role__chip { height: var(--cluos-space-8); background: var(--chip); border: thin solid var(--cluos-border); }
+    .role__chip { height: var(--cluos-space-8); background: var(--chip); border: thin solid var(--cluos-color-border-default); }
     .role__chip--ring { background: var(--cluos-bg); border: 0; box-shadow: inset var(--cluos-ring-focus); }
-    .role--proposal .role__chip { border: thin dashed var(--cluos-medium-blue); }
+    .role--proposal .role__chip { outline: var(--doc-bar) dashed var(--cluos-color-border-strong); outline-offset: var(--doc-bar); }
     .role__name { font-size: var(--cluos-text-sm); font-weight: var(--cluos-font-weight-label); line-height: var(--cluos-leading-snug); overflow-wrap: anywhere; }
     .role__ref { color: var(--cluos-text-muted); font-size: var(--cluos-text-xs); line-height: var(--cluos-leading-snug); }
     .semantic + .note { margin-top: var(--cluos-space-8); }
@@ -101,28 +101,31 @@
     /* ---------- 03 Contraste ---------- */
     .table-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; }
-    th { padding: 0 var(--cluos-space-4) var(--cluos-space-3) 0; border-bottom: thin solid var(--cluos-border-strong); color: var(--cluos-text-muted); font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); text-align: left; }
-    td { padding: var(--cluos-space-3) var(--cluos-space-4) var(--cluos-space-3) 0; border-bottom: thin solid var(--cluos-border); vertical-align: middle; }
+    th { padding: 0 var(--cluos-space-4) var(--cluos-space-3) 0; border-bottom: thin solid var(--cluos-color-border-strong); color: var(--cluos-text-muted); font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); text-align: left; }
+    td { padding: var(--cluos-space-3) var(--cluos-space-4) var(--cluos-space-3) 0; border-bottom: thin solid var(--cluos-color-border-default); vertical-align: middle; }
     .contrast th:first-child, .contrast td:first-child { width: calc(var(--cluos-space-24) + var(--cluos-space-4)); }
     .contrast td:nth-child(3), .contrast th:nth-child(3) { width: calc(var(--cluos-space-24) + var(--cluos-space-12)); }
     .contrast td:nth-child(4), .contrast th:nth-child(4) { width: 34%; }
-    .sample { display: grid; place-items: center; width: calc(var(--cluos-space-16) + var(--cluos-space-4)); height: var(--cluos-space-10); background: var(--bg); color: var(--fg); border: thin solid var(--cluos-border); font-family: var(--cluos-font-display); font-size: var(--cluos-text-xl); font-weight: 400; letter-spacing: -.02em; }
+    .sample { display: grid; place-items: center; width: calc(var(--cluos-space-16) + var(--cluos-space-4)); height: var(--cluos-space-10); background: var(--bg); color: var(--fg); border: thin solid var(--cluos-color-border-default); font-family: var(--cluos-font-display); font-size: var(--cluos-text-xl); font-weight: 400; letter-spacing: -.02em; }
     .sample--line { border: var(--doc-bar) solid var(--fg); color: var(--cluos-text); font-size: var(--cluos-text-sm); }
     .sample--ring { border: 0; box-shadow: var(--cluos-ring-focus); }
     .use__title { font-size: var(--cluos-text-sm); font-weight: var(--cluos-font-weight-label); }
-    .use__sub { color: var(--cluos-text-muted); font-size: var(--cluos-text-xs); }
+    .use__sub { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); }
     .ratio { font-size: var(--cluos-text-base); font-weight: var(--cluos-font-weight-label); font-variant-numeric: tabular-nums; white-space: nowrap; }
     .verdict { font-size: var(--cluos-text-sm); }
     .verdict--fail { color: var(--cluos-status-error); font-weight: var(--cluos-font-weight-label); }
-    .contrast-note { margin-top: var(--cluos-space-6); max-width: var(--cluos-container-docs); }
+    .contrast-note, .layout-note { margin-top: var(--cluos-space-6); max-width: var(--cluos-container-docs); }
 
     /* ---------- 04 Tipografia ---------- */
-    .type-row { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: var(--cluos-space-8); padding: var(--cluos-space-8) 0; border-bottom: thin solid var(--cluos-border); }
+    .type-row { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: var(--cluos-space-8); padding: var(--cluos-space-8) 0; border-bottom: thin solid var(--cluos-color-border-default); }
     .type-row:first-child { padding-top: 0; }
-    .type-row--proposal::before { position: absolute; top: var(--cluos-space-8); bottom: var(--cluos-space-8); left: calc(-1 * var(--cluos-space-3)); width: var(--doc-bar); background: var(--cluos-medium-blue); content: ""; }
+    .type-row--proposal::before, .layout tr.is-proposal td:first-child::before, .caption--proposal::before { position: absolute; top: var(--cluos-space-8); bottom: var(--cluos-space-8); left: calc(-1 * var(--cluos-space-3)); width: var(--doc-bar); background: var(--cluos-color-border-strong); content: ""; }
+    .layout tr.is-proposal td:first-child, .caption--proposal { position: relative; }
+    .layout tr.is-proposal td:first-child::before { top: var(--cluos-space-3); bottom: var(--cluos-space-3); }
+    .caption--proposal::before { top: 0; bottom: 0; }
     .type-row--proposal:first-child::before { top: 0; }
     .type-meta h3 { font-size: var(--cluos-text-sm); font-weight: var(--cluos-font-weight-label); line-height: var(--cluos-leading-snug); }
-    .type-meta p { color: var(--cluos-text-muted); font-size: var(--cluos-text-xs); line-height: var(--cluos-leading-normal); }
+    .type-meta p { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); line-height: var(--cluos-leading-normal); }
     .type-meta h3 + p { margin-top: var(--cluos-space-1); color: var(--cluos-text); }
     .type-sample { min-width: 0; overflow-wrap: anywhere; }
     .t-titulo-pagina { font-family: var(--cluos-font-display); font-size: clamp(2.75rem, 6vw, var(--cluos-text-6xl)); font-weight: 300; letter-spacing: -.045em; line-height: var(--cluos-leading-tight); }
@@ -132,11 +135,11 @@
     .t-lockup { display: inline-flex; align-items: center; gap: var(--cluos-space-3); }
     .t-lockup__name { display: inline-flex; align-items: baseline; gap: .28em; font-family: var(--cluos-font-display); font-size: var(--cluos-text-xl); letter-spacing: -.04em; line-height: 1; }
     .t-lockup__name span { font-weight: 300; }
-    .t-lockup__descriptor { padding-left: var(--cluos-space-3); border-left: thin solid var(--cluos-border-strong); color: var(--cluos-text-muted); font-size: var(--cluos-text-xs); font-weight: 450; letter-spacing: .12em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+    .t-lockup__descriptor { padding-left: var(--cluos-space-3); border-left: thin solid var(--cluos-color-border-strong); color: var(--cluos-text-muted); font-size: var(--cluos-text-xs); font-weight: 450; letter-spacing: .12em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
     .t-citacao { font-family: var(--cluos-font-display); font-size: var(--cluos-text-2xl); font-weight: 300; letter-spacing: -.025em; line-height: var(--cluos-leading-snug); }
     .t-assinatura { font-family: var(--cluos-font-display); font-size: var(--cluos-text-2xl); font-weight: 300; letter-spacing: -.025em; line-height: var(--cluos-leading-tight); }
-    .t-numeral { display: flex; flex-wrap: wrap; gap: var(--cluos-space-10); color: var(--cluos-medium-blue); font-family: var(--cluos-font-display); font-size: var(--cluos-text-4xl); font-weight: 300; letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
-    .t-sobrelinha { color: var(--cluos-medium-blue); font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); letter-spacing: .11em; line-height: var(--cluos-leading-normal); text-transform: uppercase; }
+    .t-numeral { display: flex; flex-wrap: wrap; gap: var(--cluos-space-10); color: var(--cluos-color-fg-secondary); font-family: var(--cluos-font-display); font-size: var(--cluos-text-4xl); font-weight: 300; letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+    .t-sobrelinha { color: var(--cluos-color-fg-secondary); font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); letter-spacing: .11em; line-height: var(--cluos-leading-normal); text-transform: uppercase; }
     .t-subtitulo { font-family: var(--cluos-font-display); font-size: var(--cluos-text-xl); font-weight: 400; letter-spacing: -.03em; line-height: var(--cluos-leading-tight); }
     .t-corpo { max-width: var(--cluos-container-prose); font-size: var(--cluos-text-base); line-height: var(--cluos-leading-normal); }
     .t-corpo-destaque { font-size: var(--cluos-text-base); font-weight: var(--cluos-font-weight-label); line-height: var(--cluos-leading-normal); }
@@ -147,6 +150,7 @@
     .t-menu [aria-current] { color: var(--cluos-text); }
     .t-codigo { font-family: var(--cluos-font-mono); font-size: var(--cluos-text-sm); line-height: var(--cluos-leading-normal); }
     .type-note { margin-top: var(--cluos-space-4); }
+    .nowrap { white-space: nowrap; }
 
     /* ---------- 05 Espaçamento e layout ---------- */
     .spacing { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: var(--cluos-space-16); }
@@ -154,20 +158,19 @@
     .scale li { display: grid; grid-template-columns: calc(var(--cluos-space-16) + var(--cluos-space-4)) calc(var(--cluos-space-16) + var(--cluos-space-8)) minmax(0, 1fr); align-items: center; font-size: var(--cluos-text-sm); }
     .scale li span:first-child { font-weight: var(--cluos-font-weight-label); }
     .scale li span:nth-child(2) { color: var(--cluos-text-muted); font-variant-numeric: tabular-nums; }
-    .scale__bar { width: var(--size); height: var(--cluos-space-3); background: var(--cluos-deep-navy); }
+    .scale__bar { width: var(--size); height: var(--cluos-space-3); background: var(--cluos-color-fg-primary); }
     .layout td { font-size: var(--cluos-text-sm); }
     .layout td:first-child { width: 28%; font-weight: var(--cluos-font-weight-label); }
     .layout td:nth-child(2) { width: 22%; font-variant-numeric: tabular-nums; }
     .layout td:last-child { color: var(--cluos-text-muted); }
-    .layout tr.is-proposal td:first-child { box-shadow: inset var(--doc-bar) 0 0 var(--cluos-medium-blue); padding-left: var(--cluos-space-3); }
     .geometry { margin-top: var(--cluos-space-16); }
     .geometry ul { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--cluos-space-6); padding-top: var(--cluos-space-8); }
     .geo__shape { height: calc(var(--cluos-space-12) + var(--cluos-space-1)); display: flex; align-items: center; }
-    .geo__square { width: calc(var(--cluos-space-24) + var(--cluos-space-1)); height: 100%; background: var(--cluos-deep-navy); border-radius: var(--cluos-radius-md); }
-    .geo__circle { width: calc(var(--cluos-space-12) + var(--cluos-space-1)); height: 100%; background: var(--cluos-deep-navy); border-radius: var(--cluos-radius-full); }
+    .geo__square { width: calc(var(--cluos-space-24) + var(--cluos-space-1)); height: 100%; background: var(--cluos-color-fg-primary); border-radius: var(--cluos-radius-md); }
+    .geo__circle { width: calc(var(--cluos-space-12) + var(--cluos-space-1)); height: 100%; background: var(--cluos-color-fg-primary); border-radius: var(--cluos-radius-full); }
     .geo__line { width: 100%; border-top: thin solid var(--line); }
     .geo__ring { width: calc(var(--cluos-space-24) + var(--cluos-space-1)); height: var(--cluos-space-10); background: var(--cluos-bg); box-shadow: var(--cluos-ring-focus); }
-    .geo__shadow { width: calc(var(--cluos-space-24) + var(--cluos-space-1)); height: 100%; border: thin solid var(--cluos-border); box-shadow: var(--cluos-shadow-md); }
+    .geo__shadow { width: calc(var(--cluos-space-24) + var(--cluos-space-1)); height: 100%; border: thin solid var(--cluos-color-border-default); box-shadow: var(--cluos-shadow-md); }
     .geometry li .label { margin-top: var(--cluos-space-4); }
 
     /* ---------- 06 Componentes base ---------- */
@@ -176,7 +179,7 @@
     .button--primary { background: var(--cluos-action-primary); color: var(--cluos-action-primary-text); }
     .button--primary:hover, .button--primary.is-hover { background: var(--cluos-action-primary-deep); }
     .button.is-focus { box-shadow: var(--cluos-ring-focus); }
-    .button--secondary { background: transparent; border-color: var(--cluos-border-strong); color: var(--cluos-text); }
+    .button--secondary { background: transparent; border-color: var(--cluos-color-border-strong); color: var(--cluos-text); }
     .button--secondary:hover { background: var(--cluos-bg-muted); }
     .button--ghost { padding: 0; background: transparent; color: var(--cluos-action-teal-deep); }
     .button--ghost:hover { text-decoration: underline; }
@@ -188,44 +191,44 @@
     .text-link { text-decoration-line: underline; text-decoration-thickness: from-font; text-underline-offset: .2em; }
     .text-link:hover { text-decoration-thickness: calc(var(--doc-bar)); }
 
-    .form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cluos-space-10) var(--cluos-space-12); margin-top: var(--cluos-space-16); padding: var(--cluos-space-10); border: thin solid var(--cluos-border); }
+    .form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cluos-space-10) var(--cluos-space-12); margin-top: var(--cluos-space-16); padding: var(--cluos-space-10); border: thin solid var(--cluos-color-border-default); }
     .field > label, .field legend { display: block; margin-bottom: var(--cluos-space-2); padding: 0; font-size: var(--cluos-text-sm); font-weight: var(--cluos-font-weight-label); line-height: var(--cluos-leading-normal); }
     .field fieldset { margin: 0; padding: 0; border: 0; }
-    .input { width: 100%; min-height: calc(var(--cluos-space-8) + var(--cluos-space-2)); padding: 0 var(--cluos-space-3); background: var(--cluos-bg); border: thin solid var(--cluos-border-strong); border-radius: var(--cluos-radius-md); color: var(--cluos-text); font: 400 var(--cluos-text-base)/1 var(--cluos-font-sans); transition: box-shadow var(--cluos-motion-hover) var(--cluos-ease-out), border-color var(--cluos-motion-hover) var(--cluos-ease-out); }
+    .input { width: 100%; min-height: calc(var(--cluos-space-8) + var(--cluos-space-2)); padding: 0 var(--cluos-space-3); background: var(--cluos-bg); border: thin solid var(--cluos-color-border-strong); border-radius: var(--cluos-radius-md); color: var(--cluos-text); font: 400 var(--cluos-text-base)/1 var(--cluos-font-sans); transition: box-shadow var(--cluos-motion-hover) var(--cluos-ease-out), border-color var(--cluos-motion-hover) var(--cluos-ease-out); }
     .input:focus-visible, .input.is-focus { outline: none; box-shadow: var(--cluos-ring-focus); }
     .input[aria-invalid="true"] { border-color: var(--cluos-status-error); }
     .field__error { margin-top: var(--cluos-space-2); color: var(--cluos-status-error); font-size: var(--cluos-text-sm); }
     .checks { display: grid; gap: var(--cluos-space-3); }
     .check { display: inline-flex; align-items: center; gap: var(--cluos-space-3); font-size: var(--cluos-text-base); cursor: pointer; }
-    .check input { position: relative; width: calc(var(--cluos-space-4) + var(--cluos-space-1)); height: calc(var(--cluos-space-4) + var(--cluos-space-1)); flex: none; margin: 0; appearance: none; background: var(--cluos-bg); border: thin solid var(--cluos-border-strong); border-radius: var(--cluos-radius-sm); cursor: pointer; }
+    .check input { position: relative; width: calc(var(--cluos-space-4) + var(--cluos-space-1)); height: calc(var(--cluos-space-4) + var(--cluos-space-1)); flex: none; margin: 0; appearance: none; background: var(--cluos-bg); border: thin solid var(--cluos-color-border-strong); border-radius: var(--cluos-radius-sm); cursor: pointer; }
     .check input:checked { background: var(--cluos-action-primary); border-color: var(--cluos-action-primary-text); }
     .check input:checked::after { position: absolute; top: 12%; left: 32%; width: 30%; height: 55%; border: solid var(--cluos-action-primary-text); border-width: 0 var(--doc-bar) var(--doc-bar) 0; transform: rotate(45deg); content: ""; }
 
     .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cluos-space-16); margin-top: var(--cluos-space-16); }
     .step__head { display: flex; align-items: center; gap: var(--cluos-space-4); }
-    .step__head span:last-child { width: var(--cluos-space-24); border-top: thin solid var(--cluos-border-strong); }
+    .step__head span:last-child { width: var(--cluos-space-24); border-top: thin solid var(--cluos-color-border-strong); }
     .step h3 { margin-top: var(--cluos-space-4); font-family: var(--cluos-font-display); font-size: var(--cluos-text-xl); font-weight: 400; letter-spacing: -.03em; line-height: var(--cluos-leading-tight); }
     .step p { max-width: var(--cluos-container-prose); margin-top: var(--cluos-space-2); color: var(--cluos-text-muted); }
     .quote { display: grid; grid-template-columns: var(--cluos-space-12) minmax(0, 1fr); }
-    .quote__mark { color: var(--cluos-medium-blue); font-family: var(--cluos-font-display); font-size: var(--cluos-text-6xl); font-weight: 300; line-height: 1; }
+    .quote__mark { color: var(--cluos-color-fg-secondary); font-family: var(--cluos-font-display); font-size: var(--cluos-text-6xl); font-weight: 300; line-height: 1; }
     .quote figcaption { margin-top: var(--cluos-space-4); font-size: var(--cluos-text-sm); font-weight: var(--cluos-font-weight-label); }
 
     .ops { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--cluos-space-8); margin-top: var(--cluos-space-16); padding: var(--cluos-space-8) var(--cluos-space-10); background: var(--cluos-bg-brand-hero); color: var(--cluos-text-on-navy); }
     .ops h3 { font-family: var(--cluos-font-display); font-size: var(--cluos-text-3xl); font-weight: 300; letter-spacing: -.045em; line-height: var(--cluos-leading-tight); }
-    .ops h3 span { color: var(--cluos-tech-green); }
-    .ops p { margin-top: var(--cluos-space-3); color: var(--cluos-neutral-100); font-size: var(--cluos-text-sm); }
-    .ops ul { border-top: thin solid var(--cluos-medium-blue); }
-    .ops li { display: flex; align-items: center; justify-content: space-between; gap: var(--cluos-space-4); padding: var(--cluos-space-3) 0; border-bottom: thin solid var(--cluos-medium-blue); font-size: var(--cluos-text-sm); }
+    .ops h3 span { color: var(--cluos-color-signal); }
+    .ops p { margin-top: var(--cluos-space-3); color: var(--cluos-text-on-navy); font-size: var(--cluos-text-sm); }
+    .ops ul { border-top: thin solid var(--cluos-color-border-strong); }
+    .ops li { display: flex; align-items: center; justify-content: space-between; gap: var(--cluos-space-4); padding: var(--cluos-space-3) 0; border-bottom: thin solid var(--cluos-color-border-strong); font-size: var(--cluos-text-sm); }
     .status { display: inline-flex; align-items: center; gap: var(--cluos-space-2); font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); letter-spacing: .08em; text-transform: uppercase; }
     .status::before { width: var(--cluos-space-2); height: var(--cluos-space-2); background: var(--marker); content: ""; }
 
     /* ---------- 07 Regras de uso ---------- */
     .rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cluos-space-12); }
-    .rules h3 { padding-bottom: var(--cluos-space-3); border-bottom: thin solid var(--cluos-border-strong); font-family: var(--cluos-font-display); font-size: var(--cluos-text-3xl); font-weight: 300; letter-spacing: -.045em; line-height: var(--cluos-leading-tight); }
-    .rules li { padding: var(--cluos-space-3) 0; border-bottom: thin solid var(--cluos-border); font-size: var(--cluos-text-base); }
+    .rules h3 { padding-bottom: var(--cluos-space-3); border-bottom: thin solid var(--cluos-color-border-strong); font-family: var(--cluos-font-display); font-size: var(--cluos-text-3xl); font-weight: 300; letter-spacing: -.045em; line-height: var(--cluos-leading-tight); }
+    .rules li { padding: var(--cluos-space-3) 0; border-bottom: thin solid var(--cluos-color-border-default); font-size: var(--cluos-text-base); }
 
     /* ---------- Rodapé ---------- */
-    .doc-foot { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--cluos-space-4); margin-top: var(--cluos-space-12); padding: var(--cluos-space-8) 0 var(--cluos-space-24); border-top: thin solid var(--cluos-border); }
+    .doc-foot { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--cluos-space-4); margin-top: var(--cluos-space-12); padding: var(--cluos-space-8) 0 var(--cluos-space-24); border-top: thin solid var(--cluos-color-border-default); }
 
     @media (max-width: 64rem) {
       .shell { padding: 0 var(--cluos-space-6); }
@@ -251,7 +254,14 @@
       .t-citacao { font-size: var(--cluos-text-xl); }
       .t-assinatura { font-size: var(--cluos-text-xl); }
       .t-numeral { font-size: var(--cluos-text-3xl); gap: var(--cluos-space-8); }
-      .contrast { min-width: calc(var(--cluos-container-prose) - var(--cluos-space-6)); }
+      .contrast thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+      .contrast tr { display: grid; grid-template-columns: calc(var(--cluos-space-16) + var(--cluos-space-4)) minmax(0, 1fr); column-gap: var(--cluos-space-4); row-gap: var(--cluos-space-1); padding: var(--cluos-space-4) 0; border-bottom: thin solid var(--cluos-color-border-default); }
+      .contrast td { display: block; width: auto !important; padding: 0; border: 0; }
+      .contrast td:first-child { grid-row: 1 / span 3; }
+      .contrast td.ratio, .contrast td.verdict { grid-column: 2; }
+      .contrast td.ratio::before, .contrast td.verdict::before { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); font-weight: 400; content: attr(data-label) " "; }
+      .layout td:first-child, .layout td:nth-child(2) { white-space: nowrap; }
+      .layout td:first-child { width: auto; }
     }
     @media (max-width: 32rem) {
       .buttons { grid-template-columns: minmax(0, 1fr); }
@@ -267,13 +277,14 @@
       <div>
         <p class="eyebrow">CluOS · Identidade canônica · cluos-mms-v1</p>
         <h1>Fundamentos visuais</h1>
-        <p class="doc-head__sub">CluOS · Design system · cluos-mms-v1</p>
+        <p class="doc-head__sub">CluOS · Design system · <span class="nowrap">cluos-mms-v1</span></p>
         <p class="doc-head__copy">Documentação dos tokens do contrato canônico: cores, contraste, tipografia, espaçamento, layout e componentes base. Fonte: <code>tokens/mms-canonical.yaml</code>, <code>tokens/tokens.css</code>, <code>DESIGN.md</code> e <code>DESIGN-preview.html</code>.</p>
         <p class="note doc-head__date">3 de outubro de 2026 · CluOS Design System</p>
       </div>
-      <div class="legend" aria-label="Legenda de proveniência">
+      <div class="legend" role="group" aria-label="Legenda de proveniência">
         <div class="legend__item"><span class="legend__mark" aria-hidden="true"></span><div><p class="label">Definido no contrato canônico</p><p>Token em tokens.css · aplicar sem alteração</p></div></div>
-        <div class="legend__item"><span class="legend__mark legend__mark--proposal" aria-hidden="true"></span><div><p class="label">Proposta</p><p>Adequação ou valor pendente de aprovação</p></div></div>
+        <div class="legend__item"><span class="legend__mark legend__mark--proposal" aria-hidden="true"></span><div><p class="label">Proposta</p><p>Cor ou papel fora do contrato, pendente de aprovação</p></div></div>
+        <div class="legend__item"><span class="legend__mark legend__mark--bar" aria-hidden="true"></span><div><p class="label">Barra à esquerda</p><p>Estilo, medida ou componente proposto a partir dos tokens</p></div></div>
       </div>
     </header>
 
@@ -391,31 +402,31 @@
           <h2 id="s3">Contraste</h2>
           <p>Calculado pelo método do WCAG 2.1. Texto normal pede 4,5:1; texto grande (24 px, já que a interface não usa peso 700) e contornos de componentes pedem 3:1.</p>
         </div>
-        <div class="table-wrap">
+        <div class="table-wrap" role="region" aria-label="Tabela de contraste" tabindex="0">
           <table class="contrast">
             <thead><tr><th scope="col">Amostra</th><th scope="col">Uso</th><th scope="col">Contraste</th><th scope="col">Veredito</th></tr></thead>
             <tbody>
-              <tr><td><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Deep navy sobre white</p><p class="use__sub">Títulos e texto principal</p></td><td class="ratio">19,3:1</td><td class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-medium-blue); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Medium blue sobre white</p><p class="use__sub">Texto secundário e navegação</p></td><td class="ratio">14,3:1</td><td class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-neutral-100)">Aa</span></td><td><p class="use__title">Deep navy sobre neutral 100</p><p class="use__sub">Texto em superfície muted</p></td><td class="ratio">16,0:1</td><td class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-medium-blue); --bg: var(--cluos-neutral-100)">Aa</span></td><td><p class="use__title">Medium blue sobre neutral 100</p><p class="use__sub">Texto secundário em superfície muted</p></td><td class="ratio">11,9:1</td><td class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-neutral-500); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Neutral 500 sobre white</p><p class="use__sub">text-subtle: letra miúda e metadados</p></td><td class="ratio">2,5:1</td><td class="verdict verdict--fail">Reprovado para texto; só contexto desabilitado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--doc-proposta-neutral-700); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Neutral 700 sobre white (proposta)</p><p class="use__sub">Letra miúda proposta</p></td><td class="ratio">5,7:1</td><td class="verdict">Aprovado, pendente de adoção</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-white); --bg: var(--cluos-deep-navy)">Aa</span></td><td><p class="use__title">White sobre deep navy</p><p class="use__sub">Texto da superfície operacional</p></td><td class="ratio">19,3:1</td><td class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-tech-green)">Aa</span></td><td><p class="use__title">Deep navy sobre tech green</p><p class="use__sub">Texto do botão primário</p></td><td class="ratio">12,6:1</td><td class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-signal-deep)">Aa</span></td><td><p class="use__title">Deep navy sobre signal deep</p><p class="use__sub">Botão primário no hover</p></td><td class="ratio">9,5:1</td><td class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-white); --bg: var(--cluos-oxblood)">Aa</span></td><td><p class="use__title">White sobre oxblood</p><p class="use__sub">Texto do botão destrutivo</p></td><td class="ratio">7,6:1</td><td class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-oxblood); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Oxblood sobre white</p><p class="use__sub">Erro e negação</p></td><td class="ratio">7,6:1</td><td class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-info); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Info sobre white</p><p class="use__sub">Informação</p></td><td class="ratio">5,6:1</td><td class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-deep-teal); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Deep teal sobre white</p><p class="use__sub">Texto da ação ghost</p></td><td class="ratio">5,7:1</td><td class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-copper); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Copper sobre white</p><p class="use__sub">Aviso e revisão</p></td><td class="ratio">3,5:1</td><td class="verdict">Só a partir de 24 px, ou marcador com texto</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-status-success); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Status success sobre white</p><p class="use__sub">Sucesso</p></td><td class="ratio">3,7:1</td><td class="verdict">Só a partir de 24 px, ou marcador com texto</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-operational-teal); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Operational teal sobre white</p><p class="use__sub">Progresso e execução</p></td><td class="ratio">3,1:1</td><td class="verdict">Só a partir de 24 px, ou componente</td></tr>
-              <tr><td><span class="sample sample--line" style="--fg: var(--cluos-medium-blue)">Aa</span></td><td><p class="use__title">Medium blue sobre white</p><p class="use__sub">Contorno de botão secundário e de campo</p></td><td class="ratio">14,3:1</td><td class="verdict">Aprovado para componente</td></tr>
-              <tr><td><span class="sample sample--line" style="--fg: var(--cluos-neutral-100)">Aa</span></td><td><p class="use__title">Neutral 100 sobre white</p><p class="use__sub">Hairline</p></td><td class="ratio">1,2:1</td><td class="verdict">Só divisória; nunca contorno de controle</td></tr>
-              <tr><td><span class="sample sample--ring" style="--bg: var(--cluos-white); --fg: var(--cluos-text)">Aa</span></td><td><p class="use__title">Tech green sobre white</p><p class="use__sub">Anel de foco e sinal</p></td><td class="ratio">1,5:1</td><td class="verdict verdict--fail">Reprovado como anel de foco; nunca em texto</td></tr>
-              <tr><td><span class="sample sample--ring" style="--bg: var(--cluos-tech-green); --fg: var(--cluos-deep-navy)">Aa</span></td><td><p class="use__title">Tech green sobre tech green</p><p class="use__sub">Anel de foco no botão primário</p></td><td class="ratio">1,0:1</td><td class="verdict verdict--fail">Reprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-oxblood); --bg: var(--cluos-deep-navy)">Aa</span></td><td><p class="use__title">Oxblood sobre deep navy</p><p class="use__sub">Status de erro na superfície operacional</p></td><td class="ratio">2,5:1</td><td class="verdict verdict--fail">Reprovado; escrever o estado em white</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Deep navy sobre white</p><p class="use__sub">Títulos e texto principal</p></td><td class="ratio" data-label="Contraste">19,3:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-medium-blue); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Medium blue sobre white</p><p class="use__sub">Texto secundário e navegação</p></td><td class="ratio" data-label="Contraste">14,3:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-neutral-100)">Aa</span></td><td><p class="use__title">Deep navy sobre neutral 100</p><p class="use__sub">Texto em superfície muted</p></td><td class="ratio" data-label="Contraste">16,0:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-medium-blue); --bg: var(--cluos-neutral-100)">Aa</span></td><td><p class="use__title">Medium blue sobre neutral 100</p><p class="use__sub">Texto secundário em superfície muted</p></td><td class="ratio" data-label="Contraste">11,9:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-neutral-500); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Neutral 500 sobre white</p><p class="use__sub">text-subtle: letra miúda e metadados</p></td><td class="ratio" data-label="Contraste">2,5:1</td><td data-label="Veredito:" class="verdict verdict--fail">Reprovado para texto; só contexto desabilitado</td></tr>
+              <tr><td><span class="sample sample--proposal" style="--fg: var(--doc-proposta-neutral-700); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Neutral 700 sobre white (proposta)</p><p class="use__sub">Letra miúda proposta</p></td><td class="ratio" data-label="Contraste">5,7:1</td><td data-label="Veredito:" class="verdict">Aprovado, pendente de adoção</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-white); --bg: var(--cluos-deep-navy)">Aa</span></td><td><p class="use__title">White sobre deep navy</p><p class="use__sub">Texto da superfície operacional</p></td><td class="ratio" data-label="Contraste">19,3:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-tech-green)">Aa</span></td><td><p class="use__title">Deep navy sobre tech green</p><p class="use__sub">Texto do botão primário</p></td><td class="ratio" data-label="Contraste">12,6:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-signal-deep)">Aa</span></td><td><p class="use__title">Deep navy sobre signal deep</p><p class="use__sub">Botão primário no hover</p></td><td class="ratio" data-label="Contraste">9,5:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-white); --bg: var(--cluos-oxblood)">Aa</span></td><td><p class="use__title">White sobre oxblood</p><p class="use__sub">Texto do botão destrutivo</p></td><td class="ratio" data-label="Contraste">7,6:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-oxblood); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Oxblood sobre white</p><p class="use__sub">Erro e negação</p></td><td class="ratio" data-label="Contraste">7,6:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-info); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Info sobre white</p><p class="use__sub">Informação</p></td><td class="ratio" data-label="Contraste">5,6:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-deep-teal); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Deep teal sobre white</p><p class="use__sub">Texto da ação ghost</p></td><td class="ratio" data-label="Contraste">5,7:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-copper); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Copper sobre white</p><p class="use__sub">Aviso e revisão</p></td><td class="ratio" data-label="Contraste">3,5:1</td><td data-label="Veredito:" class="verdict">Só a partir de 24 px, ou marcador com texto</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-status-success); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Status success sobre white</p><p class="use__sub">Sucesso</p></td><td class="ratio" data-label="Contraste">3,7:1</td><td data-label="Veredito:" class="verdict">Só a partir de 24 px, ou marcador com texto</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-operational-teal); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Operational teal sobre white</p><p class="use__sub">Progresso e execução</p></td><td class="ratio" data-label="Contraste">3,1:1</td><td data-label="Veredito:" class="verdict">Só a partir de 24 px, ou componente</td></tr>
+              <tr><td><span class="sample sample--line" style="--fg: var(--cluos-medium-blue)">Aa</span></td><td><p class="use__title">Medium blue sobre white</p><p class="use__sub">Contorno de botão secundário e de campo</p></td><td class="ratio" data-label="Contraste">14,3:1</td><td data-label="Veredito:" class="verdict">Aprovado para componente</td></tr>
+              <tr><td><span class="sample sample--line" style="--fg: var(--cluos-neutral-100)">Aa</span></td><td><p class="use__title">Neutral 100 sobre white</p><p class="use__sub">Hairline</p></td><td class="ratio" data-label="Contraste">1,2:1</td><td data-label="Veredito:" class="verdict">Só divisória; nunca contorno de controle</td></tr>
+              <tr><td><span class="sample sample--ring" style="--bg: var(--cluos-white); --fg: var(--cluos-text)">Aa</span></td><td><p class="use__title">Tech green sobre white</p><p class="use__sub">Anel de foco e sinal</p></td><td class="ratio" data-label="Contraste">1,5:1</td><td data-label="Veredito:" class="verdict verdict--fail">Reprovado como anel de foco; nunca em texto</td></tr>
+              <tr><td><span class="sample sample--ring" style="--bg: var(--cluos-tech-green); --fg: var(--cluos-deep-navy)">Aa</span></td><td><p class="use__title">Tech green sobre tech green</p><p class="use__sub">Anel de foco no botão primário</p></td><td class="ratio" data-label="Contraste">1,0:1</td><td data-label="Veredito:" class="verdict verdict--fail">Reprovado</td></tr>
+              <tr><td><span class="sample" style="--fg: var(--cluos-oxblood); --bg: var(--cluos-deep-navy)">Aa</span></td><td><p class="use__title">Oxblood sobre deep navy</p><p class="use__sub">Status de erro na superfície operacional</p></td><td class="ratio" data-label="Contraste">2,5:1</td><td data-label="Veredito:" class="verdict verdict--fail">Reprovado; escrever o estado em white</td></tr>
             </tbody>
           </table>
         </div>
@@ -456,7 +467,7 @@
           </div>
           <div class="type-row type-row--proposal">
             <div class="type-meta"><h3>numeral</h3><p>Manrope Light 300 · 36/36 · −4%</p><p>Celular: 30/30</p><p>Passos e índices, sempre em medium blue; valor de métrica em 650</p></div>
-            <p class="type-sample t-numeral" aria-label="01, 02, 03, 04"><span>01</span><span>02</span><span>03</span><span>04</span></p>
+            <p class="type-sample t-numeral"><span>01</span><span>02</span><span>03</span><span>04</span></p>
           </div>
           <div class="type-row">
             <div class="type-meta"><h3>sobrelinha</h3><p>Instrument Sans 550 · 12/19 · 11%</p><p>Celular: 12/19</p><p>Caixa alta, em medium blue</p></div>
@@ -495,7 +506,7 @@
             <p class="type-sample t-codigo">data-cluos-canonical="cluos-mms-v1"</p>
           </div>
         </div>
-        <p class="note type-note">Barra vertical à esquerda do nome = composição proposta a partir dos tokens, fora do contrato canônico. JetBrains Mono não vem em brand-assets/fonts; a amostra usa o fallback do sistema.</p>
+        <p class="note type-note">Barra à esquerda do nome = composição proposta a partir dos tokens, fora do contrato canônico. JetBrains Mono não vem em brand-assets/fonts; a amostra usa o fallback do sistema.</p>
       </section>
 
       <!-- 05 -->
@@ -523,7 +534,7 @@
           </div>
           <div>
             <h3 class="subhead">Layout</h3>
-            <div class="table-wrap">
+            <div class="table-wrap" role="region" aria-label="Tabela de layout" tabindex="0">
               <table class="layout">
                 <tbody>
                   <tr><td>container-wide</td><td>1280 px</td><td>Documentação e preview</td></tr>
@@ -543,6 +554,7 @@
                 </tbody>
               </table>
             </div>
+            <p class="note layout-note">Barra à esquerda = medida proposta a partir dos tokens; não existe token próprio para ela.</p>
           </div>
         </div>
 
@@ -572,7 +584,7 @@
           <div><button class="button button--primary is-hover" type="button" tabindex="-1">Publicar conteúdo</button><p class="caption">Primário, hover</p></div>
           <div><button class="button button--primary is-focus" type="button" tabindex="-1">Publicar conteúdo</button><p class="caption">Primário, foco (anel 2 px tech green: 1,0:1 sobre o botão)</p></div>
           <div><button class="button button--secondary" type="button">Ver semântica de cor</button><p class="caption">Secundário</p></div>
-          <div><button class="button button--ghost" type="button">Ver detalhes</button><p class="caption">Ghost: só texto, em deep teal (proposta; operational teal mede 3,1:1)</p></div>
+          <div><button class="button button--ghost" type="button">Ver detalhes</button><p class="caption caption--proposal">Ghost: só texto, em deep teal (proposta; operational teal mede 3,1:1)</p></div>
           <div><button class="button button--destructive" type="button">Excluir campanha</button><p class="caption">Destrutivo: só no diálogo de confirmação</p></div>
         </div>
 
@@ -585,7 +597,7 @@
           <div class="field">
             <label for="f-nome">Nome da campanha (obrigatório)</label>
             <input class="input" id="f-nome" name="nome" type="text" required autocomplete="off">
-            <p class="caption">Campo em repouso (contorno medium blue, proposta)</p>
+            <p class="caption caption--proposal">Campo em repouso: contorno medium blue e altura de 40 px (proposta)</p>
           </div>
           <div class="field">
             <label for="f-periodo">Início da campanha (obrigatório)</label>
@@ -682,7 +694,7 @@
 
     <footer class="doc-foot">
       <p class="t-assinatura">Minimalista, técnica, clara e orientada a estado.</p>
-      <p class="note">CluOS · cluos-mms-v1 · v1 · 03/10/2026</p>
+      <p class="note">CluOS Design System · cluos-mms-v1 · 03/10/2026</p>
     </footer>
   </div>
 </body>
