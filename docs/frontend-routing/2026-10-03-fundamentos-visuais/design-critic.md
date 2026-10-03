@@ -1,4 +1,4 @@
-Result: blocked
+Result: passed (round 3, F1 excepted for this page; rounds 1–2 blocked, kept below)
 
 # design-critic: Fundamentos visuais (cluos-mms-v1), round 1
 
@@ -209,3 +209,92 @@ Attribution summary: page chrome/layout = N1 (P2), N2, N3, N4 (P3), F8 (P3, acce
 Next action for frontend-craftsman: fix N1 (one rule on `.table-wrap` closes both symptoms), re-render at 1280/768/375 and confirm the four layout rows and the Neutral 700 outline show their marks; N3 and N2 are cheap and worth doing in the same pass. Conditions for `passed` in round 3: N1 closed; Rafael decides F1 or records an exception; Clareza de interacao and Acessibilidade both reach 4 (no dimension below 4); total at least 42/50. Without the F1 decision the page cannot pass even if every page finding is closed.
 
 Process note: the first append attempt of this section was blocked by the PreToolUse guard as destructive SQL (gate 3) because the prose contained the phrase for removing a database table. No SQL was run; the wording was changed and the section was appended once.
+
+---
+
+# Round 3
+
+Result: passed
+
+F1 is counted as excepted for this page, per the recorded exception (see Verdict).
+
+Target: `DESIGN-fundamentos-visuais.html`, branch `agent/cluos-design-system/fundamentos-visuais-20261003`, commit c2b7490, level N2. Reviewer: design-critic (independent, no edits made). Rounds 1 and 2 above are unchanged; the `Result:` on line 1 of this file is the round-1 verdict and is superseded by this section.
+
+Score: 43/50, lowest dimension: 4/5 (Distincao de marca, Hierarquia, Composicao, Densidade, Disciplina de tokens, Clareza de interacao, Acessibilidade)
+Bar: >= 42/50, no dimension below 4, zero open P0-P2, with F1 excepted. Met. Without the F1 exception the page would not pass (see Verdict).
+
+## Evidence base (round 3)
+
+- Rendered with `render2.mjs` at 1920, 1280, 768, 390, 375 (twice, identical): scrollWidth == clientWidth at all five, `overflow` list empty (including the check for elements outside `.table-wrap`), `hexCheck` empty, Manrope and Instrument Sans loaded. Heights: 1920 11,452 px; 1280 11,452; 768 14,421 (was 19,601 in round 2); 390 21,220; 375 21,345.
+- Extra widths, measured in Chrome (`measure3.mjs`, scratchpad): 320, 360, 767, 768, 800, 1024 all without horizontal overflow. 767 gives the stacked grid and 2 swatch columns; 768, 800 and 1024 give the table layout and 3 swatch columns. 768, 800 and 1024 are therefore in the tablet treatment; 800 and 1024 were checked by computed layout only, not viewed.
+- Viewed at 2x: layout table at 1280, 768 and 375; Neutral 700 sample at 1280, 768 and 375 (side by side at 4x); contrast list at 768 (unstacked) and 375 (stacked); swatches at 768; tablet-768 full page in strips (header, 01, 04 tail, 05, 06); PDF page raster (header to 03, and 05 to footer).
+- Measured: `.table-wrap` attributes and overflow at 1280, 768, 375; computed `::before` of the four proposal rows and every ancestor with non-visible overflow; computed outline of `.sample--proposal`; Chrome accessibility tree (role counts) at 375 and 1280; real Tab sequence at 1280.
+- Not done: no Safari or VoiceOver pass; 800 and 1024 not viewed; phone-390 by metrics only (same wraps as 375 with 15 px more width); PDF checked by raster of the structure, not diffed against the browser render.
+
+## Identity test (re-run)
+
+1. Without logo and copy still CluOS? Yes: Manrope Light display at tight tracking, hung light numerals, hairlines, zero radius and shadow, tech green only as specimen.
+2. Attributable to 500 startups? No.
+3. Clear visual idea? Yes: the document reads as the system it describes.
+4. Positioning (command center / premium consulting)? Yes, restrained and technical.
+5. Density matches task? Yes on desktop and tablet (the tablet is a real intermediate step now). Phone is long (21.3k px at 375), see Not findings.
+6. Brand in composition and details? Yes (section numeral grid, step numeral with hairline, operational navy block).
+7. Elements a model puts there by habit? None found.
+
+## Open findings: status
+
+| ID | Round 2 | Round 3 | Evidence |
+|---|---|---|---|
+| F1 | P2, tokens on main | EXCEPTED (page-scoped), not fixed, still attributed to main | `docs/frontend-routing/2026-10-03-fundamentos-visuais/exception-focus-ring.md`, added in commit c2b7490 (author jamzeze, the author session), quoting Rafael's 2026-10-03 answer "Excecao so para esta pagina". The critic relies on that record and did not witness the decision. Scope is this HTML and its PDF only; `--cluos-ring-focus` stays canonical on main; the brand decision on the focus colour stays open. The page still documents the failure as it is (contrast rows "Tech green sobre white 1,5:1 Reprovado como anel de foco", "Tech green sobre tech green 1,0:1 Reprovado", caption on the focus specimen "anel 2 px tech green: 1,0:1 sobre o botao"). The exception does not extend to any product surface. |
+| N1 | P2 | CLOSED | `.table-wrap` has `overflow-x: visible` at 1280, 768 and 375 (scrollWidth == clientWidth 1152/720/343). Computed `::before` of `gutter`, `bloco`, `toque-min`, `campo-altura`: `left: -12px`, 2 px, `rgb(19,41,82)`, and the ancestor list with non-visible overflow is empty for all four at all three widths. Rendered: the four bars are visible at 1280 (hung left of the hairlines, aligned with the type-row bars), 768 and 375 (layout-1280/768/375.png). Neutral 700 sample: `outline: rgb(19,41,82) dashed 2px`, offset 4 px, no clipping ancestor; all four edges visible at 1280, 768, 375 at 4x (n700-sheet.png) and in the 768 swatch grid. The legend and the note under the layout table now point at a mark the reader can see. |
+| N2 | P3 | CLOSED | Breakpoint is `max-width: 47.99rem`. 767 px: stacked contrast grid, 2 swatch columns. 768 px: `tr` is `table-row`, 3 swatch columns, contrast table with four columns (Amostra, Uso, Contraste, Veredito), the failing verdict "Reprovado para texto; so contexto desabilitado" readable in column 4; section 02 viewed at 768 (roles-768.png): two columns of role lists (Fundo and Texto above, Borda and Acao below), dashed marks on campo, campo-erro and ghost-texto complete. Height at 768 fell from 19,601 to 14,421 px. |
+| N3 | P3 | CLOSED | At 375 `.layout tr` is a grid: name left, value right on one line, description full width below. Rows are 74 px (96 px with a two-line description) against 204 px for `gutter` and `toque-min` in round 2. Wrap 343/343, no sideways scroll. Viewed at 2x. |
+| N4 | P3 | CLOSED in Chrome; Safari/VoiceOver not run | Both tables carry `role="table"`, `rowgroup`, `row`, `columnheader`, `cell` in the markup. Chrome accessibility tree at 375 (stacked) and 1280 gives identical counts: 2 tables, 36 rows (22 + 14), 126 cells (84 + 42), 4 columnheaders, 3 rowgroups. The two `.table-wrap` have no `tabindex`, `role` or `aria-label` at any width (extra tab stops gone). Real Tab sequence at 1280: 4 buttons, 2 text links, 6 inputs, then out of the document; nothing lands on a table wrapper. Residual risk: role-based semantics under `display: grid` unverified in VoiceOver. |
+| F8 | P3, accepted | OPEN, P3, accepted by author | At 1280 and 1920 (PDF raster) the Escala column still ends roughly 420 to 470 px above the end of the Layout table. Reference parity is a valid reason; composition cost only. At 768 and below the two stack, so there is no dead area. |
+
+Also verified from the round-2 follow-ups: section 04 intro (line 442) reads "Pesos 300, 400, 550 e 650 (450 so no descritor do lockup); nunca 700 ou mais", the `lockup` row spells "Instrument Sans 450 . 12 . 12%", and `DESIGN.md` line 33 lists 450 only for the `Marketing Studio` descriptor. PDF: `docs/fundamentos-visuais/cluos-fundamentos-visuais.pdf`, 1 page, 1920 x 11454 pt; raster shows the centered 1152 column, the three-item legend, the dashed Neutral 700 outline with all edges, the four layout bars and the two caption bars, sections 01 to 07 in order and the footer.
+
+## Scores (round 3)
+
+| Dimension | Score | Evidence |
+|---|---|---|
+| Distincao de marca | 4 | Unchanged. Identity lives in type, hairlines, zero radius and shadow; the header has no brand moment beyond type. |
+| Hierarquia | 4 | H1 60/44 px, H2 48 px with hung numeral; failing verdicts in red on their own line on phones. Section 06 still has no sub-grouping other than captions. |
+| Composicao | 4 | Grids 6 -> 3 -> 2 now hold at 1920/1280/768/375 with a true tablet step; provenance bars align between type rows, layout rows and captions. Held back by F8 (accepted) and N5. |
+| Tipografia | 5 | Spec text 14 px, 12 px only for eyebrow, token names, descriptor; no mid-word or mid-hyphen breaks at 375; the weights note now matches DESIGN.md and the lockup row. |
+| Densidade | 4 | Airy by reference; tablet now 14.4k px instead of 19.6k. Phone is 21.3k px and type rows stay about 150 px for a 14 px sample. Intentional, not wrong. |
+| Disciplina de tokens | 4 | No stray hex, chrome on `--cluos-color-*` roles, one doc-local property family. Literals remain: weights 300/450/650, tracking -.045em/.11em/.12em, `clamp()`, and `!important` on `.contrast td` and `.layout td` widths. |
+| Economia de componentes | 5 | No card nesting, no icons, one bordered container (the field group); the wrappers and tab stops that added nothing were removed. |
+| Clareza de interacao | 4 | Provenance marks (dashed, bar) are all visible and decoded by the legend; hover and focus specimens explicit; no spurious tab stops. Capped at 4 by F1: real keyboard focus on `.button--primary` is still invisible (1.0:1). With the page-scoped exception recorded, this is a documented, excepted limit. Would be 3 if the exception were revoked. |
+| Acessibilidade | 4 | AA text everywhere (navy/medium blue on white 14.3 to 19.3:1), `lang="pt-BR"`, header/main/footer, label/legend, `aria-invalid` + `aria-describedby`, state = text + marker, explicit table roles preserved in the accessibility tree, no ARIA misuse, no unnecessary focus stops. Capped at 4 by F1 (WCAG 2.4.7 / 1.4.11 in practice) and by the unrun VoiceOver check. Would be 3 if the exception were revoked. |
+| Responsividade/adaptacao | 5 | No overflow at 320, 360, 375, 390, 767, 768, 800, 1024, 1280, 1920. Both tables stack with nothing hidden or scrolling; tablet takes the intermediate treatment; the verdict and the proposal marks are visible at every width; the PDF keeps the desktop layout. |
+
+Total: 4+4+4+5+4+4+5+4+4+5 = 43/50.
+
+## New findings (round 3)
+
+### N5. P3. Page chrome. Type spec lines wrap at the separator at 768
+- Evidence: now that 768 px takes the two-column type rows (N2 fix), the narrow meta column wraps spec lines at the separator and leaves the size alone on the next line: `miudo`, `menu` and `codigo` read "Instrument Sans Regular 400 . / 14/22" and "JetBrains Mono Regular 400 . / 14/22" (tablet-768 strip, section 04). Readable, but the spec is the content of the section.
+- Impact: cosmetic, only between 768 and about 900 px.
+- Fix: bind the tail with non-breaking spaces ("400&nbsp;&middot;&nbsp;14/22") or wrap `size/leading` in the `.nowrap` span the page already uses, or widen the meta column in the `max-width: 64rem` block. File: `DESIGN-fundamentos-visuais.html` `.type-meta p` and the type-row grid.
+- Attribution: page chrome. Does not block.
+
+## Not findings (round 3)
+
+- At 375 the proposal bar sits 4 px from the viewport edge and the dashed outline 10 px: visible, not clipped (no ancestor with non-visible overflow). Noted, no action.
+- Phone length rose from about 19.6k to 21.3k px at 375 because the stacked layout rows replaced a squeezed table; the trade (readable rows, no sideways scroll) is the right one.
+- Explicit `role="table"` on a native `<table>` is redundant in browsers that keep the native role; harmless and intended for the `display: grid` case.
+- Documented failures on main (text-subtle 2.5:1, copper 3.5:1, status success 3.7:1, operational teal 3.1:1, tech green ring 1.5:1 / 1.0:1, oxblood on navy 2.5:1): unchanged, verified correct in round 1, each labelled with a verdict on the page.
+- JetBrains Mono and the arrow glyph fall back to system fonts: declared on the page.
+
+## Verdict (round 3)
+
+Result: passed.
+
+Score 43/50, no dimension below 4, zero open P0-P2 once F1 is excepted. Open: F8 (P3, accepted by author) and N5 (P3, cosmetic). Closed this round: N1, N2, N3, N4.
+
+F1 handling: the author session recorded Rafael's page-scoped exception of 2026-10-03 in `exception-focus-ring.md` (commit c2b7490); the critic relies on that record. F1 remains a defect in `--cluos-ring-focus` on main (tech green 2 px, 1.5:1 on white, 1.0:1 on the primary button); it is not fixed and the exception covers only this HTML and its PDF. The pass depends on that exception: if it were revoked, F1 returns as an open P2 and Clareza de interacao and Acessibilidade fall to 3, so the page would be blocked again.
+
+Attribution summary: page chrome/layout = N5 (P3), F8 (P3, accepted); tokens on main = F1 (excepted, not fixed).
+
+Next action: none required to merge this page. Optional, in the same file: N5. Separate, outside this task: the brand decision on the focus colour (candidate on file: inner tech-green ring plus outer deep-navy ring) that lets the exception be retired. Residual risk: VoiceOver/Safari pass on the role-based tables not run.
