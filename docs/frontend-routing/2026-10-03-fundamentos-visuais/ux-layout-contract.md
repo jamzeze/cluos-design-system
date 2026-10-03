@@ -42,8 +42,31 @@ como na referência.
 
 ## Responsivo
 
-Coluna única abaixo de 48rem; grades de amostras 6 → 3 → 2; tabelas com
-rolagem própria; nenhuma rolagem horizontal da página em 375px.
+Coluna única abaixo de 48rem; grades de amostras 6 → 3 → 2; abaixo de 48rem
+as tabelas de contraste e de layout empilham cada linha (nada rola na
+horizontal, nem a página nem as tabelas) e mantêm a semântica de tabela com
+`role`; nenhuma rolagem horizontal da página em 375px.
+
+## Adequações em relação à referência
+
+Registradas em 2026-10-03, dentro da instrução do Rafael de adequar onde o
+CluOS não tem equivalente:
+
+- 01: 18 amostras em três grupos de 6 (estrutura e neutros, ação e estado,
+  status) no lugar de 12; uma proposta tracejada (neutral 700).
+- 03: 21 linhas no lugar de 11, porque o CluOS tem mais pares de estado; a
+  nota final lista as pendências abertas (PR #4, PR #6, anel de foco) no lugar
+  da nota do overlay de vídeo.
+- 04: `titulo-pagina-interna` → `titulo-tela`, `titulo-dobra` →
+  `titulo-secao`, `nome-tecnica-medico` → `lockup`; linha extra `codigo`
+  (16 no lugar de 15). Sem Playfair e sem itálico.
+- 05: 14 linhas de layout com a fonte de cada medida; sexto item de geometria
+  (sombra: nenhuma).
+- 06: botões ghost e destrutivo além dos quatro da referência; aspas em
+  medium blue (o CluOS não tem champanhe); bloco de urgência → superfície
+  operacional escura do DESIGN-preview.
+- Cabeçalho: terceiro item de legenda (barra).
+- Anel de foco: falha mostrada, não corrigida (`exception-focus-ring.md`).
 
 ## Fora de escopo
 
