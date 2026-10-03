@@ -99,7 +99,6 @@
     .semantic + .note { margin-top: var(--cluos-space-8); }
 
     /* ---------- 03 Contraste ---------- */
-    .table-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; }
     th { padding: 0 var(--cluos-space-4) var(--cluos-space-3) 0; border-bottom: thin solid var(--cluos-color-border-strong); color: var(--cluos-text-muted); font-size: var(--cluos-text-xs); font-weight: var(--cluos-font-weight-label); text-align: left; }
     td { padding: var(--cluos-space-3) var(--cluos-space-4) var(--cluos-space-3) 0; border-bottom: thin solid var(--cluos-color-border-default); vertical-align: middle; }
@@ -238,7 +237,7 @@
       .buttons { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .spacing { grid-template-columns: minmax(0, 1fr); gap: var(--cluos-space-12); }
     }
-    @media (max-width: 48rem) {
+    @media (max-width: 47.99rem) {
       .shell { padding: 0 var(--cluos-space-4); }
       .doc-head { grid-template-columns: minmax(0, 1fr); padding-top: var(--cluos-space-16); }
       .section__head { grid-template-columns: minmax(0, 1fr); }
@@ -260,8 +259,10 @@
       .contrast td:first-child { grid-row: 1 / span 3; }
       .contrast td.ratio, .contrast td.verdict { grid-column: 2; }
       .contrast td.ratio::before, .contrast td.verdict::before { color: var(--cluos-text-muted); font-size: var(--cluos-text-sm); font-weight: 400; content: attr(data-label) " "; }
-      .layout td:first-child, .layout td:nth-child(2) { white-space: nowrap; }
-      .layout td:first-child { width: auto; }
+      .layout tr { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--cluos-space-4); row-gap: var(--cluos-space-1); padding: var(--cluos-space-3) 0; border-bottom: thin solid var(--cluos-color-border-default); }
+      .layout td { display: block; width: auto !important; padding: 0; border: 0; }
+      .layout td:last-child { grid-column: 1 / -1; }
+      .layout tr.is-proposal td:first-child { position: static; }
     }
     @media (max-width: 32rem) {
       .buttons { grid-template-columns: minmax(0, 1fr); }
@@ -402,31 +403,31 @@
           <h2 id="s3">Contraste</h2>
           <p>Calculado pelo método do WCAG 2.1. Texto normal pede 4,5:1; texto grande (24 px, já que a interface não usa peso 700) e contornos de componentes pedem 3:1.</p>
         </div>
-        <div class="table-wrap" role="region" aria-label="Tabela de contraste" tabindex="0">
-          <table class="contrast">
-            <thead><tr><th scope="col">Amostra</th><th scope="col">Uso</th><th scope="col">Contraste</th><th scope="col">Veredito</th></tr></thead>
-            <tbody>
-              <tr><td><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Deep navy sobre white</p><p class="use__sub">Títulos e texto principal</p></td><td class="ratio" data-label="Contraste">19,3:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-medium-blue); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Medium blue sobre white</p><p class="use__sub">Texto secundário e navegação</p></td><td class="ratio" data-label="Contraste">14,3:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-neutral-100)">Aa</span></td><td><p class="use__title">Deep navy sobre neutral 100</p><p class="use__sub">Texto em superfície muted</p></td><td class="ratio" data-label="Contraste">16,0:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-medium-blue); --bg: var(--cluos-neutral-100)">Aa</span></td><td><p class="use__title">Medium blue sobre neutral 100</p><p class="use__sub">Texto secundário em superfície muted</p></td><td class="ratio" data-label="Contraste">11,9:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-neutral-500); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Neutral 500 sobre white</p><p class="use__sub">text-subtle: letra miúda e metadados</p></td><td class="ratio" data-label="Contraste">2,5:1</td><td data-label="Veredito:" class="verdict verdict--fail">Reprovado para texto; só contexto desabilitado</td></tr>
-              <tr><td><span class="sample sample--proposal" style="--fg: var(--doc-proposta-neutral-700); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Neutral 700 sobre white (proposta)</p><p class="use__sub">Letra miúda proposta</p></td><td class="ratio" data-label="Contraste">5,7:1</td><td data-label="Veredito:" class="verdict">Aprovado, pendente de adoção</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-white); --bg: var(--cluos-deep-navy)">Aa</span></td><td><p class="use__title">White sobre deep navy</p><p class="use__sub">Texto da superfície operacional</p></td><td class="ratio" data-label="Contraste">19,3:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-tech-green)">Aa</span></td><td><p class="use__title">Deep navy sobre tech green</p><p class="use__sub">Texto do botão primário</p></td><td class="ratio" data-label="Contraste">12,6:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-signal-deep)">Aa</span></td><td><p class="use__title">Deep navy sobre signal deep</p><p class="use__sub">Botão primário no hover</p></td><td class="ratio" data-label="Contraste">9,5:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-white); --bg: var(--cluos-oxblood)">Aa</span></td><td><p class="use__title">White sobre oxblood</p><p class="use__sub">Texto do botão destrutivo</p></td><td class="ratio" data-label="Contraste">7,6:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-oxblood); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Oxblood sobre white</p><p class="use__sub">Erro e negação</p></td><td class="ratio" data-label="Contraste">7,6:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-info); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Info sobre white</p><p class="use__sub">Informação</p></td><td class="ratio" data-label="Contraste">5,6:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-deep-teal); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Deep teal sobre white</p><p class="use__sub">Texto da ação ghost</p></td><td class="ratio" data-label="Contraste">5,7:1</td><td data-label="Veredito:" class="verdict">Aprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-copper); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Copper sobre white</p><p class="use__sub">Aviso e revisão</p></td><td class="ratio" data-label="Contraste">3,5:1</td><td data-label="Veredito:" class="verdict">Só a partir de 24 px, ou marcador com texto</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-status-success); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Status success sobre white</p><p class="use__sub">Sucesso</p></td><td class="ratio" data-label="Contraste">3,7:1</td><td data-label="Veredito:" class="verdict">Só a partir de 24 px, ou marcador com texto</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-operational-teal); --bg: var(--cluos-white)">Aa</span></td><td><p class="use__title">Operational teal sobre white</p><p class="use__sub">Progresso e execução</p></td><td class="ratio" data-label="Contraste">3,1:1</td><td data-label="Veredito:" class="verdict">Só a partir de 24 px, ou componente</td></tr>
-              <tr><td><span class="sample sample--line" style="--fg: var(--cluos-medium-blue)">Aa</span></td><td><p class="use__title">Medium blue sobre white</p><p class="use__sub">Contorno de botão secundário e de campo</p></td><td class="ratio" data-label="Contraste">14,3:1</td><td data-label="Veredito:" class="verdict">Aprovado para componente</td></tr>
-              <tr><td><span class="sample sample--line" style="--fg: var(--cluos-neutral-100)">Aa</span></td><td><p class="use__title">Neutral 100 sobre white</p><p class="use__sub">Hairline</p></td><td class="ratio" data-label="Contraste">1,2:1</td><td data-label="Veredito:" class="verdict">Só divisória; nunca contorno de controle</td></tr>
-              <tr><td><span class="sample sample--ring" style="--bg: var(--cluos-white); --fg: var(--cluos-text)">Aa</span></td><td><p class="use__title">Tech green sobre white</p><p class="use__sub">Anel de foco e sinal</p></td><td class="ratio" data-label="Contraste">1,5:1</td><td data-label="Veredito:" class="verdict verdict--fail">Reprovado como anel de foco; nunca em texto</td></tr>
-              <tr><td><span class="sample sample--ring" style="--bg: var(--cluos-tech-green); --fg: var(--cluos-deep-navy)">Aa</span></td><td><p class="use__title">Tech green sobre tech green</p><p class="use__sub">Anel de foco no botão primário</p></td><td class="ratio" data-label="Contraste">1,0:1</td><td data-label="Veredito:" class="verdict verdict--fail">Reprovado</td></tr>
-              <tr><td><span class="sample" style="--fg: var(--cluos-oxblood); --bg: var(--cluos-deep-navy)">Aa</span></td><td><p class="use__title">Oxblood sobre deep navy</p><p class="use__sub">Status de erro na superfície operacional</p></td><td class="ratio" data-label="Contraste">2,5:1</td><td data-label="Veredito:" class="verdict verdict--fail">Reprovado; escrever o estado em white</td></tr>
+        <div class="table-wrap">
+          <table class="contrast" role="table" aria-label="Contraste por par de cores">
+            <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">Amostra</th><th scope="col" role="columnheader">Uso</th><th scope="col" role="columnheader">Contraste</th><th scope="col" role="columnheader">Veredito</th></tr></thead>
+            <tbody role="rowgroup">
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-white)">Aa</span></td><td role="cell"><p class="use__title">Deep navy sobre white</p><p class="use__sub">Títulos e texto principal</p></td><td role="cell" class="ratio" data-label="Contraste">19,3:1</td><td role="cell" data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-medium-blue); --bg: var(--cluos-white)">Aa</span></td><td role="cell"><p class="use__title">Medium blue sobre white</p><p class="use__sub">Texto secundário e navegação</p></td><td role="cell" class="ratio" data-label="Contraste">14,3:1</td><td role="cell" data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-neutral-100)">Aa</span></td><td role="cell"><p class="use__title">Deep navy sobre neutral 100</p><p class="use__sub">Texto em superfície muted</p></td><td role="cell" class="ratio" data-label="Contraste">16,0:1</td><td role="cell" data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-medium-blue); --bg: var(--cluos-neutral-100)">Aa</span></td><td role="cell"><p class="use__title">Medium blue sobre neutral 100</p><p class="use__sub">Texto secundário em superfície muted</p></td><td role="cell" class="ratio" data-label="Contraste">11,9:1</td><td role="cell" data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-neutral-500); --bg: var(--cluos-white)">Aa</span></td><td role="cell"><p class="use__title">Neutral 500 sobre white</p><p class="use__sub">text-subtle: letra miúda e metadados</p></td><td role="cell" class="ratio" data-label="Contraste">2,5:1</td><td role="cell" data-label="Veredito:" class="verdict verdict--fail">Reprovado para texto; só contexto desabilitado</td></tr>
+              <tr role="row"><td role="cell"><span class="sample sample--proposal" style="--fg: var(--doc-proposta-neutral-700); --bg: var(--cluos-white)">Aa</span></td><td role="cell"><p class="use__title">Neutral 700 sobre white (proposta)</p><p class="use__sub">Letra miúda proposta</p></td><td role="cell" class="ratio" data-label="Contraste">5,7:1</td><td role="cell" data-label="Veredito:" class="verdict">Aprovado, pendente de adoção</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-white); --bg: var(--cluos-deep-navy)">Aa</span></td><td role="cell"><p class="use__title">White sobre deep navy</p><p class="use__sub">Texto da superfície operacional</p></td><td role="cell" class="ratio" data-label="Contraste">19,3:1</td><td role="cell" data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-tech-green)">Aa</span></td><td role="cell"><p class="use__title">Deep navy sobre tech green</p><p class="use__sub">Texto do botão primário</p></td><td role="cell" class="ratio" data-label="Contraste">12,6:1</td><td role="cell" data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-deep-navy); --bg: var(--cluos-signal-deep)">Aa</span></td><td role="cell"><p class="use__title">Deep navy sobre signal deep</p><p class="use__sub">Botão primário no hover</p></td><td role="cell" class="ratio" data-label="Contraste">9,5:1</td><td role="cell" data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-white); --bg: var(--cluos-oxblood)">Aa</span></td><td role="cell"><p class="use__title">White sobre oxblood</p><p class="use__sub">Texto do botão destrutivo</p></td><td role="cell" class="ratio" data-label="Contraste">7,6:1</td><td role="cell" data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-oxblood); --bg: var(--cluos-white)">Aa</span></td><td role="cell"><p class="use__title">Oxblood sobre white</p><p class="use__sub">Erro e negação</p></td><td role="cell" class="ratio" data-label="Contraste">7,6:1</td><td role="cell" data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-info); --bg: var(--cluos-white)">Aa</span></td><td role="cell"><p class="use__title">Info sobre white</p><p class="use__sub">Informação</p></td><td role="cell" class="ratio" data-label="Contraste">5,6:1</td><td role="cell" data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-deep-teal); --bg: var(--cluos-white)">Aa</span></td><td role="cell"><p class="use__title">Deep teal sobre white</p><p class="use__sub">Texto da ação ghost</p></td><td role="cell" class="ratio" data-label="Contraste">5,7:1</td><td role="cell" data-label="Veredito:" class="verdict">Aprovado</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-copper); --bg: var(--cluos-white)">Aa</span></td><td role="cell"><p class="use__title">Copper sobre white</p><p class="use__sub">Aviso e revisão</p></td><td role="cell" class="ratio" data-label="Contraste">3,5:1</td><td role="cell" data-label="Veredito:" class="verdict">Só a partir de 24 px, ou marcador com texto</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-status-success); --bg: var(--cluos-white)">Aa</span></td><td role="cell"><p class="use__title">Status success sobre white</p><p class="use__sub">Sucesso</p></td><td role="cell" class="ratio" data-label="Contraste">3,7:1</td><td role="cell" data-label="Veredito:" class="verdict">Só a partir de 24 px, ou marcador com texto</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-operational-teal); --bg: var(--cluos-white)">Aa</span></td><td role="cell"><p class="use__title">Operational teal sobre white</p><p class="use__sub">Progresso e execução</p></td><td role="cell" class="ratio" data-label="Contraste">3,1:1</td><td role="cell" data-label="Veredito:" class="verdict">Só a partir de 24 px, ou componente</td></tr>
+              <tr role="row"><td role="cell"><span class="sample sample--line" style="--fg: var(--cluos-medium-blue)">Aa</span></td><td role="cell"><p class="use__title">Medium blue sobre white</p><p class="use__sub">Contorno de botão secundário e de campo</p></td><td role="cell" class="ratio" data-label="Contraste">14,3:1</td><td role="cell" data-label="Veredito:" class="verdict">Aprovado para componente</td></tr>
+              <tr role="row"><td role="cell"><span class="sample sample--line" style="--fg: var(--cluos-neutral-100)">Aa</span></td><td role="cell"><p class="use__title">Neutral 100 sobre white</p><p class="use__sub">Hairline</p></td><td role="cell" class="ratio" data-label="Contraste">1,2:1</td><td role="cell" data-label="Veredito:" class="verdict">Só divisória; nunca contorno de controle</td></tr>
+              <tr role="row"><td role="cell"><span class="sample sample--ring" style="--bg: var(--cluos-white); --fg: var(--cluos-text)">Aa</span></td><td role="cell"><p class="use__title">Tech green sobre white</p><p class="use__sub">Anel de foco e sinal</p></td><td role="cell" class="ratio" data-label="Contraste">1,5:1</td><td role="cell" data-label="Veredito:" class="verdict verdict--fail">Reprovado como anel de foco; nunca em texto</td></tr>
+              <tr role="row"><td role="cell"><span class="sample sample--ring" style="--bg: var(--cluos-tech-green); --fg: var(--cluos-deep-navy)">Aa</span></td><td role="cell"><p class="use__title">Tech green sobre tech green</p><p class="use__sub">Anel de foco no botão primário</p></td><td role="cell" class="ratio" data-label="Contraste">1,0:1</td><td role="cell" data-label="Veredito:" class="verdict verdict--fail">Reprovado</td></tr>
+              <tr role="row"><td role="cell"><span class="sample" style="--fg: var(--cluos-oxblood); --bg: var(--cluos-deep-navy)">Aa</span></td><td role="cell"><p class="use__title">Oxblood sobre deep navy</p><p class="use__sub">Status de erro na superfície operacional</p></td><td role="cell" class="ratio" data-label="Contraste">2,5:1</td><td role="cell" data-label="Veredito:" class="verdict verdict--fail">Reprovado; escrever o estado em white</td></tr>
             </tbody>
           </table>
         </div>
@@ -534,23 +535,23 @@
           </div>
           <div>
             <h3 class="subhead">Layout</h3>
-            <div class="table-wrap" role="region" aria-label="Tabela de layout" tabindex="0">
-              <table class="layout">
-                <tbody>
-                  <tr><td>container-wide</td><td>1280 px</td><td>Documentação e preview</td></tr>
-                  <tr><td>container-product</td><td>1152 px</td><td>Largura máxima das telas de produto</td></tr>
-                  <tr><td>container-docs</td><td>768 px</td><td>Coluna de documentação</td></tr>
-                  <tr><td>container-prose</td><td>672 px</td><td>Coluna de texto corrido</td></tr>
-                  <tr class="is-proposal"><td>gutter</td><td>32 / 16 px</td><td>Entre colunas (space-8) e entre blocos (space-4); colunas empilham abaixo de 768 px</td></tr>
-                  <tr><td>margem</td><td>24 / 16 px</td><td>Margem lateral, desktop / celular (space-6 / space-4)</td></tr>
-                  <tr><td>secao-vertical</td><td>64 / 96 px</td><td>Entre seções (space-16); abertura (space-24)</td></tr>
-                  <tr class="is-proposal"><td>bloco</td><td>48 / 32 px</td><td>Entre título da seção e conteúdo (space-12 / space-8)</td></tr>
-                  <tr class="is-proposal"><td>toque-min</td><td>40 px</td><td>space-8 + space-2. Passa os 24 px do WCAG 2.2 AA; abaixo dos 44 px recomendados para toque</td></tr>
-                  <tr><td>botao-altura</td><td>40 px</td><td>Altura dos botões (space-8 + space-2)</td></tr>
-                  <tr class="is-proposal"><td>campo-altura</td><td>40 px</td><td>Altura dos campos, igual à do botão</td></tr>
-                  <tr><td>topnav-altura</td><td>56 px</td><td>Barra superior do AppShell</td></tr>
-                  <tr><td>sidebar</td><td>256 / 56 px</td><td>Aberta / recolhida</td></tr>
-                  <tr><td>grade</td><td>Por conteúdo</td><td>Sem grade fixa: 1:2, 3 ou 5 colunas, uma coluna no celular</td></tr>
+            <div class="table-wrap">
+              <table class="layout" role="table" aria-label="Medidas de layout">
+                <tbody role="rowgroup">
+                  <tr role="row"><td role="cell">container-wide</td><td role="cell">1280 px</td><td role="cell">Documentação e preview</td></tr>
+                  <tr role="row"><td role="cell">container-product</td><td role="cell">1152 px</td><td role="cell">Largura máxima das telas de produto</td></tr>
+                  <tr role="row"><td role="cell">container-docs</td><td role="cell">768 px</td><td role="cell">Coluna de documentação</td></tr>
+                  <tr role="row"><td role="cell">container-prose</td><td role="cell">672 px</td><td role="cell">Coluna de texto corrido</td></tr>
+                  <tr role="row" class="is-proposal"><td role="cell">gutter</td><td role="cell">32 / 16 px</td><td role="cell">Entre colunas (space-8) e entre blocos (space-4); colunas empilham abaixo de 768 px</td></tr>
+                  <tr role="row"><td role="cell">margem</td><td role="cell">24 / 16 px</td><td role="cell">Margem lateral, desktop / celular (space-6 / space-4)</td></tr>
+                  <tr role="row"><td role="cell">secao-vertical</td><td role="cell">64 / 96 px</td><td role="cell">Entre seções (space-16); abertura (space-24)</td></tr>
+                  <tr role="row" class="is-proposal"><td role="cell">bloco</td><td role="cell">48 / 32 px</td><td role="cell">Entre título da seção e conteúdo (space-12 / space-8)</td></tr>
+                  <tr role="row" class="is-proposal"><td role="cell">toque-min</td><td role="cell">40 px</td><td role="cell">space-8 + space-2. Passa os 24 px do WCAG 2.2 AA; abaixo dos 44 px recomendados para toque</td></tr>
+                  <tr role="row"><td role="cell">botao-altura</td><td role="cell">40 px</td><td role="cell">Altura dos botões (space-8 + space-2)</td></tr>
+                  <tr role="row" class="is-proposal"><td role="cell">campo-altura</td><td role="cell">40 px</td><td role="cell">Altura dos campos, igual à do botão</td></tr>
+                  <tr role="row"><td role="cell">topnav-altura</td><td role="cell">56 px</td><td role="cell">Barra superior do AppShell</td></tr>
+                  <tr role="row"><td role="cell">sidebar</td><td role="cell">256 / 56 px</td><td role="cell">Aberta / recolhida</td></tr>
+                  <tr role="row"><td role="cell">grade</td><td role="cell">Por conteúdo</td><td role="cell">Sem grade fixa: 1:2, 3 ou 5 colunas, uma coluna no celular</td></tr>
                 </tbody>
               </table>
             </div>
