@@ -1,4 +1,4 @@
-Result: blocked
+Result: passed (round 2)
 
 Target: `docs/frontend-routing/2026-10-03-fundamentos-visuais/ux-layout-contract.md` (priority 1); structural parity with `/Users/rafacosta/Downloads/design-system-site-soulclin.pdf` (priority 2, compared through the extracted text `scratchpad/src/soul.txt`; the reference rasters `sec0..sec6.png` were not opened); `cluos-mms-v1` in `DESIGN.md`, `tokens/mms-canonical.yaml`, `tokens/tokens.css` (priority 3).
 
@@ -89,3 +89,81 @@ Unrecorded but inside Rafael's "adapt where CluOS lacks a colour or font" (not b
 1. frontend-craftsman fixes D1 and D3 (and D2, D4, D6, D8 in the same pass); no token, `DESIGN.md` or preview edit is needed.
 2. ux-layout-architect amends the contract for D5 and lists A1 to A6.
 3. Re-run design-qa on the same render command; if D1 and D3 are closed the verdict is passed.
+
+---
+
+## Round 2
+
+Verdict: passed (round 2). Round 1 was blocked on D1 and D3 (P2). Both are closed, as are D2 and D4 to D11. No P0 to P2 is open; two new P3 notes (N1, N2) are informational.
+
+Target: unchanged (`ux-layout-contract.md`, as amended in b9f3c34; `cluos-mms-v1`; reference parity from `soul.txt`).
+
+Subject: `DESIGN-fundamentos-visuais.html` at commit b9f3c34 (`git diff 860c4ef b9f3c34`: page 34 lines, contract +27 lines, PDF regenerated). design-critic result unchanged (`passed`, round 3). Reviewer: design-qa, no edits to page, contract or tokens.
+
+Evidence (paths relative to the scratchpad root `/private/tmp/claude-501/-Users-rafacosta-Documents-GitHub-cluos-design-system/cff45263-6712-4eee-99d8-f1067eff8e36/scratchpad/`):
+- Render at 1920, 1280, 768, 390, 375 (`qa2-out/<size>-<i>.png`). Per width `scrollWidth` equals `clientWidth` (1920, 1280, 768, 390, 375), `overflow: []`, Manrope and Instrument Sans loaded, `hexCheck: []`. Page height 11586 / 11586 / 14600 / 21352 / 21521 px.
+- Viewed (all under `qa2-out/`): desktop crops `qa2-A-02.png` (02, four columns), `qa2-B-layout.png` (05 scale, layout table, note), `qa2-C-forms.png` (06 links and form); tablet composite `v2-tablet.png` (3 chunks of 768 px side by side); PDF raster `v2-pdf.png` (`pdftoppm -r 20`, two halves side by side).
+- Sources read: `tokens/tokens.css`, `DESIGN-preview.html`, `patterns/components.md`, `PRODUCT-PATTERNS.md`, `git diff main...origin/...` for PR #4 and PR #6 branches, `gh pr list` (PR #4 and #6 open), `pdftotext` on the PDF.
+
+### Checks (round 2, only what the diff touches)
+
+| Check | Result | Evidence |
+|---|---|---|
+| Structure | pass | Same 9 zones in the same order; the diff adds no element except the "(proposta)" marks. 02 Ação column renders 7 rows (`qa2-A-02.png`); layout table renders 14 rows (`qa2-B-layout.png`; 14 `<tr role="row">`, 4 `is-proposal`). `grep` finds no `secundaria-*` in the HTML or in the PDF text. |
+| Priority | pass | Proposal marks stay visible, now also on the deep teal contrast sample (dashed), the "Campo com erro" caption (bar) and the deep teal swatch text. Nothing moved into disclosure. |
+| Identity | pass | `color-border-strong` and `color-fg-primary` exist (`tokens.css:205`, `:201`) and the chips render medium blue and deep navy. No new colour, font, radius or shadow. Beyond text, the diff adds two existing proposal classes (`sample--proposal` on the deep teal contrast sample, `caption--proposal` on the error caption), swaps one chip variable (`--cluos-text` to `--cluos-color-fg-primary`, same deep navy) and changes one `href`. `hexCheck: []`. |
+| States | pass | Field repouso / foco / erro, checkbox marcada / repouso, buttons render as in round 1 (`qa2-C-forms.png`); the error caption now carries the proposal bar. |
+| Responsive | pass | 1920 and 768 viewed; 1280, 390, 375 by metrics (no overflow). Tablet 768 viewed for the first time, see below. Contract text now matches the build: tables stack below 48rem (the page breakpoint is 47.99rem). |
+| Behavior | pass | No data, route or event change. One link changed: the identifier link now points to `tokens/mms-canonical.yaml` with `target="_blank" rel="noopener"` (the file exists, 2985 bytes). Residual risk: the relative path resolves only while the page stays at the repo root. |
+
+### Tablet 768 (not viewed in round 1)
+
+Three chunks viewed. Swatch groups render 3 per row (2 rows per group of 6), matching "6 to 3 to 2". The 02 semantic columns wrap 2 x 2 (Fundo and Texto, then Borda and Ação). Contrast table keeps its 4 columns and the layout table its 3 (768 px is not below 48rem, so no stacking, as the contract says). Type rows keep meta left and sample right, scale bars and the geometry strip are intact, the dark operational block and the Faça / Evite columns fit. No overflow, no clipped text and no overlap at composite scale (about one-third of 768 px, so fine detail was not inspected).
+
+### PDF raster (not viewed in round 1)
+
+`docs/fundamentos-visuais/cluos-fundamentos-visuais.pdf`: 1 page, 1920 x 11587.9 pt (page render height 11586 px; round 1 was 11454, so the PDF was regenerated). At 20 dpi the sections 01 to 07 and the footer appear in the page order, split in two halves in the composite; the dashed neutral 700 swatch, the dashed neutral 700 and deep teal contrast samples, the proposal bars in the layout table and the dark operational block are visible (the field-caption bars are not resolvable at 20 dpi; they are confirmed in the HTML render). Text is not legible at 20 dpi, so text fidelity was checked with `pdftotext`: 9 lines match the new strings ("clamp do DESIGN-preview", "borda oxblood (proposta)", "reprova em texto", "borda do secundário", "texto do secundário", "Deep teal sobre white (proposta)", "abre o arquivo em nova aba", "Container e escala são tokens", "proposto para o texto da ação ghost") and none carries `secundaria-borda` or `secundaria-texto`.
+
+### Round 1 divergences: status
+
+| ID | Round 1 | Round 2 | Evidence |
+|---|---|---|---|
+| D1 | P2 | **closed** | Ação rows now `color-border-strong` (medium blue, "borda do secundário") and `color-fg-primary` (deep navy, "texto do secundário"), both solid and both existing roles (`tokens.css:205`, `:201`); the preview uses the same pair for its secondary button (`.button--secondary`: `border-color: var(--cluos-border-strong); color: var(--cluos-text)`, `DESIGN-preview.html:68`); `qa2-A-02.png`. |
+| D3 | P2 | **closed** | Layout note now defines three levels (container and scale are tokens; no bar = built from tokens and used in the preview or `patterns/components.md`, source in parentheses; bar = proposed, no token, no canonical use). Sources checked: `margem` = `.shell` padding space-6, 16 px at the narrow breakpoint (`DESIGN-preview.html:41`, `:133`); `secao-vertical` = `.section` padding-top space-16 and `.hero` padding space-24 (`:70`, `:56`); `botao-altura` = `.button` min-height space-8 + space-2 (`:65`); `topnav-altura` 56 and `sidebar` 256 / 56 = `patterns/components.md:25`, `:26`, `:83`; `grade` 1:2 / 3 / 5 columns, one column on the phone = `.rule` 1fr 2fr, `.state-grid` repeat(3), `.palette-grid` repeat(5), single column in the media query (`:79`, `:102`, `:85`, `:137` to `:143`). Note renders under the table (`qa2-B-layout.png`). Residual wording points: N1, N2. |
+| D2 | P3 | closed | `titulo-pagina` and `titulo-tela` cite "clamp do DESIGN-preview". Both are traceable: 44 px = `h1` clamp floor (`DESIGN-preview.html:61`), 36 px = `.type-display` clamp floor `clamp(2.25rem, 5vw, text-5xl)` (`:81`). |
+| D4 | P3 | closed | `topnav-altura`, `sidebar`, `grade` now cite their source in parentheses. Wording residue: N1. |
+| D5 | P3 | closed | Contract "Responsivo" now says tables stack below 48rem and keep `role`; new section "Adequações em relação à referência" exists. Build behaviour is unchanged and now recorded. |
+| D6 | P3 | closed | Swatch says "proposto para o texto da ação ghost"; contrast row reads "Deep teal sobre white (proposta)" with `sample--proposal` (dashed outline; visible in the tablet composite and the PDF). |
+| D7 | P3 | closed | Neutral 500 swatch: "Texto sutil no contrato, mas reprova como texto (2,5:1): só contexto desabilitado"; `color-fg-muted` reads "→ neutral 500 · reprova em texto" (`qa2-A-02.png`). |
+| D8 | P3 | closed | Caption reads "Campo com erro: borda oxblood (proposta)" with the bar (`qa2-C-forms.png`). |
+| D9 | P3 | closed | Link targets `tokens/mms-canonical.yaml`, `target="_blank" rel="noopener"`, underline kept; caption says "o link abre o arquivo em nova aba". |
+| D10 | P3 | closed | PR #4 branch `tokens.css`: `--cluos-status-success-text: #546D13`, `--cluos-status-warn-text: #8A5A2B`. PR #6 branch: `--cluos-neutral-700: #666666` and `--cluos-text-subtle: var(--cluos-neutral-700)`. Both PRs are open (`gh pr list`). The page note matches. |
+| D11 | P3 | closed, no action | Informational in round 1; unchanged. |
+
+Round 1 correction: the parity row for 05 said "15 layout rows". The render has 14 (4 containers, 10 other rows), which is what the amended contract says. The count was a QA miscount, not a page change.
+
+### New divergences
+
+| ID | Sev | Check | Location | Finding | Recorded? | Route |
+|---|---|---|---|---|---|---|
+| N1 | P3 | Identity | 05 note under the layout table; rows `topnav-altura`, `sidebar` | The note defines unbarred rows as "medida montada com tokens". 56 px, 256 px and 56 px (collapsed) are raw pixel values in `patterns/components.md`, not on the space scale (1, 2, 3, 4, 6, 8, 10, 12, 16, 24). The source is cited correctly, so the value is traceable; only the "montada com tokens" half of the definition is loose for these two rows. | no | optional: frontend-craftsman changes the note to "medida usada no DESIGN-preview.html ou em patterns/components.md" |
+| N2 | P3 | Identity | 05 rows `gutter` (32 / 16) and `bloco` (48 / 32), barred | The bar means "sem token nem uso canônico", but `DESIGN-preview.html` already uses these steps: column gap space-8 in `.lockup-stage`, `.type-stage` and `.surface` (`:74`, `:91`), card gap space-4 in `.state-grid` (`:102`), stage padding space-12 (`:74`). The error is conservative (the page under-claims), so nothing is presented as canonical that is not. `toque-min` and `campo-altura` stay correctly barred as named measures. | no | optional: bar stays, or cite the preview and drop the bar on `gutter`; decide before publishing |
+
+Neither blocks: no non-token value is presented as a token, which was the D1 and D3 failure.
+
+### Adaptations
+
+A1 to A6 of round 1 are recorded in the contract section "Adequações em relação à referência" and match the build (18 swatches in 3 groups of 6, 21 contrast rows, 16 type rows with the renames and `codigo`, 14 layout rows and the sixth geometry item, ghost and destructive buttons, medium blue quote mark, third legend item, pendências note), with two sub-points still unrecorded (P3, informational, for ux-layout-architect): (a) A1, the reference's overlay swatch is absent and the section does not say so; (b) A3, the JetBrains Mono fallback (the font is not in `brand-assets/fonts`; the page states the fallback) is not named in the contract.
+
+### Not checked in round 2
+
+- 1280, 390 and 375 were checked by metrics only (no overflow, fonts loaded, `hexCheck: []`). The changes there are text plus one caption bar; the bar is drawn 12 px left of the caption; the JSON reports no overflow at 390 and 375, but the bar was not viewed there.
+- Keyboard tab order not exercised in a browser (unchanged DOM order; the new `target="_blank"` link was already a focusable link).
+- PDF text was verified with `pdftotext`, not by reading the 20 dpi raster.
+- Round-1 items not in the diff (token swatches, 21 ratios, type metrics, reference parity rows) were not re-run.
+
+### Next action
+
+1. No blocking work. The page can go forward.
+2. Optional before publishing: frontend-craftsman or ux-layout-architect decide N1 and N2 (wording only).
+3. Commit this file.
