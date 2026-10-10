@@ -56,3 +56,26 @@ decisions:
       reverter o contrato cluos-mms-v1 no GCOS e manter esta entrada histórica;
       aliases legados permitem rollback sem apagar os valores antigos.
     supersedes: "2026-08-10: No single global palette. 7 palettes registered as first-class, selectable per task."
+
+  - date: "2026-10-10"
+    scope: azigos-public-landing
+    decision: "Landing pública do Azigos mantém a identidade visual do fornecedor (opt-out local de cluos-mms-v1)."
+    mode: preserve
+    made_by: rafael
+    detail: >
+      Pedido de Rafael na frente da landing vascular (plano
+      azigos/docs/superpowers/plans/2026-09-30-landing-vascular.md, aprovado
+      em 2026-10-10: "aprovado, pode seguir com o reposicionamento
+      vascular"). Vale só para a home pública `/` do Azigos
+      (ui/src/components/landing-pages/azigos/). Mantém logo, Open Sans e
+      Just Sans, Bootstrap 5.2.3, botões pill e as cores da marca Azigos
+      (#010D28, #132952, #C4DB7B, hover #A3C15D, #EAEAEA, #A5A5A5, branco),
+      que coincidem com as brand foundations canônicas; nenhuma cor nova.
+      Fontes Manrope/Instrument Sans e radius 0 do Swiss Ledger não se
+      aplicam a essa página. Produto autenticado do Azigos segue
+      cluos-mms-v1. Registro da tarefa:
+      azigos/docs/frontend-routing/2026-09-30-landing-vascular/design-decision.md.
+    rollback: >
+      Remover esta entrada e migrar a landing para cluos-mms-v1 (fontes,
+      radius e tokens canônicos) numa tarefa N2 própria. Nenhum token
+      compartilhado foi alterado.
