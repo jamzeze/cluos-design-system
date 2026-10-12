@@ -10,9 +10,9 @@ last_synced: null   # canonical source is not mutated; use sync-agent-skills.sh 
 
 skills:
   - slug: anti-ai-slop-frontend
-    version: 2
-    description: "Mandatory frontend router — classifies task depth (N-skip, N0–N3) and names the skills that run next."
-    triggers: [frontend, ui, interface, tela, página, componente, layout, css, tailwind, tema, design system, responsivo, tipografia, paleta, dashboard, formulário, tabela, card, modal, redesign]
+    version: 3
+    description: "Routes actual interface changes by highest impacted scope (N-skip, N0–N3), with proportional evidence and current CluOS identity."
+    triggers: [alteração de interface, interação, layout, tela ou fluxo, token ou primitive compartilhado]
     depends_on: []
     precedes: [ux-layout-architect, design-gallery, frontend-craftsman, design-system-refactor-director]
     references: [../shared/routing-matrix.yaml, ../shared/anti-slop-rubric.md]

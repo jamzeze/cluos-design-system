@@ -1,188 +1,62 @@
-# Routing Matrix — frontend work classification
-#
-# Consumed by anti-ai-slop-frontend. The level decides which skills run,
-# which support files are loaded, and which artifacts are written. Nothing
-# listed under `loads` is read before the level is known. In the canonical
-# checkout, see ../profiles/cluos/product-context.md for the CluOS surface
-# list; installed clients use the namespaced profile root.
+# Runtime routing contract. Cases and historical evidence live in ../evals/.
+version: 3
+selection: highest_impacted_scope
+precedence: [N3, N2, N1, N0, N-skip]
 
-version: 2
-
-# Predicates are answered in order; the first true one sets the level.
+# Determine impact from the authorized task plus inspected target/callers.
+# Pure backend and review-only work exit before this implementation matrix.
 levels:
-  N-skip:
-    name: "Lógica que só renderiza"
-    predicate: >
-      A mudança altera regra de domínio, estado, dado, cálculo ou geometria e
-      NÃO altera token, zona, ordem, hierarquia, tipografia, paleta, movimento
-      nem componente compartilhado.
-    examples: [regra de calibre ou posição no mapa de varizes, gate de autorização que habilita um controle já existente, cálculo que alimenta um gráfico sem mudar o gráfico, bug de estado cujo estado já tinha aparência definida]
-    flow: [anti-ai-slop-frontend, verificação-visual]
-    loads: []
-    artifacts: []
+  N3:
+    name: "Fundação compartilhada"
+    predicate: "Altera definição de token/paleta global, design system ou primitive compartilhado entre superfícies, mesmo em uma linha."
+    flow: [anti-ai-slop-frontend, design-system-refactor-director, "ux-layout-architect (quando fluxos/telas mudarem)", writing-plans, frontend-craftsman, design-critic, design-qa, verification-before-completion]
+    loads: [anti-slop-rubric.md, profile, "design-archetypes.yaml + palette-policy.md (somente com comparação ou opt-out registrado)"]
+    artifacts: [routing.md, "ux-layout-contract.md (quando telas/fluxos mudarem)", "design-decision.md (somente com mudança/opt-out de direção)", design-critic.md, design-qa.md]
     gallery_required: false
     selection_required: false
-    note: "Sai da cadeia. A implementação segue as regras de engenharia do repo; abrir o render continua obrigatório."
-
-  N0:
-    name: "Mudança microscópica de aparência"
-    predicate: >
-      Altera a aparência de um elemento existente sem criar componente, zona
-      ou token: texto de interface, alinhamento, foco, um token já existente,
-      animação local.
-    examples: [correção de texto, ajuste de alinhamento, bug de estado visual isolado, correção de foco, ajuste de um token já existente, animação em um modal]
-    flow: [anti-ai-slop-frontend, frontend-craftsman, verificação-visual]
-    loads: [anti-slop-rubric.md]
-    artifacts: []
-    gallery_required: false
-    selection_required: false
-
-  N1:
-    name: "Componente ou seção"
-    predicate: "Cria ou refatora um componente, seção, tabela, modal, formulário ou navegação parcial."
-    examples: [novo componente, refatoração de tabela, modal, formulário, navegação parcial]
-    flow: [anti-ai-slop-frontend, "ux-layout-architect (se posicionamento/hierarquia estiverem em escopo)", frontend-craftsman, design-critic, design-qa, verification-before-completion]
-    loads: [anti-slop-rubric.md, profile]
-    artifacts: [routing.md, "ux-layout-contract.md (quando ux-layout-architect roda)", design-critic.md, design-qa.md]
-    gallery_required: false
-    selection_required: false
+    default_style: cluos-mms-v1
+    note: "Mudança compartilhada não é N0 por ser pequena. Correção de token não exige escolher outra identidade ou criar contrato de layout sem mudança estrutural."
 
   N2:
-    name: "Tela, fluxo ou redesign"
-    predicate: "Cria ou redesenha uma tela, fluxo, dashboard, landing page ou área inteira."
-    examples: [dashboard, landing page, onboarding, área administrativa, redesign de uma tela inteira]
+    name: "Tela ou fluxo"
+    predicate: "Cria ou redesenha tela/fluxo completo, dashboard, landing page ou organização entre zonas de uma tela."
     flow: [anti-ai-slop-frontend, ux-layout-architect, frontend-craftsman, design-critic, design-qa, verification-before-completion]
     loads: [anti-slop-rubric.md, profile, "design-archetypes.yaml + palette-policy.md (somente com comparação ou opt-out registrado)"]
     artifacts: [routing.md, ux-layout-contract.md, "design-decision.md (somente com opt-out)", design-critic.md, design-qa.md]
     gallery_required: false
     selection_required: false
     default_style: cluos-mms-v1
-    note: "Novas superfícies herdam cluos-mms-v1. design-gallery só para opt-out explícito ou comparação registrada."
 
-  N3:
-    name: "Design system ou múltiplas superfícies"
-    predicate: "Altera o design system, a paleta global, tokens compartilhados ou um primitive usado por mais de uma superfície."
-    examples: [refatoração do design system, mudança de paleta global, novo primitive compartilhado]
-    flow: [anti-ai-slop-frontend, design-system-refactor-director, "ux-layout-architect (quando fluxos/telas mudarem)", writing-plans, frontend-craftsman, design-critic, design-qa, verification-before-completion]
-    loads: [anti-slop-rubric.md, profile, design-archetypes.yaml, palette-policy.md]
-    artifacts: [routing.md, "ux-layout-contract.md (quando telas/fluxos mudarem)", design-decision.md, design-critic.md, design-qa.md]
+  N1:
+    name: "Componente ou seção local"
+    predicate: "Cria/refatora componente ou seção local, ou muda agrupamento, posição de ações, ordem de foco/leitura ou hierarquia dentro dela, sem impacto N2/N3."
+    flow: [anti-ai-slop-frontend, "ux-layout-architect (se posicionamento/hierarquia ou ordem de leitura/foco estiverem em escopo)", frontend-craftsman, design-critic, design-qa, verification-before-completion]
+    loads: [anti-slop-rubric.md, profile]
+    artifacts: [routing.md, "ux-layout-contract.md (quando ux-layout-architect roda)", design-critic.md, design-qa.md]
     gallery_required: false
     selection_required: false
-    default_style: cluos-mms-v1
-    note: "O contrato MMS é o alvo global. Qualquer direção alternativa precisa de decisão de supersessão."
 
-# Artifacts live in one directory per task inside the consuming repo:
-# docs/frontend-routing/<YYYY-MM-DD>-<slug>/. N-skip and N0 write nothing;
-# the classification is one line in the response.
+  N0:
+    name: "Ajuste local de apresentação"
+    predicate: "Ajusta texto, alinhamento, foco visível ou movimento, ou restaura interação já definida de elemento local existente; pode aplicar token existente, mas não altera sua definição, estrutura, semântica da ação ou ordem de leitura/foco."
+    flow: [anti-ai-slop-frontend, frontend-craftsman, verificação-visual]
+    loads: [anti-slop-rubric.md]
+    artifacts: []
+    gallery_required: false
+    selection_required: false
 
-# Matriz de teste. Validada por leitura e classificação manual (2026-08-10,
-# revisada 2026-09-16) — NÃO validada como comportamento real de agente em
-# execução. Ver docs/cluos-design-system-v2/skill-provenance.md, "Deferido".
+  N-skip:
+    name: "Lógica com representação existente"
+    predicate: "Altera domínio, estado, cálculo, dado ou geometria que apenas produz outro valor/desenho em uma representação já definida; nenhum impacto N0/N1/N2/N3."
+    flow: [anti-ai-slop-frontend, verificação-visual]
+    loads: []
+    artifacts: []
+    gallery_required: false
+    selection_required: false
+    note: "Sai da cadeia visual; segue regras de engenharia e verifica o render. Não dispensa testes de autorização ou de lógica."
 
-test_matrix:
-  - prompt: "Corrija o alinhamento deste botão."
-    level: N0
-    skills: [anti-ai-slop-frontend, frontend-craftsman]
-    layout_contract: false
-    gallery: false
-    selection: false
-  - prompt: "Crie um novo componente de filtro."
-    level: N1
-    skills: [anti-ai-slop-frontend, frontend-craftsman, design-critic, design-qa]
-    layout_contract: false
-    gallery: false
-    selection: false
-  - prompt: "Refatore esta tabela."
-    level: N1
-    skills: [anti-ai-slop-frontend, ux-layout-architect, frontend-craftsman, design-critic, design-qa]
-    layout_contract: true
-    gallery: "condicional (se densidade/estrutura mudar substancialmente)"
-    selection: false
-  - prompt: "Crie uma tela de dashboard."
-    level: N2
-    skills: [anti-ai-slop-frontend, ux-layout-architect, frontend-craftsman, design-critic, design-qa]
-    layout_contract: true
-    gallery: "condicional (comparação ou opt-out explícito)"
-    selection: false
-    note: "A tela herda cluos-mms-v1 por padrão."
-  - prompt: "Redesenhe o onboarding."
-    level: N2
-    skills: [anti-ai-slop-frontend, ux-layout-architect, frontend-craftsman, design-critic, design-qa]
-    layout_contract: true
-    gallery: "condicional (comparação ou opt-out explícito)"
-    selection: false
-    note: "O fluxo herda cluos-mms-v1 por padrão."
-  - prompt: "Mude a paleta do produto."
-    level: N3
-    skills: [anti-ai-slop-frontend, design-system-refactor-director, design-gallery, writing-plans]
-    layout_contract: false
-    gallery: true
-    selection: true
-    note: "Bloqueia sem decisão registrada em palette-decisions.yaml."
-  - prompt: "Refatore o design system."
-    level: N3
-    skills: [anti-ai-slop-frontend, design-system-refactor-director, writing-plans, frontend-craftsman, design-critic, design-qa]
-    layout_contract: false
-    gallery: false
-    selection: false
-    note: "Sem mudança explícita de estrutura de tela/fluxo, registrar a fase de contrato como não aplicável. A auditoria é a fase 2 do director, não uma skill."
-  - prompt: "Refatore o design system e a estrutura das telas de referência."
-    level: N3
-    skills: [anti-ai-slop-frontend, design-system-refactor-director, ux-layout-architect, writing-plans, frontend-craftsman, design-critic, design-qa]
-    layout_contract: true
-    gallery: "condicional (comparação ou opt-out explícito)"
-    selection: false
-    note: "A estrutura herda cluos-mms-v1 por padrão; comparar alternativas só mediante registro."
-  - prompt: "Implemente esta imagem."
-    level: N1
-    skills: [anti-ai-slop-frontend, frontend-craftsman, design-critic, design-qa]
-    layout_contract: false
-    gallery: false
-    selection: false
-    note: "A imagem é entrada do craftsman; não existe skill separada de image-to-code."
-  - prompt: "Melhore o frontend."
-    level: "ambíguo — pedir esclarecimento (qual superfície?) antes de classificar"
-    skills: []
-    layout_contract: null
-    gallery: null
-    selection: null
-  - prompt: "Adicione uma animação ao modal."
-    level: N0
-    skills: [anti-ai-slop-frontend, frontend-craftsman]
-    layout_contract: false
-    gallery: false
-    selection: false
-  - prompt: "Corrija um bug de teclado no combobox."
-    level: N0
-    skills: [anti-ai-slop-frontend, systematic-debugging, frontend-craftsman]
-    layout_contract: false
-    gallery: false
-    selection: false
-  - prompt: "Crie uma landing page."
-    level: N2
-    skills: [anti-ai-slop-frontend, ux-layout-architect, frontend-craftsman, design-critic, design-qa]
-    layout_contract: true
-    gallery: "condicional (comparação ou opt-out explícito)"
-    selection: false
-    note: "Superfícies de marketing também herdam cluos-mms-v1; só registrar comparação/opt-out quando houver uma direção alternativa necessária."
-  - prompt: "Otimize a disposição dos elementos na tela de laudo do Azigos."
-    level: N2
-    skills: [anti-ai-slop-frontend, ux-layout-architect, frontend-craftsman, design-critic, design-qa]
-    layout_contract: true
-    gallery: "condicional (comparação ou opt-out explícito)"
-    selection: false
-    note: "Tela clínica complexa: o contrato de posicionamento continua obrigatório; a direção visual herda cluos-mms-v1."
-  - prompt: "Ajuste a regra de calibre da crossa no mapa de varizes."
-    level: N-skip
-    skills: [anti-ai-slop-frontend]
-    layout_contract: false
-    gallery: false
-    selection: false
-    note: "Geometria de domínio que só produz um desenho diferente; nenhum token, zona ou componente muda. Sai da cadeia após classificar."
-  - prompt: "Corrija o gate de autorização que habilita a seleção de procedimento."
-    level: N-skip
-    skills: [anti-ai-slop-frontend]
-    layout_contract: false
-    gallery: false
-    selection: false
-    note: "Regra de estado; o controle e seus estados visuais já existem. Sai da cadeia após classificar."
+# profile = brand-context.md + product-context.md da raiz de profile resolvida;
+# consultar decisões ou inventário adicionais só se necessários ao escopo.
+# design-gallery só entra com comparação registrada ou opt-out explícito.
+# N-skip/N0 não criam artefatos; N1+ reutiliza um diretório por tarefa:
+# docs/frontend-routing/<YYYY-MM-DD>-<slug>/.

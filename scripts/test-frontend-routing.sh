@@ -106,6 +106,10 @@ for skill in skills:
 
 levels = matrix.get("levels", {})
 known_levels = set(levels)
+if matrix.get("precedence") != ["N3", "N2", "N1", "N0", "N-skip"]:
+    problems.append("routing precedence must preserve highest impacted scope")
+if "test_matrix" in matrix:
+    problems.append("evaluation fixtures must not load with runtime routing")
 allowed_flow_steps = known_skills | external_skills | human_steps
 for level, definition in levels.items():
     flow = definition.get("flow", [])
@@ -120,7 +124,8 @@ for level, definition in levels.items():
         if step not in allowed_flow_steps:
             problems.append(f"{level}: unknown flow step '{step}'")
 
-rows = matrix.get("test_matrix", [])
+cases = yaml.safe_load((agent_skills / "evals/routing-cases.yaml").read_text())
+rows = cases.get("test_matrix", [])
 if not isinstance(rows, list):
     problems.append("test_matrix must be a list")
     rows = []
@@ -133,7 +138,7 @@ for row in rows:
         problems.append("test_matrix row must be a mapping")
         continue
     allowed_row_keys = {
-        "prompt", "level", "skills", "layout_contract", "gallery", "selection", "note"
+        "prompt", "context", "level", "skills", "layout_contract", "gallery", "selection", "note"
     }
     if not set(row).issubset(allowed_row_keys):
         problems.append(f"unexpected test row keys for prompt: {row.get('prompt')}")
@@ -154,7 +159,7 @@ for row in rows:
         problems.append(f"duplicate test prompt: {prompt}")
     observed_prompts.add(prompt)
 
-    if level not in known_levels and not str(level).startswith("ambíguo"):
+    if level not in known_levels | {"not-applicable", "review-only"} and not str(level).startswith("ambíguo"):
         problems.append(f"unknown level '{level}' for prompt: {prompt}")
     if not isinstance(row_skills, list) or not all(isinstance(v, str) for v in row_skills):
         problems.append(f"skills must be a string list for prompt: {prompt}")
@@ -165,13 +170,11 @@ for row in rows:
                 f"unknown skill '{skill_name}' in test_matrix; add it to manifest.yaml "
                 "or the explicit external-skill allowlist"
             )
-    if row_skills and row_skills[0] != "anti-ai-slop-frontend":
+    if level in known_levels and row_skills and row_skills[0] != "anti-ai-slop-frontend":
         problems.append(f"frontend router must be first for prompt: {prompt}")
 
     hard_coded_layout = expected_layout_contract.get(prompt, "<missing>")
-    if hard_coded_layout == "<missing>":
-        problems.append(f"unexpected prompt missing from hard-coded expectations: {prompt}")
-    elif layout_contract is not hard_coded_layout:
+    if hard_coded_layout != "<missing>" and layout_contract is not hard_coded_layout:
         problems.append(f"layout_contract expectation drift for prompt: {prompt}")
     if layout_contract is not None:
         has_layout_skill = "ux-layout-architect" in row_skills

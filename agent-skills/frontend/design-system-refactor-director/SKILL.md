@@ -1,6 +1,6 @@
 ---
 name: design-system-refactor-director
-description: Use when anti-ai-slop-frontend classifies a task N3 — a design system refactor, a global palette or token change, or a new shared primitive. Not for single-screen or single-component work.
+description: Use when anti-ai-slop-frontend classifies a task N3 — a design system refactor, a global palette or token change, or a new shared primitive. Not for isolated screen or local component changes that leave shared foundations unchanged.
 ---
 
 # design-system-refactor-director

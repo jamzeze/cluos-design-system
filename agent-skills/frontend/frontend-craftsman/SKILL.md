@@ -20,7 +20,8 @@ client) or `../../shared` (canonical checkout).
 |---|---|
 | N0 | which existing tokens and components apply |
 | N1 | the same, plus the approved `ux-layout-contract.md` when the task's `routing.md` names one |
-| N2, N3 | the `cluos-mms-v1` contract or the recorded opt-out in `design-decision.md`, plus the approved `ux-layout-contract.md` |
+| N2 | the `cluos-mms-v1` contract or recorded opt-out, plus the valid `ux-layout-contract.md` |
+| N3 | the visual contract or recorded opt-out; a layout contract only when screens/flows change, as recorded in `routing.md` |
 
 Preserve the contract's task flow, stable IDs, zones, P0/P1 visibility,
 co-visibility, action boundaries, responsive rules, and visual/DOM/focus

@@ -1,0 +1,395 @@
+{
+  "date": "2026-10-12",
+  "method": "Independent clean-context agent classified synthetic requests; expected labels withheld. Declarative routing only, not UI implementation or native Codex/Claude model invocation.",
+  "cases": 27,
+  "passed": 27,
+  "normalization": "Outside implementation routes, layout=null and no required layout contract are equivalent; conditional gallery cases had no requested comparison/opt-out.",
+  "conditionalChoice": "Case 27 asks only after concrete alternatives exist and if the unresolved preference materially changes direction; existing identity cannot be replaced implicitly.",
+  "actual": [
+    {
+      "id": 1,
+      "level": "N0",
+      "layout": false,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 2,
+      "level": "N1",
+      "layout": false,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 3,
+      "level": "N1",
+      "layout": true,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 4,
+      "level": "N2",
+      "layout": true,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 5,
+      "level": "N2",
+      "layout": true,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 6,
+      "level": "N3",
+      "layout": false,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 7,
+      "level": "N3",
+      "layout": false,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 8,
+      "level": "N3",
+      "layout": true,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 9,
+      "level": "N1",
+      "layout": false,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 10,
+      "level": "ambiguous",
+      "layout": null,
+      "ask": true,
+      "gallery": false
+    },
+    {
+      "id": 11,
+      "level": "N0",
+      "layout": false,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 12,
+      "level": "N0",
+      "layout": false,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 13,
+      "level": "N2",
+      "layout": true,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 14,
+      "level": "N2",
+      "layout": true,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 15,
+      "level": "N-skip",
+      "layout": false,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 16,
+      "level": "N-skip",
+      "layout": false,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 17,
+      "level": "N3",
+      "layout": false,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 18,
+      "level": "N0",
+      "layout": false,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 19,
+      "level": "N3",
+      "layout": false,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 20,
+      "level": "N1",
+      "layout": true,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 21,
+      "level": "N2",
+      "layout": true,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 22,
+      "level": "N2",
+      "layout": true,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 23,
+      "level": "not-applicable",
+      "layout": null,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 24,
+      "level": "not-applicable",
+      "layout": null,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 25,
+      "level": "review-only",
+      "layout": null,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 26,
+      "level": "not-applicable",
+      "layout": null,
+      "ask": false,
+      "gallery": false
+    },
+    {
+      "id": 27,
+      "level": "N2",
+      "layout": true,
+      "ask": true,
+      "gallery": true
+    }
+  ],
+  "checks": [
+    {
+      "id": 1,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 2,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 3,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 4,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 5,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 6,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 7,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 8,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 9,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 10,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 11,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 12,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 13,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 14,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 15,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 16,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 17,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 18,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 19,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 20,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 21,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 22,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 23,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 24,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 25,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 26,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    },
+    {
+      "id": 27,
+      "classificationPass": true,
+      "layoutPass": true,
+      "galleryPass": true
+    }
+  ],
+  "staticSize": {
+    "metric": "Unicode characters; not tokens or measured native savings",
+    "scope": [
+      "agent-skills/frontend/anti-ai-slop-frontend/SKILL.md",
+      "agent-skills/shared/routing-matrix.yaml"
+    ],
+    "before": 13593,
+    "after": 8864,
+    "changePercent": -34.8
+  },
+  "validation": {
+    "skillCreator": "3 changed skills valid",
+    "nativeClaudePluginManifest": "passed",
+    "routingStructure": "27 fixtures consistent; static only",
+    "fullLocalValidator": "CLEAN",
+    "syncSafety": "passed",
+    "installRoots": [
+      ".claude",
+      ".codex",
+      ".agents"
+    ],
+    "settingsAndHooks": {
+      "changedGlobalSettingsOrHooks": [],
+      "addedHooks": []
+    }
+  },
+  "backup": ".skill-sync-backups/20261012-092744-10098",
+  "sourceHashes": {
+    "agent-skills/frontend/anti-ai-slop-frontend/SKILL.md": "f4a6e9c331cb1d1188271da4c57cc29b2b3483348a1454d93373cb23c3cc536e",
+    "agent-skills/shared/routing-matrix.yaml": "0a6859a5af7b270f5a43b37bf7b171e6f9cd4cf1732e7dcfb2557577c7c569c9",
+    "agent-skills/shared/anti-slop-rubric.md": "0bf81a067533c5214275433da1fac332bb966c195528994d3728dc4550d40f81"
+  }
+}

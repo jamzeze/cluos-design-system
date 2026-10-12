@@ -1,100 +1,89 @@
 ---
 name: anti-ai-slop-frontend
-description: Use when a change alters what a user sees or operates in a CluOS interface — appearance, layout, hierarchy, tokens, typography, color, motion, a component, a screen or a flow (PT triggers: tela, página, componente, layout, CSS, Tailwind, tema, design system, responsivo, tipografia, paleta, dashboard, formulário, tabela, modal, redesign, "deixar mais premium"). Not for backend, API, data or domain logic whose only visible effect is a different rendered value.
+description: Route CluOS interface changes by their actual impact on appearance, interaction, layout, screens or shared design foundations. Select the smallest sufficient frontend workflow before implementation. Skip backend-only work and terminology-only mentions; send review-only requests directly to the appropriate reviewer.
 ---
 
 # anti-ai-slop-frontend
 
-Router. Classifies the depth of a frontend task and names the skills that run
-next. Does not implement, critique, or choose a visual direction.
+Classify and hand off; implementation belongs to `frontend-craftsman`, layout
+to `ux-layout-architect`, rendered critique to `design-critic` and target
+comparison to `design-qa`. Select automatically by purpose, including Portuguese.
+Skill maintenance itself is an instruction task, not a UI redesign.
 
-## Trigger
+## Resolve the task
 
-- The change alters appearance, placement, hierarchy, a token, typography,
-  palette, motion, a component, a screen, or a flow.
-- The request uses interface vocabulary (see description).
+Use the user's request, current scope and inspected target. UI words in a
+question, quoted file or log do not activate an implementation workflow.
+For review only, invoke the appropriate reviewer; if fixes are authorized,
+classify those fixes before implementation. Backend-only work exits here.
+A domain/state/calculation change with an existing rendered representation
+may be `N-skip`; it retains engineering checks and rendered verification.
 
-## Non-trigger
+Reuse the known surface and decisions during continuations. Inspect the named
+component, callers or existing render when that resolves uncertainty. Ask one
+short question only if missing scope or a consequential preference still changes
+the route. Offer 2–3 choices when genuinely different approaches need Rafael's
+choice; normal skill invocation and an already approved contract need no new gate.
 
-- Domain rule, state, data, calculation, or geometry that only yields a
-  different rendered value: classify `N-skip` and exit the chain.
-- Backend, API, database, infrastructure, or tests without an interface.
-- Review of something already built: call `design-critic` or `design-qa`
-  directly.
+## Support and classification
 
-## Support files
+Resolve the installed support pair `../../shared/cluos-design-system` and
+`../../profiles/cluos-design-system/cluos`, or the canonical pair `../../shared`
+and `../../profiles/cluos`. Use the first complete pair. If incomplete, report
+the missing path; do not invent rules or claim validation.
 
-Resolve once, before reading anything: the installed client uses
-`../../shared/cluos-design-system` and
-`../../profiles/cluos-design-system/cluos`; the canonical checkout uses
-`../../shared` and `../../profiles/cluos`. Use the first complete pair; stop
-if either half is missing. Read `routing-matrix.yaml` now. Read any other
-support file only when the level's `loads` column names it.
+Read `routing-matrix.yaml` once. Choose the **highest impacted scope**, using its
+precedence, predicates and conditional flow. A one-line edit to a shared token
+or primitive is systemic. Applying an existing token to one local element is
+not a token-definition change. Shared scope must be supported by source/callers,
+not guessed from the word “component.”
 
-## Classify
+Load only the selected level's required support. Test cases live outside the
+runtime matrix. Reuse loaded material and the task's artifacts; reclassify only
+when scope changes. Classification has no fixed tool-call cutoff: stop gathering
+when the route is supported. Keep `N-skip`/`N0` to a concise decision and checks;
+N1+ produces only the artifacts required by its route.
 
-Answer in order; the first true row sets the level.
+## Invariants
 
-| If the change… | Level |
-|---|---|
-| alters no token, zone, order, hierarchy, typography, palette, motion, or shared component | `N-skip` |
-| alters the appearance of an existing element without a new component, zone, or token | `N0` |
-| creates or refactors a component or section | `N1` |
-| creates or redesigns a whole screen or flow | `N2` |
-| alters the design system, the global palette, or a shared primitive | `N3` |
+- Preserve `cluos-mms-v1`: light Swiss Ledger, Manrope + Instrument Sans,
+  deep navy/medium blue structure, tech-green positive action and operational
+  teal for execution. Use semantic tokens and the current profile decision;
+  superseded palette examples do not override it. Another direction requires
+  an explicit opt-out recorded in `design-decision.md` and `palette-decisions.yaml`.
+- Judge the task, legibility, information relationships, honest states and
+  accessibility. Follow `anti-slop-rubric.md`; visual novelty alone is not quality.
+  Keep real behavior functional and critical information available.
+- Gallery is conditional on a recorded comparison or explicit opt-out. Preserve
+  manual-only third-party skills. Routing grants no new permissions, hooks,
+  background processes or authority to broaden the task.
+- Use an existing valid layout contract; create/update one when the matrix
+  requires it. Structural blockers remain blockers. “Approved” does not mean
+  asking again for routine choices within the user's established scope.
 
-Target surface unclear: ask one question. Do not guess a level.
+## Output and handoff
 
-## Fixed rules
-
-- Direction is `cluos-mms-v1` (Rafael, 2026-08-30). Any other direction needs
-  an opt-out recorded in the task's `design-decision.md` and in the profile's
-  `palette-decisions.yaml`.
-- Completion requires the rendered result open. A passing build is not
-  inspection.
-- Real product behavior is never replaced by a static image.
-- No output reproduces a pattern banned in `anti-slop-rubric.md`.
-
-## Output
-
-`N-skip` and `N0`: one line in the response, `Nível: <level> — <predicate
-that matched>`. No file.
-
-`N1` and above: `docs/frontend-routing/<YYYY-MM-DD>-<slug>/routing.md` in the
-consuming repo, with exactly these fields:
+`N-skip`/`N0`: one line, `Nível: <level> — <observed reason>`; no routing file.
+For N1+, create/update `docs/frontend-routing/<YYYY-MM-DD>-<slug>/routing.md`
+in the consuming repo with these fields:
 
 ```
 Level: N1 | N2 | N3
-Why: <the predicate row that matched>
-Skills: <the level's flow, in order>
-Loads: <support files read>
+Why: <observed impact, target and relevant shared consumers>
+Skills: <applicable flow in order>
+Loads: <support actually read>
 Layout contract: required | not applicable | <path>
 ```
 
-Every later artifact of the task (`ux-layout-contract.md`,
-`design-decision.md`, `design-critic.md`, `design-qa.md`) goes in the same
-directory.
+Keep later artifacts in that directory. Follow the matrix's applicable skills,
+not just their names. N3 is led by `design-system-refactor-director`. N1+ closes
+with `design-critic → design-qa → verification-before-completion`; use available
+reviewer subagents with fresh context, otherwise disclose the inline review.
 
-## Handoff
-
-Follow the level's `flow` in `routing-matrix.yaml`. `N-skip`: implement under
-the repo's engineering rules and open the render. `N0`: `frontend-craftsman`,
-then open the render. `N1` and above: `design-critic → design-qa →
-verification-before-completion` close the task; run the two reviewers as the
-`design-critic` and `design-qa` subagents when they are installed. `N3`:
-`design-system-refactor-director` leads.
-
-## Budget
-
-Classifying takes at most 4 tool calls: read the matrix, read the target,
-look at the current render, write the output. Needing more means the surface
-is unclear: ask.
-
-## Stop
-
-- `N2`/`N3` without the `cluos-mms-v1` contract and without a recorded
-  opt-out: restore the default before implementing.
-- `N2`, or `N3` that changes screens or flows, without an approved
-  `ux-layout-contract.md`: run `ux-layout-architect` before any code.
-- A request that would replace production behavior with a mock: stop and
-  clarify.
+For changed interfaces, open the rendered result and exercise the affected
+behavior/states at relevant sizes, with keyboard or reduced-motion checks when
+applicable. Record what was actually verified. Build, screenshots or aesthetic
+scores alone do not prove functional or accessibility compliance. If rendering
+is unavailable, report that validation gap and the concrete blocker; complete
+independent checks without claiming the UI passed. A production mock replacing
+real behavior requires clarification of scope before that change.
