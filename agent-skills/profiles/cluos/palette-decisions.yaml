@@ -56,3 +56,21 @@ decisions:
       reverter o contrato cluos-mms-v1 no GCOS e manter esta entrada histórica;
       aliases legados permitem rollback sem apagar os valores antigos.
     supersedes: "2026-08-10: No single global palette. 7 palettes registered as first-class, selectable per task."
+
+  - date: "2026-10-14"
+    scope: azigos/atendimento
+    decision: "Atendimento do Azigos adota exceção local de geometria e elevação, preservando a paleta MMS."
+    mode: preserve
+    made_by: rafael
+    detail: >
+      Pedido explícito de Rafael: aplicar ao rafael-layout a aparência mais
+      suave da referência local na porta 3108, com campos e botões de raio
+      8px, painéis de raio 12px e sombras discretas. Os azuis e o verde MMS
+      existentes ganham maior presença, mantendo seus papéis semânticos.
+      A exceção fica restrita aos CSS Modules do Atendimento do Azigos;
+      não cria uma paleta e não altera tokens compartilhados nem o padrão
+      global cluos-mms-v1 de geometria e elevação.
+    rollback: >
+      Reverter somente os estilos locais de raio, sombra e ênfase cromática
+      nos CSS Modules do Atendimento do Azigos, mantendo os tokens globais
+      e esta entrada histórica.
