@@ -1,0 +1,313 @@
+# cluos-v2 — contrato canônico do sistema de design CluOS
+#
+# Fonte única de verdade. Todos os exports em tokens/ (tokens.css, tokens.ts,
+# tokens.js, index.ts, tailwind-preset.js, tailwind.css, design.json,
+# shadcn.css) e o AGENT-BRIEF.md são gerados daqui por scripts/build-tokens.py.
+# Nunca edite os exports à mão; edite este arquivo e rode o gerador.
+#
+# Aprovado por Rafael em 2026-10-24 sobre o canvas
+# https://claude.ai/artifact/G8VLmYcyHCZy23d6cnfjzt. Decisões em
+# docs/frontend-routing/2026-10-23-cluos-v2/design-decision.md (31 decisões). Referência de
+# marca: Brand Book AZIGOS (NDesigns, 03/2026). Os 12 matizes, os status e os
+# neutros foram calculados em OKLCH e validados por contraste (ver
+# scripts/test-contrast.py e AGENT-BRIEF.md, gerado deste arquivo).
+
+version: 2
+canonical_id: cluos-v2
+status: active
+approved_by: rafael
+approved_at: "2026-10-24"
+supersedes: cluos-mms-v1
+language: pt-BR
+summary: >-
+  Quieto por padrão, preciso onde importa. Um sistema para todos os produtos
+  CluOS, com a Azigos como referência de cor: seis cores de marca, neutros frios,
+  quatro status na tonalidade do arco-íris, doze matizes para categorias, uma
+  única cor de ação, Manrope + Instrument Sans + JetBrains Mono, dois registros
+  (produto e público) sobre os mesmos tokens.
+
+brand:
+  deep_navy:   { value: "#010D28", name: "Azul profundo", role: [texto, campos densos, autoridade] }
+  medium_blue: { value: "#132952", name: "Azul médio",    role: [estrutura, navegação, ação secundária, progresso] }
+  tech_green:  { value: "#C4DB7B", name: "Verde tech",    role: [ação primária, seleção] }
+  white:       { value: "#FFFFFF", name: "Branco",        role: [canvas de produto, superfícies] }
+  neutral_100: { value: "#EAEAEA", name: "Cinza claro",   role: [hairlines, superfície muda] }
+  neutral_500: { value: "#A5A5A5", name: "Cinza médio",   role: [desabilitado, decorativo] }
+  off_white:   { value: "#F4EFED", name: "Off-white",     role: [canvas alternativo do registro público] }
+
+# Neutros frios derivados do matiz do azul médio (OKLCH h 262°, C 0,006).
+# 100 e 500 são valores exatos do brand book.
+neutral:
+  "50":  "#F8FAFE"
+  "100": "#EAEAEA"
+  "200": "#DCDEE2"
+  "300": "#C8CBCE"
+  "400": "#B5B7BB"
+  "500": "#A5A5A5"
+  "600": "#7E8084"
+  "700": "#616367"
+  "800": "#46484B"
+
+# Papéis semânticos. Componentes consomem só estes nomes.
+semantic:
+  light:
+    bg:           "#FFFFFF"
+    bg_subtle:    "#F4F6F8"
+    bg_muted:     "#EAEAEA"
+    surface:      "#FFFFFF"
+    fg:           "#010D28"
+    fg_2:         "#132952"
+    fg_3:         "#616367"
+    fg_disabled:  "#A5A5A5"
+    fg_on_navy:   "#F7F8F5"
+    line:         "#EAEAEA"
+    line_2:       "#DCDEE2"
+    line_strong:  "#132952"
+    action:       "#C4DB7B"
+    action_hover: "#A6C05D"
+    action_fg:    "#010D28"
+    action_soft:  "rgba(196, 219, 123, 0.18)"
+    progress:     "#132952"
+    ring:         "0 0 0 2px #C4DB7B, 0 0 0 4px #010D28"
+  dark:
+    bg:           "#010D28"
+    bg_subtle:    "#081634"
+    bg_muted:     "#132952"
+    surface:      "#081634"
+    fg:           "#F7F8F5"
+    fg_2:         "#C8CFDD"
+    fg_3:         "#8E97AA"
+    fg_disabled:  "#5C667A"
+    fg_on_navy:   "#F7F8F5"
+    line:         "rgba(255, 255, 255, 0.14)"
+    line_2:       "rgba(255, 255, 255, 0.22)"
+    line_strong:  "#C8CFDD"
+    action:       "#C4DB7B"
+    action_hover: "#A6C05D"
+    action_fg:    "#010D28"
+    action_soft:  "rgba(196, 219, 123, 0.11)"
+    progress:     "#6591E1"
+    ring:         "0 0 0 2px #C4DB7B, 0 0 0 4px #F7F8F5"
+
+# Status: sempre ícone + texto. Matizes entre os do arco-íris (15°, 75°, 165°,
+# 225°); a linha de status é mais escura que a linha de categoria para que um
+# chip nunca se confunda com uma série. Degraus: fill (fundo), line (ícone,
+# borda, marca), text (texto sobre fill e sobre o canvas).
+status:
+  success: { hue: 165, light: { fill: "#C3F5DE", line: "#007C59", text: "#005C41" }, dark: { fill: "#0B3C2B", line: "#22B988", text: "#8FE6C1" } }
+  warning: { hue: 75,  light: { fill: "#FFE3BE", line: "#8D5E00", text: "#694500" }, dark: { fill: "#442E09", line: "#D0901E", text: "#F8C885" } }
+  danger:  { hue: 15,  light: { fill: "#FFDFE0", line: "#AE3B4C", text: "#7E2E39" }, dark: { fill: "#4D2529", line: "#E87782", text: "#FFBDC1" } }
+  info:    { hue: 225, light: { fill: "#C9EFFF", line: "#007493", text: "#00566E" }, dark: { fill: "#01394A", line: "#00AFDC", text: "#8BDEFF" } }
+
+# Arco-íris: 12 matizes a 30° em OKLCH, hue-01 fixado no matiz do verde tech
+# (120°) e hue-06 no do azul médio (262°). Degraus claro: fill L 0,93 C 0,06 ·
+# line L 0,60 C 0,14 · text L 0,42 C 0,11. Escuro: fill L 0,32 · line L 0,66 ·
+# text L 0,86. Uso: categorias, etiquetas, calendário, avatares, identificação
+# de produto. Nunca ação, status ou navegação.
+hue:
+  hue-01: { deg: 120, light: { fill: "#E2EEC2", line: "#768B0A", text: "#465400" }, dark: { fill: "#2F3710", line: "#889D37", text: "#C8DB90" } }
+  hue-02: { deg: 150, light: { fill: "#CCF4D3", line: "#319751", text: "#0A5D2A" }, dark: { fill: "#193B22", line: "#4FA866", text: "#A1E4AF" } }
+  hue-03: { deg: 180, light: { fill: "#BDF6E9", line: "#009583", text: "#005A4F" }, dark: { fill: "#003C34", line: "#00AA95", text: "#81E7D4" } }
+  hue-04: { deg: 210, light: { fill: "#BAF4FE", line: "#0090A2", text: "#005763" }, dark: { fill: "#003A42", line: "#00A4B9", text: "#7BE3F5" } }
+  hue-05: { deg: 240, light: { fill: "#D2ECFF", line: "#0089C9", text: "#00527C" }, dark: { fill: "#10364E", line: "#359BD9", text: "#A3D8FF" } }
+  hue-06: { deg: 262, light: { fill: "#DCE9FF", line: "#4F7ED3", text: "#294B88" }, dark: { fill: "#213251", line: "#6591E1", text: "#B8D2FF" } }
+  hue-07: { deg: 300, light: { fill: "#ECE2FF", line: "#8E6AC6", text: "#573C7F" }, dark: { fill: "#382B4D", line: "#9F7ED5", text: "#D9C5FF" } }
+  hue-08: { deg: 330, light: { fill: "#FFDBFA", line: "#AE5EA7", text: "#6D3369" }, dark: { fill: "#442741", line: "#BE73B8", text: "#F7B9F0" } }
+  hue-09: { deg: 0,   light: { fill: "#FFDEE7", line: "#C1587C", text: "#7B2E4A" }, dark: { fill: "#4B2531", line: "#D16E8F", text: "#FFBBCF" } }
+  hue-10: { deg: 30,  light: { fill: "#FFE0DA", line: "#C65B4B", text: "#7E3126" }, dark: { fill: "#4D2620", line: "#D67161", text: "#FFBFB4" } }
+  hue-11: { deg: 60,  light: { fill: "#FFE2CB", line: "#BB6802", text: "#733E00" }, dark: { fill: "#492B0F", line: "#CB7D33", text: "#FFC392" } }
+  hue-12: { deg: 90,  light: { fill: "#F7E7BB", line: "#9C7C00", text: "#5F4A00" }, dark: { fill: "#3F3106", line: "#B18E15", text: "#EACF83" } }
+
+# Ordem para gráficos: 8 das 12, validada (pares vizinhos: ΔE ≥ 16 sob
+# protanopia/deuteranopia, ≥ 25 em visão normal, contraste ≥ 3:1 sobre
+# #FFFFFF e #010D28). Uma nona série vira "Outros"; a ordem nunca é reciclada.
+# Quando as séries são produtos, cada barra usa o matiz do próprio produto.
+chart_order: [hue-10, hue-05, hue-11, hue-06, hue-12, hue-07, hue-01, hue-08]
+
+# Identificação por produto: um matiz, só em chrome (etiqueta no hub, tile,
+# ponto na tabela, estado vazio). Nunca em ação, status ou navegação.
+product_hue:
+  azigos:   hue-05
+  crm:      hue-11
+  sci:      hue-07
+  b3:       hue-10
+  medframe: hue-03
+  loteca:   hue-12
+  did:      hue-08
+  aeo:      hue-01
+
+typography:
+  families:
+    display:
+      family: Manrope
+      stack: ["Manrope", "system-ui", "-apple-system", "Segoe UI", "sans-serif"]
+      file: brand-assets/fonts/manrope-latin-variable.woff2
+      weight_range: "200 800"
+      license: OFL
+      usage: [lockup, títulos, nomes de produto, métricas]
+    sans:
+      family: Instrument Sans
+      stack: ["Instrument Sans", "system-ui", "-apple-system", "Segoe UI", "sans-serif"]
+      file: brand-assets/fonts/instrument-sans-latin-variable.woff2
+      weight_range: "400 700"
+      license: OFL
+      usage: [navegação, corpo, rótulos, tabelas, controles, dados]
+    mono:
+      family: JetBrains Mono
+      stack: ["JetBrains Mono", "SF Mono", "Menlo", "Consolas", "monospace"]
+      file: brand-assets/fonts/jetbrains-mono-latin-variable.woff2
+      weight_range: "100 800"
+      license: OFL
+      usage: [código, hashes, versões, horários ISO, identificadores técnicos]
+    accent:
+      family: Orbitron
+      stack: ["Orbitron", "Manrope", "system-ui", "sans-serif"]
+      file: brand-assets/fonts/orbitron-latin-variable.woff2
+      weight_range: "400 900"
+      weight_default: 500
+      license: OFL
+      usage: [hero público, número de destaque em relatório, splash e login, peças de evento]
+      rules:
+        - Uma palavra-chave ou um número por composição, de 32 a 120 px; nunca abaixo de 24 px.
+        - Nunca em texto corrido, botões, rótulos, navegação, tabelas ou formulários.
+        - Não substitui o logotipo nem o lockup oficial.
+        - Única exceção à regra de duas famílias por tela.
+      decided: "Rafael, 2026-10-25 — Orbitron como destaque (substitui a escolha provisória de Bruno Ace); Manrope e Instrument Sans mantidas."
+  weights:
+    display: 300
+    heading: 400
+    body: 400
+    label: 550
+    strong: 650
+    max_product: 650
+  roles:
+    display-xl:  { family: display, size: 56, line: 1.05, tracking: "-0.02em", weight: 300, fluid: "clamp(40px, 5vw, 72px)" }
+    display-lg:  { family: display, size: 40, line: 1.10, tracking: "-0.02em", weight: 300 }
+    heading-md:  { family: display, size: 28, line: 1.20, tracking: "-0.01em", weight: 400 }
+    heading-sm:  { family: display, size: 22, line: 1.25, tracking: "-0.01em", weight: 400 }
+    metric:      { family: display, size: 40, line: 1.00, tracking: "-0.02em", weight: 650, numeric: tabular }
+    title:       { family: sans, size: 17, line: 1.40, tracking: "0", weight: 550 }
+    body:        { family: sans, size: 15, line: 1.60, tracking: "0", weight: 400, measure: "45–75 caracteres" }
+    body-sm:     { family: sans, size: 13, line: 1.50, tracking: "0", weight: 400 }
+    label:       { family: sans, size: 11, line: 1.20, tracking: "0.12em", weight: 500, transform: uppercase }
+    mono:        { family: mono, size: 13, line: 1.50, tracking: "0", weight: 400, numeric: tabular }
+  sizes:
+    xs: "0.75rem"
+    sm: "0.875rem"
+    base: "1rem"
+    lg: "1.125rem"
+    xl: "1.25rem"
+    "2xl": "1.5rem"
+    "3xl": "1.875rem"
+    "4xl": "2.25rem"
+    "5xl": "3rem"
+    "6xl": "3.75rem"
+  leading:
+    tight: 1.2
+    snug: 1.4
+    normal: 1.6
+    relaxed: 1.75
+  subsets: >-
+    Os arquivos embarcados são o subconjunto latin (cobre todo o português,
+    inclusive ã, õ, ç e acentos). latin-ext fica para quando um produto precisar.
+  rules:
+    - Peso faz hierarquia antes do tamanho; 650 só na palavra ou no valor que importa; nunca 700+ em produto.
+    - Tracking negativo cresce com o tamanho; caixa alta só em rótulos de 11 px com +0,12em.
+    - Colunas numéricas alinhadas à direita, tabulares, Instrument Sans; mono só em identificadores técnicos.
+    - No máximo duas famílias por tela; fontes embarcadas, nunca CDN em tempo de execução.
+
+# Espaçamento: base 4 px, sem buracos. space-N = N × 4 px.
+spacing:
+  scale: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 20, 24]
+  base_px: 4
+  semantic:
+    inset:   { sm: 12, md: 16, lg: 24 }
+    stack:   { xs: 4, sm: 8, md: 16, lg: 24, xl: 40 }
+    gap:     { control: 8, grid: 24, section_public_min: 96, section_public_max: 160 }
+    page_margin_min: 16
+
+geometry:
+  radius: { sm: 4, md: 8, pill: 999 }
+  radius_use: { sm: "controles, chips, etiquetas", md: "regiões, diálogos, menus", pill: "CTA do registro público e chips de filtro" }
+  shadow: none
+  elevation_dark: "por tom (surface #081634 sobre bg #010D28)"
+  separation_order: [agrupamento, alinhamento, tipografia, espaço, hairline, superfície, borda]
+  containers: { prose: "42rem", docs: "48rem", product: "72rem", wide: "80rem" }
+  container_use:
+    wide: "painéis, tabelas largas e o cabeçalho do produto"
+    product: "detalhe, formulário, configurações"
+    docs: "documentação"
+    prose: "leitura corrida"
+  breakpoints: { sm: 640, md: 768, lg: 1024, xl: 1280, "2xl": 1536 }
+  density:
+    comfortable: { row: 44, cell_x: 12, font: 14 }
+    compact:     { row: 36, cell_x: 8,  font: 13 }
+    attribute: data-density
+    default: comfortable
+  touch_target_min: 40
+
+motion:
+  policy: feedback, não decoração
+  reduced_motion: resultado final imediato
+  ease_out: "cubic-bezier(0.2, 0.8, 0.2, 1)"
+  ease_in_out: "cubic-bezier(0.4, 0, 0.2, 1)"
+  durations: { fast: 180, base: 280, slow: 600, hover: 180, press: 120, enter: 600, trail: 600, data: 1200, stagger: 120 }
+  charts: { line: desenha progressivamente, bars: sobem progressivamente, trigger: atualização explícita, autoplay: false, loop: false }
+  public_register:
+    allowed: ["uma entrada por seção ao aparecer (opacidade + 8 px, 300–600 ms, sem vínculo com a rolagem)", "desenho progressivo de dados", "hover e foco"]
+    banned: ["ScrollSmoother ou sequestro de rolagem", "pinning", "rolagem horizontal falsa", "parallax", "revelação caractere a caractere", "máscara clip-path a partir do centro", "máscara de hero que cresce com o scroll", "tilt reativo ao cursor", "áudio ambiente"]
+
+registers:
+  product:
+    canvas: white
+    surfaces: hairline, sem sombra
+    radius: sm/md
+    density: comfortable por padrão
+  public:
+    canvas: [white, off_white]
+    fields: [deep_navy, tech_green]
+    symbol_crop: "uma única cor, uma única ocorrência por composição, sempre sangrando a borda"
+    cta: pill
+    status: segunda passada — aguarda referências visuais e fonte de destaque
+
+icons:
+  set: Lucide
+  stroke: 1.5
+  sizes: [16, 20, 24]
+
+# Aliases de compatibilidade: valores do cluos-mms-v1 preservados por uma
+# versão com os nomes antigos. Removidos em 2.0.0. Teal, copper e oxblood não
+# são mais papéis de marca; status usa a seção `status`.
+compat:
+  removed_in: "2.0.0"
+  aliases:
+    operational-teal: "#16A39A"
+    deep-teal: "#08736E"
+    teal: "#16A39A"
+    teal-deep: "#08736E"
+    teal-soft: "#6FC7C0"
+    copper: "#BD7845"
+    oxblood: "#8A3A3A"
+    champagne: "#C8C1AE"
+    silver: "#B5B4B5"
+    black: "#1D1D1B"
+    navy: "#010D28"
+    info: "#3E6E82"
+
+consumer_contract:
+  package: "@cluos/design-system"
+  install: "npm install github:jamzeze/cluos-design-system#v1.0.0"
+  css_entrypoint: "@cluos/design-system/tokens.css"
+  components_css: "@cluos/design-system/cluos.css"
+  tailwind_v3: "@cluos/design-system/tailwind-preset"
+  tailwind_v4: "@cluos/design-system/tailwind.css"
+  shadcn: "@cluos/design-system/shadcn.css"
+  design_tokens_json: "@cluos/design-system/design.json"
+  agent_brief: "@cluos/design-system/AGENT-BRIEF.md"
+  runtime_attributes:
+    canonical: 'data-cluos-canonical="cluos-v2"'
+    theme: 'data-theme="light" | "dark"'
+    density: 'data-density="comfortable" | "compact"'
+  local_token_forks: forbidden
+  unregistered_global_palettes: forbidden
+  future_products: inherit_by_default

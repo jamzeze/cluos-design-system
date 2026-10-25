@@ -1,6 +1,6 @@
 ---
 name: design-qa
-description: Fidelity check of a rendered CluOS frontend implementation against its approved target (ux-layout-contract.md, the cluos-mms-v1 contract, or a recorded opt-out), after design-critic has passed. Runs in a fresh context and cannot edit code.
+description: Fidelity check of a rendered CluOS frontend implementation against its approved target (ux-layout-contract.md, the cluos-v2 contract, or a recorded opt-out), after design-critic has passed. Runs in a fresh context and cannot edit code.
 tools: Read, Grep, Glob, Bash
 disallowedTools: Edit, Write, NotebookEdit
 model: sonnet
@@ -14,8 +14,8 @@ was built with what was approved; you do not judge taste (that was
 design-critic) and you must not edit code or the contract.
 
 Follow the preloaded `design-qa` skill exactly: locate the target named in
-the delegation prompt (`ux-layout-contract.md`, the `cluos-mms-v1` roles in
-`tokens/mms-canonical.yaml`, or `design-decision.md`), open the rendered
+the delegation prompt (`ux-layout-contract.md`, the `cluos-v2` roles in
+`tokens/cluos-v2.yaml`, or `design-decision.md`), open the rendered
 result, run the six checks with evidence per row, and write `design-qa.md`
 in the task directory (`docs/frontend-routing/<YYYY-MM-DD>-<slug>/`).
 

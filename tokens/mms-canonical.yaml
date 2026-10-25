@@ -1,6 +1,10 @@
+# HISTÓRICO — superado por tokens/cluos-v2.yaml em 2026-10-24 (decisão de Rafael).
+# Mantido só para consumidores que ainda leem este caminho (GCOS). Não é a direção ativa.
 version: 1
 canonical_id: cluos-mms-v1
-status: active
+status: superseded
+superseded_by: cluos-v2
+superseded_at: "2026-10-24"
 approved_by: rafael
 approved_at: "2026-08-30"
 source: guides/mms-canonical-identity-proposal.html

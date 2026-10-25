@@ -3,7 +3,7 @@
 ## 1. Install
 
 ```bash
-npm install github:jamzeze/cluos-design-system
+npm install github:jamzeze/cluos-design-system#v1.0.0
 ```
 
 ## 2. Wrap your app
@@ -40,11 +40,10 @@ export const Button = styled.button`
 import tokens from "@cluos/design-system";
 
 const Card = styled.div`
-  background: ${tokens.color.bg};
-  border: 1px solid ${tokens.color.border};
-  border-radius: ${tokens.radius.lg};
-  padding: ${tokens.space[6]};
-  box-shadow: ${tokens.shadow.sm};
+  background: var(--cluos-surface);
+  border: 1px solid var(--cluos-line);
+  border-radius: var(--cluos-radius-md);
+  padding: var(--cluos-space-6);
 `;
 ```
 

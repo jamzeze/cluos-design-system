@@ -1,6 +1,6 @@
 ---
 name: design-qa
-description: Use when a frontend implementation classified N1, N2 or N3 has passed design-critic and must be checked against its approved target (ux-layout-contract.md, the cluos-mms-v1 contract, or a recorded opt-out) before the task is closed.
+description: Use when a frontend implementation classified N1, N2 or N3 has passed design-critic and must be checked against its approved target (ux-layout-contract.md, the cluos-v2 contract, or a recorded opt-out) before the task is closed.
 ---
 
 # design-qa
@@ -21,8 +21,9 @@ when the subagent is unavailable.
 - The rendered result (browser, Storybook, artifact). Source alone is not
   evidence.
 - The target: `ux-layout-contract.md` when one exists; otherwise the
-  `cluos-mms-v1` contract (roles in `tokens/mms-canonical.yaml`, Manrope +
-  Instrument Sans, zero radius, no elevation) or the recorded opt-out in
+  `cluos-v2` contract (roles in `tokens/cluos-v2.yaml` and `AGENT-BRIEF.md`,
+  Manrope + Instrument Sans, radius 4/8 px, no shadow, Orbitron only as the
+  accent) or the recorded opt-out in
   `design-decision.md`.
 - `design-critic.md` with `Result: passed`.
 
@@ -42,7 +43,7 @@ when the subagent is unavailable.
 `design-qa.md` in the task's `docs/frontend-routing/<YYYY-MM-DD>-<slug>/`:
 
 ```
-Target: <contract path | cluos-mms-v1 | opt-out id>
+Target: <contract path | cluos-v2 | opt-out id>
 Checks: <the table above with pass/fail and evidence per row>
 Divergences: <P0–P3, file or selector, screenshot>
 Result: passed | blocked

@@ -111,7 +111,7 @@ Quando usar: Atenção necessária mas não bloqueante.
 
 **Exemplo:** "Este conteúdo usa uma imagem sem alt text. Recomendamos adicionar antes de publicar."
 
-**Tokens:** `--cluos-status-warn`, `--cluos-status-warn-bg`.
+**Tokens:** `--cluos-status-warning`, `--cluos-status-warning-bg`.
 
 ---
 
@@ -126,7 +126,7 @@ Quando usar: Operação falhou.
 
 **Texto:** O que aconteceu + causa provável + como resolver.
 
-**Tokens:** `--cluos-status-error`, `--cluos-status-error-bg`.
+**Tokens:** `--cluos-status-danger`, `--cluos-status-danger-bg`.
 
 **Detalhes técnicos:** Sempre recolhidos em `DetailsDisclosure`.
 

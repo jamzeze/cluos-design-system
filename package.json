@@ -1,25 +1,22 @@
 {
   "name": "@cluos/design-system",
-  "version": "0.3.0",
-  "description": "Cluos brand design system — tokens, assets, UX principles, product patterns, and documentation for all Cluos repositories",
+  "version": "1.0.0",
+  "description": "CluOS design system (cluos-v2) — tokens, componentes de referência, ativos de marca, princípios de UX e padrões de produto para todos os repositórios CluOS",
   "main": "tokens/tokens.js",
   "types": "tokens/index.ts",
   "files": [
     "tokens/",
     "brand-assets/",
-    "guides/",
     "patterns/",
     "examples/",
+    "cluos.css",
     "DESIGN-preview.html",
-    "design-gallery/index.html",
     "DESIGN.md",
     "DESIGN-WORKFLOW.md",
+    "AGENT-BRIEF.md",
     "PRODUCT-SIMPLICITY-CANON.md",
     "APPLE-INSPIRED-PRODUCT-UX.md",
     "PRODUCT-PATTERNS.md",
-    "MIGRATION-AUDIT.md",
-    "PRODUCT-THEME-VARIANTS.md",
-    "DESIGN-preview-legacy-v0.2.1.html",
     "README.md",
     "LICENSE"
   ],
@@ -30,22 +27,33 @@
       "require": "./tokens/tokens.js"
     },
     "./tokens.css": "./tokens/tokens.css",
-    "./mms-canonical.yaml": "./tokens/mms-canonical.yaml",
+    "./fonts.css": "./tokens/fonts.css",
+    "./cluos.css": "./cluos.css",
     "./tailwind-preset": "./tokens/tailwind-preset.js",
+    "./tailwind.css": "./tokens/tailwind.css",
+    "./shadcn.css": "./tokens/shadcn.css",
+    "./design.json": "./tokens/design.json",
+    "./cluos-v2.yaml": "./tokens/cluos-v2.yaml",
+    "./mms-canonical.yaml": "./tokens/mms-canonical.yaml",
+    "./AGENT-BRIEF.md": "./AGENT-BRIEF.md",
     "./brand-assets/*": "./brand-assets/*",
-    "./guides/*": "./guides/*",
     "./patterns/*": "./patterns/*",
     "./examples/*": "./examples/*",
     "./DESIGN-preview.html": "./DESIGN-preview.html",
-    "./design-gallery": "./design-gallery/index.html",
-    "./DESIGN.md": "./DESIGN.md",
-    "./DESIGN-WORKFLOW.md": "./DESIGN-WORKFLOW.md",
-    "./PRODUCT-SIMPLICITY-CANON.md": "./PRODUCT-SIMPLICITY-CANON.md",
-    "./APPLE-INSPIRED-PRODUCT-UX.md": "./APPLE-INSPIRED-PRODUCT-UX.md",
-    "./PRODUCT-PATTERNS.md": "./PRODUCT-PATTERNS.md",
-    "./PRODUCT-THEME-VARIANTS.md": "./PRODUCT-THEME-VARIANTS.md"
+    "./DESIGN.md": "./DESIGN.md"
   },
-  "keywords": ["cluos", "design-system", "design-tokens", "brand"],
+  "scripts": {
+    "build:tokens": "python3 scripts/build-tokens.py",
+    "build:preview": "python3 scripts/build-preview.py",
+    "build": "python3 scripts/build-tokens.py && python3 scripts/build-preview.py",
+    "test": "python3 scripts/build-tokens.py --check && python3 scripts/build-preview.py --check && python3 scripts/test-contrast.py"
+  },
+  "keywords": [
+    "cluos",
+    "design-system",
+    "design-tokens",
+    "brand"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/jamzeze/cluos-design-system.git"

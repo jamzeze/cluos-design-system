@@ -56,7 +56,7 @@ Cabeçalho padrão de toda tela principal.
 - Status badge: apenas se o estado da página/recurso importa (ex.: "Publicado", "Rascunho", "Offline").
 
 **Tokens:**
-- Título: `font-size: var(--cluos-text-3xl)`, `font-weight: 600`, `color: var(--cluos-navy)`
+- Título: `font-size: var(--cluos-text-3xl)`, `font-weight: var(--cluos-font-weight-strong)`, `color: var(--cluos-fg)`
 - Descrição: `font-size: var(--cluos-text-base)`, `color: var(--cluos-text-muted)`
 - Espaço abaixo do header: `var(--cluos-space-8)`
 
@@ -71,7 +71,7 @@ Visão geral dos sistemas do ecossistema CluOS.
 - Cada card: nome do sistema, status (online/atenção/offline), botão "Abrir".
 - Detalhes técnicos (último deploy, healthcheck, versão) recolhidos por padrão — disponíveis em "Ver detalhes".
 - Filtro por status no topo (todos/online/atenção/offline) — discreto, não dominante.
-- Status "atenção" usa `--cluos-status-warn`, status "offline" usa `--cluos-status-error`, "online" usa `--cluos-status-success`.
+- Status sempre com ícone e texto. Status "atenção" usa `--cluos-status-warning`, status "offline" usa `--cluos-status-danger`, "online" usa `--cluos-status-success`.
 
 **SystemCard anatomy:**
 ```
@@ -221,7 +221,7 @@ Configurações avançadas (watermark, resolução, codec) ficam em "Configuraç
 - Erro: inline abaixo do formulário, não modal. "E-mail ou senha incorretos."
 - Link "Esqueci minha senha" — discreto, ghost, abaixo do botão.
 - Sem marketing, sem banners, sem excesso de links.
-- Fundo: `--cluos-bg-subtle` ou gradiente de marca discreto.
+- Fundo: `--cluos-bg-subtle`, sem gradiente. No registro público, campo navy (`--cluos-deep-navy`).
 
 ---
 
@@ -311,6 +311,8 @@ Configurações avançadas (watermark, resolução, codec) ficam em "Configuraç
 - Ações por linha no hover, no final da linha.
 - Bulk actions na barra superior, visível apenas quando há seleção.
 - Paginação ou scroll infinito — explícito, não ambíguo.
+- Tabela larga vive numa região rotulada e focável (`role="region"`, `aria-label`, `tabindex="0"`) com `overflow-x: auto`. Abaixo de 32rem a região recebe padding horizontal `--cluos-space-2`. A página nunca rola na horizontal; só a região da tabela rola.
+- Cabeçalho de coluna em `--cluos-bg-subtle`; números à direita, tabulares; altura de linha pela densidade (`--cluos-row-height`).
 - Estado de loading: skeleton de linhas.
 - Estado vazio: empty state com ação.
 

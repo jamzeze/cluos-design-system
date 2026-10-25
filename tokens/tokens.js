@@ -1,280 +1,454 @@
-/**
- * Cluos Design System — TypeScript tokens
- * Single source of truth. Use in CSS-in-JS projects.
- * Canonical color values are the MMS Swiss Ledger CluOS palette.
- */
+// cluos-v2 — tokens (CommonJS). Gerado por scripts/build-tokens.py a partir de tokens/cluos-v2.yaml. Não edite à mão.
+"use strict";
+
 const tokens = {
-  color: {
-    deepNavy:   "#010D28",
-    mediumBlue: "#132952",
-    techGreen:  "#C4DB7B",
-    operationalTeal: "#16A39A",
-    copper:     "#BD7845",
-    oxblood:    "#8A3A3A",
-    neutral100: "#EAEAEA",
-    neutral500: "#A5A5A5",
-    teal:       "#16A39A", // compatibility alias for operational teal
-    navy:       "#010D28", // compatibility alias for deep navy
-    black:      "#1D1D1B",
-    champagne:  "#C8C1AE",
-    silver:     "#B5B4B5",
-    white:      "#FFFFFF",
-
-    tealDeep:  "#08736E",
-    tealSoft:  "#6FC7C0",
-
-    bg:           "#FFFFFF",
-    bgSubtle:     "#FFFFFF",
-    bgMuted:      "#EAEAEA",
-    border:       "#EAEAEA",
-    borderStrong: "#132952",
-
-    text:         "#010D28",
-    textMuted:    "#132952",
-    textSubtle:   "#A5A5A5",
-    textOnTeal:   "#FFFFFF",
-    textOnNavy:   "#FFFFFF",
+  "id": "cluos-v2",
+  "version": 2,
+  "brand": {
+    "deepNavy": "#010D28",
+    "mediumBlue": "#132952",
+    "techGreen": "#C4DB7B",
+    "white": "#FFFFFF",
+    "neutral100": "#EAEAEA",
+    "neutral500": "#A5A5A5",
+    "offWhite": "#F4EFED"
   },
-  status: {
-    success:    "#6F8F19",
-    successBg:  "#F1F6DF",
-    info:       "#3E6E82",
-    infoBg:     "#EDF1F4",
-    warn:       "#BD7845",
-    warnBg:     "#F8EBDF",
-    error:      "#8A3A3A",
-    errorBg:    "#F5EAEA",
+  "neutral": {
+    "50": "#F8FAFE",
+    "100": "#EAEAEA",
+    "200": "#DCDEE2",
+    "300": "#C8CBCE",
+    "400": "#B5B7BB",
+    "500": "#A5A5A5",
+    "600": "#7E8084",
+    "700": "#616367",
+    "800": "#46484B"
   },
-  gradient: {
-    primary:
-      "linear-gradient(135deg, #010D28 0%, #132952 42%, #16A39A 72%, #C4DB7B 100%)",
-    soft:
-      "linear-gradient(135deg, #010D28 0%, #132952 66%, #16A39A 100%)",
-    mono:
-      "linear-gradient(135deg, #010D28 0%, #132952 100%)",
-    brandHero:
-      "radial-gradient(circle at 72% 24%, rgba(196, 219, 123, 0.34), transparent 28rem), radial-gradient(circle at 30% 74%, rgba(22, 163, 154, 0.24), transparent 24rem), #010D28",
+  "light": {
+    "bg": "#FFFFFF",
+    "bgSubtle": "#F4F6F8",
+    "bgMuted": "#EAEAEA",
+    "surface": "#FFFFFF",
+    "fg": "#010D28",
+    "fg2": "#132952",
+    "fg3": "#616367",
+    "fgDisabled": "#A5A5A5",
+    "fgOnNavy": "#F7F8F5",
+    "line": "#EAEAEA",
+    "line2": "#DCDEE2",
+    "lineStrong": "#132952",
+    "action": "#C4DB7B",
+    "actionHover": "#A6C05D",
+    "actionFg": "#010D28",
+    "actionSoft": "rgba(196, 219, 123, 0.18)",
+    "progress": "#132952",
+    "ring": "0 0 0 2px #C4DB7B, 0 0 0 4px #010D28",
+    "status": {
+      "success": {
+        "fill": "#C3F5DE",
+        "line": "#007C59",
+        "text": "#005C41"
+      },
+      "warning": {
+        "fill": "#FFE3BE",
+        "line": "#8D5E00",
+        "text": "#694500"
+      },
+      "danger": {
+        "fill": "#FFDFE0",
+        "line": "#AE3B4C",
+        "text": "#7E2E39"
+      },
+      "info": {
+        "fill": "#C9EFFF",
+        "line": "#007493",
+        "text": "#00566E"
+      }
+    },
+    "hue": {
+      "hue01": {
+        "fill": "#E2EEC2",
+        "line": "#768B0A",
+        "text": "#465400"
+      },
+      "hue02": {
+        "fill": "#CCF4D3",
+        "line": "#319751",
+        "text": "#0A5D2A"
+      },
+      "hue03": {
+        "fill": "#BDF6E9",
+        "line": "#009583",
+        "text": "#005A4F"
+      },
+      "hue04": {
+        "fill": "#BAF4FE",
+        "line": "#0090A2",
+        "text": "#005763"
+      },
+      "hue05": {
+        "fill": "#D2ECFF",
+        "line": "#0089C9",
+        "text": "#00527C"
+      },
+      "hue06": {
+        "fill": "#DCE9FF",
+        "line": "#4F7ED3",
+        "text": "#294B88"
+      },
+      "hue07": {
+        "fill": "#ECE2FF",
+        "line": "#8E6AC6",
+        "text": "#573C7F"
+      },
+      "hue08": {
+        "fill": "#FFDBFA",
+        "line": "#AE5EA7",
+        "text": "#6D3369"
+      },
+      "hue09": {
+        "fill": "#FFDEE7",
+        "line": "#C1587C",
+        "text": "#7B2E4A"
+      },
+      "hue10": {
+        "fill": "#FFE0DA",
+        "line": "#C65B4B",
+        "text": "#7E3126"
+      },
+      "hue11": {
+        "fill": "#FFE2CB",
+        "line": "#BB6802",
+        "text": "#733E00"
+      },
+      "hue12": {
+        "fill": "#F7E7BB",
+        "line": "#9C7C00",
+        "text": "#5F4A00"
+      }
+    }
   },
-  font: {
-    display: '"Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-    sans: '"Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-    data: '"Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-    mono: '"JetBrains Mono", "SF Mono", Menlo, Consolas, monospace',
+  "dark": {
+    "bg": "#010D28",
+    "bgSubtle": "#081634",
+    "bgMuted": "#132952",
+    "surface": "#081634",
+    "fg": "#F7F8F5",
+    "fg2": "#C8CFDD",
+    "fg3": "#8E97AA",
+    "fgDisabled": "#5C667A",
+    "fgOnNavy": "#F7F8F5",
+    "line": "rgba(255, 255, 255, 0.14)",
+    "line2": "rgba(255, 255, 255, 0.22)",
+    "lineStrong": "#C8CFDD",
+    "action": "#C4DB7B",
+    "actionHover": "#A6C05D",
+    "actionFg": "#010D28",
+    "actionSoft": "rgba(196, 219, 123, 0.11)",
+    "progress": "#6591E1",
+    "ring": "0 0 0 2px #C4DB7B, 0 0 0 4px #F7F8F5",
+    "status": {
+      "success": {
+        "fill": "#0B3C2B",
+        "line": "#22B988",
+        "text": "#8FE6C1"
+      },
+      "warning": {
+        "fill": "#442E09",
+        "line": "#D0901E",
+        "text": "#F8C885"
+      },
+      "danger": {
+        "fill": "#4D2529",
+        "line": "#E87782",
+        "text": "#FFBDC1"
+      },
+      "info": {
+        "fill": "#01394A",
+        "line": "#00AFDC",
+        "text": "#8BDEFF"
+      }
+    },
+    "hue": {
+      "hue01": {
+        "fill": "#2F3710",
+        "line": "#889D37",
+        "text": "#C8DB90"
+      },
+      "hue02": {
+        "fill": "#193B22",
+        "line": "#4FA866",
+        "text": "#A1E4AF"
+      },
+      "hue03": {
+        "fill": "#003C34",
+        "line": "#00AA95",
+        "text": "#81E7D4"
+      },
+      "hue04": {
+        "fill": "#003A42",
+        "line": "#00A4B9",
+        "text": "#7BE3F5"
+      },
+      "hue05": {
+        "fill": "#10364E",
+        "line": "#359BD9",
+        "text": "#A3D8FF"
+      },
+      "hue06": {
+        "fill": "#213251",
+        "line": "#6591E1",
+        "text": "#B8D2FF"
+      },
+      "hue07": {
+        "fill": "#382B4D",
+        "line": "#9F7ED5",
+        "text": "#D9C5FF"
+      },
+      "hue08": {
+        "fill": "#442741",
+        "line": "#BE73B8",
+        "text": "#F7B9F0"
+      },
+      "hue09": {
+        "fill": "#4B2531",
+        "line": "#D16E8F",
+        "text": "#FFBBCF"
+      },
+      "hue10": {
+        "fill": "#4D2620",
+        "line": "#D67161",
+        "text": "#FFBFB4"
+      },
+      "hue11": {
+        "fill": "#492B0F",
+        "line": "#CB7D33",
+        "text": "#FFC392"
+      },
+      "hue12": {
+        "fill": "#3F3106",
+        "line": "#B18E15",
+        "text": "#EACF83"
+      }
+    }
   },
-  fontSize: {
-    xs:    "0.75rem",
-    sm:    "0.875rem",
-    base:  "1rem",
-    lg:    "1.125rem",
-    xl:    "1.25rem",
+  "chartOrder": [
+    "hue-10",
+    "hue-05",
+    "hue-11",
+    "hue-06",
+    "hue-12",
+    "hue-07",
+    "hue-01",
+    "hue-08"
+  ],
+  "productHue": {
+    "azigos": "hue-05",
+    "crm": "hue-11",
+    "sci": "hue-07",
+    "b3": "hue-10",
+    "medframe": "hue-03",
+    "loteca": "hue-12",
+    "did": "hue-08",
+    "aeo": "hue-01"
+  },
+  "font": {
+    "display": {
+      "family": "Manrope",
+      "stack": "Manrope, system-ui, -apple-system, Segoe UI, sans-serif"
+    },
+    "sans": {
+      "family": "Instrument Sans",
+      "stack": "Instrument Sans, system-ui, -apple-system, Segoe UI, sans-serif"
+    },
+    "mono": {
+      "family": "JetBrains Mono",
+      "stack": "JetBrains Mono, SF Mono, Menlo, Consolas, monospace"
+    },
+    "accent": {
+      "family": "Orbitron",
+      "stack": "Orbitron, Manrope, system-ui, sans-serif"
+    }
+  },
+  "fontWeight": {
+    "display": 300,
+    "heading": 400,
+    "body": 400,
+    "label": 550,
+    "strong": 650,
+    "max_product": 650
+  },
+  "fontSize": {
+    "xs": "0.75rem",
+    "sm": "0.875rem",
+    "base": "1rem",
+    "lg": "1.125rem",
+    "xl": "1.25rem",
     "2xl": "1.5rem",
     "3xl": "1.875rem",
     "4xl": "2.25rem",
     "5xl": "3rem",
-    "6xl": "3.75rem",
+    "6xl": "3.75rem"
   },
-  lineHeight: {
-    tight:   1.2,
-    snug:    1.4,
-    normal:  1.6,
-    relaxed: 1.75,
+  "leading": {
+    "tight": 1.2,
+    "snug": 1.4,
+    "normal": 1.6,
+    "relaxed": 1.75
   },
-  space: {
-    1:  "0.25rem",
-    2:  "0.5rem",
-    3:  "0.75rem",
-    4:  "1rem",
-    6:  "1.5rem",
-    8:  "2rem",
-    12: "3rem",
-    16: "4rem",
-    24: "6rem",
-  },
-  container: {
-    prose:   "42rem",
-    docs:    "48rem",
-    product: "72rem",
-    wide:    "80rem",
-  },
-  radius: {
-    sm:    "0",
-    md:    "0",
-    lg:    "0",
-    xl:    "0",
-    "2xl": "0",
-    full:  "999px",
-  },
-  shadow: {
-    xs: "none",
-    sm: "none",
-    md: "none",
-    lg: "none",
-    ringFocus: "0 0 0 2px #C4DB7B",
-  },
-  motion: {
-    easeOut:   "cubic-bezier(0.2, 0.8, 0.2, 1)",
-    easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
-    durFast:   "180ms",
-    durBase:   "280ms",
-    durSlow:   "600ms",
-    data:      "1200ms",
-    trail:     "600ms",
-    stagger:   "120ms",
-  },
-  action: {
-    primary: {
-      base:  "#C4DB7B",
-      deep:  "#A6C05D",
-      soft:  "rgba(196, 219, 123, 0.18)",
-      text:  "#010D28",
+  "type": {
+    "displayXl": {
+      "family": "display",
+      "size": 56,
+      "line": 1.05,
+      "tracking": "-0.02em",
+      "weight": 300,
+      "fluid": "clamp(40px, 5vw, 72px)"
     },
-    teal: {
-      base:  "#16A39A",
-      deep:  "#08736E",
-      soft:  "rgba(22, 163, 154, 0.12)",
-      text:  "#FFFFFF",
+    "displayLg": {
+      "family": "display",
+      "size": 40,
+      "line": 1.1,
+      "tracking": "-0.02em",
+      "weight": 300
     },
-    copper: {
-      base:  "#BD7845",
-      deep:  "#965D34",
-      soft:  "rgba(189, 120, 69, 0.12)",
-      text:  "#FFFFFF",
+    "headingMd": {
+      "family": "display",
+      "size": 28,
+      "line": 1.2,
+      "tracking": "-0.01em",
+      "weight": 400
     },
-    champagne: {
-      base:  "#C8C1AE",
-      deep:  "#AFA58E",
-      soft:  "rgba(200, 193, 174, 0.22)",
-      text:  "#010D28",
+    "headingSm": {
+      "family": "display",
+      "size": 22,
+      "line": 1.25,
+      "tracking": "-0.01em",
+      "weight": 400
     },
-    oxblood: {
-      base:  "#8A3A3A",
-      deep:  "#662828",
-      soft:  "rgba(138, 58, 58, 0.11)",
-      text:  "#FFFFFF",
+    "metric": {
+      "family": "display",
+      "size": 40,
+      "line": 1.0,
+      "tracking": "-0.02em",
+      "weight": 650,
+      "numeric": "tabular"
     },
+    "title": {
+      "family": "sans",
+      "size": 17,
+      "line": 1.4,
+      "tracking": "0",
+      "weight": 550
+    },
+    "body": {
+      "family": "sans",
+      "size": 15,
+      "line": 1.6,
+      "tracking": "0",
+      "weight": 400,
+      "measure": "45–75 caracteres"
+    },
+    "bodySm": {
+      "family": "sans",
+      "size": 13,
+      "line": 1.5,
+      "tracking": "0",
+      "weight": 400
+    },
+    "label": {
+      "family": "sans",
+      "size": 11,
+      "line": 1.2,
+      "tracking": "0.12em",
+      "weight": 500,
+      "transform": "uppercase"
+    },
+    "mono": {
+      "family": "mono",
+      "size": 13,
+      "line": 1.5,
+      "tracking": "0",
+      "weight": 400,
+      "numeric": "tabular"
+    }
   },
-  appearance: {
-    light: {
-      bg:          "#FFFFFF",
-      bgSubtle:    "#FFFFFF",
-      bgMuted:     "#EAEAEA",
-      border:      "#EAEAEA",
-      borderStrong:"#132952",
-      text:        "#010D28",
-      textMuted:   "#132952",
-      textSubtle:  "#A5A5A5",
-    },
-    dark: {
-      bg:          "#010D28",
-      bgSubtle:    "#081634",
-      bgMuted:     "#132952",
-      border:      "rgba(255, 255, 255, 0.15)",
-      borderStrong:"rgba(255, 255, 255, 0.26)",
-      text:        "#F7F8F5",
-      textMuted:   "rgba(247, 248, 245, 0.72)",
-      textSubtle:  "rgba(247, 248, 245, 0.54)",
-    },
+  "space": {
+    "0": "0",
+    "1": "0.25rem",
+    "2": "0.5rem",
+    "3": "0.75rem",
+    "4": "1rem",
+    "5": "1.25rem",
+    "6": "1.5rem",
+    "7": "1.75rem",
+    "8": "2rem",
+    "9": "2.25rem",
+    "10": "2.5rem",
+    "11": "2.75rem",
+    "12": "3rem",
+    "14": "3.5rem",
+    "16": "4rem",
+    "20": "5rem",
+    "24": "6rem"
   },
+  "radius": {
+    "sm": "4px",
+    "md": "8px",
+    "pill": "999px"
+  },
+  "container": {
+    "prose": "42rem",
+    "docs": "48rem",
+    "product": "72rem",
+    "wide": "80rem"
+  },
+  "breakpoint": {
+    "sm": "640px",
+    "md": "768px",
+    "lg": "1024px",
+    "xl": "1280px",
+    "2xl": "1536px"
+  },
+  "density": {
+    "comfortable": {
+      "row": 44,
+      "cell_x": 12,
+      "font": 14
+    },
+    "compact": {
+      "row": 36,
+      "cell_x": 8,
+      "font": 13
+    },
+    "attribute": "data-density",
+    "default": "comfortable"
+  },
+  "motion": {
+    "easeOut": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+    "easeInOut": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "fast": "180ms",
+    "base": "280ms",
+    "slow": "600ms",
+    "hover": "180ms",
+    "press": "120ms",
+    "enter": "600ms",
+    "trail": "600ms",
+    "data": "1200ms",
+    "stagger": "120ms"
+  },
+  "cssVar": {
+    "bg": "var(--cluos-bg)",
+    "fg": "var(--cluos-fg)",
+    "action": "var(--cluos-action)",
+    "actionFg": "var(--cluos-action-fg)",
+    "line": "var(--cluos-line)",
+    "ringFocus": "var(--cluos-ring-focus)"
+  }
 };
 
-/**
- * Style + palette architecture. MMS is the canonical default; the other
- * style ids remain explicit legacy opt-outs for a controlled migration.
- *
- * Usage: pick a style's role object, shallow-merge a palette's override
- * on top if one was chosen. Never merge a palette into a role object for
- * bg/fg/border — palettes only override action/status/signal roles.
- */
-const styles = {
-  MMS: {
-    bgCanvas: "#FFFFFF", bgSurface: "#FFFFFF", bgElevated: "#FFFFFF", bgSubtle: "#FFFFFF",
-    fgPrimary: "#010D28", fgSecondary: "#132952", fgMuted: "#A5A5A5",
-    borderDefault: "#EAEAEA", borderStrong: "#132952",
-    actionPrimary: "#C4DB7B", actionPrimaryHover: "#A6C05D", focusRing: "rgba(196, 219, 123, 0.72)",
-    statusSuccess: "#6F8F19", statusWarning: "#BD7845", statusDanger: "#8A3A3A", statusInfo: "#3E6E82",
-    signal: "#C4DB7B",
-  },
-  A: {
-    bgCanvas: "#FBFBF9", bgSurface: "#FFFFFF", bgElevated: "#FFFFFF", bgSubtle: "#F3F4F1",
-    fgPrimary: "#1B2F36", fgSecondary: "#5A6570", fgMuted: "#8A939B",
-    borderDefault: "#E6E7E1", borderStrong: "#D4D6CD",
-    actionPrimary: "#008080", actionPrimaryHover: "#005959", focusRing: "rgba(0, 128, 128, 0.30)",
-    statusSuccess: "#008080", statusWarning: "#B06A34", statusDanger: "#8A3A3A", statusInfo: "#3E6E82",
-    signal: "#008080",
-  },
-  B: {
-    bgCanvas: "#F5F7F4", bgSurface: "#FFFFFF", bgElevated: "#FFFFFF", bgSubtle: "#F5F7F4",
-    fgPrimary: "#0B1730", fgSecondary: "#46536B", fgMuted: "#68748A",
-    borderDefault: "#DCE2E3", borderStrong: "#C2CDD1",
-    actionPrimary: "#0E8F87", actionPrimaryHover: "#0A6B65", focusRing: "rgba(14, 143, 135, 0.20)",
-    statusSuccess: "#6F8F19", statusWarning: "#BD7845", statusDanger: "#8A3A3A", statusInfo: "#3E6E82",
-    signal: "#C4DB7B",
-  },
-  C: {
-    bgCanvas: "#FAFAF7", bgSurface: "#FFFFFF", bgElevated: "#FFFFFF", bgSubtle: "#FAFAF7",
-    fgPrimary: "#16181D", fgSecondary: "#565A61", fgMuted: "#84888E",
-    borderDefault: "#E4E3DD", borderStrong: "#CBCAC2",
-    actionPrimary: "#2B49C7", actionPrimaryHover: "#1D339B", focusRing: "rgba(43, 73, 199, 0.24)",
-    statusSuccess: "#3D7A46", statusWarning: "#A96A2F", statusDanger: "#973B3B", statusInfo: "#3E6E82",
-    signal: "#2B49C7",
-  },
-  D: {
-    bgCanvas: "#FFFFFF", bgSurface: "#FFFFFF", bgElevated: "#FFFFFF", bgSubtle: "#FFFFFF",
-    fgPrimary: "#111417", fgSecondary: "#5B6166", fgMuted: "#8B9095",
-    borderDefault: "#E3E4E1", borderStrong: "#111417",
-    actionPrimary: "#007070", actionPrimaryHover: "#005050", focusRing: "rgba(0, 112, 112, 0.22)",
-    statusSuccess: "#007070", statusWarning: "#A96A2F", statusDanger: "#8A3A3A", statusInfo: "#3E6E82",
-    signal: "#007070",
-  },
-  E: {
-    bgCanvas: "#F6F3EE", bgSurface: "#FFFFFF", bgElevated: "#FFFFFF", bgSubtle: "#F6F3EE",
-    fgPrimary: "#24403C", fgSecondary: "#63705F", fgMuted: "#8E9788",
-    borderDefault: "#E7DFD2", borderStrong: "#D6CCBA",
-    actionPrimary: "#0E6E68", actionPrimaryHover: "#0A524E", focusRing: "rgba(14, 110, 104, 0.18)",
-    statusSuccess: "#0E6E68", statusWarning: "#A96A2F", statusDanger: "#8A3A3A", statusInfo: "#3E6E82",
-    signal: "#0E6E68",
-  },
-  G: {
-    bgCanvas: "#010D28", bgSurface: "#0B1B41", bgElevated: "#0B1B41", bgSubtle: "#01081A",
-    fgPrimary: "#E8ECF4", fgSecondary: "#9AA7C0", fgMuted: "#66738F",
-    borderDefault: "rgba(199, 213, 235, 0.14)", borderStrong: "rgba(199, 213, 235, 0.26)",
-    actionPrimary: "#1FB5AB", actionPrimaryHover: "#17958D", focusRing: "rgba(31, 181, 171, 0.30)",
-    statusSuccess: "#9CC24A", statusWarning: "#D08A54", statusDanger: "#C46A6A", statusInfo: "#6FA8C4",
-    signal: "#C4DB7B",
-  },
-};
-
-/** Palette overrides — action/status/signal only, for light-register styles (A-E). */
-const palettes = {
-  "pal-tealcool":   { actionPrimary: "#008080", actionPrimaryHover: "#005959", statusSuccess: "#008080", statusWarning: "#B06A34", statusDanger: "#8A3A3A", signal: "#008080" },
-  "pal-tealink":    { actionPrimary: "#00696B", actionPrimaryHover: "#004F50", statusSuccess: "#00696B", statusWarning: "#B06A34", statusDanger: "#8A3A3A", signal: "#00696B" },
-  "pal-forest":     { actionPrimary: "#3D7A46", actionPrimaryHover: "#2C5A34", statusSuccess: "#3D7A46", statusWarning: "#B5773A", statusDanger: "#8A3A3A", signal: "#D9C27A" },
-  "pal-copper":     { actionPrimary: "#0E6E68", actionPrimaryHover: "#0A524E", statusSuccess: "#0E6E68", statusWarning: "#BD7845", statusDanger: "#8A3A3A", signal: "#BD7845" },
-  "pal-cold":       { actionPrimary: "#2D6CDF", actionPrimaryHover: "#1F4FAE", statusSuccess: "#2D6CDF", statusWarning: "#B5773A", statusDanger: "#8A3A3A", signal: "#9FB3C8" },
-  "pal-terracotta": { actionPrimary: "#B5623A", actionPrimaryHover: "#8F4B2B", statusSuccess: "#4A7A5E", statusWarning: "#B5623A", statusDanger: "#8A3A3A", signal: "#E3A26B" },
-};
-
-/** Same palette ids, tuned for pairing with style G (dark register). */
-const palettesDark = {
-  "pal-tealcool":   { actionPrimary: "#3FB3B3", actionPrimaryHover: "#2D8F8F", statusSuccess: "#3FB3B3", statusWarning: "#D89A5D", statusDanger: "#C46A6A", signal: "#3FB3B3" },
-  "pal-tealink":    { actionPrimary: "#3FB3B3", actionPrimaryHover: "#2D8F8F", statusSuccess: "#3FB3B3", statusWarning: "#D89A5D", statusDanger: "#C46A6A", signal: "#3FB3B3" },
-  "pal-forest":     { actionPrimary: "#6FBE72", actionPrimaryHover: "#519A54", statusSuccess: "#6FBE72", statusWarning: "#D89A5D", statusDanger: "#C46A6A", signal: "#E8D28F" },
-  "pal-copper":     { actionPrimary: "#34A79E", actionPrimaryHover: "#268079", statusSuccess: "#34A79E", statusWarning: "#E0A46B", statusDanger: "#C46A6A", signal: "#E0A46B" },
-  "pal-cold":       { actionPrimary: "#6E9DF2", actionPrimaryHover: "#4E7DD1", statusSuccess: "#6E9DF2", statusWarning: "#D89A5D", statusDanger: "#C46A6A", signal: "#C3D2E0" },
-  "pal-terracotta": { actionPrimary: "#E08F63", actionPrimaryHover: "#C06F45", statusSuccess: "#6FBE72", statusWarning: "#E08F63", statusDanger: "#C46A6A", signal: "#F0C093" },
-};
-
-/**
- * Resolve the final role set for a style + optional palette id.
- * Mirrors the CSS cascade in tokens.css exactly (palette overrides
- * action/status/signal only; uses the -dark tuned variant when style is G).
- */
-function resolveTheme(styleId, paletteId) {
-  const base = styles[styleId] || styles.MMS;
-  if (!paletteId) return { ...base };
-  const table = styleId === "G" ? palettesDark : palettes;
-  const override = table[paletteId];
-  return override ? { ...base, ...override } : { ...base };
-}
-
-module.exports = { tokens, default: tokens, styles, palettes, palettesDark, resolveTheme };
+// `require()` e `import x from` devolvem as chaves de topo; `{ tokens }` e
+// `default` devolvem o objeto completo (também como export nomeado em ESM).
+module.exports = Object.assign({}, tokens);
+module.exports.tokens = tokens;
+module.exports.default = tokens;

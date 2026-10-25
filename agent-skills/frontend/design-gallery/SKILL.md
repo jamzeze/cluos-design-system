@@ -1,14 +1,16 @@
 ---
 name: design-gallery
-description: Use when an N2 or N3 frontend task needs a recorded comparison of visual alternatives or an explicit legacy opt-out from cluos-mms-v1. Never runs for the default direction and never changes it.
+description: Use when an N2 or N3 frontend task needs a recorded comparison of visual alternatives or an explicit legacy opt-out from cluos-v2. Never runs for the default direction and never changes it.
 ---
 
 # design-gallery
 
 Produces real, comparable visual alternatives — not a template catalog, not
 a list of adjectives. Runs only for a recorded comparison or an explicit
-legacy opt-out; `cluos-mms-v1` is the default and this skill never changes
-it. Support files: installed clients use `../../shared/cluos-design-system`
+legacy opt-out; `cluos-v2` (`tokens/cluos-v2.yaml`, `AGENT-BRIEF.md`) is the
+default and this skill never changes it. The A–G library is historical
+(decision 26, `status: archived`, copy in `docs/legacy/`); a comparison must
+record why in `design-decision.md`. Support files: installed clients use `../../shared/cluos-design-system`
 and `../../profiles/cluos-design-system/cluos`; the canonical checkout uses
 `../../shared` and `../../profiles/cluos`. Use the first complete pair; stop
 if either half is missing. Read `design-archetypes.yaml` and
@@ -40,26 +42,27 @@ When you do:
 
 ## Standard flow for CluOS (the common case)
 
-1. Read `design-archetypes.yaml`. Filter to `status: approved` (currently
-   A, B, C, D, E, G — `refined-brutalist`/F is `status: rejected`, never
-   re-offer it without a fresh explicit request).
+1. Read `design-archetypes.yaml`. A, B, C, D, E and G are `status: archived`:
+   use them only as recorded comparison/opt-out material.
+   `refined-brutalist`/F is `status: rejected`; never re-offer it without a
+   fresh explicit request.
 2. Filter to archetypes whose `surfaces_recommended` plausibly fit the
    task's surface. If unsure, include the full approved set rather than
    guessing narrow.
 3. Present each candidate with: name, thesis, native palette, and a link
-   to its mockup in `design-gallery/index.html` (or the live workbench at
-   `design-gallery/index.html#workbench` for a quick live compare).
-4. Present the canonical MMS contract first. Show the palette table only when
+   to its mockup in `docs/legacy/design-gallery/index.html` (or the live workbench at
+   `docs/legacy/design-gallery/index.html#workbench` for a quick live compare).
+4. Present the canonical cluos-v2 contract first. Show the palette table only when
    the task explicitly requests a comparison or legacy opt-out.
 5. A human choice is required only for a non-canonical opt-out; otherwise
-   proceed with `cluos-mms-v1`.
+   proceed with `cluos-v2`.
 6. Record the choice: append an entry to
    `design-decisions.yaml` (style) and `palette-decisions.yaml` (palette) in
    the resolved profile root if it's a new pairing
    not already logged, and write the pairing into `design-decision.md` in
    the task's `docs/frontend-routing/<YYYY-MM-DD>-<slug>/`.
 
-## Registered library snapshot (see design-archetypes.yaml for full detail)
+## Archived library snapshot (see design-archetypes.yaml for full detail)
 
 | Archetype | Palette mode | Best for |
 |---|---|---|
@@ -70,14 +73,14 @@ When you do:
 | D · Swiss Ledger | preserve | telas simples, baixo risco |
 | E · Clinic Premium | evolve | superfícies para clientes hospitalares |
 
-The legacy palette library remains registered for compatibility — see
-`palette-policy.md`.
+The `pal-*` palette library no longer ships; see `palette-policy.md`. Any new
+global palette needs a decision in `palette-decisions.yaml`.
 
 ## Artifact requirement
 
 The gallery must exist as a navigable or visually-consultable artifact.
 Priority order: Figma (if connected) > Storybook > local gallery route >
-static HTML (current state — `design-gallery/index.html`) > organized
+static HTML (current state — `docs/legacy/design-gallery/index.html`) > organized
 screenshots. Never text-only descriptions as the final deliverable.
 
 ## Selection record

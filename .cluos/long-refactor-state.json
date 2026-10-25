@@ -1,42 +1,61 @@
 {
   "mode": "LONG_REFACTOR",
-  "status": "committed",
-  "objective": "Promover cluos-mms-v1 como identidade visual canônica do GCOS, cluos-design-system, MMS e produtos futuros.",
+  "status": "closeout",
+  "started": "2026-10-24",
+  "objective": "Implementar o contrato cluos-v2 aprovado por Rafael (canvas https://claude.ai/artifact/G8VLmYcyHCZy23d6cnfjzt, decisões em docs/frontend-routing/2026-10-23-cluos-v2/design-decision.md) no pacote @cluos/design-system: tokens gerados de um contrato único, exports css/ts/js/tailwind v3 e v4/design.json/shadcn, cluos.css de referência, fontes versionadas, DESIGN-preview.html como espécime v2, docs em português, AGENT-BRIEF.md, fonte externa registrada, skills e perfis atualizados, legado arquivado, versão 1.0.0.",
+  "acceptance": [
+    "Todos os exports de token são gerados de tokens/cluos-v2.yaml por scripts/build-tokens.py e o gerador é idempotente (rodar duas vezes não muda nada).",
+    "Valores do canvas aprovado reproduzidos exatamente (marca, neutros, status, 12 matizes × 3 degraus × 2 modos, tipografia, espaçamento 4 px completo, raio 4/8/pílula, movimento, foco).",
+    "Contrastes de texto ≥ 4,5:1 e de marca ≥ 3:1 verificados por script nos dois modos; ordem de gráficos aprovada pelo validador do dataviz.",
+    "DESIGN-preview.html renderiza em 1440, 768 e 390 px sem corte, nos dois modos, e cobre o que o preview atual cobria (lockup, tipografia, paleta, estados, movimento).",
+    "Nenhuma referência a A–G, pal-*, variantes de tema, Thermal Nocturne ou cluos-mms-v1 como direção ativa fora de docs/legacy/ e do CHANGELOG.",
+    "validate-agent-skills.sh, test-frontend-routing.sh, npm pack --dry-run, YAML/JSON parse e node import passam.",
+    "Um único commit na branch claude/design-system-review-d5b86d; PR para main aberto; sem tag, publicação ou merge."
+  ],
   "non_goals": [
-    "Não editar repositórios de produtos ausentes localmente.",
-    "Não publicar pacote, tag, release ou deploy nesta execução.",
-    "Não alterar identidade de conteúdo de clientes do MMS."
+    "Não migrar MMS, azigos, suporte ou outros produtos (onda separada).",
+    "Não implementar o registro público (segunda passada, aguarda referências e fonte de destaque).",
+    "Não publicar pacote, tag, release, merge ou deploy.",
+    "Não alterar skills instaladas em ~/.claude ou ~/.codex (sync é passo separado de Rafael).",
+    "Não comprar fontes ou bibliotecas."
   ],
   "affected_areas": [
-    "cluos-design-system/tokens, preview e documentação canônica",
-    "global-copilot-os/config e cluos-harness/canonical",
-    "MMS/src/styles, MMS/src/app shell, MMS/tailwind.config.ts, MMS adoption docs"
+    "tokens/ (contrato, gerador, exports)",
+    "cluos.css (novo)",
+    "brand-assets/ (fontes woff2, variantes mono, logos Azigos)",
+    "DESIGN-preview.html, DESIGN.md, AGENTS.md, README.md, DESIGN-WORKFLOW.md, CHANGELOG.md, package.json",
+    "patterns/, examples/ (nomes de tokens e regras)",
+    "docs/ (cluos-v2, sources, legacy), AGENT-BRIEF.md",
+    "agent-skills/ (shared, profiles, frontend skills, global block), .claude/rules/",
+    "scripts/ (build-tokens.py, test-contrast)"
   ],
   "invariants": [
-    "Tech green e azuis são identidade estrutural e de ação positiva.",
-    "Copper é aviso/revisão; oxblood é negação/erro/risco.",
-    "Manrope é display; Instrument Sans é interface e dados.",
-    "Swiss Ledger usa superfície clara, hairlines, raio zero e sombra zero por padrão.",
-    "Movimento é lento, explícito, sem autoplay/loop e respeita reduced-motion.",
-    "Um writer por arquivo; mudanças existentes fora do escopo permanecem intactas."
+    "Decisões de Rafael de 2026-10-23 valem como escritas; nenhuma é reaberta.",
+    "Paleta de marca da Azigos exata; teal, copper e oxblood só como aliases de compatibilidade por uma versão.",
+    "Manrope display, Instrument Sans interface/dados, JetBrains Mono código; slot de fonte de destaque vazio até Rafael enviar.",
+    "Raio 4 px controles / 8 px regiões / pílula só no público; sombra zero no produto.",
+    "Status sempre ícone + texto; ação primária única por região; foco verde + navy.",
+    "Um escritor; sem commits intermediários; legado arquivado, não apagado da história."
   ],
   "writer": {
-    "branch": "working-tree",
-    "worktree": "/Users/rafacosta/Documents/GitHub/cluos-design-system"
+    "branch": "claude/design-system-review-d5b86d",
+    "worktree": "/Users/rafacosta/Documents/GitHub/cluos-design-system/.claude/worktrees/design-system-v2-flywheel-141d81"
   },
   "validation_candidates": [
-    "git diff --check",
-    "YAML parse for canonical files",
-    "python3 scripts/gcos_instruction_lint.py",
+    "python3 scripts/build-tokens.py && git diff --quiet -- tokens (idempotência)",
+    "python3 scripts/test-contrast.py",
+    "node -e \"require('./tokens/tokens.js')\" && node -e \"require('./tokens/tailwind-preset.js')\"",
+    "python3 -c 'import yaml,json' parse de tokens/cluos-v2.yaml, tokens/design.json, agent-skills/**/*.yaml",
+    "bash scripts/validate-agent-skills.sh && bash scripts/test-frontend-routing.sh",
     "npm pack --dry-run",
-    "render DESIGN-preview.html and MMS shell"
+    "render headless de DESIGN-preview.html em 1440/768/390 claro e escuro + design-critic e design-qa em contexto limpo",
+    "git diff --check"
   ],
   "known_risks": [
-    "O worktree do cluos-design-system já contém alterações não relacionadas.",
-    "Consumidores que importam os aliases legados verão mudança de default visual.",
-    "MMS ainda contém CSS de superfícies operacionais escuras e componentes com classes legadas.",
-    "MMS ainda não declara @cluos/design-system como dependência; o fallback local precisa ser reconciliado quando o pacote for adotado.",
-    "Produtos do catálogo sem checkout local precisam de uma onda posterior de consumo do pacote."
+    "Scripts de sync copiam skills para ~/.claude e ~/.codex; não rodar nesta execução.",
+    "DESIGN-preview.html atual é a referência de PRs abertos (#4, #5, #6); a reescrita os torna obsoletos — fechar depois com Rafael.",
+    "Fontes: Manrope e Instrument Sans variáveis existem localmente (subset latin); JetBrains Mono pode não existir localmente.",
+    "Consumidores com cópia local de tokens (MMS, azigos) só mudam na onda de migração."
   ],
   "tokenops": {
     "enabled": false,
@@ -48,27 +67,24 @@
       "fallback_raw_cases": 0
     }
   },
-  "validation_status": {
-    "design_system": [
-      "git diff --check: passed",
-      "Node token import and Tailwind syntax: passed",
-      "canonical YAML and supporting YAML files: parsed",
-      "npm pack --dry-run: passed",
-      "validate-agent-skills.sh: passed",
-      "rendered DESIGN-preview smoke check: passed"
+  "validation_status": {},
+  "user_test_decision": "both",
+  "closeout": {
+    "date": "2026-10-25",
+    "notes": [
+      "Fonte de destaque definida depois do início: Orbitron (decisão 31), com JetBrains Mono baixada sob autorização de Rafael."
     ],
-    "global_copilot_os": [
-      "python3 scripts/gcos_instruction_lint.py: 31 checks passed",
-      "git diff --check: passed"
-    ],
-    "mms": [
-      "npm ci from lockfile: passed",
-      "npm test: passed",
-      "npm run typecheck: passed",
-      "npm run lint: passed with 34 pre-existing warnings",
-      "npm run build: passed with fsmonitor IPC trace-copy warning",
-      "git diff --check: passed"
-    ]
-  },
-  "user_test_decision": "both"
+    "validation": {
+      "npm test": "pass (build-tokens --check, build-preview --check, test-contrast 194 pares, 0 falhas)",
+      "node import CJS/ESM": "pass",
+      "YAML/JSON parse": "pass",
+      "test-frontend-routing.sh": "pass",
+      "npm pack --dry-run": "pass (69 arquivos)",
+      "git diff --check": "só espaços finais das licenças OFL upstream, mantidas sem alteração",
+      "validate-agent-skills.sh": "fail esperado: drift (sync não rodado, escreve fora do repo) e scripts test-ux-layout-architect.py/test-sync-safety.py ausentes nesta branch (existem só não rastreados no checkout principal)",
+      "render": "1440/768/390 px, claro e escuro",
+      "design-critic": "rodada 6: 40/50, P2 corrigidos e re-render conferido pelo autor; sem nova rodada independente",
+      "design-qa": "rodada 2: passa, P3 tratados"
+    }
+  }
 }

@@ -40,7 +40,7 @@ export function SettingsSection({ title, description, advanced, children }: Sett
           <span style={{ fontSize: "0.8125rem", fontWeight: 500, color: "var(--cluos-text-muted)" }}>
             {title}
           </span>
-          <span style={{ fontSize: "0.75rem", color: "var(--cluos-text-subtle)", transition: "transform var(--cluos-dur-fast)" }}>
+          <span style={{ fontSize: "0.75rem", color: "var(--cluos-text-subtle)", transition: "transform var(--cluos-motion-fast)" }}>
             {expanded ? "▾" : "▸"}
           </span>
         </button>
@@ -58,7 +58,7 @@ export function SettingsSection({ title, description, advanced, children }: Sett
 
   return (
     <div style={{ padding: "1.25rem", borderBottom: "1px solid var(--cluos-border)" }}>
-      <div style={{ fontSize: "0.6875rem", fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: "0.08em", color: "var(--cluos-text-subtle)", marginBottom: "0.75rem" }}>
+      <div style={{ fontSize: "0.6875rem", fontWeight: 650, textTransform: "uppercase" as const, letterSpacing: "0.08em", color: "var(--cluos-text-subtle)", marginBottom: "0.75rem" }}>
         {title}
       </div>
       {description && (
@@ -88,17 +88,17 @@ export function FormField({ label, htmlFor, error, hint, required, children }: F
     <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
       <label
         htmlFor={htmlFor}
-        style={{ fontSize: "0.8125rem", fontWeight: 500, color: "var(--cluos-navy)" }}
+        style={{ fontSize: "0.8125rem", fontWeight: 500, color: "var(--cluos-fg)" }}
       >
         {label}
-        {required && <span style={{ color: "var(--cluos-status-error)", marginLeft: "0.25rem" }} aria-hidden="true">*</span>}
+        {required && <span style={{ color: "var(--cluos-status-danger-text)", marginLeft: "0.25rem" }} aria-hidden="true">*</span>}
       </label>
       {children}
       {hint && !error && (
         <span style={{ fontSize: "0.75rem", color: "var(--cluos-text-subtle)" }}>{hint}</span>
       )}
       {error && (
-        <span role="alert" style={{ fontSize: "0.75rem", color: "var(--cluos-status-error)" }}>{error}</span>
+        <span role="alert" style={{ fontSize: "0.75rem", color: "var(--cluos-status-danger-text)" }}>{error}</span>
       )}
     </div>
   );
@@ -127,11 +127,11 @@ export default function SettingsPage() {
   }
 
   return (
-    <main style={{ maxWidth: "var(--cluos-container-narrow)", margin: "0 auto", padding: "2rem 2rem" }}>
+    <main style={{ maxWidth: "var(--cluos-container-product)", margin: "0 auto", padding: "2rem 2rem" }}>
       <PageHeader title="Configurações" description="Gerencie preferências da conta" />
 
       <form onSubmit={handleSave}>
-        <div style={{ background: "var(--cluos-bg)", border: "1px solid var(--cluos-border)", borderRadius: "var(--cluos-radius-lg)", overflow: "hidden" }}>
+        <div style={{ background: "var(--cluos-bg)", border: "1px solid var(--cluos-border)", borderRadius: "var(--cluos-radius-md)", overflow: "hidden" }}>
           
           <SettingsSection title="Perfil">
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
@@ -165,7 +165,7 @@ export default function SettingsPage() {
                 { label: "Resumo semanal", defaultChecked: false },
               ].map(({ label, defaultChecked }) => (
                 <label key={label} style={{ display: "flex", alignItems: "center", gap: "0.625rem", cursor: "pointer", fontSize: "0.875rem", color: "var(--cluos-text)" }}>
-                  <input type="checkbox" defaultChecked={defaultChecked} style={{ accentColor: "var(--cluos-teal)", width: "1rem", height: "1rem" }} />
+                  <input type="checkbox" defaultChecked={defaultChecked} style={{ accentColor: "var(--cluos-action)", width: "1rem", height: "1rem" }} />
                   {label}
                 </label>
               ))}
@@ -179,9 +179,9 @@ export default function SettingsPage() {
           </SettingsSection>
 
           <div style={{ padding: "1rem 1.25rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            {saved && <span role="status" style={{ fontSize: "0.875rem", color: "var(--cluos-status-success)" }}>Alterações salvas</span>}
+            {saved && <span role="status" style={{ fontSize: "0.875rem", color: "var(--cluos-status-success-text)" }}>Alterações salvas</span>}
             {!saved && <span />}
-            <button type="submit" style={{ background: "var(--cluos-teal)", color: "#fff", border: "none", borderRadius: "var(--cluos-radius-md)", padding: "0.5625rem 1.25rem", fontSize: "0.875rem", fontWeight: 500, cursor: "pointer" }}>
+            <button type="submit" style={{ background: "var(--cluos-action)", color: "var(--cluos-action-fg)", border: "none", borderRadius: "var(--cluos-radius-md)", padding: "0.5625rem 1.25rem", fontSize: "0.875rem", fontWeight: 500, cursor: "pointer" }}>
               Salvar alterações
             </button>
           </div>

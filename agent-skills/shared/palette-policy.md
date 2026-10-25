@@ -1,103 +1,81 @@
 # Palette Policy — CluOS
 
-## Canonical default (2026-08-30)
+Governa como a cor é escolhida e aplicada em qualquer superfície CluOS.
+Contrato canônico: `cluos-v2` (Rafael, 2026-10-24). Valores exatos vêm de
+`tokens/cluos-v2.yaml` e dos exports gerados (`tokens/tokens.css`,
+`AGENT-BRIEF.md`) na fonte; nunca invente hex.
 
-`cluos-mms-v1` is the global default palette. New products inherit it without
-setting a palette class: deep navy and medium blue provide structure, tech
-green is the positive action/signal, operational teal is progress, copper is
-warning/review, and oxblood is denial/error/risk. The full contract lives in
-`../../tokens/mms-canonical.yaml` in the source checkout.
+## 1. Estado da biblioteca anterior
 
-The composable palette library below is retained as a compatibility API for
-existing surfaces only. It is not a valid global default for new work. Any
-explicit legacy palette must be documented as a temporary opt-out and must
-not change the semantic meaning of copper or oxblood.
+A biblioteca `pal-*`, as paletas nativas (`teal-classic`, `thermal-nocturne`,
+`editorial-cobalt`, `swiss-mono`, `clinic-warm`) e os arquétipos A–G deixam de
+existir no pacote publicado. Ficam arquivados em `docs/legacy/` como histórico
+(decisão 26). Nenhuma superfície nova escolhe paleta por tarefa.
+`data-cluos-palette` e `--u-*` não fazem parte do contrato.
 
-Governs how color is chosen and applied across CluOS surfaces. Read this
-before changing any color in a CluOS product.
+Qualquer paleta global nova exige decisão registrada em
+`palette-decisions.yaml` do profile CluOS resolvido (instalado:
+`../../profiles/cluos-design-system/cluos`; fonte: `../profiles/cluos`). Pare
+se nenhum dos dois caminhos estiver completo.
 
-## 1. Palette is decoupled from archetype
+## 2. Paleta de marca (referência Azigos)
 
-The 2026-08-10 per-task library decision is superseded for the global default
-by the 2026-08-30 `cluos-mms-v1` decision. The legacy style/palette API remains
-implemented in the token architecture for controlled migration:
+A Azigos é a referência de cor; não há hierarquia entre marcas.
 
-- Each archetype's component CSS reads **semantic role tokens**
-  (`--u-accent`, `--u-ink`, `--u-bg`, `--u-surface`, `--u-line`, `--u-line2`,
-  `--u-mut`, `--u-sub`, `--u-ok`, `--u-warn`, `--u-err`, `--u-signal`) via
-  `var(--u-x, native-value)`.
-- A palette is a CSS class (`data-cluos-palette="pal-forest"` etc.) that sets
-  those `--u-*` custom properties. No palette class applied = the
-  archetype's own native/default colors.
-- Structural "brand chrome" that is part of an archetype's identity (e.g.
-  the dark navy rail in Data Precision, the fully-dark canvas in Night
-  Watch) does **not** reskin with palette choice — that is style, not
-  palette. Night Watch instead exposes `-dark` variants of the accent/status
-  roles (`--u-accent-dark` etc.) so palettes remain legible against a fixed
-  dark field.
+| Cor | Valor | Papel |
+|---|---|---|
+| Azul profundo | `#010D28` | texto, campos densos, canvas escuro |
+| Azul médio | `#132952` | estrutura, navegação, ação secundária, progresso |
+| Verde tech | `#C4DB7B` | ação primária e seleção (texto navy) |
+| Branco | `#FFFFFF` | canvas e superfícies de produto |
+| Cinza claro | `#EAEAEA` | hairlines, superfície muda |
+| Cinza médio | `#A5A5A5` | desabilitado, decorativo; nunca texto informativo |
+| Off-white | `#F4EFED` | canvas alternativo, só no registro público |
 
-This pattern was prototyped and validated in the interactive workbench
-(`design-gallery/index.html#workbench`) before being ported into the real
-token file — do not reintroduce a second, divergent palette-swap mechanism.
+Neutros são frios, derivados do matiz do azul médio; `bg-subtle` não é branco.
+Tema claro por padrão no produto, escuro de primeira classe (navy como campo);
+todo token tem par claro/escuro. Consuma sempre a variável `--cluos-*`.
 
-## 2. Palette modes
+## 3. Mapa semântico
 
-Every palette declares exactly one mode:
+- Ação primária = verde tech, texto navy, uma por região. A cor de ação não
+  vaza para estado, link, gráfico nem fundo decorativo.
+- Azul médio: estrutura, navegação, ação secundária, progresso.
+- Link em texto corrido: cor do texto com sublinhado.
+- Status = ícone + texto, nunca cor sozinha. Quatro status, cada um com
+  fundo, linha e texto, em claro e escuro, nos matizes 15° (perigo), 75°
+  (aviso), 165° (sucesso) e 225° (informação). Sucesso é distinto do verde
+  tech. A linha de status é mais escura que a de categoria para um chip de
+  status nunca parecer série de gráfico.
 
-- **`preserve`** — keeps the CluOS anchor colors (teal `#008080`, navy
-  `#1B2F36`) intact. May reorganize semantic roles, correct contrast, build
-  tonal scales, reduce saturation, improve neutrals. Does not change the
-  cromatic identity.
-- **`evolve`** — keeps one or two anchor colors, redesigns neutrals,
-  surfaces, states, auxiliary colors.
-- **`new`** — a fresh palette aligned to an archetype's thesis, with
-  rationale and brand-risk noted.
+## 4. Arco-íris (12 matizes)
 
-## 3. Registered palettes
+`hue-01` … `hue-12`, a 30° em OKLCH (`hue-01` = matiz do verde tech, `hue-06` =
+matiz do azul médio), três degraus (fundo, linha, texto) em claro e escuro.
 
-| id | mode | accent | ink | bg | pairs well with |
-|---|---|---|---|---|---|
-| `teal-classic` (native, no class needed) | preserve | `#008080` | `#1B2F36` | `#FBFBF9` | A |
-| `thermal-nocturne` (native, no class needed) | evolve | `#0E8F87` | `#0B1730` | `#F5F7F4` | B |
-| `thermal-nocturne-dark` (native, no class needed) | evolve | `#1FB5AB` | `#E8ECF4` | `#010D28` | G |
-| `editorial-cobalt` (native, no class needed) | new | `#2B49C7` | `#16181D` | `#FAFAF7` | C |
-| `swiss-mono` (native, no class needed) | preserve | `#007070` | `#111417` | `#FFFFFF` | D |
-| `clinic-warm` (native, no class needed) | evolve | `#0E6E68` | `#24403C` | `#F6F3EE` | E |
-| `pal-tealcool` — Teal Cool Slate | preserve | `#008080` | `#1B2F36` | `#F7F8FA` | A, D |
-| `pal-tealink` — Teal Ink | preserve | `#00696B` | `#10181C` | `#FFFFFF` | A, D |
-| `pal-forest` — Forest Command | evolve | `#3D7A46` | `#16201A` | `#F6F5EF` | B, G |
-| `pal-copper` — Copper Signal | evolve | `#0E6E68` | `#0B1730` | `#F5F7F4` | B, G, E |
-| `pal-cold` — Cold Luxury | new | `#2D6CDF` | `#1B1E22` | `#F4F5F6` | C, D |
-| `pal-terracotta` — Terracotta Slate | new | `#B5623A` | `#24303A` | `#F3F1EC` | E, C |
+- Uso permitido: categorias de dados, etiquetas, calendário, avatares,
+  ilustração, identificação de produto.
+- Proibido: ação primária, status, navegação.
+- Gráficos: `chart_order` da fonte (oito matizes, nunca reciclada; a nona
+  série vira "Outros"). Quando as séries são produtos, cada barra usa o
+  `product_hue` do produto.
+- `product_hue`: um matiz por produto, só em chrome (etiqueta no hub, tile do
+  favicon, ponto de tabela, estado vazio). Núcleo visual idêntico entre
+  produtos.
 
-Full token values (including `-deep`/`-dark` variants) live in
-`tokens/tokens.css` under `.pal-*` classes and in
-`docs/cluos-design-system-v2/05-palette-options.md`.
+## 5. Aliases de compatibilidade
 
-## 4. Restrictions (unchanged from the anti-slop rubric)
+Teal, copper, oxblood e demais valores do `cluos-mms-v1` deixam de ser papéis
+de marca e permanecem apenas como aliases (`compat.aliases` na fonte) até
+2.0.0. Código novo não os usa; código existente migra para status e matizes.
 
-- No purple-blue gradient by reflex.
-- No brand color used for every semantic state.
-- No dependence on color alone to convey state.
-- No new palette applied globally without a decision recorded in
-  `palette-decisions.yaml` in the resolved CluOS profile root. From this file,
-  that root is `../../profiles/cluos-design-system/cluos` when installed and
-  `../profiles/cluos` in the canonical source checkout. Stop if neither exact
-  path is complete.
-- `err` stays oxblood-family (`#8A3A3A` light / `#C46A6A` dark) across every
-  registered palette — status colors are semantic, not decorative, and
-  changing error red per palette would break pattern-recognition across
-  surfaces.
-- Banned as default reach (see `anti-slop-rubric.md` §Color): neon glow,
-  glassmorphism, beige+brass+oxblood+espresso "premium luxury" combo,
-  oversaturated single accent >80% saturation.
+## 6. Restrições (inalteradas da rubrica anti-slop)
 
-## 5. Adding a new palette
-
-1. Define the 4-5 core swatches (accent, accent-deep, ink, bg, one
-   secondary) and justify the mode.
-2. Add `.pal-<id>` to `tokens/tokens.css` with the full `--u-*` set
-   (including `-dark` variants if it will ever run against Night Watch).
-3. Add a row to the table above and to `05-palette-options.md`.
-4. Render it against at least one archetype's dashboard before shipping —
-   swatches alone are not sufficient evidence (`design-gallery` skill rule).
+- Sem gradiente roxo-azul por reflexo.
+- Sem cor de marca em todo estado.
+- Sem dependência exclusiva de cor para comunicar estado.
+- Banidos como padrão: brilho neon, glassmorphism, combinação
+  bege + latão + oxblood + espresso de "luxo", acento único com saturação
+  acima de 80%.
+- Contraste alvo WCAG 2.2 AA; foco = anel duplo (verde tech interno + navy
+  externo).

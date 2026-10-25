@@ -17,17 +17,17 @@ export function EmptyState({ title, description, action }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center text-center py-16 px-6">
       {/* Cluos symbol placeholder — replace with actual SVG from brand-assets */}
-      <div className="w-12 h-12 rounded-full bg-cluos-bg-muted flex items-center justify-center mb-4">
+      <div className="w-12 h-12 rounded-cluos-pill bg-cluos-bg-muted flex items-center justify-center mb-4">
         <span className="text-cluos-text-subtle text-lg">◎</span>
       </div>
-      <h3 className="text-lg font-semibold text-cluos-navy mb-2">{title}</h3>
+      <h3 className="text-lg font-semibold text-cluos-fg mb-2">{title}</h3>
       {description && (
         <p className="text-sm text-cluos-text-muted max-w-xs mb-6">{description}</p>
       )}
       {action && (
         <button
           onClick={action.onClick}
-          className="px-5 py-2.5 bg-cluos-teal text-white rounded-cluos-md text-sm font-medium hover:bg-cluos-teal-deep transition-colors"
+          className="px-5 py-2.5 bg-cluos-action text-cluos-action-fg rounded-cluos-md text-sm font-medium hover:bg-cluos-action-hover transition-colors"
         >
           {action.label}
         </button>
@@ -52,8 +52,8 @@ export function ErrorState({ title, description, onRetry, technicalDetails }: Er
   const [showDetails, setShowDetails] = React.useState(false);
 
   return (
-    <div className="rounded-cluos-lg border border-[var(--cluos-status-error-bg)] bg-[var(--cluos-status-error-bg)] p-5 max-w-lg">
-      <h3 className="font-semibold text-cluos-navy mb-1.5">{title}</h3>
+    <div className="rounded-cluos-md border border-[var(--cluos-status-danger-bg)] bg-[var(--cluos-status-danger-bg)] p-5 max-w-lg">
+      <h3 className="font-semibold text-cluos-fg mb-1.5">{title}</h3>
       {description && (
         <p className="text-sm text-cluos-text-muted mb-4">{description}</p>
       )}
@@ -61,7 +61,7 @@ export function ErrorState({ title, description, onRetry, technicalDetails }: Er
         {onRetry && (
           <button
             onClick={onRetry}
-            className="px-4 py-2 bg-cluos-teal text-white rounded-cluos-md text-sm font-medium hover:bg-cluos-teal-deep transition-colors"
+            className="px-4 py-2 bg-cluos-action text-cluos-action-fg rounded-cluos-md text-sm font-medium hover:bg-cluos-action-hover transition-colors"
           >
             Tentar novamente
           </button>
@@ -101,7 +101,7 @@ function SkeletonLine({ width = "100%", height = "1rem" }: { width?: string; hei
 
 export function SkeletonCard() {
   return (
-    <div className="bg-white border border-cluos-border rounded-cluos-lg p-5 space-y-3">
+    <div className="bg-cluos-surface border border-cluos-line rounded-cluos-md p-5 space-y-3">
       <SkeletonLine width="60%" height="1.125rem" />
       <SkeletonLine width="90%" height="0.875rem" />
       <SkeletonLine width="75%" height="0.875rem" />

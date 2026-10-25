@@ -63,31 +63,31 @@ Or copy `tokens/tokens.css` into your project directly.
   padding: 0.625rem 1rem;
   border-radius: var(--cluos-radius-md);
   border: 1px solid transparent;
-  transition: background var(--cluos-dur-fast) var(--cluos-ease-out),
-              border-color var(--cluos-dur-fast) var(--cluos-ease-out),
-              color var(--cluos-dur-fast) var(--cluos-ease-out);
+  transition: background var(--cluos-motion-fast) var(--cluos-ease-out),
+              border-color var(--cluos-motion-fast) var(--cluos-ease-out),
+              color var(--cluos-motion-fast) var(--cluos-ease-out);
   cursor: pointer;
 }
 .btn:focus-visible {
   outline: none;
   box-shadow: var(--cluos-ring-focus);
 }
-.btn-primary { background: var(--cluos-teal); color: var(--cluos-text-on-teal); }
-.btn-primary:hover { background: var(--cluos-teal-deep); }
-.btn-secondary { background: transparent; color: var(--cluos-navy); border-color: var(--cluos-border-strong); }
-.btn-secondary:hover { border-color: var(--cluos-navy); background: var(--cluos-bg-subtle); }
-.btn-ghost { background: transparent; color: var(--cluos-teal-deep); }
-.btn-ghost:hover { background: rgba(0, 128, 128, 0.08); }
+.btn-primary { background: var(--cluos-action); color: var(--cluos-action-fg); }
+.btn-primary:hover { background: var(--cluos-action-hover); }
+.btn-secondary { background: transparent; color: var(--cluos-fg); border-color: var(--cluos-border-strong); }
+.btn-secondary:hover { border-color: var(--cluos-fg); background: var(--cluos-bg-subtle); }
+.btn-ghost { background: transparent; color: var(--cluos-action-hover); }
+.btn-ghost:hover { background: var(--cluos-action-soft); }
 
 /* ---- Card ---- */
 .card {
   background: var(--cluos-bg);
   border: 1px solid var(--cluos-border);
-  border-radius: var(--cluos-radius-lg);
+  border-radius: var(--cluos-radius-md);
   padding: var(--cluos-space-6);
 }
 .card-interactive:hover {
-  box-shadow: var(--cluos-shadow-sm);
+  border-color: var(--cluos-line-strong);
 }
 
 /* ---- Status badge ---- */
@@ -100,10 +100,10 @@ Or copy `tokens/tokens.css` into your project directly.
   padding: 0.25rem 0.625rem;
   border-radius: var(--cluos-radius-sm);
 }
-.badge-success { background: var(--cluos-status-success-bg); color: var(--cluos-status-success); }
-.badge-warn    { background: var(--cluos-status-warn-bg);    color: var(--cluos-status-warn); }
-.badge-error   { background: var(--cluos-status-error-bg);   color: var(--cluos-status-error); }
-.badge-info    { background: var(--cluos-status-info-bg);    color: var(--cluos-status-info); }
+.badge-success { background: var(--cluos-status-success-bg); color: var(--cluos-status-success-text); }
+.badge-warn    { background: var(--cluos-status-warning-bg);    color: var(--cluos-status-warning-text); }
+.badge-error   { background: var(--cluos-status-danger-bg);   color: var(--cluos-status-danger-text); }
+.badge-info    { background: var(--cluos-status-info-bg);    color: var(--cluos-status-info-text); }
 
 /* Status dot */
 .status-dot {
@@ -113,8 +113,8 @@ Or copy `tokens/tokens.css` into your project directly.
   flex-shrink: 0;
 }
 .status-dot-success { background: var(--cluos-status-success); }
-.status-dot-warn    { background: var(--cluos-status-warn); }
-.status-dot-error   { background: var(--cluos-status-error); }
+.status-dot-warn    { background: var(--cluos-status-warning); }
+.status-dot-error   { background: var(--cluos-status-danger); }
 
 /* ---- Input ---- */
 .input {
@@ -126,16 +126,15 @@ Or copy `tokens/tokens.css` into your project directly.
   border-radius: var(--cluos-radius-md);
   padding: 0.625rem 0.875rem;
   width: 100%;
-  transition: border-color var(--cluos-dur-fast) var(--cluos-ease-out);
+  transition: border-color var(--cluos-motion-fast) var(--cluos-ease-out);
 }
 .input:focus {
   outline: none;
-  border-color: var(--cluos-teal);
+  border-color: var(--cluos-action);
   box-shadow: var(--cluos-ring-focus);
 }
 .input.error {
-  border-color: var(--cluos-status-error);
-  box-shadow: 0 0 0 3px rgba(138, 58, 58, 0.15);
+  border-color: var(--cluos-status-danger-text);
 }
 
 /* ---- Empty state ---- */
@@ -148,8 +147,8 @@ Or copy `tokens/tokens.css` into your project directly.
 }
 .empty-state__title {
   font-size: var(--cluos-text-lg);
-  font-weight: 600;
-  color: var(--cluos-navy);
+  font-weight: 650;
+  color: var(--cluos-fg);
   margin: var(--cluos-space-4) 0 var(--cluos-space-2);
 }
 .empty-state__description {
@@ -183,8 +182,8 @@ Or copy `tokens/tokens.css` into your project directly.
 }
 .progress-fill {
   height: 100%;
-  background: var(--cluos-teal);
+  background: var(--cluos-action);
   border-radius: 2px;
-  transition: width var(--cluos-dur-base) var(--cluos-ease-out);
+  transition: width var(--cluos-motion-base) var(--cluos-ease-out);
 }
 ```

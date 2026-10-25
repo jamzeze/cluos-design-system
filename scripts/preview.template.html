@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="pt-BR" data-cluos-canonical="cluos-v2" data-theme="light" data-density="comfortable">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CluOS · espécime do sistema de design (cluos-v2)</title>
+<meta name="description" content="Espécime canônico do cluos-v2: marca, cores, arco-íris, tipografia, espaço, componentes, estados e movimento.">
+<link rel="icon" href="brand-assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="tokens/fonts.css">
+<link rel="stylesheet" href="tokens/tokens.css">
+<link rel="stylesheet" href="cluos.css">
+<style>
+  /* Estilos só do espécime. Tudo o mais vem de tokens.css e cluos.css. */
+  body { margin: 0; background: var(--cluos-bg); }
+  .sp-section { padding-block: var(--cluos-space-16); border-bottom: 1px solid var(--cluos-line); }
+  .sp-section__head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: var(--cluos-space-8); align-items: end; margin-bottom: var(--cluos-space-10); }
+  .sp-section__head p { margin: 0; color: var(--cluos-fg-2); font-size: var(--cluos-type-body-size); line-height: var(--cluos-type-body-line); }
+  .sp-kicker { display: block; margin-bottom: var(--cluos-space-3); }
+  .sp-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--cluos-space-8); }
+  .sp-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--cluos-space-6); }
+  .sp-grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--cluos-space-6); }
+  .sp-stack { display: flex; flex-direction: column; gap: var(--cluos-space-3); min-width: 0; }
+  .sp-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cluos-space-2); }
+  .sp-h3 { margin: 0; font-family: var(--cluos-font-display); font-weight: var(--cluos-font-weight-display); font-size: var(--cluos-type-heading-sm-size); letter-spacing: -0.01em; }
+  .sp-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--cluos-space-3); }
+  .sp-swatch { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .sp-swatch__chip { height: 72px; border-radius: var(--cluos-radius-sm); box-shadow: inset 0 0 0 1px var(--cluos-line); }
+  .sp-swatch__name { font-size: 13px; font-weight: var(--cluos-font-weight-label); }
+  .sp-ramp { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 6px; }
+  .sp-ramp .sp-swatch__chip { height: 48px; }
+  .sp-hues { display: grid; grid-template-columns: 72px repeat(3, minmax(0, 1fr)); gap: 6px var(--cluos-space-2); align-items: center; }
+  .sp-hues .c { height: 28px; border-radius: var(--cluos-radius-sm); }
+  .sp-chart-order { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; }
+  .sp-chart-order div { height: 28px; border-radius: var(--cluos-radius-sm); }
+  .sp-type-row { display: grid; grid-template-columns: 120px minmax(0, 1fr) 220px; gap: var(--cluos-space-5); align-items: baseline; padding-block: var(--cluos-space-3); border-bottom: 1px solid var(--cluos-line); }
+  .sp-bar { height: 10px; border-radius: var(--cluos-radius-sm); background: var(--cluos-fg-2); }
+  .sp-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: var(--cluos-space-10); align-items: stretch; padding-block: var(--cluos-space-16); border-bottom: 1px solid var(--cluos-line); }
+  .sp-public { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; gap: var(--cluos-space-8); min-height: 420px; padding: var(--cluos-space-10); border-radius: var(--cluos-radius-md); background: var(--cluos-deep-navy); color: var(--cluos-fg-on-navy); }
+  .sp-public__mark { position: absolute; right: -150px; top: -120px; width: 440px; color: var(--cluos-tech-green); pointer-events: none; }
+  .sp-public > :not(.sp-public__mark) { position: relative; }
+  .sp-toggles { display: flex; flex-wrap: wrap; gap: var(--cluos-space-2); }
+  .sp-toggles [aria-pressed="true"] { background: var(--cluos-bg-muted); color: var(--cluos-fg); }
+  .sp-chart { display: grid; grid-template-columns: 96px minmax(0, 1fr) 64px; gap: 10px var(--cluos-space-3); align-items: center; }
+  .sp-chart .track { height: 12px; }
+  .sp-chart .fill { height: 100%; width: 0; border-radius: 4px; transition: width var(--cluos-motion-data) var(--cluos-ease-out); }
+  .sp-line path.draw { stroke-dasharray: 600; stroke-dashoffset: 600; transition: stroke-dashoffset var(--cluos-motion-data) var(--cluos-ease-out); }
+  .sp-line.is-drawn path.draw { stroke-dashoffset: 0; }
+  .sp-cb { width: 16px; height: 16px; margin: 0; accent-color: var(--cluos-progress); vertical-align: middle; }
+  .sp-swatches--brand { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .sp-swatches--roles { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .sp-stack > .cluos-dialog { max-width: none; }
+  .sp-public { border: 1px solid var(--cluos-line-2); }
+  .sp-line text { font-family: var(--cluos-font-sans); font-size: 12px; fill: var(--cluos-fg-3); font-variant-numeric: tabular-nums; }
+  .sp-line .end { fill: var(--cluos-fg); font-weight: var(--cluos-font-weight-label); }
+  .sp-footer { padding-block: var(--cluos-space-12); color: var(--cluos-fg-3); font-size: 13px; }
+  @media (max-width: 1023px) {
+    .sp-section__head, .sp-hero, .sp-grid-2 { grid-template-columns: minmax(0, 1fr); }
+    .sp-grid-3, .sp-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .sp-grid-3 > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+  }
+  @media (max-width: 767px) {
+    .sp-grid-3, .sp-grid-4 { grid-template-columns: minmax(0, 1fr); }
+    .sp-type-row { grid-template-columns: minmax(0, 1fr); gap: var(--cluos-space-1); }
+    .sp-ramp { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .sp-swatches--brand { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .sp-hues { grid-template-columns: 56px repeat(3, minmax(0, 1fr)); }
+    .sp-public { padding: var(--cluos-space-6); min-height: 360px; }
+    .sp-public__mark { width: 300px; right: -120px; top: -90px; }
+    .sp-section { padding-block: var(--cluos-space-10); }
+  }
+</style>
+</head>
+<body class="cluos">
+
+<header class="cluos-header">
+  <div class="cluos-container cluos-container--wide cluos-header__inner">
+    <a class="cluos-lockup" href="#inicio">
+      <span class="cluos-lockup__brand">CluOS</span>
+      <span class="cluos-lockup__rule" aria-hidden="true"></span>
+      <span class="cluos-lockup__product">Design System</span>
+      <span class="cluos-lockup__descriptor">cluos-v2</span>
+    </a>
+    <nav class="cluos-nav" aria-label="Seções">
+      <a href="#cores" aria-current="page">Cores</a>
+      <a href="#tipografia">Tipografia</a>
+      <a href="#espaco">Espaço</a>
+      <a href="#componentes">Componentes</a>
+      <a href="#estados">Estados</a>
+      <a href="#movimento">Movimento</a>
+    </nav>
+    <div class="sp-toggles" role="group" aria-label="Preferências do espécime">
+      <button type="button" class="cluos-btn cluos-btn--ghost cluos-btn--sm" data-set-theme="light" aria-pressed="true">Claro</button>
+      <button type="button" class="cluos-btn cluos-btn--ghost cluos-btn--sm" data-set-theme="dark" aria-pressed="false">Escuro</button>
+      <button type="button" class="cluos-btn cluos-btn--ghost cluos-btn--sm" data-set-density="compact" aria-pressed="false">Compacto</button>
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="cluos-container cluos-container--wide">
+
+    <!-- ===== Abertura ===================================================== -->
+    <section class="sp-hero" aria-labelledby="t-hero">
+      <div class="sp-stack" style="gap: var(--cluos-space-6); justify-content: center">
+        <span class="cluos-label">Sistema de design · referência Brand Book Azigos</span>
+        <h1 id="t-hero" class="cluos-display-xl">Quieto por padrão, preciso onde <span class="cluos-strong">importa</span>.</h1>
+        <p class="cluos-body" style="margin: 0; color: var(--cluos-fg-2)">Um sistema para todos os produtos CluOS. A paleta de marca da Azigos, Manrope e Instrument Sans, um verde de ação, quatro status, doze matizes para quando a interface precisa de cor sem perder a identidade, e Orbitron para os poucos momentos de destaque.</p>
+        <div class="sp-row">
+          <a class="cluos-btn cluos-btn--primary" href="#componentes">Ver componentes</a>
+          <a class="cluos-btn cluos-btn--secondary" href="AGENT-BRIEF.md">Brief para agentes</a>
+        </div>
+      </div>
+      <div class="sp-public" aria-label="Registro público, exemplo">
+        <div class="sp-public__mark" aria-hidden="true">{{SYMBOL}}</div>
+        <div class="cluos-lockup" style="color: var(--cluos-fg-on-navy)">
+          <span class="cluos-lockup__brand">CluOS</span>
+          <span class="cluos-lockup__rule" aria-hidden="true" style="background: rgba(247, 248, 245, 0.35)"></span>
+          <span class="cluos-lockup__product">Azigos</span>
+        </div>
+        <div class="sp-stack" style="gap: var(--cluos-space-5); max-width: 32rem">
+          <span class="cluos-accent" style="font-size: clamp(36px, 5vw, 60px); color: var(--cluos-tech-green)">Mapa de varizes</span>
+          <span style="font-family: var(--cluos-font-display); font-weight: 300; font-size: clamp(20px, 2.2vw, 28px); line-height: 1.25">gerado a partir da sua consulta vascular, pronto para revisar.</span>
+          <div class="sp-row" style="gap: var(--cluos-space-5)">
+            <a class="cluos-btn cluos-btn--primary cluos-btn--pill" href="#demonstracao">Solicitar demonstração</a>
+            <a href="#mapeamento" style="color: var(--cluos-fg-on-navy); font-weight: 500; text-decoration: none">Ver o mapeamento →</a>
+          </div>
+        </div>
+        <span style="font-size: 12px; color: rgba(247, 248, 245, 0.6)">Registro público · segunda passada pendente</span>
+      </div>
+    </section>
+
+    <!-- ===== Cores ======================================================== -->
+    <section class="sp-section" id="cores" aria-labelledby="t-cores">
+      <div class="sp-section__head">
+        <div><span class="cluos-label sp-kicker">01 · Cores</span><h2 id="t-cores" class="cluos-display-lg">Cor é estrutura ou estado</h2></div>
+        <p>Seis cores de marca da Azigos, neutros frios derivados delas, papéis semânticos que trocam com o tema, uma única cor de ação e quatro status que sempre vêm com ícone e texto.</p>
+      </div>
+
+      <div class="sp-stack" style="gap: var(--cluos-space-10)">
+        <div class="sp-stack">
+          <h3 class="sp-h3">Marca</h3>
+          <div class="sp-swatches sp-swatches--brand">
+            <div class="sp-swatch"><div class="sp-swatch__chip" style="background: var(--cluos-deep-navy)"></div><span class="sp-swatch__name">Azul profundo</span><span class="cluos-mono">#010D28</span></div>
+            <div class="sp-swatch"><div class="sp-swatch__chip" style="background: var(--cluos-medium-blue)"></div><span class="sp-swatch__name">Azul médio</span><span class="cluos-mono">#132952</span></div>
+            <div class="sp-swatch"><div class="sp-swatch__chip" style="background: var(--cluos-tech-green)"></div><span class="sp-swatch__name">Verde tech</span><span class="cluos-mono">#C4DB7B</span></div>
+            <div class="sp-swatch"><div class="sp-swatch__chip" style="background: var(--cluos-white)"></div><span class="sp-swatch__name">Branco</span><span class="cluos-mono">#FFFFFF</span></div>
+            <div class="sp-swatch"><div class="sp-swatch__chip" style="background: var(--cluos-neutral-100)"></div><span class="sp-swatch__name">Cinza claro</span><span class="cluos-mono">#EAEAEA</span></div>
+            <div class="sp-swatch"><div class="sp-swatch__chip" style="background: var(--cluos-neutral-500)"></div><span class="sp-swatch__name">Cinza médio</span><span class="cluos-mono">#A5A5A5</span></div>
+            <div class="sp-swatch"><div class="sp-swatch__chip" style="background: var(--cluos-off-white)"></div><span class="sp-swatch__name">Off-white</span><span class="cluos-mono">#F4EFED</span></div>
+          </div>
+        </div>
+
+        <div class="sp-grid-2">
+          <div class="sp-stack">
+            <h3 class="sp-h3">Neutros frios</h3>
+            <div class="sp-ramp">
+              {{NEUTRALS}}
+            </div>
+          </div>
+          <div class="sp-stack">
+            <h3 class="sp-h3">Papéis do tema atual</h3>
+            <div class="sp-swatches sp-swatches--roles">
+              {{ROLES}}
+            </div>
+          </div>
+        </div>
+
+        <div class="sp-grid-2">
+          <div class="sp-stack">
+            <h3 class="sp-h3">Status — ícone e texto, sempre</h3>
+            <div class="sp-row">
+              <span class="cluos-chip cluos-chip--success">{{I_OK}}Online</span>
+              <span class="cluos-chip cluos-chip--warning">{{I_WARN}}Atenção</span>
+              <span class="cluos-chip cluos-chip--danger">{{I_ERR}}Offline</span>
+              <span class="cluos-chip cluos-chip--info">{{I_INFO}}Processando</span>
+              <span class="cluos-chip cluos-chip--neutral">{{I_DRAFT}}Rascunho</span>
+              <span class="cluos-count" aria-label="12 pendências">12</span>
+            </div>
+            <p class="cluos-body-sm" style="margin: 0">Teal, copper e oxblood deixaram de ser papéis de marca. Os matizes de status ficam entre os do arco-íris, e a linha de status é mais escura que a de categoria.</p>
+          </div>
+          <div class="sp-stack">
+            <h3 class="sp-h3">Ação e foco</h3>
+            <div class="sp-row">
+              <button type="button" class="cluos-btn cluos-btn--primary">Salvar alterações</button>
+              <button type="button" class="cluos-btn cluos-btn--primary is-focus">Com foco</button>
+              <button type="button" class="cluos-btn cluos-btn--secondary">Secundária</button>
+            </div>
+            <p class="cluos-body-sm" style="margin: 0">Verde tech só na ação primária e na seleção. Anel de foco: 2 px verde por dentro, 2 px de contraste por fora.</p>
+          </div>
+        </div>
+
+        <div class="sp-stack">
+          <h3 class="sp-h3">Arco-íris · 12 matizes</h3>
+          <p class="cluos-body-sm" style="margin: 0">Para categorias, etiquetas, calendário, avatares e identificação de produto. Nunca para ação, status ou navegação. Fundo, linha e texto, no tema atual.</p>
+          <div class="sp-grid-2">
+            <div class="sp-hues">
+              <span class="cluos-label">matiz</span><span class="cluos-label">fundo</span><span class="cluos-label">linha</span><span class="cluos-label">texto</span>
+              {{HUES_A}}
+            </div>
+            <div class="sp-hues">
+              <span class="cluos-label">matiz</span><span class="cluos-label">fundo</span><span class="cluos-label">linha</span><span class="cluos-label">texto</span>
+              {{HUES_B}}
+            </div>
+          </div>
+          <div class="sp-stack" style="margin-top: var(--cluos-space-4)">
+            <span class="cluos-label">ordem para gráficos · 8 das 12</span>
+            <div class="sp-chart-order">{{CHART_ORDER}}</div>
+          </div>
+          <div class="sp-row" style="margin-top: var(--cluos-space-2)">
+            {{PRODUCT_TAGS}}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Tipografia =================================================== -->
+    <section class="sp-section" id="tipografia" aria-labelledby="t-tipo">
+      <div class="sp-section__head">
+        <div><span class="cluos-label sp-kicker">02 · Tipografia</span><h2 id="t-tipo" class="cluos-display-lg">Peso antes de tamanho</h2></div>
+        <p>Manrope para display e métricas, Instrument Sans para interface e dados, JetBrains Mono para identificadores técnicos. Orbitron entra só como destaque: uma palavra ou um número por composição.</p>
+      </div>
+      <div class="sp-grid-4" style="margin-bottom: var(--cluos-space-8)">
+        <div class="cluos-region cluos-region__body sp-stack"><span class="cluos-label">Display</span><span style="font-family: var(--cluos-font-display); font-weight: 300; font-size: 48px; line-height: 1">Aa <span class="cluos-strong">48</span></span><span class="cluos-title">Manrope</span><span class="cluos-body-sm">300 base, 650 no que importa.</span></div>
+        <div class="cluos-region cluos-region__body sp-stack"><span class="cluos-label">Interface · dados</span><span style="font-size: 48px; line-height: 1">Aa <span style="font-weight: 550">Rg</span></span><span class="cluos-title">Instrument Sans</span><span class="cluos-body-sm">400 corpo, 550 rótulos.</span></div>
+        <div class="cluos-region cluos-region__body sp-stack"><span class="cluos-label">Código</span><span style="font-family: var(--cluos-font-mono); font-size: 40px; line-height: 1.2">{a}</span><span class="cluos-title">JetBrains Mono</span><span class="cluos-body-sm">Hash, versão, ISO.</span></div>
+        <div class="cluos-region cluos-region__body sp-stack" style="border-color: var(--cluos-line-strong)"><span class="cluos-label">Destaque</span><span class="cluos-accent" style="font-size: 40px">Aa 48</span><span class="cluos-title">Orbitron</span><span class="cluos-body-sm">Casos especiais, 32–120 px.</span></div>
+      </div>
+      <div>
+        {{TYPE_ROWS}}
+      </div>
+    </section>
+
+    <!-- ===== Espaço ======================================================= -->
+    <section class="sp-section" id="espaco" aria-labelledby="t-espaco">
+      <div class="sp-section__head">
+        <div><span class="cluos-label sp-kicker">03 · Espaço e geometria</span><h2 id="t-espaco" class="cluos-display-lg">Base 4, raio pequeno, sem sombra</h2></div>
+        <p>A separação segue a ordem: agrupamento, alinhamento, tipografia, espaço, hairline, superfície, borda. Sombra não existe no produto; no escuro, a elevação é por tom.</p>
+      </div>
+      <div class="sp-grid-2">
+        <div class="sp-stack">
+          <h3 class="sp-h3">Escala</h3>
+          <div style="display: grid; grid-template-columns: 48px 48px minmax(0, 1fr); gap: 4px var(--cluos-space-3); align-items: center">
+            {{SPACE_ROWS}}
+          </div>
+        </div>
+        <div class="sp-stack" style="gap: var(--cluos-space-6)">
+          <div class="sp-stack">
+            <h3 class="sp-h3">Raio</h3>
+            <div class="sp-grid-3">
+              <div class="sp-stack"><input class="cluos-input" value="Controle" aria-label="Exemplo de raio pequeno"><span class="cluos-mono">radius-sm · 4 px</span></div>
+              <div class="sp-stack"><div class="cluos-region" style="height: 40px; display: flex; align-items: center; padding-inline: var(--cluos-space-3); background: var(--cluos-bg-subtle); color: var(--cluos-fg-3); font-size: 13px">Região</div><span class="cluos-mono">radius-md · 8 px</span></div>
+              <div class="sp-stack"><a class="cluos-btn cluos-btn--primary cluos-btn--pill" href="#espaco" style="min-height: 40px">Pílula</a><span class="cluos-mono">pill · só público</span></div>
+            </div>
+          </div>
+          <div class="sp-stack">
+            <h3 class="sp-h3">Containers</h3>
+            <table class="cluos-table cluos-table--stack">
+              <thead><tr><th>Nome</th><th>Largura</th><th>Uso</th></tr></thead>
+              <tbody>
+                <tr><td data-label="Nome">wide</td><td class="cluos-num" data-label="Largura">80 rem</td><td data-label="Uso">Painéis, tabelas largas, cabeçalho</td></tr>
+                <tr><td data-label="Nome">product</td><td class="cluos-num" data-label="Largura">72 rem</td><td data-label="Uso">Detalhe, formulário, configurações</td></tr>
+                <tr><td data-label="Nome">docs</td><td class="cluos-num" data-label="Largura">48 rem</td><td data-label="Uso">Documentação</td></tr>
+                <tr><td data-label="Nome">prose</td><td class="cluos-num" data-label="Largura">42 rem</td><td data-label="Uso">Leitura corrida</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Componentes ================================================== -->
+    <section class="sp-section" id="componentes" aria-labelledby="t-comp">
+      <div class="sp-section__head">
+        <div><span class="cluos-label sp-kicker">04 · Componentes</span><h2 id="t-comp" class="cluos-display-lg">Uma ação primária por região</h2></div>
+        <p>Referência do <code class="cluos-mono">cluos.css</code>. Rótulo visível em todo campo, estado nunca só por cor, ação supervisionada separada da reversível.</p>
+      </div>
+      <div class="sp-grid-3">
+        <div class="sp-stack">
+          <h3 class="sp-h3">Botões</h3>
+          <div class="sp-row"><button type="button" class="cluos-btn cluos-btn--primary">Salvar alterações</button><button type="button" class="cluos-btn cluos-btn--primary is-hover">Hover</button><button type="button" class="cluos-btn cluos-btn--primary is-focus">Foco</button><button type="button" class="cluos-btn cluos-btn--secondary">Cancelar</button></div>
+          <div class="sp-row"><button type="button" class="cluos-btn cluos-btn--ghost">Ver detalhes</button><button type="button" class="cluos-btn cluos-btn--primary" disabled>Desabilitado</button><button type="button" class="cluos-btn cluos-btn--secondary cluos-btn--icon" aria-label="Mais ações">{{I_MORE}}</button></div>
+          <div class="sp-row"><button type="button" class="cluos-btn cluos-btn--sm cluos-btn--supervised">{{I_RESTART}}Reiniciar serviço</button></div>
+          <p class="cluos-help" style="margin: 0">Ação supervisionada tem contorno de erro e sempre abre confirmação. Destrutivo preenchido só dentro do diálogo.</p>
+        </div>
+        <div class="sp-stack">
+          <h3 class="sp-h3">Campos</h3>
+          <div class="cluos-field"><label for="sp-email">E-mail</label><input class="cluos-input" id="sp-email" type="email" value="isabel@cluos.online"><span class="cluos-help">Recebe o link de acesso.</span></div>
+          <div class="cluos-field"><label for="sp-tel">Telefone</label><input class="cluos-input" id="sp-tel" type="tel" value="(32) 9888" aria-invalid="true" aria-describedby="sp-tel-e"><span class="cluos-help cluos-help--error" id="sp-tel-e">Informe o número com DDD e nove dígitos.</span></div>
+          <div class="cluos-field"><label for="sp-papel">Papel no CRM</label><select class="cluos-input" id="sp-papel"><option>Operador</option><option>Administrador</option></select></div>
+          <div class="cluos-field"><label for="sp-obs">Observação</label><textarea class="cluos-input" id="sp-obs">Acesso temporário até o fim da auditoria.</textarea></div>
+          <div class="sp-row" style="gap: var(--cluos-space-5)">
+            <label class="cluos-check"><input type="radio" name="sp-exp" checked>7 dias</label>
+            <label class="cluos-check"><input type="radio" name="sp-exp">30 dias</label>
+          </div>
+          <div class="sp-row" style="gap: var(--cluos-space-5)">
+            <label class="cluos-check"><input type="checkbox" checked>Enviar convite</label>
+            <button type="button" class="cluos-switch" role="switch" aria-checked="true" data-switch><span class="cluos-switch__track" aria-hidden="true"></span>2FA obrigatório</button>
+          </div>
+        </div>
+        <div class="sp-stack">
+          <h3 class="sp-h3">Feedback</h3>
+          <div class="cluos-alert cluos-alert--info">{{I_INFO}}<span><strong>Processando.</strong> A publicação entra na fila em até 2 minutos. <a href="#fila">Ver fila</a></span></div>
+          <div class="cluos-alert cluos-alert--warning">{{I_WARN}}<span><strong>Em revisão.</strong> O laudo tem 2 achados sem descrição. <a href="#achados">Revisar achados</a></span></div>
+          <div class="cluos-alert cluos-alert--danger">{{I_ERR}}<span><strong>Publicação negada.</strong> A conta perdeu a autorização. <a href="#reconectar">Reconectar conta</a></span></div>
+          <div class="sp-stack" style="gap: 6px"><span class="cluos-label">Progresso</span><div class="cluos-progress" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" aria-label="Laudos processados"><span style="width: 62%"></span></div></div>
+          <div class="sp-stack" style="gap: 6px" aria-hidden="true"><div class="cluos-skeleton" style="width: 70%"></div><div class="cluos-skeleton" style="width: 45%"></div></div>
+          <div class="cluos-toast"><span><strong>Convite enviado</strong> para isabel@cluos.online.</span><a href="#desfazer">Desfazer</a></div>
+        </div>
+      </div>
+
+      <div class="sp-stack" style="margin-top: var(--cluos-space-8)">
+        <span class="cluos-label">Foco visível · teclado · anel verde + anel de contraste</span>
+        <div class="sp-row" style="gap: var(--cluos-space-4)">
+          <label class="cluos-check"><input type="checkbox" class="is-focus" checked aria-label="Caixa com foco"></label>
+          <label class="cluos-check"><input type="radio" class="is-focus" checked aria-label="Rádio com foco"></label>
+          <span class="cluos-switch" aria-hidden="true"><span class="cluos-switch__track is-focus" style="background: var(--cluos-progress)"></span></span>
+          <span class="cluos-tabs" style="border: 0"><a href="#aba" class="is-focus" aria-current="page">Aba com foco</a></span>
+          <a class="cluos-link is-focus" href="#link">Link com foco</a>
+          <button type="button" class="cluos-btn cluos-btn--ghost cluos-btn--sm cluos-btn--icon is-focus" aria-label="Mais ações, com foco">{{I_MORE}}</button>
+          <select class="cluos-input is-focus" aria-label="Seleção com foco" style="width: auto; min-height: 32px"><option>Operador</option></select>
+        </div>
+      </div>
+
+      <div class="sp-grid-2" style="margin-top: var(--cluos-space-10)">
+        <div class="sp-stack">
+          <h3 class="sp-h3">Tabela e navegação</h3>
+          <div class="cluos-tabs" role="tablist"><button role="tab" aria-selected="true">Visão geral</button><button role="tab" aria-selected="false">Incidentes</button><button role="tab" aria-selected="false">Histórico</button></div>
+          <div class="cluos-region">
+            <div class="cluos-table-region" role="region" aria-label="Serviços" tabindex="0">
+              <table class="cluos-table cluos-table--stack">
+                <thead><tr><th><input type="checkbox" aria-label="Selecionar todos" class="sp-cb"></th><th>Serviço</th><th>Estado</th><th class="cluos-num">Uptime</th><th class="cluos-num">p95</th><th class="cluos-num">Ações</th></tr></thead>
+                <tbody>
+                  <tr><td class="cluos-cell--select" data-label="Seleção"><input type="checkbox" class="sp-cb" aria-label="Selecionar did"></td><td class="cluos-cell--lead" data-label="Serviço"><span class="cluos-dot cluos-hue-08" aria-hidden="true"></span><strong>did</strong></td><td data-label="Estado"><span class="cluos-chip cluos-chip--danger">{{I_ERR}}Offline</span></td><td class="cluos-num" data-label="Uptime">97,10 %</td><td class="cluos-num" data-label="p95">—</td><td class="cluos-num cluos-cell--actions" data-label="Ações"><button type="button" class="cluos-btn cluos-btn--ghost cluos-btn--sm cluos-btn--icon" aria-label="Ações de did">{{I_MORE}}</button></td></tr>
+                  <tr aria-selected="true"><td class="cluos-cell--select" data-label="Seleção"><input type="checkbox" class="sp-cb" aria-label="Selecionar sci" checked></td><td class="cluos-cell--lead" data-label="Serviço"><span class="cluos-dot cluos-hue-07" aria-hidden="true"></span><strong>sci</strong></td><td data-label="Estado"><span class="cluos-chip cluos-chip--warning">{{I_WARN}}Atenção</span></td><td class="cluos-num" data-label="Uptime">99,41 %</td><td class="cluos-num" data-label="p95">1.480 ms</td><td class="cluos-num cluos-cell--actions" data-label="Ações"><button type="button" class="cluos-btn cluos-btn--ghost cluos-btn--sm cluos-btn--icon" aria-label="Ações de sci">{{I_MORE}}</button></td></tr>
+                  <tr><td class="cluos-cell--select" data-label="Seleção"><input type="checkbox" class="sp-cb" aria-label="Selecionar crm"></td><td class="cluos-cell--lead" data-label="Serviço"><span class="cluos-dot cluos-hue-11" aria-hidden="true"></span><strong>crm</strong></td><td data-label="Estado"><span class="cluos-chip cluos-chip--success">{{I_OK}}Online</span></td><td class="cluos-num" data-label="Uptime">99,98 %</td><td class="cluos-num" data-label="p95">212 ms</td><td class="cluos-num cluos-cell--actions" data-label="Ações"><button type="button" class="cluos-btn cluos-btn--ghost cluos-btn--sm cluos-btn--icon" aria-label="Ações de crm">{{I_MORE}}</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="sp-grid-2" style="gap: var(--cluos-space-5)">
+          <div class="sp-stack">
+            <h3 class="sp-h3">Menu “⋯”</h3>
+            <div class="cluos-menu" role="menu" aria-label="Ações de crm">
+              <a role="menuitem" href="#detalhes" class="is-hover">Ver detalhes</a>
+              <a role="menuitem" href="#silenciar" class="is-focus">Silenciar alertas</a>
+              <a role="menuitem" href="#runbook">Abrir runbook</a>
+              <span class="cluos-menu__sep" aria-hidden="true"></span>
+              <a role="menuitem" class="cluos-menu__item--supervised" href="#reiniciar">Reiniciar serviço…</a>
+            </div>
+            <p class="cluos-help" style="margin: 0">Tinta = hover; anel duplo = foco do teclado. A ação supervisionada vem depois da hairline e abre confirmação.</p>
+          </div>
+          <div class="sp-stack">
+            <h3 class="sp-h3">Diálogo e vazio</h3>
+            <div class="cluos-dialog" role="dialog" aria-labelledby="sp-dlg">
+              <span id="sp-dlg" class="cluos-title">Reiniciar crm?</span>
+              <span class="cluos-body-sm">Interrompe sessões por cerca de 20 segundos. A ação fica no registro de auditoria.</span>
+              <div class="cluos-dialog__actions"><button type="button" class="cluos-btn cluos-btn--ghost cluos-btn--sm">Cancelar</button><button type="button" class="cluos-btn cluos-btn--danger cluos-btn--sm">Reiniciar agora</button></div>
+            </div>
+            <div class="cluos-empty">
+              <div class="cluos-empty__mark" aria-hidden="true">{{SYMBOL}}</div>
+              <span class="cluos-title">Nenhum incidente aberto</span>
+              <span class="cluos-body-sm">Os sete serviços responderam.</span>
+              <button type="button" class="cluos-btn cluos-btn--secondary cluos-btn--sm">Ver histórico</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Estados ======================================================= -->
+    <section class="sp-section" id="estados" aria-labelledby="t-estados">
+      <div class="sp-section__head">
+        <div><span class="cluos-label sp-kicker">05 · Estados</span><h2 id="t-estados" class="cluos-display-lg">Honesto, com próxima ação</h2></div>
+        <p>Toda superfície que depende de dados implementa carregando, vazio, erro, processando e sucesso. A cópia é direta e diz o que fazer.</p>
+      </div>
+      <div class="cluos-table-region" role="region" aria-label="Estados obrigatórios" tabindex="0">
+        <table class="cluos-table cluos-table--stack">
+          <thead><tr><th>Estado</th><th>Sinal</th><th>Cópia de exemplo</th><th>Próxima ação</th></tr></thead>
+          <tbody>
+            <tr><td data-label="Estado">Carregando</td><td data-label="Sinal">Esqueleto</td><td data-label="Cópia">—</td><td data-label="Próxima ação">Nenhuma</td></tr>
+            <tr><td data-label="Estado">Vazio</td><td data-label="Sinal"><span class="cluos-chip cluos-chip--neutral">{{I_DRAFT}}Vazio</span></td><td data-label="Cópia">Nenhum incidente aberto</td><td data-label="Próxima ação">Ver histórico</td></tr>
+            <tr><td data-label="Estado">Processando</td><td data-label="Sinal"><span class="cluos-chip cluos-chip--info">{{I_INFO}}Processando</span></td><td data-label="Cópia">A publicação entra na fila em até 2 minutos</td><td data-label="Próxima ação">Ver fila</td></tr>
+            <tr><td data-label="Estado">Atenção</td><td data-label="Sinal"><span class="cluos-chip cluos-chip--warning">{{I_WARN}}Em revisão</span></td><td data-label="Cópia">O laudo tem 2 achados sem descrição</td><td data-label="Próxima ação">Revisar achados</td></tr>
+            <tr><td data-label="Estado">Erro</td><td data-label="Sinal"><span class="cluos-chip cluos-chip--danger">{{I_ERR}}Negado</span></td><td data-label="Cópia">A conta perdeu a autorização</td><td data-label="Próxima ação">Reconectar conta</td></tr>
+            <tr><td data-label="Estado">Sucesso</td><td data-label="Sinal"><span class="cluos-chip cluos-chip--success">{{I_OK}}Concluído</span></td><td data-label="Cópia">Convite enviado</td><td data-label="Próxima ação">Desfazer</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== Movimento ===================================================== -->
+    <section class="sp-section" id="movimento" aria-labelledby="t-mov">
+      <div class="sp-section__head">
+        <div><span class="cluos-label sp-kicker">06 · Movimento</span><h2 id="t-mov" class="cluos-display-lg">Feedback, não decoração</h2></div>
+        <p>180 ms em hover e foco, 120 ms ao pressionar, 600 ms na entrada de estado e 1200 ms no desenho de dados, sempre após uma atualização explícita. Com movimento reduzido, o resultado aparece de imediato.</p>
+      </div>
+      <div class="sp-grid-2" style="align-items: start">
+        <div class="cluos-region">
+          <div class="cluos-region__head"><h2>Chamadas por produto</h2><span class="cluos-label">7 dias · escala 0–50 mil</span></div>
+          <div class="cluos-region__body sp-chart" data-chart>
+            <span>crm</span><div class="track"><div class="fill" data-w="96.2" style="background: var(--cluos-product-crm)"></div></div><span class="cluos-num">48.120</span>
+            <span>aeo</span><div class="track"><div class="fill" data-w="70" style="background: var(--cluos-product-aeo)"></div></div><span class="cluos-num">35.004</span>
+            <span>b3</span><div class="track"><div class="fill" data-w="39.5" style="background: var(--cluos-product-b3)"></div></div><span class="cluos-num">19.760</span>
+            <span>medframe</span><div class="track"><div class="fill" data-w="16.9" style="background: var(--cluos-product-medframe)"></div></div><span class="cluos-num">8.431</span>
+          </div>
+        </div>
+        <div class="cluos-region">
+          <div class="cluos-region__head"><h2>p95 global</h2><button type="button" class="cluos-btn cluos-btn--secondary cluos-btn--sm" data-replay>Atualizar dados</button></div>
+          <div class="cluos-region__body">
+            <svg class="sp-line" data-line viewBox="0 0 400 140" role="img" aria-label="p95 em milissegundos, 19 a 25 de outubro: caiu de 520 para 412 ms" style="width: 100%; height: auto">
+              <line x1="44" y1="10" x2="340" y2="10" stroke="var(--cluos-line)" stroke-width="1"/><text x="38" y="14" text-anchor="end">560</text>
+              <line x1="44" y1="60" x2="340" y2="60" stroke="var(--cluos-line)" stroke-width="1"/><text x="38" y="64" text-anchor="end">480</text>
+              <line x1="44" y1="110" x2="340" y2="110" stroke="var(--cluos-line)" stroke-width="1"/><text x="38" y="114" text-anchor="end">400</text>
+              <text x="44" y="132">19/10</text><text x="192" y="132" text-anchor="middle">22/10</text><text x="340" y="132" text-anchor="end">25/10</text>
+              <path class="draw" d="M44.0,35.0 L93.3,44.4 L142.7,22.5 L192.0,66.2 L241.3,60.0 L290.7,78.8 L340.0,102.5" fill="none" stroke="var(--cluos-chart-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+              <circle cx="340" cy="102.5" r="4" fill="var(--cluos-chart-2)" stroke="var(--cluos-surface)" stroke-width="2"/>
+              <text class="end" x="350" y="106.5">412 ms</text>
+            </svg>
+            <span class="cluos-body-sm">Eixo em ms, grade a cada 80 ms. A linha desenha e as barras sobem só após atualização explícita.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="cluos-container cluos-container--wide sp-footer">
+  Fontes de verdade, em ordem: <code class="cluos-mono">tokens/cluos-v2.yaml</code> → <code class="cluos-mono">scripts/build-tokens.py</code> → <code class="cluos-mono">tokens/*</code> → este espécime → <code class="cluos-mono">DESIGN.md</code>. Decisões: <code class="cluos-mono">docs/frontend-routing/2026-10-23-cluos-v2/</code>.
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  document.querySelectorAll("[data-set-theme]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      root.setAttribute("data-theme", b.getAttribute("data-set-theme"));
+      document.querySelectorAll("[data-set-theme]").forEach(function (o) { o.setAttribute("aria-pressed", String(o === b)); });
+    });
+  });
+  var dens = document.querySelector("[data-set-density]");
+  dens.addEventListener("click", function () {
+    var on = root.getAttribute("data-density") !== "compact";
+    root.setAttribute("data-density", on ? "compact" : "comfortable");
+    dens.setAttribute("aria-pressed", String(on));
+  });
+  document.querySelectorAll("[data-switch]").forEach(function (s) {
+    s.addEventListener("click", function () { s.setAttribute("aria-checked", String(s.getAttribute("aria-checked") !== "true")); });
+  });
+  function draw() {
+    var fills = document.querySelectorAll("[data-chart] .fill");
+    var line = document.querySelector("[data-line]");
+    fills.forEach(function (f) { f.style.transition = "none"; f.style.width = "0"; });
+    line.classList.remove("is-drawn");
+    var path = line.querySelector(".draw");
+    path.style.transition = "none";
+    void line.getBoundingClientRect();
+    fills.forEach(function (f, i) {
+      f.style.transition = reduce.matches ? "none" : "width var(--cluos-motion-data) var(--cluos-ease-out) " + (i * 120) + "ms";
+      f.style.width = f.getAttribute("data-w") + "%";
+    });
+    path.style.transition = reduce.matches ? "none" : "";
+    line.classList.add("is-drawn");
+  }
+  document.querySelector("[data-replay]").addEventListener("click", draw);
+  draw();
+})();
+</script>
+</body>
+</html>

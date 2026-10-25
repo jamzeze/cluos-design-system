@@ -1,0 +1,41 @@
+/* cluos-v2 — tema shadcn/ui. Gerado por scripts/build-tokens.py a partir de tokens/cluos-v2.yaml. Não edite à mão.
+   Substitui o bloco :root/.dark gerado pelo shadcn. Importe depois de tokens.css.
+   O seletor inclui os escopos de tema para que a troca de modo se propague. */
+:root,
+[data-theme],
+[data-appearance],
+.dark {
+  --background: var(--cluos-bg);
+  --foreground: var(--cluos-fg);
+  --card: var(--cluos-surface);
+  --card-foreground: var(--cluos-fg);
+  --popover: var(--cluos-surface);
+  --popover-foreground: var(--cluos-fg);
+  --primary: var(--cluos-action);
+  --primary-foreground: var(--cluos-action-fg);
+  --secondary: var(--cluos-bg-muted);
+  --secondary-foreground: var(--cluos-fg);
+  --muted: var(--cluos-bg-subtle);
+  --muted-foreground: var(--cluos-fg-3);
+  --accent: var(--cluos-bg-subtle);
+  --accent-foreground: var(--cluos-fg);
+  --destructive: var(--cluos-status-danger);
+  --destructive-foreground: var(--cluos-white);
+  --border: var(--cluos-line);
+  --input: var(--cluos-line-2);
+  --ring: var(--cluos-line-strong);
+  --radius: var(--cluos-radius-md);
+  --chart-1: var(--cluos-chart-1);
+  --chart-2: var(--cluos-chart-2);
+  --chart-3: var(--cluos-chart-3);
+  --chart-4: var(--cluos-chart-4);
+  --chart-5: var(--cluos-chart-5);
+  --sidebar: var(--cluos-bg-subtle);
+  --sidebar-foreground: var(--cluos-fg);
+  --sidebar-primary: var(--cluos-action);
+  --sidebar-primary-foreground: var(--cluos-action-fg);
+  --sidebar-accent: var(--cluos-bg-muted);
+  --sidebar-accent-foreground: var(--cluos-fg);
+  --sidebar-border: var(--cluos-line);
+  --sidebar-ring: var(--cluos-line-strong);
+}

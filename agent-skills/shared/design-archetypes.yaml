@@ -1,11 +1,15 @@
 # Design Archetype Library — CluOS
 #
-# Source of truth for the design-gallery skill and for anti-ai-slop-frontend's
-# routing. Each archetype is a full visual system (composition, typography,
-# density, color strategy, radius/elevation, iconography, motion) that can be
-# selected independently per screen or surface. Since 2026-08-30, the MMS
-# Swiss Ledger direction is the global default; this library is retained for
-# explicit legacy opt-outs and comparative review only.
+# HISTORICAL (decisão 26, 2026-10-23): esta biblioteca é histórica. O contrato
+# global é cluos-v2 (tokens/cluos-v2.yaml); os arquétipos abaixo foram
+# arquivados e saem do pacote publicado (cópia em docs/legacy/). Servem só a
+# uma comparação registrada ou a um opt-out explícito. Os valores abaixo
+# (Inter, raios 6/8/12 px, teal) NÃO são o contrato atual.
+#
+# Each archetype is a full visual system (composition, typography,
+# density, color strategy, radius/elevation, iconography, motion) that was
+# selectable per screen. Since 2026-08-30 MMS Swiss Ledger and since
+# 2026-10-24 cluos-v2 supersede it as the global default.
 #
 # identifier stability: never rename an id once shipped. Add new archetypes,
 # do not silently redefine existing ones.
@@ -26,10 +30,12 @@
 # so it is not silently reintroduced.
 
 version: 1
-last_updated: "2026-08-30"
-decision_source: tokens/mms-canonical.yaml + docs/cluos-design-system-v2/04-selected-direction.md
-canonical_default: cluos-mms-v1
+last_updated: "2026-10-24"
+decision_source: docs/frontend-routing/2026-10-23-cluos-v2/design-decision.md (decisão 26) + tokens/cluos-v2.yaml
+canonical_default: cluos-v2
 legacy_opt_out_required: true
+status: archived
+note: "Biblioteca histórica (decisão 26). Ids preservados; não reintroduzir como padrão."
 
 archetypes:
   - id: cluos-calm-command
@@ -37,7 +43,10 @@ archetypes:
     css_namespace: dA
     name: "Calm Command"
     base_archetypes: [luxury-medical, data-precision, swiss-minimal]
-    status: approved
+    status: archived
+    canonical_default: cluos-v2
+    legacy_opt_out_required: true
+    note: "Histórico (decisão 26); não é o padrão."
     thesis: >
       Confiança clínica sem frieza. Preserva as âncoras cromáticas oficiais
       do CluOS (teal + navy) e corrige a execução: teal vira a única cor de
@@ -64,7 +73,10 @@ archetypes:
     css_namespace: dB
     name: "Data Precision"
     base_archetypes: [data-precision, swiss-minimal]
-    status: approved
+    status: archived
+    canonical_default: cluos-v2
+    legacy_opt_out_required: true
+    note: "Histórico (decisão 26); não é o padrão."
     thesis: >
       O CluOS é uma central de comando; a interface tem a densidade e
       precisão de uma. Consolida o Thermal Nocturne (v0.4) já aprovado como
@@ -92,7 +104,10 @@ archetypes:
     css_namespace: dG
     name: "Night Watch"
     base_archetypes: [data-precision]
-    status: approved
+    status: archived
+    canonical_default: cluos-v2
+    legacy_opt_out_required: true
+    note: "Histórico (decisão 26); não é o padrão."
     thesis: >
       O registro escuro do Thermal Nocturne como modo primário para salas de
       comando e telas sempre abertas. Não é um arquétipo visual independente:
@@ -121,7 +136,10 @@ archetypes:
     css_namespace: dC
     name: "Editorial Intelligence"
     base_archetypes: [editorial-luxury, contemporary-magazine, data-precision]
-    status: approved
+    status: archived
+    canonical_default: cluos-v2
+    legacy_opt_out_required: true
+    note: "Histórico (decisão 26); não é o padrão."
     thesis: >
       O valor do CluOS é inteligência, não telemetria crua. A operação é
       contada como uma edição conta o dia: manchete, contexto, números com
@@ -147,7 +165,10 @@ archetypes:
     css_namespace: dD
     name: "Swiss Ledger"
     base_archetypes: [swiss-minimal]
-    status: approved
+    status: archived
+    canonical_default: cluos-v2
+    legacy_opt_out_required: true
+    note: "Histórico (decisão 26); não é o padrão."
     thesis: >
       A interface como um livro-razão: branco, tinta, uma régua. Rigor
       tipográfico absoluto — sem rail, sem cards, sem raio, sem sombra.
@@ -173,7 +194,10 @@ archetypes:
     css_namespace: dE
     name: "Clinic Premium"
     base_archetypes: [luxury-medical]
-    status: approved
+    status: archived
+    canonical_default: cluos-v2
+    legacy_opt_out_required: true
+    note: "Histórico (decisão 26); não é o padrão."
     thesis: >
       Confiança clínica com calor de hospitalidade premium: porcelana quente
       como base, teal profundo como âncora, champagne revivido como nuance.
@@ -200,6 +224,9 @@ archetypes:
     name: "Grid Manifest"
     base_archetypes: [refined-brutalist]
     status: rejected
+    canonical_default: cluos-v2
+    legacy_opt_out_required: true
+    note: "Rejeitado por Rafael em 2026-08-10; histórico (decisão 26)."
     rejected_on: "2026-08-10"
     rejected_by: rafael
     rejected_reason: >

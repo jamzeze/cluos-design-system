@@ -56,8 +56,8 @@
 **Tokens:** `background: var(--cluos-bg)`, `border-bottom: 1px solid var(--cluos-border)`.
 
 **Estados:**
-- Item ativo: `color: var(--cluos-teal-deep)`.
-- Item hover: `color: var(--cluos-navy)`, `background: var(--cluos-bg-subtle)`.
+- Item ativo: `color: var(--cluos-fg)`, `border-bottom: 2px solid var(--cluos-line-strong)` (azul médio; verde tech não é navegação).
+- Item hover: `color: var(--cluos-fg)`, `background: var(--cluos-bg-subtle)`.
 
 **Acessibilidade:**
 - `aria-current="page"` no item de navegação ativo.
@@ -76,13 +76,13 @@
 **Anatomia:**
 - Grupos de itens com label de seção.
 - Items de navegação com ícone + label.
-- Item ativo com tint de teal.
+- Item ativo com `--cluos-action-soft` de fundo e indicador `--cluos-line-strong`.
 - Botão de recolher (desktop).
 
 **Tokens:**
 - Width: 256px aberta, 56px recolhida.
 - Background: `var(--cluos-bg-subtle)`.
-- Item ativo: `background: rgba(0, 128, 128, 0.08)`, `color: var(--cluos-teal-deep)`.
+- Item ativo: `background: var(--cluos-action-soft)`, `color: var(--cluos-fg)`.
 - Section label: `font-size: var(--cluos-text-xs)`, uppercase, `color: var(--cluos-text-subtle)`.
 
 **Estados:** Aberta / Recolhida (só ícones) / Mobile (drawer off-canvas).
@@ -114,7 +114,7 @@
 - Descrição: "12 conteúdos aguardando revisão"
 
 **Tokens:**
-- Título: `font-size: var(--cluos-text-3xl)`, `font-weight: 600`.
+- Título: `font-size: var(--cluos-text-3xl)`, `font-weight: var(--cluos-font-weight-strong)`.
 - Descrição: `font-size: var(--cluos-text-base)`, `color: var(--cluos-text-muted)`.
 
 ---
@@ -150,9 +150,9 @@
 
 **Exemplo de texto:** "Publicar conteúdo", "Gerar vídeo", "Adicionar lead", "Salvar alterações".
 
-**Tokens:** `background: var(--cluos-teal)`, `color: var(--cluos-text-on-teal)`.
+**Tokens:** `background: var(--cluos-action)`, `color: var(--cluos-action-fg)`.
 
-**Estados:** default / hover (`--cluos-teal-deep`) / focus / loading / disabled.
+**Estados:** default / hover (`--cluos-action-hover`) / focus / loading / disabled.
 
 **Acessibilidade:**
 - Em loading state: `aria-busy="true"` + texto "Carregando..." visível ou via `aria-label`.
@@ -168,7 +168,7 @@
 
 **Quando não usar:** Para substituir o botão primário, ou para ações destrutivas.
 
-**Tokens:** `background: transparent`, `border: 1px solid var(--cluos-border-strong)`, `color: var(--cluos-navy)`.
+**Tokens:** `background: transparent`, `border: 1px solid var(--cluos-border-strong)`, `color: var(--cluos-fg)`.
 
 ---
 
@@ -186,9 +186,9 @@
 ```
 
 **Tokens status dot:**
-- Online: `background: var(--cluos-status-success)`.
-- Atenção: `background: var(--cluos-status-warn)`.
-- Offline: `background: var(--cluos-status-error)`.
+- Online: `background: var(--cluos-status-success)` (sempre com ícone e texto, nunca só o ponto).
+- Atenção: `background: var(--cluos-status-warning)`.
+- Offline: `background: var(--cluos-status-danger)`.
 
 ---
 
@@ -205,7 +205,7 @@
 - Detalhes recolhidos (último deploy, uptime — em accordion).
 - `[ "Abrir" (primary) ]  [ "Ver detalhes" (ghost) ]`.
 
-**Tokens:** Card base do DESIGN.md — `background: var(--cluos-bg)`, `border: 1px solid var(--cluos-border)`, `border-radius: var(--cluos-radius-lg)`.
+**Tokens:** Card base do DESIGN.md — `background: var(--cluos-surface)`, `border: 1px solid var(--cluos-line)`, `border-radius: var(--cluos-radius-md)`, sem sombra.
 
 ---
 
@@ -225,7 +225,7 @@
 
 **Tokens:**
 - Label: `font-size: var(--cluos-text-sm)`, `color: var(--cluos-text-muted)`.
-- Valor: `font-size: var(--cluos-text-3xl)`, `font-weight: 600`, `color: var(--cluos-navy)`.
+- Valor: `font-size: var(--cluos-text-3xl)`, `font-weight: var(--cluos-font-weight-strong)`, `color: var(--cluos-fg)`.
 
 ---
 
@@ -275,8 +275,8 @@
 - Ação: "Tentar novamente"
 
 **Tokens:**
-- Borda do callout: `1px solid var(--cluos-status-error-bg)`.
-- Background: `var(--cluos-status-error-bg)`.
+- Borda do callout: `1px solid var(--cluos-status-danger-bg)`.
+- Background: `var(--cluos-status-danger-bg)`.
 
 ---
 
@@ -311,12 +311,12 @@
 - Texto: "Arraste arquivos aqui ou" + botão "Selecionar arquivo" (secondary).
 - Tipos aceitos e limite de tamanho visíveis abaixo.
 
-**Estados:** idle / drag-over (tint teal) / uploading (progress) / success / error.
+**Estados:** idle / drag-over (`--cluos-action-soft`) / uploading (progress) / success / error.
 
 **Tokens:**
 - Border: `2px dashed var(--cluos-border)`.
-- Drag-over: `border-color: var(--cluos-teal)`, `background: rgba(0, 128, 128, 0.04)`.
-- Border-radius: `var(--cluos-radius-lg)`.
+- Drag-over: `border-color: var(--cluos-action)`, `background: var(--cluos-action-soft)`.
+- Border-radius: `var(--cluos-radius-md)`.
 
 ---
 
@@ -372,7 +372,7 @@
 - Cancelar (secondary ou ghost).
 
 **Regras:**
-- Ação de confirmação é destrutiva — não é teal, é `--cluos-status-error` (muted oxblood) com texto claro.
+- Ação de confirmação é destrutiva — não é a ação primária verde: usa `--cluos-status-danger` como fundo e texto `--cluos-white`.
 - Cancelar é o foco padrão — o usuário deve escolher confirmar ativamente.
 - Não usar checkbox "Tenho certeza" — é fricção desnecessária.
 
@@ -419,8 +419,8 @@
 **Anatomia:** `[Etapa 1 ✓] — [Etapa 2 ativo] — [Etapa 3] — [Etapa 4]`
 
 **Regras:**
-- Etapas concluídas: checkmark teal.
-- Etapa atual: teal, label visível.
+- Etapas concluídas: ícone de check em `--cluos-fg` (não use cor de ação).
+- Etapa atual: `--cluos-line-strong` e peso 550, label visível.
 - Etapas futuras: cor muted.
 - Não permitir navegação para etapas futuras não concluídas.
 
@@ -439,7 +439,7 @@
 **Tokens:**
 - Label: `font-size: var(--cluos-text-sm)`, `font-weight: 500`, `color: var(--cluos-text-muted)`.
 - Ícone: chevron que rotaciona 180° na abertura.
-- Transition: `var(--cluos-dur-base)` ease.
+- Transition: `var(--cluos-motion-base)` ease.
 
 ---
 

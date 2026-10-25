@@ -16,23 +16,23 @@ interface MetricCardProps {
 
 export function MetricCard({ label, value, variant = "default", trend }: MetricCardProps) {
   const valueColor = {
-    default: "var(--cluos-navy)",
-    warn: "var(--cluos-status-warn)",
-    success: "var(--cluos-status-success)",
+    default: "var(--cluos-fg)",
+    warn: "var(--cluos-status-warning-text)",
+    success: "var(--cluos-status-success-text)",
   }[variant];
 
   const trendColor = trend
-    ? trend.direction === "up" ? "var(--cluos-status-success)"
-      : trend.direction === "down" ? "var(--cluos-status-error)"
+    ? trend.direction === "up" ? "var(--cluos-status-success-text)"
+      : trend.direction === "down" ? "var(--cluos-status-danger-text)"
       : "var(--cluos-text-subtle)"
     : undefined;
 
   return (
-    <div style={{ background: "var(--cluos-bg)", border: "1px solid var(--cluos-border)", borderRadius: "var(--cluos-radius-lg)", padding: "1.25rem" }}>
-      <div style={{ fontSize: "0.6875rem", fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: "0.06em", color: "var(--cluos-text-muted)", marginBottom: "0.5rem" }}>
+    <div style={{ background: "var(--cluos-bg)", border: "1px solid var(--cluos-border)", borderRadius: "var(--cluos-radius-md)", padding: "1.25rem" }}>
+      <div style={{ fontSize: "0.6875rem", fontWeight: 650, textTransform: "uppercase" as const, letterSpacing: "0.06em", color: "var(--cluos-text-muted)", marginBottom: "0.5rem" }}>
         {label}
       </div>
-      <div style={{ fontSize: "2rem", fontWeight: 600, lineHeight: 1, color: valueColor }}>
+      <div style={{ fontSize: "2rem", fontWeight: 650, lineHeight: 1, color: valueColor }}>
         {value}
       </div>
       {trend && (
@@ -58,16 +58,16 @@ interface PendingActionCalloutProps {
 
 export function PendingActionCallout({ message, description, actionLabel, onAction }: PendingActionCalloutProps) {
   return (
-    <div style={{ background: "var(--cluos-status-warn-bg)", border: "1px solid #e8c49a", borderRadius: "var(--cluos-radius-lg)", padding: "1rem 1.25rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
+    <div style={{ background: "var(--cluos-status-warning-bg)", border: "1px solid var(--cluos-status-warning)", borderRadius: "var(--cluos-radius-md)", padding: "1rem 1.25rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
       <div>
-        <div style={{ fontWeight: 500, color: "var(--cluos-navy)", fontSize: "0.9375rem" }}>{message}</div>
+        <div style={{ fontWeight: 500, color: "var(--cluos-fg)", fontSize: "0.9375rem" }}>{message}</div>
         {description && (
           <div style={{ fontSize: "0.8125rem", color: "var(--cluos-text-muted)", marginTop: "0.25rem" }}>{description}</div>
         )}
       </div>
       <button
         onClick={onAction}
-        style={{ background: "var(--cluos-teal)", color: "#fff", border: "none", borderRadius: "var(--cluos-radius-md)", padding: "0.5rem 1rem", fontSize: "0.875rem", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap" as const, flexShrink: 0 }}
+        style={{ background: "var(--cluos-action)", color: "var(--cluos-action-fg)", border: "none", borderRadius: "var(--cluos-radius-md)", padding: "0.5rem 1rem", fontSize: "0.875rem", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap" as const, flexShrink: 0 }}
       >
         {actionLabel}
       </button>
@@ -93,9 +93,9 @@ const recentItems = [
 ];
 
 const statusLabels: Record<string, { label: string; color: string }> = {
-  pending:   { label: "Aguardando revisão", color: "var(--cluos-status-warn)" },
-  published: { label: "Publicado", color: "var(--cluos-status-success)" },
-  error:     { label: "Com erro", color: "var(--cluos-status-error)" },
+  pending:   { label: "Aguardando revisão", color: "var(--cluos-status-warning-text)" },
+  published: { label: "Publicado", color: "var(--cluos-status-success-text)" },
+  error:     { label: "Com erro", color: "var(--cluos-status-danger-text)" },
 };
 
 export default function DashboardPage() {
@@ -128,8 +128,8 @@ export default function DashboardPage() {
 
       {/* Recent content */}
       <div>
-        <h2 style={{ fontSize: "0.9375rem", fontWeight: 600, color: "var(--cluos-navy)", marginBottom: "0.75rem" }}>Conteúdos recentes</h2>
-        <div style={{ background: "var(--cluos-bg)", border: "1px solid var(--cluos-border)", borderRadius: "var(--cluos-radius-lg)", overflow: "hidden" }}>
+        <h2 style={{ fontSize: "0.9375rem", fontWeight: 650, color: "var(--cluos-fg)", marginBottom: "0.75rem" }}>Conteúdos recentes</h2>
+        <div style={{ background: "var(--cluos-bg)", border: "1px solid var(--cluos-border)", borderRadius: "var(--cluos-radius-md)", overflow: "hidden" }}>
           {recentItems.map((item, idx) => {
             const s = statusLabels[item.status] ?? statusLabels.pending;
             return (
@@ -143,7 +143,7 @@ export default function DashboardPage() {
                   borderTop: idx > 0 ? "1px solid var(--cluos-border)" : "none",
                 }}
               >
-                <span style={{ fontSize: "0.875rem", color: "var(--cluos-navy)", flex: 1, marginRight: "1rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const }}>
+                <span style={{ fontSize: "0.875rem", color: "var(--cluos-fg)", flex: 1, marginRight: "1rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const }}>
                   {item.title}
                 </span>
                 <span style={{ fontSize: "0.75rem", fontWeight: 500, color: s.color, whiteSpace: "nowrap" as const }}>

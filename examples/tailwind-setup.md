@@ -3,7 +3,7 @@
 ## 1. Install
 
 ```bash
-npm install github:jamzeze/cluos-design-system
+npm install github:jamzeze/cluos-design-system#v1.0.0
 ```
 
 ## 2. Configure
@@ -16,35 +16,35 @@ module.exports = {
 };
 ```
 
-## 3. Load fonts
+## 3. Fontes
 
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+As fontes (Manrope, Instrument Sans, JetBrains Mono, Orbitron) são embarcadas no pacote; não use CDN em tempo de execução.
+
+```css
+@import "@cluos/design-system/fonts.css";
 ```
 
 ## 4. Use
 
 ```jsx
-<button className="bg-cluos-teal hover:bg-cluos-teal-deep text-white font-medium px-4 py-2 rounded-cluos-md shadow-cluos-sm">
+<button className="bg-cluos-action hover:bg-cluos-action-hover text-cluos-action-fg font-medium px-4 py-2 rounded-cluos-sm">
   Primary action
 </button>
 
-<div className="bg-cluos-brand-hero rounded-cluos-2xl p-12 text-white">
-  Hero block with on-brand radial gradient
+<div className="bg-cluos-deep-navy rounded-cluos-md p-12 text-cluos-action-fg">
+  Bloco de hero em campo navy (registro público)
 </div>
 
-<span className="inline-flex items-center gap-1.5 bg-cluos-warn-bg text-cluos-warn text-xs font-medium px-3 py-1 rounded-full">
-  Warning — copper
+<span className="inline-flex items-center gap-1.5 bg-cluos-warning-bg text-cluos-warning-text text-xs font-medium px-3 py-1 rounded-cluos-pill">
+  Aviso: ícone + texto
 </span>
 ```
 
 ## 5. Use the logo
 
 ```jsx
-import logo from "@cluos/design-system/brand-assets/cluos-logo-gradient.svg";
-// or in HTML: <img src="/node_modules/@cluos/design-system/brand-assets/cluos-logo-gradient.svg">
+import logo from "@cluos/design-system/brand-assets/cluos-logo-navy.svg";
+// or in HTML: <img src="/node_modules/@cluos/design-system/brand-assets/cluos-logo-navy.svg">
 ```
 
 ## 6. Point your LLM at the rules

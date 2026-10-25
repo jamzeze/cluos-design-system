@@ -56,3 +56,38 @@ decisions:
       reverter o contrato cluos-mms-v1 no GCOS e manter esta entrada histórica;
       aliases legados permitem rollback sem apagar os valores antigos.
     supersedes: "2026-08-10: No single global palette. 7 palettes registered as first-class, selectable per task."
+
+  - date: "2026-10-24"
+    scope: global
+    decision: "A paleta cluos-v2 (marca Azigos, neutros frios, status e 12 matizes) passa a ser a paleta global padrão do CluOS."
+    mode: new
+    made_by: rafael
+    detail: >
+      Marca: #010D28, #132952, #C4DB7B, #FFFFFF, #EAEAEA, #A5A5A5, mais off-white
+      #F4EFED no registro público. Neutros frios derivados do matiz do azul médio.
+      Status (sucesso, aviso, perigo, informação) em ícone + texto nos matizes
+      165/75/15/225 graus. Arco-íris de 12 matizes em OKLCH (hue-01..12), três
+      degraus em claro e escuro, hue-01 no matiz do verde tech e hue-06 no do azul
+      médio; uso permitido só em categorias, etiquetas, calendário, avatares,
+      ilustração e identificação de produto; proibido em ação primária, status e
+      navegação. Status do arco-íris: aprovado e ativo em tokens/cluos-v2.yaml.
+      Teal, copper e oxblood deixam de ser papéis de marca e permanecem como
+      aliases de compatibilidade até 2.0.0. Valores exatos em tokens/cluos-v2.yaml.
+    rollback: >
+      Reverter tokens/cluos-v2.yaml para o commit anterior e restaurar o contrato
+      cluos-mms-v1 arquivado; os aliases de compatibilidade preservam os valores
+      antigos. Esta entrada permanece como histórico.
+    supersedes: "2026-08-30: A paleta MMS/Swiss Ledger passa a ser a paleta global padrão do CluOS."
+
+  - date: "2026-10-25"
+    scope: global
+    decision: "Orbitron é a fonte de destaque; não altera a paleta."
+    mode: preserve
+    made_by: rafael
+    detail: >
+      Registro de tipografia pareado com design-decisions.yaml (2026-10-25). Fonte de
+      destaque OFL, uma ocorrência por composição, 32–120 px, fora de texto corrido,
+      controles, navegação, tabelas e formulários.
+    rollback: >
+      Remover a família accent de tokens/cluos-v2.yaml e regenerar os exports.
+    supersedes: null
