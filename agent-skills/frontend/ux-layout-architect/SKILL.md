@@ -28,7 +28,7 @@ Use adjacent skills without duplicating ownership:
 - `ui-ux-pro-max` is optional, read-only pattern lookup after a specific gap is
   identified. It cannot choose the topology, generate a design system, or
   override project/clinical rules.
-- `design-gallery` owns visual alternatives after the structure is approved.
+- The visual direction is `cluos-v2` (`tokens/cluos-v2.yaml`, `AGENT-BRIEF.md`); `design-gallery` only records comparisons or opt-outs after the structure is approved.
 - `frontend-craftsman` owns implementation and must preserve the contract.
 - `impeccable layout`, `design-critic`, and visual QA evaluate the rendered
   implementation; they do not silently rewrite the approved task structure.
@@ -60,7 +60,7 @@ Do not use this skill for:
 - Visual polish or critique after implementation; use `impeccable`,
   `design-critic`, and visual QA.
 - Implementing an approved contract; use `frontend-craftsman`.
-- Choosing a style or palette; use `design-gallery` after this contract.
+- Choosing a style or palette; the default is `cluos-v2`, and a recorded comparison or opt-out uses `design-gallery` after this contract.
 
 When uncertain, activate only if the answer can change what belongs where.
 
@@ -109,7 +109,7 @@ implementation task explicitly authorizes repository edits, create or update
   host/user identity and `Approved at` as an ISO 8601 timestamp with timezone
   from a trusted system clock. If either cannot be verified, remain
   provisional; an agent never invents attribution or self-approves.
-- For N2/N3, hand the approved contract to `design-gallery`; visual directions
+- For N2/N3, hand the approved contract to `frontend-craftsman` (or to `design-gallery` only for a recorded comparison/opt-out); visual directions
   may interpret the contract but must not silently change its task structure.
 
 ## Tools

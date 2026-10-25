@@ -1,44 +1,62 @@
 # @cluos/design-system
 
-The single source of truth for the CluOS visual language, UX principles, product patterns, and agent governance.
-Tokens, logos, patterns, and rules — consumed by every CluOS repository.
+Fonte única da linguagem visual CluOS: tokens, componentes de referência,
+logotipos, princípios de UX, padrões de produto e governança para agentes.
+Consumido por todos os repositórios CluOS.
 
-> **Canonical v1 (`cluos-mms-v1`)** — MMS Swiss Ledger is the default identity for new and existing CluOS product chrome. Legacy style/palette variants remain only as explicit migration opt-outs.
+> **Contrato ativo: `cluos-v2`** (aprovado em 2026-10-24, versão 1.0.0). Ele
+> substitui o `cluos-mms-v1`. Paleta Azigos, 12 matizes para categorias, uma
+> única cor de ação (verde tech), Manrope + Instrument Sans + JetBrains Mono,
+> raio 4/8 px, sem sombra no produto, WCAG 2.2 AA, dois registros (produto e
+> público) sobre os mesmos tokens. O registro de produto está completo; o
+> registro público é segunda passada pendente. O legado está arquivado em
+> [`docs/legacy/`](docs/legacy/README.md) e não é referência.
 
----
+## O que existe aqui
 
-## What lives here
+- **`tokens/cluos-v2.yaml`** — contrato canônico. Única fonte editável de valores.
+- **Exports gerados** (não edite à mão): `tokens/tokens.css`, `fonts.css`,
+  `tailwind-preset.js`, `tailwind.css`, `shadcn.css`, `design.json`,
+  `tokens.ts`, `tokens.js`, `index.ts` e `AGENT-BRIEF.md`.
+- **`cluos.css`** — componentes de referência em CSS puro, sem framework.
+- **`DESIGN-preview.html`** — especime renderizado do contrato.
+- **`DESIGN.md`** — contrato visual narrativo.
+- **`DESIGN-WORKFLOW.md`** — fluxo para mudar o sistema.
+- **`PRODUCT-SIMPLICITY-CANON.md`**, **`APPLE-INSPIRED-PRODUCT-UX.md`**,
+  **`PRODUCT-PATTERNS.md`** — regras de produto, UX e padrões por tipo de produto.
+- **`patterns/`** — componentes, modelos de página, estados, acessibilidade, copy.
+- **`examples/`** — exemplos de implementação (CSS, Tailwind, CSS-in-JS, telas).
+- **`brand-assets/`** — logotipos CluOS e Azigos em SVG, fontes WOFF2 em `fonts/`.
+- **`guides/`** — material-fonte dos logotipos.
+- **`docs/cluos-v2/migracao.md`** — migração dos produtos do cluos-mms-v1.
+- **`AGENT-BRIEF.md`** — brief portátil para colar no contexto de qualquer agente.
 
-- **`DESIGN-preview.html`** — the canonical MMS specimen: lockup, typography, palette, semantic states, motion and chart animation. Open it before working on any CluOS product.
-- **`tokens/mms-canonical.yaml`** — machine-readable identity contract consumed by GCOS and future products.
-- **`PRODUCT-THEME-VARIANTS.md`** — the legacy compatibility catalog and its semantic rules; new products use `cluos-mms-v1` instead.
-- **`DESIGN.md`** — the full narrative spec. Explains the preview and must stay in sync with it.
-- **`DESIGN-WORKFLOW.md`** — the preview-first refactor workflow for humans and agents.
-- **`PRODUCT-SIMPLICITY-CANON.md`** — mandatory product simplicity canon: reduce cognitive load, remove unnecessary complexity, improve perceived quality, and make the main user action obvious.
-- **`APPLE-INSPIRED-PRODUCT-UX.md`** — UX principles: progressive disclosure, clarity, focus, motion, per-product guidelines.
-- **`PRODUCT-PATTERNS.md`** — reusable patterns for every CluOS product type (Hub, Dashboard, CRM, AEO, Editor, Suporte, Settings, Login, Upload, etc.).
-- **`patterns/`** — detailed specs: `components.md`, `page-templates.md`, `states.md`, `accessibility.md`, `content-guidelines.md`.
-- **`examples/apple-inspired-product-ui/`** — implementation examples: Next.js+Tailwind, React components, plain HTML, CSS tokens, Hub, Upload flow, Settings, Dashboard, Error/Empty/Loading states.
-- **`tokens/`** — machine-readable tokens in three formats: `tokens.css`, `tokens.ts` / `tokens.js`, `tailwind-preset.js`.
-- **`brand-assets/`** — shipped SVG assets for the stacked lockup, symbol, favicon, and mono variants.
-- **`guides/`** — versioned source material used to derive the shipped assets.
-- **`MIGRATION-AUDIT.md`** — audit report of the legacy `cluos-design` repo unification.
-
-## Install
-
-In any Cluos project:
+## Instalação
 
 ```bash
-# Option A — install from GitHub (simplest, no registry setup)
-npm install github:jamzeze/cluos-design-system
-
-# Option B — install from GitHub Packages (requires auth setup)
-npm install @cluos/design-system
+npm install github:jamzeze/cluos-design-system#v1.0.0
 ```
 
-## Use
+A publicação em registro continua manual, pelo workflow congelado
+(`.github/workflows/release.yml`, só `workflow_dispatch` com confirmação).
 
-### Option A — Tailwind
+## Uso
+
+Importe uma vez, na raiz da aplicação:
+
+```css
+@import "@cluos/design-system/fonts.css";
+@import "@cluos/design-system/tokens.css";
+@import "@cluos/design-system/cluos.css"; /* componentes de referência, opcional */
+```
+
+```html
+<html lang="pt-BR" data-cluos-canonical="cluos-v2" data-theme="light" data-density="comfortable">
+```
+
+Tema: `data-theme="light" | "dark"`. Densidade: `data-density="comfortable" | "compact"`.
+
+### Tailwind v3
 
 ```js
 // tailwind.config.js
@@ -48,170 +66,82 @@ module.exports = {
 };
 ```
 
-Then use semantic classes like `bg-cluosc-action`, `text-cluosc-fg-primary`,
-`border-cluosc-border`, `font-display` and `duration-cluos-data`. The
-`cluos-*` aliases remain for compatibility.
-
-### Option B — CSS / SCSS
+### Tailwind v4
 
 ```css
-/* globals.css */
-@import "@cluos/design-system/tokens.css";
+@import "tailwindcss";
+@import "@cluos/design-system/tailwind.css";
 ```
 
-Then use vars: `color: var(--cluos-color-fg-primary)`,
-`background: var(--cluos-color-action-primary)`. Copper and oxblood are
-semantic warning/error roles, never positive CTAs.
+### shadcn/ui
 
-### Option C — CSS-in-JS
-
-```ts
-import tokens from "@cluos/design-system";
-
-const Button = styled.button`
-  background: ${tokens.action.primary.base};
-  color: ${tokens.action.primary.text};
-  padding: ${tokens.space[3]} ${tokens.space[4]};
-  border-radius: ${tokens.radius.md};
-`;
+```css
+@import "@cluos/design-system/shadcn.css";
 ```
 
-## Pointing Agents At The System
+Tema shadcn em variáveis CSS; o pacote não traz componentes React.
 
-So Claude Code / Cursor / any agent picks up the rules when working in
-a consuming repo:
+### CSS puro e CSS-in-JS
+
+Use as variáveis `--cluos-*` (por exemplo `var(--cluos-fg)`,
+`var(--cluos-action)`, `var(--cluos-status-danger)`). Em TypeScript:
+`import tokens from "@cluos/design-system"`.
+
+### Agentes e ferramentas
+
+- `@cluos/design-system/design.json` — tokens no formato W3C Design Tokens.
+- `@cluos/design-system/AGENT-BRIEF.md` — brief portátil (valores exatos no
+  lugar de adjetivos). Cole inteiro no contexto de Claude, Cursor, ChatGPT ou
+  Gemini antes de gerar interface.
+
+Em um repositório consumidor, exponha as regras para o agente:
 
 ```bash
-# From your project root, create a symlink to the installed DESIGN.md
 ln -s node_modules/@cluos/design-system/DESIGN.md ./DESIGN.md
-```
-
-For product or UX work, also expose the Product Simplicity Canon:
-
-```bash
+ln -s node_modules/@cluos/design-system/AGENT-BRIEF.md ./AGENT-BRIEF.md
 ln -s node_modules/@cluos/design-system/PRODUCT-SIMPLICITY-CANON.md ./PRODUCT-SIMPLICITY-CANON.md
 ```
 
-Open `node_modules/@cluos/design-system/DESIGN-preview.html` side by
-side with the code whenever the task is visual or component-focused.
-The preview is the canonical visual source of truth; `DESIGN.md`
-explains it, `PRODUCT-SIMPLICITY-CANON.md` defines the mandatory product
-simplicity rules, and `DESIGN-WORKFLOW.md` describes how to keep everything
-in sync.
+## Atualizando o sistema
 
-Or, for teams that prefer a copy (easier to review in PRs), add this to
-your `package.json`:
+1. Edite `tokens/cluos-v2.yaml` (nunca os exports).
+2. Regere: `npm run build` (requer Python 3.9+ e PyYAML: `pip install pyyaml`) (exports com `build-tokens.py` e especime com `build-preview.py`).
+3. Valide: `npm test` (`build-tokens.py --check`, `build-preview.py --check` e `test-contrast.py`).
+4. Sincronize `DESIGN-preview.html`, `DESIGN.md` e os documentos afetados na
+   mesma mudança (ordem em `DESIGN-WORKFLOW.md`).
+5. Rode `npm pack --dry-run` e abra o especime renderizado.
+6. Registre a decisão em `agent-skills/profiles/cluos/*-decisions.yaml`.
+7. Atualize `CHANGELOG.md`.
+8. Tag e publicação seguem o workflow manual congelado; não publique sem decisão explícita.
 
-```json
-{
-  "scripts": {
-    "postinstall": "cp node_modules/@cluos/design-system/DESIGN.md ./DESIGN.md && cp node_modules/@cluos/design-system/PRODUCT-SIMPLICITY-CANON.md ./PRODUCT-SIMPLICITY-CANON.md"
-  }
-}
-```
+## Camada de UX de produto
 
-## Updating the system
+- [`PRODUCT-SIMPLICITY-CANON.md`](PRODUCT-SIMPLICITY-CANON.md) — reduzir carga
+  cognitiva, remover complexidade desnecessária e tornar óbvia a ação principal.
+  Toda tela responde: para que serve, qual o próximo passo, qual informação é
+  essencial agora, o que pode ser ocultado ou removido, o que pode quebrar.
+- [`APPLE-INSPIRED-PRODUCT-UX.md`](APPLE-INSPIRED-PRODUCT-UX.md) — divulgação
+  progressiva, uma ação primária por região, teste dos 3 segundos, estados
+  dinâmicos definidos, foco acessível.
+- [`PRODUCT-PATTERNS.md`](PRODUCT-PATTERNS.md) — padrões por tipo de produto.
+- [`patterns/components.md`](patterns/components.md),
+  [`page-templates.md`](patterns/page-templates.md),
+  [`states.md`](patterns/states.md),
+  [`accessibility.md`](patterns/accessibility.md),
+  [`content-guidelines.md`](patterns/content-guidelines.md).
 
-1. Edit `tokens/mms-canonical.yaml` and `DESIGN-preview.html` together for visual changes.
-2. For product-governance changes, edit `PRODUCT-SIMPLICITY-CANON.md` first.
-3. Sync `DESIGN.md`, `DESIGN-WORKFLOW.md`, `APPLE-INSPIRED-PRODUCT-UX.md`, and any affected token or asset docs in the same change.
-4. Update `guides/` and `brand-assets/` if the source artwork changed.
-5. Run `npm pack --dry-run` and inspect the rendered preview.
-6. Record a superseding decision in `agent-skills/profiles/cluos/*-decisions.yaml`.
-7. Update `CHANGELOG.md`.
-8. Tag and push: `git tag v0.x.y && git push --tags`.
-9. The release workflow publishes automatically to GitHub Packages after an explicit release decision.
+## Exemplos
 
-## Consuming repos stay in sync
+[`examples/`](examples/): `css-setup.md`, `tailwind-setup.md`,
+`css-in-js-setup.md` e `examples/apple-inspired-product-ui/` (Next.js +
+Tailwind, componentes React, HTML puro, tokens CSS, hub, upload, configurações,
+dashboard, estados de erro/vazio/carregando).
 
-```bash
-# In each consuming repo:
-npm update @cluos/design-system
-```
+## Legado
 
-## Examples
-
-- [`examples/apple-inspired-product-ui/README.md`](examples/apple-inspired-product-ui/README.md)
-- [`examples/apple-inspired-product-ui/next-tailwind.md`](examples/apple-inspired-product-ui/next-tailwind.md)
-- [`examples/apple-inspired-product-ui/react-components.md`](examples/apple-inspired-product-ui/react-components.md)
-- [`examples/apple-inspired-product-ui/plain-html.md`](examples/apple-inspired-product-ui/plain-html.md)
-- [`examples/apple-inspired-product-ui/css-tokens.md`](examples/apple-inspired-product-ui/css-tokens.md)
-- [`examples/apple-inspired-product-ui/hub-systems.md`](examples/apple-inspired-product-ui/hub-systems.md)
-- [`examples/apple-inspired-product-ui/upload-video-flow.md`](examples/apple-inspired-product-ui/upload-video-flow.md)
-- [`examples/apple-inspired-product-ui/settings-page.md`](examples/apple-inspired-product-ui/settings-page.md)
-- [`examples/apple-inspired-product-ui/dashboard.md`](examples/apple-inspired-product-ui/dashboard.md)
-- [`examples/apple-inspired-product-ui/error-empty-loading.md`](examples/apple-inspired-product-ui/error-empty-loading.md)
-
----
-
-## Product theme variants
-
-CluOS supports 8 approved product visual variants combining appearance (light / dark) with action color (teal / copper / champagne / oxblood):
-
-- `claro-teal` — light + teal. CluOS Hub, Sci-OS, Docs.
-- `claro-copper` — light + copper. CRM CluOS.
-- `claro-champagne` — light + champagne. AEO Engine.
-- `claro-oxblood` — light + oxblood. Loteca.
-- `dark-teal` — dark/navy + teal. Technical dashboards.
-- `dark-copper` — dark/navy + copper. Suporte, MedFrame, Edge.
-- `dark-champagne` — dark/navy + champagne. DID.
-- `dark-oxblood` — dark/navy + oxblood. B3.
-
-`DESIGN-preview.html` is the canonical interactive preview — open it in a browser to see all 8 variants live.
-`PRODUCT-THEME-VARIANTS.md` documents the recommended variant per product, semantic rules, and token usage.
-
----
-
-## Product UX Layer (v0.2.1)
-
-### Product Simplicity Canon
-See [`PRODUCT-SIMPLICITY-CANON.md`](PRODUCT-SIMPLICITY-CANON.md) for the mandatory product rule used by every CluOS project:
-
-> Reduce cognitive load, remove unnecessary complexity, improve perceived quality, and make the main user action obvious.
-
-Every screen must answer:
-
-1. What is this screen for?
-2. What should the user do next?
-3. What information is essential now?
-4. What can be hidden, moved, collapsed, delayed, or removed?
-5. What can break if this is simplified?
-
-If a screen cannot answer these questions, it must be redesigned, merged, or removed.
-
-### UX Principles
-See [`APPLE-INSPIRED-PRODUCT-UX.md`](APPLE-INSPIRED-PRODUCT-UX.md) for the full philosophy:
-- Progressive disclosure (advanced options hidden by default)
-- One primary action per region
-- 3-second clarity test
-- All dynamic states defined (loading, empty, error, success)
-- Honest feedback, semantic HTML, accessible focus
-
-### Product Patterns
-See [`PRODUCT-PATTERNS.md`](PRODUCT-PATTERNS.md) for patterns per product type:
-Hub · Dashboard · CRM · AEO · Editor de vídeo · Suporte · Configurações · Login · Upload · Empty/Error states · Tabelas · Formulários
-
-### Component & Pattern Specs
-- [`patterns/components.md`](patterns/components.md) — 23 component specs with tokens, states, accessibility
-- [`patterns/page-templates.md`](patterns/page-templates.md) — 9 page layout templates
-- [`patterns/states.md`](patterns/states.md) — loading, skeleton, empty, error, processing, success, offline states
-- [`patterns/accessibility.md`](patterns/accessibility.md) — WCAG 2.1 AA requirements
-- [`patterns/content-guidelines.md`](patterns/content-guidelines.md) — writing rules for UI copy
-
----
-
-## Legacy Note
-
-`cluos-design` (private repo `jamzeze/cluos-design`) has been retired as an active design source.
-It is now legacy-only. Its AGENTS.md prohibits agents from treating it as a design reference.
-This repository is the **only valid design authority** for all CluOS systems.
-See [`MIGRATION-AUDIT.md`](MIGRATION-AUDIT.md) for the full unification audit.
-
-## The CluOS brand in one paragraph
-
-CluOS is **quiet confidence**. One shared identity across all products:
-`cluos-mms-v1` uses Manrope for display, Instrument Sans for interface/data,
-deep navy and medium blue for structure, tech green for positive action,
-operational teal for execution, copper for warning/review and oxblood for
-denial/error. White space, hairlines and typography carry hierarchy; color
-communicates state rather than decoration.
+O `cluos-mms-v1`, as oito variantes de produto (teal, copper, champagne,
+oxblood × claro/escuro), o Thermal Nocturne, o preview v0.2.1 e a galeria de
+design foram arquivados em [`docs/legacy/`](docs/legacy/README.md) e saíram do
+pacote publicado. Os nomes antigos de token seguem como aliases de
+compatibilidade até a 2.0.0. O repositório `cluos-design` está aposentado; este
+é a única autoridade de design dos sistemas CluOS.

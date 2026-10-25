@@ -72,3 +72,40 @@ decisions:
     supersedes:
       - "2026-08-10: Style is chosen per task, not fixed to a single canonical direction."
       - "2026-08-10: No single 'winning' visual direction — Subproject D reframed."
+
+  - date: "2026-10-24"
+    decision: "cluos-v2 é o contrato visual global do CluOS; substitui cluos-mms-v1."
+    made_by: rafael
+    detail: >
+      Entrevista de quatro rodadas (31 decisões em
+      docs/frontend-routing/2026-10-23-cluos-v2/design-decision.md). O sistema é
+      do CluOS, sem hierarquia entre marcas; a Azigos é a referência de cor.
+      Dois registros (produto e público) sobre os mesmos tokens; claro por
+      padrão com escuro de primeira classe; Manrope + Instrument Sans + JetBrains
+      Mono; raio 4/8 px; sem sombra; verde tech como única cor de ação; acessibilidade
+      WCAG 2.2 AA. Contrato canônico em tokens/cluos-v2.yaml; exports derivados
+      (AGENT-BRIEF.md, design.json, tokens.css), nunca editados à mão.
+    consequence: >
+      cluos-v2 é o default dos tokens, do roteador e dos revisores. A biblioteca
+      A–G, as paletas pal-* e o preview legado saem do pacote publicado e ficam
+      arquivados em docs/legacy/ (decisão 26). Produtos existentes migram em onda
+      separada (decisão 27). Aceitação: rubrica do design-critic mais checklist de
+      página pública e teste cego de intercambialidade (decisão 24).
+    supersedes:
+      - "2026-08-30: MMS Swiss Ledger é a direção visual canônica global do CluOS."
+
+  - date: "2026-10-25"
+    decision: "Orbitron é a fonte de destaque do CluOS (substitui Bruno Ace, escolha provisória de 2026-10-24)."
+    made_by: rafael
+    detail: >
+      Rafael comparou doze candidatas no canvas e escolheu Orbitron (OFL, Google
+      Fonts, variável 400–900). Uso restrito a hero público, número de destaque em
+      relatório, splash/login e peças de evento; uma ocorrência por composição, de
+      32 a 120 px; nunca em texto corrido, controles, navegação, tabelas ou
+      formulários; não substitui o lockup. É a única exceção à regra de duas
+      famílias por tela. Manrope e Instrument Sans mantidas.
+    consequence: >
+      Agentes tratam Orbitron como fonte de destaque, não como fonte de interface.
+      Qualquer outro uso exige decisão registrada.
+    supersedes:
+      - "2026-10-24: fonte de destaque Bruno Ace (adendo, decisão 30 do design-decision.md de cluos-v2)."

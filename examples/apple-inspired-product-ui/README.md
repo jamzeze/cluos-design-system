@@ -33,4 +33,4 @@ All examples in this folder must:
 - [`PRODUCT-PATTERNS.md`](../../PRODUCT-PATTERNS.md) — Full pattern specifications
 - [`patterns/components.md`](../../patterns/components.md) — Component anatomy and tokens
 - [`patterns/states.md`](../../patterns/states.md) — State specifications
-- [`patterns/accessibility.md`](../../patterns/accessibility.md) — WCAG 2.1 AA requirements
+- [`patterns/accessibility.md`](../../patterns/accessibility.md) — WCAG 2.2 AA requirements

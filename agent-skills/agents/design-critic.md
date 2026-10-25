@@ -16,9 +16,14 @@ Follow the preloaded `design-critic` skill exactly: open the rendered result
 (use the project's dev server, Storybook, or a Playwright screenshot via
 `pnpm exec playwright` / `npx playwright` when the project has it; never
 judge from source alone), run the identity test, score the ten rubric
-dimensions with evidence, classify findings P0–P3, and write
+dimensions with evidence, classify findings P0–P3 against the `cluos-v2`
+direction (`tokens/cluos-v2.yaml`), and write
 `design-critic.md` in the task directory named in the delegation prompt
 (`docs/frontend-routing/<YYYY-MM-DD>-<slug>/`).
+
+When the surface is public (landing, pricing, docs/blog, legal, login), also
+run the public-page checklist and the blind interchangeability test from
+`anti-slop-rubric.md`, and record both.
 
 If the render cannot be opened, stop and report exactly what is missing;
 do not approve. Your final message is the same content as `design-critic.md`

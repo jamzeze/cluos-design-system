@@ -19,9 +19,9 @@ Conducts refactors that touch the foundation, not a single screen. If
 4. Contratos de layout — record `not applicable` when no screen/flow structure
    changes; otherwise use `ux-layout-architect` for golden screens and changed
    flows, and approve structure before visual exploration.
-5. Direção visual — `cluos-mms-v1` por padrão; use `design-gallery` somente
+5. Direção visual — `cluos-v2` por padrão (`tokens/cluos-v2.yaml`, `AGENT-BRIEF.md`); use `design-gallery` somente
    para comparação ou opt-out explícito, preservando contratos aprovados.
-6. Decisão de paleta — só para uma exceção registrada em `palette-policy.md`.
+6. Decisão de paleta — só para uma exceção ou paleta global nova, registrada em `palette-decisions.yaml` (ver `palette-policy.md`).
 7. Tokens.
 8. Primitives.
 9. Componentes.
@@ -44,10 +44,11 @@ Resolve support roots as one complete pair before reading project state:
 Use the first complete pair. Stop if either half is missing or if the pair is
 mixed; do not silently fall back to stale global copies.
 
-As of 2026-08-30, `cluos-mms-v1` is the global direction for the token
-architecture and all new product surfaces. The A–G archetype library remains
-available for explicit legacy opt-outs and comparative review. A real target
-screen migrates from phase 7 using the canonical MMS contract unless an
+As of 2026-10-24, `cluos-v2` is the global direction for the token
+architecture and all new product surfaces (it supersedes `cluos-mms-v1`). The
+A–G archetype library is archived (`docs/legacy/`) and serves only explicit
+opt-outs and comparative review. A real target
+screen migrates from phase 7 using the canonical cluos-v2 contract unless an
 append-only decision records a temporary exception.
 
 ## Migration strategy (when there IS a real target)

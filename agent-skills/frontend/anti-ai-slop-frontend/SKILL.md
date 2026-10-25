@@ -47,9 +47,12 @@ Target surface unclear: ask one question. Do not guess a level.
 
 ## Fixed rules
 
-- Direction is `cluos-mms-v1` (Rafael, 2026-08-30). Any other direction needs
-  an opt-out recorded in the task's `design-decision.md` and in the profile's
-  `palette-decisions.yaml`.
+- Direction is `cluos-v2` (Rafael, 2026-10-24): `tokens/cluos-v2.yaml`,
+  `AGENT-BRIEF.md`, reference components in `cluos.css`. Any other direction
+  needs an opt-out recorded in the task's `design-decision.md` and in the
+  profile's `palette-decisions.yaml`. Public-register surfaces (landing,
+  pricing, docs/blog, legal, login) also take the public-page checklist in
+  `anti-slop-rubric.md`.
 - Completion requires the rendered result open. A passing build is not
   inspection.
 - Real product behavior is never replaced by a static image.
@@ -92,7 +95,7 @@ is unclear: ask.
 
 ## Stop
 
-- `N2`/`N3` without the `cluos-mms-v1` contract and without a recorded
+- `N2`/`N3` without the `cluos-v2` contract and without a recorded
   opt-out: restore the default before implementing.
 - `N2`, or `N3` that changes screens or flows, without an approved
   `ux-layout-contract.md`: run `ux-layout-architect` before any code.

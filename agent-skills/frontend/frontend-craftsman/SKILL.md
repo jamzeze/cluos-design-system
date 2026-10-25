@@ -20,7 +20,7 @@ client) or `../../shared` (canonical checkout).
 |---|---|
 | N0 | which existing tokens and components apply |
 | N1 | the same, plus the approved `ux-layout-contract.md` when the task's `routing.md` names one |
-| N2, N3 | the `cluos-mms-v1` contract or the recorded opt-out in `design-decision.md`, plus the approved `ux-layout-contract.md` |
+| N2, N3 | the `cluos-v2` contract (`tokens/cluos-v2.yaml`, `AGENT-BRIEF.md`, reference components in `cluos.css`) or the recorded opt-out in `design-decision.md`, plus the approved `ux-layout-contract.md` |
 
 Preserve the contract's task flow, stable IDs, zones, P0/P1 visibility,
 co-visibility, action boundaries, responsive rules, and visual/DOM/focus
@@ -32,7 +32,8 @@ order.
   hardcoded hex, spacing, radius, or shadow outside the scale.
 - No global legacy `.pal-*` class or `data-cluos-palette` without a recorded
   opt-out; canonical surfaces use the semantic roles of
-  `tokens/mms-canonical.yaml`.
+  `tokens/cluos-v2.yaml`. Rainbow hues (`hue-NN`) never carry action, status
+  or navigation.
 - Routes, data, events, and flows stay exactly as they are unless the task
   changes them.
 - States: default, hover, active, focus-visible, loading, empty, error,

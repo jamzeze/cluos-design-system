@@ -13,7 +13,8 @@ implement.
 
 `anti-slop-rubric.md` from `../../shared/cluos-design-system` (installed
 client) or `../../shared` (canonical checkout): identity test, 50-point
-rubric, severity scale.
+rubric, severity scale, public-page checklist, blind interchangeability test.
+Target direction: `cluos-v2` (`tokens/cluos-v2.yaml`, `AGENT-BRIEF.md`).
 
 ## Run as a subagent when available
 
@@ -30,6 +31,10 @@ the subagent is unavailable.
 3. Score the 10 dimensions, 0–5 each, with evidence (file, selector,
    screenshot) per score.
 4. Classify every finding P0–P3.
+4a. Public surface (landing, pricing, docs/blog, legal, login): also run the
+   public-page checklist and the blind interchangeability test (three
+   clean-context reviewers; passes at 2 of 3 attributing the screen to CluOS
+   without the logo). Record both in `design-critic.md`.
 5. Write `design-critic.md` in the task's
    `docs/frontend-routing/<YYYY-MM-DD>-<slug>/`:
 
@@ -54,7 +59,7 @@ overwriting the earlier verdict.
 
 - Comparison with the contract or mockup: `design-qa`.
 - Fixing anything.
-- Approving N2/N3 work that has neither the `cluos-mms-v1` contract nor a
+- Approving N2/N3 work that has neither the `cluos-v2` contract nor a
   recorded opt-out: flag it as a process failure and stop.
 
 ## Budget

@@ -21,17 +21,17 @@ const statusConfig = {
   online: {
     dot: "bg-[var(--cluos-status-success)]",
     label: "Online",
-    text: "text-[var(--cluos-status-success)]",
+    text: "text-[var(--cluos-status-success-text)]",
   },
   attention: {
-    dot: "bg-[var(--cluos-status-warn)]",
+    dot: "bg-[var(--cluos-status-warning)]",
     label: "Atenção",
-    text: "text-[var(--cluos-status-warn)]",
+    text: "text-[var(--cluos-status-warning-text)]",
   },
   offline: {
-    dot: "bg-[var(--cluos-status-error)]",
+    dot: "bg-[var(--cluos-status-danger)]",
     label: "Offline",
-    text: "text-[var(--cluos-status-error)]",
+    text: "text-[var(--cluos-status-danger-text)]",
   },
 };
 
@@ -40,12 +40,12 @@ export function SystemCard({ name, url, status, statusMessage, href }: SystemCar
   const isOffline = status === "offline";
 
   return (
-    <div className={`bg-white border border-cluos-border rounded-cluos-lg p-5 transition-shadow hover:shadow-cluos-sm ${isOffline ? "opacity-70" : ""}`}>
+    <div className={`bg-cluos-surface border border-cluos-line rounded-cluos-md p-5 ${isOffline ? "opacity-70" : ""}`}>
       <div className="flex items-center gap-2 mb-2">
-        <span className={`w-2 h-2 rounded-full flex-shrink-0 ${s.dot}`} />
+        <span className={`w-2 h-2 rounded-cluos-pill flex-shrink-0 ${s.dot}`} />
         <span className={`text-xs font-medium ${s.text}`}>{s.label}</span>
       </div>
-      <div className="font-semibold text-cluos-navy mb-1">{name}</div>
+      <div className="font-semibold text-cluos-fg mb-1">{name}</div>
       <div className="text-xs text-cluos-text-subtle mb-1">{url}</div>
       {statusMessage && (
         <div className={`text-xs mb-3 ${s.text}`}>{statusMessage}</div>
@@ -64,12 +64,12 @@ export function SystemCard({ name, url, status, statusMessage, href }: SystemCar
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 bg-cluos-teal text-white rounded-cluos-md text-sm font-medium hover:bg-cluos-teal-deep transition-colors"
+            className="px-4 py-2 bg-cluos-action text-cluos-action-fg rounded-cluos-md text-sm font-medium hover:bg-cluos-action-hover transition-colors"
           >
             Abrir
           </a>
         )}
-        <button className="px-3 py-2 text-sm text-cluos-teal-deep font-medium hover:text-cluos-teal transition-colors">
+        <button className="px-3 py-2 text-sm text-cluos-fg-2 underline font-medium hover:text-cluos-fg transition-colors">
           Ver detalhes
         </button>
       </div>

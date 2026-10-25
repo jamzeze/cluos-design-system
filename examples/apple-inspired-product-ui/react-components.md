@@ -71,10 +71,10 @@ interface ToastProps {
 }
 
 const variantStyles: Record<ToastVariant, React.CSSProperties> = {
-  success: { background: "var(--cluos-status-success-bg)", borderColor: "#b8dcb8", color: "var(--cluos-navy)" },
-  error:   { background: "var(--cluos-status-error-bg)",   borderColor: "#dcb8b8", color: "var(--cluos-navy)" },
-  warn:    { background: "var(--cluos-status-warn-bg)",    borderColor: "#e8c49a", color: "var(--cluos-navy)" },
-  info:    { background: "var(--cluos-status-info-bg)",    borderColor: "#b8d4e8", color: "var(--cluos-navy)" },
+  success: { background: "var(--cluos-status-success-bg)", borderColor: "var(--cluos-status-success)", color: "var(--cluos-fg)" },
+  error:   { background: "var(--cluos-status-danger-bg)",   borderColor: "var(--cluos-status-danger)", color: "var(--cluos-fg)" },
+  warn:    { background: "var(--cluos-status-warning-bg)",    borderColor: "var(--cluos-status-warning)", color: "var(--cluos-fg)" },
+  info:    { background: "var(--cluos-status-info-bg)",    borderColor: "var(--cluos-status-info)", color: "var(--cluos-fg)" },
 };
 
 export function Toast({ message, variant, onDismiss }: ToastProps) {
@@ -95,7 +95,6 @@ export function Toast({ message, variant, onDismiss }: ToastProps) {
         color: s.color,
         fontSize: "0.875rem",
         maxWidth: "400px",
-        boxShadow: "var(--cluos-shadow-sm)",
       }}
     >
       <span>{message}</span>
@@ -144,12 +143,12 @@ export function ConfirmDialog({
       style={{
         position: "fixed", inset: 0, zIndex: 100,
         display: "flex", alignItems: "center", justifyContent: "center",
-        background: "rgba(0,0,0,0.3)", padding: "1rem",
+        background: "color-mix(in srgb, var(--cluos-deep-navy) 40%, transparent)", padding: "1rem",
       }}
       onClick={e => { if (e.target === e.currentTarget) onCancel(); }}
     >
-      <div style={{ background: "var(--cluos-bg)", borderRadius: "var(--cluos-radius-xl)", padding: "1.75rem", maxWidth: "400px", width: "100%", boxShadow: "var(--cluos-shadow-md)" }}>
-        <h2 id="confirm-title" style={{ fontSize: "1.0625rem", fontWeight: 600, color: "var(--cluos-navy)", marginBottom: "0.5rem" }}>{title}</h2>
+      <div style={{ background: "var(--cluos-bg)", borderRadius: "var(--cluos-radius-md)", padding: "1.75rem", maxWidth: "400px", width: "100%" }}>
+        <h2 id="confirm-title" style={{ fontSize: "1.0625rem", fontWeight: 650, color: "var(--cluos-fg)", marginBottom: "0.5rem" }}>{title}</h2>
         {description && (
           <p id="confirm-desc" style={{ fontSize: "0.875rem", color: "var(--cluos-text-muted)", marginBottom: "1.5rem" }}>{description}</p>
         )}
@@ -163,8 +162,8 @@ export function ConfirmDialog({
           <button
             onClick={onConfirm}
             style={{
-              background: destructive ? "var(--cluos-status-error)" : "var(--cluos-teal)",
-              color: "#fff",
+              background: destructive ? "var(--cluos-status-danger)" : "var(--cluos-action)",
+              color: "var(--cluos-action-fg)",
               border: "none",
               padding: "0.5rem 1.125rem",
               fontSize: "0.875rem",
@@ -194,10 +193,10 @@ interface InlineFeedbackProps {
 }
 
 const colors: Record<FeedbackVariant, string> = {
-  success: "var(--cluos-status-success)",
-  error:   "var(--cluos-status-error)",
-  warn:    "var(--cluos-status-warn)",
-  info:    "var(--cluos-status-info)",
+  success: "var(--cluos-status-success-text)",
+  error:   "var(--cluos-status-danger-text)",
+  warn:    "var(--cluos-status-warning-text)",
+  info:    "var(--cluos-status-info-text)",
 };
 
 export function InlineFeedback({ message, variant }: InlineFeedbackProps) {

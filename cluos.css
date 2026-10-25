@@ -1,0 +1,315 @@
+/* ==========================================================================
+   cluos.css — componentes de referência do cluos-v2 (registro de produto)
+
+   Sem framework. Cores, tipografia, espaço, raios e movimento vêm só de
+   variáveis de tokens/tokens.css; ficam literais apenas medidas de componente
+   (altura de controle 32/40 px, tamanhos de ícone, larguras mínimas). Importe depois de fonts.css e tokens.css:
+
+     @import "@cluos/design-system/fonts.css";
+     @import "@cluos/design-system/tokens.css";
+     @import "@cluos/design-system/cluos.css";
+
+   Regras que este arquivo encarna (ver DESIGN.md e AGENT-BRIEF.md):
+   - uma ação primária por região (.cluos-btn--primary);
+   - status sempre com ícone + texto (.cluos-chip);
+   - matiz de produto só em chrome (.cluos-dot, .cluos-tag);
+   - foco sempre visível com o anel duplo (--cluos-ring-focus);
+   - sem sombra; separação por hairline, superfície e espaço.
+   ========================================================================== */
+
+/* ----- Base ---------------------------------------------------------------- */
+.cluos {
+  font-family: var(--cluos-font-sans);
+  font-size: var(--cluos-text-sm);
+  line-height: var(--cluos-leading-normal);
+  color: var(--cluos-fg);
+  background: var(--cluos-bg);
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: lining-nums;
+}
+.cluos *,
+.cluos *::before,
+.cluos *::after { box-sizing: border-box; }
+
+.cluos :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible,
+:where(.cluos-btn, .cluos-input, .cluos-link, .cluos-table-region, .cluos-tabs a, .cluos-tabs button, .cluos-breadcrumb a, .cluos-lockup):focus-visible {
+  outline: none;
+  box-shadow: var(--cluos-ring-focus);
+}
+
+.cluos-container { width: 100%; max-width: var(--cluos-container-product); margin-inline: auto; padding-inline: var(--cluos-space-8); }
+.cluos-container--wide { max-width: var(--cluos-container-wide); }
+.cluos-container--docs { max-width: var(--cluos-container-docs); }
+.cluos-container--prose { max-width: var(--cluos-container-prose); }
+@media (max-width: 767px) { .cluos-container { padding-inline: var(--cluos-page-margin-min); } }
+
+/* ----- Tipografia ------------------------------------------------------------ */
+.cluos-display-xl,
+.cluos-display-lg,
+.cluos-heading-md,
+.cluos-heading-sm,
+.cluos-metric { margin: 0; font-family: var(--cluos-font-display); color: var(--cluos-fg); }
+.cluos-display-xl { font-size: var(--cluos-type-display-xl-size); line-height: var(--cluos-type-display-xl-line); letter-spacing: var(--cluos-type-display-xl-tracking); font-weight: var(--cluos-type-display-xl-weight); }
+.cluos-display-lg { font-size: var(--cluos-type-display-lg-size); line-height: var(--cluos-type-display-lg-line); letter-spacing: var(--cluos-type-display-lg-tracking); font-weight: var(--cluos-type-display-lg-weight); }
+.cluos-heading-md { font-size: var(--cluos-type-heading-md-size); line-height: var(--cluos-type-heading-md-line); letter-spacing: var(--cluos-type-heading-md-tracking); font-weight: var(--cluos-type-heading-md-weight); }
+.cluos-heading-sm { font-size: var(--cluos-type-heading-sm-size); line-height: var(--cluos-type-heading-sm-line); letter-spacing: var(--cluos-type-heading-sm-tracking); font-weight: var(--cluos-type-heading-sm-weight); }
+.cluos-metric { font-size: var(--cluos-type-metric-size); line-height: var(--cluos-type-metric-line); letter-spacing: var(--cluos-type-metric-tracking); font-weight: var(--cluos-type-metric-weight); font-variant-numeric: tabular-nums; }
+.cluos-strong { font-weight: var(--cluos-font-weight-strong); }
+.cluos-title { font-size: var(--cluos-type-title-size); line-height: var(--cluos-type-title-line); font-weight: var(--cluos-type-title-weight); }
+.cluos-body { font-size: var(--cluos-type-body-size); line-height: var(--cluos-type-body-line); max-width: 68ch; }
+.cluos-body-sm { font-size: var(--cluos-type-body-sm-size); line-height: var(--cluos-type-body-sm-line); color: var(--cluos-fg-2); }
+.cluos-label {
+  font-size: var(--cluos-type-label-size);
+  line-height: var(--cluos-type-label-line);
+  letter-spacing: var(--cluos-type-label-tracking);
+  font-weight: var(--cluos-type-label-weight);
+  text-transform: uppercase;
+  color: var(--cluos-fg-3);
+}
+.cluos-mono { font-family: var(--cluos-font-mono); font-size: var(--cluos-type-mono-size); font-variant-numeric: tabular-nums; color: var(--cluos-fg-3); }
+.cluos-num { font-variant-numeric: tabular-nums; text-align: right; }
+/* Destaque (Orbitron): uma palavra ou um número por composição, 32–120 px. */
+.cluos-accent { font-family: var(--cluos-font-accent); font-weight: 500; letter-spacing: 0; line-height: 1.02; }
+.cluos-link { color: var(--cluos-fg); text-decoration: underline; text-underline-offset: 2px; }
+.cluos-link:hover { color: var(--cluos-fg-2); }
+
+/* ----- Lockup de produto -------------------------------------------------- */
+.cluos-lockup { display: inline-flex; align-items: center; gap: var(--cluos-space-2); color: var(--cluos-fg); text-decoration: none; }
+.cluos-lockup__brand { font-family: var(--cluos-font-display); font-weight: var(--cluos-font-weight-display); font-size: var(--cluos-text-lg); letter-spacing: -0.01em; }
+.cluos-lockup__product { font-family: var(--cluos-font-display); font-weight: var(--cluos-font-weight-strong); font-size: var(--cluos-text-lg); letter-spacing: -0.01em; }
+.cluos-lockup__rule { width: 1px; height: 1em; background: var(--cluos-line-strong); }
+.cluos-lockup__descriptor { margin-left: var(--cluos-space-1); font-size: var(--cluos-type-label-size); letter-spacing: var(--cluos-type-label-tracking); font-weight: 450; text-transform: uppercase; color: var(--cluos-fg-2); }
+
+/* ----- Botões ----------------------------------------------------------------- */
+.cluos-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cluos-space-2);
+  min-height: 40px;
+  padding: 0 var(--cluos-space-4);
+  border: 1px solid transparent;
+  border-radius: var(--cluos-radius-sm);
+  background: transparent;
+  color: var(--cluos-fg);
+  font: inherit;
+  font-size: var(--cluos-text-sm);
+  font-weight: var(--cluos-font-weight-label);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--cluos-motion-hover) var(--cluos-ease-out), border-color var(--cluos-motion-hover) var(--cluos-ease-out);
+}
+.cluos-btn:active { transition-duration: var(--cluos-motion-press); }
+.cluos-btn--sm { min-height: 32px; padding: 0 var(--cluos-space-3); font-size: 13px; }
+.cluos-btn--icon { width: 40px; padding: 0; }
+.cluos-btn--sm.cluos-btn--icon { width: 32px; }
+.cluos-btn--primary { background: var(--cluos-action); color: var(--cluos-action-fg); }
+.cluos-btn--primary:hover,
+.cluos-btn--primary.is-hover { background: var(--cluos-action-hover); }
+/* .is-hover e .is-focus forçam o estado para espécimes e testes visuais. */
+:where(.cluos-btn, .cluos-input, .cluos-link, .cluos-switch__track, .cluos-check input, .cluos-tabs a, .cluos-tabs button).is-focus { outline: none; box-shadow: var(--cluos-ring-focus); }
+.cluos-btn--secondary { border-color: var(--cluos-line-strong); color: var(--cluos-fg-2); }
+.cluos-btn--secondary:hover,
+.cluos-btn--ghost:hover { background: var(--cluos-bg-subtle); }
+.cluos-btn--ghost { color: var(--cluos-fg-2); }
+/* Ação supervisionada (reiniciar, reinstaurar): contorno de erro, sempre abre confirmação. */
+.cluos-btn--supervised { border-color: var(--cluos-status-danger); color: var(--cluos-status-danger-text); }
+/* Destrutivo preenchido: só dentro do diálogo de confirmação. */
+.cluos-btn--danger { background: var(--cluos-status-danger); color: var(--cluos-white); }
+[data-theme="dark"] .cluos-btn--danger,
+.dark .cluos-btn--danger { color: var(--cluos-deep-navy); }
+/* Pílula: só no registro público. */
+.cluos-btn--pill { border-radius: var(--cluos-radius-pill); min-height: 48px; padding: 0 var(--cluos-space-6); }
+.cluos-btn:disabled,
+.cluos-btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; }
+.cluos-btn svg { width: 16px; height: 16px; flex: none; }
+
+/* ----- Campos ------------------------------------------------------------------ */
+.cluos-field { display: flex; flex-direction: column; gap: var(--cluos-stack-xs); min-width: 0; }
+.cluos-field > label,
+.cluos-field__label { font-size: 13px; font-weight: var(--cluos-font-weight-label); color: var(--cluos-fg); }
+.cluos-input {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 var(--cluos-space-3);
+  border: 1px solid var(--cluos-line-2);
+  border-radius: var(--cluos-radius-sm);
+  background: var(--cluos-surface);
+  color: var(--cluos-fg);
+  font: inherit;
+  font-size: var(--cluos-text-sm);
+}
+textarea.cluos-input { min-height: 72px; padding: var(--cluos-space-2) var(--cluos-space-3); resize: vertical; }
+.cluos-input::placeholder { color: var(--cluos-fg-3); }
+.cluos-input:focus-visible { border-color: var(--cluos-line-strong); }
+.cluos-input[aria-invalid="true"] { border-color: var(--cluos-status-danger); }
+.cluos-help { font-size: 12px; color: var(--cluos-fg-3); }
+.cluos-help--error { color: var(--cluos-status-danger-text); }
+.cluos-check { display: inline-flex; align-items: center; gap: var(--cluos-space-2); font-size: var(--cluos-text-sm); color: var(--cluos-fg); }
+.cluos-check input { width: 18px; height: 18px; margin: 0; accent-color: var(--cluos-progress); }
+.cluos-switch { display: inline-flex; align-items: center; gap: var(--cluos-space-2); padding: 0; border: 0; background: transparent; color: var(--cluos-fg); font: inherit; font-size: var(--cluos-text-sm); cursor: pointer; }
+.cluos-switch__track { position: relative; width: 36px; height: 20px; border-radius: var(--cluos-radius-pill); background: var(--cluos-line-2); transition: background-color var(--cluos-motion-hover) var(--cluos-ease-out); }
+.cluos-switch__track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: var(--cluos-radius-pill); background: var(--cluos-white); transition: transform var(--cluos-motion-hover) var(--cluos-ease-out); }
+.cluos-switch[aria-checked="true"] .cluos-switch__track { background: var(--cluos-progress); }
+.cluos-switch[aria-checked="true"] .cluos-switch__track::after { transform: translateX(16px); }
+.cluos-switch:focus-visible { box-shadow: none; }
+.cluos-switch:focus-visible .cluos-switch__track { box-shadow: var(--cluos-ring-focus); }
+
+/* ----- Status, etiquetas, contadores -------------------------------------------- */
+.cluos-chip { display: inline-flex; align-items: center; gap: 6px; padding: var(--cluos-space-1) 10px; border-radius: var(--cluos-radius-sm); font-size: 12px; font-weight: var(--cluos-font-weight-label); white-space: nowrap; }
+.cluos-chip svg { width: 14px; height: 14px; flex: none; }
+.cluos-chip--success { background: var(--cluos-status-success-bg); color: var(--cluos-status-success-text); }
+.cluos-chip--warning { background: var(--cluos-status-warning-bg); color: var(--cluos-status-warning-text); }
+.cluos-chip--danger  { background: var(--cluos-status-danger-bg);  color: var(--cluos-status-danger-text); }
+.cluos-chip--info    { background: var(--cluos-status-info-bg);    color: var(--cluos-status-info-text); }
+.cluos-chip--neutral { background: var(--cluos-bg-muted); color: var(--cluos-fg-2); }
+/* Etiqueta de matiz: defina --hue com o número do matiz (01..12) via classe utilitária. */
+.cluos-tag { display: inline-flex; align-items: center; padding: 3px var(--cluos-space-2); border-radius: var(--cluos-radius-sm); font-size: 12px; font-weight: var(--cluos-font-weight-label); background: var(--tag-fill, var(--cluos-bg-muted)); color: var(--tag-text, var(--cluos-fg-2)); }
+.cluos-dot { display: inline-block; width: 8px; height: 8px; margin-right: var(--cluos-space-2); border-radius: var(--cluos-radius-pill); background: var(--tag-line, var(--cluos-line-2)); vertical-align: middle; flex: none; }
+.cluos-count { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: var(--cluos-radius-pill); background: var(--cluos-fg); color: var(--cluos-bg); font-size: 11px; font-weight: var(--cluos-font-weight-label); font-variant-numeric: tabular-nums; }
+.cluos-hue-01 { --tag-fill: var(--cluos-hue-01-fill); --tag-line: var(--cluos-hue-01-line); --tag-text: var(--cluos-hue-01-text); }
+.cluos-hue-02 { --tag-fill: var(--cluos-hue-02-fill); --tag-line: var(--cluos-hue-02-line); --tag-text: var(--cluos-hue-02-text); }
+.cluos-hue-03 { --tag-fill: var(--cluos-hue-03-fill); --tag-line: var(--cluos-hue-03-line); --tag-text: var(--cluos-hue-03-text); }
+.cluos-hue-04 { --tag-fill: var(--cluos-hue-04-fill); --tag-line: var(--cluos-hue-04-line); --tag-text: var(--cluos-hue-04-text); }
+.cluos-hue-05 { --tag-fill: var(--cluos-hue-05-fill); --tag-line: var(--cluos-hue-05-line); --tag-text: var(--cluos-hue-05-text); }
+.cluos-hue-06 { --tag-fill: var(--cluos-hue-06-fill); --tag-line: var(--cluos-hue-06-line); --tag-text: var(--cluos-hue-06-text); }
+.cluos-hue-07 { --tag-fill: var(--cluos-hue-07-fill); --tag-line: var(--cluos-hue-07-line); --tag-text: var(--cluos-hue-07-text); }
+.cluos-hue-08 { --tag-fill: var(--cluos-hue-08-fill); --tag-line: var(--cluos-hue-08-line); --tag-text: var(--cluos-hue-08-text); }
+.cluos-hue-09 { --tag-fill: var(--cluos-hue-09-fill); --tag-line: var(--cluos-hue-09-line); --tag-text: var(--cluos-hue-09-text); }
+.cluos-hue-10 { --tag-fill: var(--cluos-hue-10-fill); --tag-line: var(--cluos-hue-10-line); --tag-text: var(--cluos-hue-10-text); }
+.cluos-hue-11 { --tag-fill: var(--cluos-hue-11-fill); --tag-line: var(--cluos-hue-11-line); --tag-text: var(--cluos-hue-11-text); }
+.cluos-hue-12 { --tag-fill: var(--cluos-hue-12-fill); --tag-line: var(--cluos-hue-12-line); --tag-text: var(--cluos-hue-12-text); }
+
+/* ----- Navegação --------------------------------------------------------------- */
+.cluos-header { border-bottom: 1px solid var(--cluos-line); background: var(--cluos-bg); }
+.cluos-header__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--cluos-space-4); min-height: 56px; padding-block: var(--cluos-space-2); }
+.cluos-nav { display: flex; align-items: center; gap: var(--cluos-space-1); }
+.cluos-nav a { position: relative; display: inline-flex; align-items: center; min-height: 36px; padding: 0 var(--cluos-space-3); border-radius: var(--cluos-radius-sm) var(--cluos-radius-sm) 0 0; color: var(--cluos-fg-2); font-size: var(--cluos-text-sm); text-decoration: none; }
+.cluos-nav a[aria-current="page"] { color: var(--cluos-fg); font-weight: var(--cluos-font-weight-label); }
+.cluos-nav a[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--cluos-line-strong); }
+.cluos-nav a:focus-visible { outline: none; box-shadow: var(--cluos-ring-focus); }
+@media (max-width: 1023px) {
+  .cluos-header__inner > .cluos-nav { order: 3; flex: 1 1 100%; overflow-x: auto; }
+}
+@media (max-width: 767px) {
+  /* No celular a navegação quebra linha em vez de esconder itens atrás de rolagem. */
+  .cluos-header__inner > .cluos-nav { flex-wrap: wrap; overflow: visible; }
+  .cluos-nav { gap: 0; }
+  .cluos-nav a { padding: 0 var(--cluos-space-2); font-size: 13px; }
+  .cluos-lockup__descriptor { display: none; }
+}
+.cluos-tabs { display: flex; gap: var(--cluos-space-6); border-bottom: 1px solid var(--cluos-line); overflow-x: auto; }
+.cluos-tabs a,
+.cluos-tabs button { padding: var(--cluos-space-2) 0; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; background: none; color: var(--cluos-fg-3); font: inherit; font-size: var(--cluos-text-sm); text-decoration: none; cursor: pointer; white-space: nowrap; }
+.cluos-tabs [aria-selected="true"],
+.cluos-tabs [aria-current="page"] { color: var(--cluos-fg); font-weight: var(--cluos-font-weight-label); border-bottom-color: var(--cluos-line-strong); }
+.cluos-breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cluos-space-2); font-size: 13px; color: var(--cluos-fg-3); }
+.cluos-breadcrumb a { color: inherit; text-underline-offset: 2px; }
+.cluos-breadcrumb [aria-current="page"] { color: var(--cluos-fg); }
+
+/* ----- Regiões ------------------------------------------------------------------ */
+.cluos-region { border: 1px solid var(--cluos-line); border-radius: var(--cluos-radius-md); background: var(--cluos-surface); }
+.cluos-region__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--cluos-space-3); padding: var(--cluos-space-3) var(--cluos-space-4); border-bottom: 1px solid var(--cluos-line); }
+.cluos-region__head h2 { margin: 0; font-family: var(--cluos-font-display); font-weight: var(--cluos-font-weight-heading); font-size: var(--cluos-type-heading-sm-size); letter-spacing: var(--cluos-type-heading-sm-tracking); }
+.cluos-region__body { padding: var(--cluos-inset-md); }
+.cluos-region__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--cluos-space-3); padding: var(--cluos-space-3) var(--cluos-space-4); border-top: 1px solid var(--cluos-line); }
+.cluos-disclosure { border-block: 1px solid var(--cluos-line); }
+.cluos-disclosure > summary { display: flex; align-items: center; gap: var(--cluos-space-2); padding: var(--cluos-space-3) 0; list-style: none; cursor: pointer; font-weight: var(--cluos-font-weight-label); color: var(--cluos-fg-2); }
+.cluos-disclosure > summary::-webkit-details-marker { display: none; }
+.cluos-disclosure > summary::before { content: "›"; display: inline-block; transition: transform var(--cluos-motion-hover) var(--cluos-ease-out); }
+.cluos-disclosure[open] > summary::before { transform: rotate(90deg); }
+
+/* ----- Faixa de KPI -------------------------------------------------------------- */
+.cluos-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0 var(--cluos-space-6); border-block: 1px solid var(--cluos-line); }
+.cluos-kpi { display: flex; flex-direction: column; gap: 6px; padding: var(--cluos-space-5) var(--cluos-space-6) var(--cluos-space-5) 0; border-right: 1px solid var(--cluos-line); }
+.cluos-kpi:last-child { border-right: 0; }
+.cluos-kpi__delta { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--cluos-fg-3); }
+@media (max-width: 767px) {
+  .cluos-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--cluos-space-4); }
+  .cluos-kpi { padding: var(--cluos-space-4) 0; border-right: 0; }
+  .cluos-kpi:nth-child(-n + 2) { border-bottom: 1px solid var(--cluos-line); }
+}
+
+/* ----- Tabela ----------------------------------------------------------------- */
+/* A rolagem fica dentro da região rotulada e focável, nunca na página. */
+.cluos-table-region { overflow-x: auto; }
+.cluos-table-region:focus-visible { box-shadow: var(--cluos-ring-focus); }
+.cluos-table { width: 100%; border-collapse: collapse; font-size: var(--cluos-table-font); }
+.cluos-table th { padding: var(--cluos-space-2) var(--cluos-cell-x); border-bottom: 1px solid var(--cluos-line-2); text-align: left; font-size: var(--cluos-type-label-size); font-weight: var(--cluos-type-label-weight); letter-spacing: var(--cluos-type-label-tracking); text-transform: uppercase; color: var(--cluos-fg-3); white-space: nowrap; }
+.cluos-table td { height: var(--cluos-row-height); padding: 0 var(--cluos-cell-x); border-bottom: 1px solid var(--cluos-line); vertical-align: middle; white-space: nowrap; }
+.cluos-table tbody tr:hover td { background: var(--cluos-bg-subtle); }
+.cluos-table tbody tr[aria-selected="true"] td { background: var(--cluos-action-soft); }
+.cluos-table th:last-child,
+.cluos-table td:last-child { padding-right: var(--cluos-space-4); }
+.cluos-table .cluos-num { text-align: right; font-variant-numeric: tabular-nums; }
+@media (max-width: 32rem) {
+  .cluos-table th,
+  .cluos-table td { padding-inline: var(--cluos-space-2); }
+}
+/* Tabela empilhada: abaixo de 640 px cada linha vira um bloco com rótulo e valor.
+   Cada <td> precisa de data-label. Use quando a rolagem esconderia colunas essenciais. */
+@media (max-width: 640px) {
+  .cluos-table--stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .cluos-table--stack,
+  .cluos-table--stack tbody,
+  .cluos-table--stack tr { display: block; width: 100%; }
+  .cluos-table--stack tr { padding-block: var(--cluos-space-2); border-bottom: 1px solid var(--cluos-line); }
+  .cluos-table--stack td { display: flex; align-items: center; justify-content: space-between; gap: var(--cluos-space-4); height: auto; min-height: 32px; padding: var(--cluos-space-1) var(--cluos-cell-x); border-bottom: 0; white-space: normal; text-align: right; }
+  .cluos-table--stack td::before { content: attr(data-label); flex: none; font-size: var(--cluos-type-label-size); letter-spacing: var(--cluos-type-label-tracking); font-weight: var(--cluos-type-label-weight); text-transform: uppercase; color: var(--cluos-fg-3); text-align: left; }
+  .cluos-table--stack tbody tr[aria-selected="true"] { background: var(--cluos-action-soft); }
+  .cluos-table--stack tbody tr[aria-selected="true"] td { background: transparent; }
+  /* Registro empilhado: seleção, título e ações dividem a primeira linha. */
+  .cluos-table--stack tr { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; }
+  .cluos-table--stack td { grid-column: 1 / -1; }
+  .cluos-table--stack td.cluos-cell--select { grid-column: 1; grid-row: 1; padding-right: 0; }
+  .cluos-table--stack td.cluos-cell--lead { grid-column: 2; grid-row: 1; justify-content: flex-start; text-align: left; }
+  .cluos-table--stack td.cluos-cell--actions { grid-column: 3; grid-row: 1; }
+  .cluos-table--stack td:is(.cluos-cell--select, .cluos-cell--lead, .cluos-cell--actions)::before { content: none; }
+}
+
+/* ----- Feedback -------------------------------------------------------------- */
+.cluos-alert { display: flex; align-items: flex-start; gap: var(--cluos-space-3); padding: var(--cluos-space-3) var(--cluos-space-4); border: 1px solid; border-radius: var(--cluos-radius-sm); font-size: 13px; line-height: 1.5; }
+.cluos-alert svg { width: 16px; height: 16px; flex: none; margin-top: 1px; }
+.cluos-alert a { color: inherit; font-weight: var(--cluos-font-weight-label); }
+.cluos-alert--success { background: var(--cluos-status-success-bg); border-color: var(--cluos-status-success); color: var(--cluos-status-success-text); }
+.cluos-alert--warning { background: var(--cluos-status-warning-bg); border-color: var(--cluos-status-warning); color: var(--cluos-status-warning-text); }
+.cluos-alert--danger  { background: var(--cluos-status-danger-bg);  border-color: var(--cluos-status-danger);  color: var(--cluos-status-danger-text); }
+.cluos-alert--info    { background: var(--cluos-status-info-bg);    border-color: var(--cluos-status-info);    color: var(--cluos-status-info-text); }
+.cluos-toast { display: flex; align-items: center; justify-content: space-between; gap: var(--cluos-space-3); padding: 10px var(--cluos-space-4); border-radius: var(--cluos-radius-sm); background: var(--cluos-fg); color: var(--cluos-bg); font-size: 13px; }
+.cluos-toast a { color: inherit; font-weight: var(--cluos-font-weight-label); }
+.cluos-progress { height: 6px; border-radius: var(--cluos-radius-pill); background: var(--cluos-bg-muted); overflow: hidden; }
+.cluos-progress > span { display: block; height: 100%; background: var(--cluos-progress); transition: width var(--cluos-motion-enter) var(--cluos-ease-out); }
+.cluos-skeleton { height: 12px; border-radius: var(--cluos-radius-sm); background: var(--cluos-bg-muted); }
+.cluos-empty { position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start; gap: var(--cluos-space-2); padding: var(--cluos-space-5); border: 1px solid var(--cluos-line); border-radius: var(--cluos-radius-md); }
+.cluos-empty > :not(.cluos-empty__mark) { position: relative; }
+.cluos-empty__mark { position: absolute; right: -64px; bottom: -56px; width: 220px; color: var(--cluos-bg-muted); pointer-events: none; }
+
+/* ----- Menu e diálogo -------------------------------------------------------- */
+.cluos-menu { display: flex; flex-direction: column; min-width: 220px; padding: 6px; border: 1px solid var(--cluos-line-2); border-radius: var(--cluos-radius-md); background: var(--cluos-surface); }
+.cluos-menu [role="menuitem"] { padding: var(--cluos-space-2) 10px; border-radius: var(--cluos-radius-sm); color: var(--cluos-fg); font-size: var(--cluos-text-sm); text-decoration: none; }
+.cluos-menu [role="menuitem"]:hover,
+.cluos-menu [role="menuitem"].is-hover { background: var(--cluos-bg-muted); }
+.cluos-menu [role="menuitem"]:focus-visible,
+.cluos-menu [role="menuitem"].is-focus { position: relative; z-index: 1; box-shadow: var(--cluos-ring-focus); }
+.cluos-menu__sep { height: 1px; margin: 6px var(--cluos-space-1); background: var(--cluos-line); }
+.cluos-menu__item--supervised { color: var(--cluos-status-danger-text) !important; }
+.cluos-dialog { display: flex; flex-direction: column; gap: 10px; max-width: 28rem; padding: var(--cluos-inset-md); border: 1px solid var(--cluos-line-2); border-radius: var(--cluos-radius-md); background: var(--cluos-surface); color: var(--cluos-fg); }
+.cluos-dialog__actions { display: flex; justify-content: flex-end; gap: var(--cluos-space-2); }
+
+/* ----- Linha do tempo -------------------------------------------------------- */
+.cluos-timeline { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.cluos-timeline > li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 0 var(--cluos-space-3); padding-bottom: var(--cluos-space-3); }
+.cluos-timeline > li::before { content: ""; width: 8px; height: 8px; margin: 6px var(--cluos-space-1); border-radius: var(--cluos-radius-pill); background: var(--dot, var(--cluos-line-strong)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cluos *, .cluos *::before, .cluos *::after,
+  [class*="cluos-"], [class*="cluos-"]::before, [class*="cluos-"]::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+/* Alto contraste do sistema: o anel em box-shadow some; o outline do sistema
+   precisa vencer os "outline: none" dos componentes, daí o !important. */
+@media (forced-colors: active) {
+  :focus-visible,
+  [class*="cluos-"].is-focus { outline: 2px solid Highlight !important; outline-offset: 2px; }
+}

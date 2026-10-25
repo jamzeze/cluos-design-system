@@ -3,6 +3,82 @@
 All notable changes to the Cluos design system are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com).
 
+## [1.0.0] — 2026-10-24 — cluos-v2
+
+`cluos-v2` replaces `cluos-mms-v1` as the global visual contract (design
+decisions in `docs/frontend-routing/2026-10-23-cluos-v2/design-decision.md`).
+Package version 1.0.0; install with
+`npm install github:jamzeze/cluos-design-system#v1.0.0`. Publishing stays
+manual through the frozen release workflow.
+
+### Added
+
+- `tokens/cluos-v2.yaml`: the single canonical contract. All exports are
+  generated from it by `scripts/build-tokens.py` (`--check` verifies them).
+- Generated exports: `tokens/fonts.css`, `tokens/tailwind.css` (Tailwind v4
+  `@theme`), `tokens/shadcn.css`, `tokens/design.json` (W3C Design Tokens) and
+  `AGENT-BRIEF.md`.
+- `cluos.css`: reference components in plain CSS, no framework.
+- Azigos palette as brand reference: deep navy, medium blue, tech green, cool
+  neutrals, off-white; 12 OKLCH hues (`--cluos-hue-NN-fill|line|text`), eight
+  chart series, product-identity hues.
+- Four statuses with fill, line and text steps per theme (success, warning,
+  danger, info), always icon + text.
+- First-class dark theme (`data-theme="dark"`), density (`data-density`),
+  4 px spacing scale 0 to 24 with inset/stack/gap roles, role-based type scale.
+- Orbitron as accent font (hero, highlighted numbers, splash, events only);
+  fonts versioned in `brand-assets/fonts/` (WOFF2, OFL).
+- Azigos lockup and symbol SVGs in navy, white, black, green and color.
+- `scripts/test-contrast.py` (WCAG 2.2 AA, 150 pairs); `npm test` runs it with
+  `build-tokens.py --check`.
+- `docs/cluos-v2/migracao.md`: old-to-new token map and per-product steps.
+- `docs/legacy/` with an index of archived material.
+
+### Changed
+
+- Primary action is tech green with navy text; action color never carries
+  status. Status uses `--cluos-status-*`, not copper/oxblood.
+- Radius 4 px (controls) and 8 px (regions), pill only for public CTAs and
+  filter chips; no shadows in product UI (was radius 0).
+- Containers: wide 80rem, product 72rem, docs 48rem, prose 42rem (`AGENTS.md`
+  said 960 px).
+- `--cluos-text-subtle` moves from `#A5A5A5` to `#616367` (AA text); `#A5A5A5`
+  is only `--cluos-fg-disabled`.
+- Focus ring is tech green inside, navy outside (off-white in dark); tables
+  scroll inside a labelled, focusable region (PRs #4, #5, #6 folded in).
+- Theme-scoped aliases are redeclared per theme, so a nested
+  `data-theme="dark"` resolves correctly.
+- Documentation rewritten in Portuguese for cluos-v2: `DESIGN.md`,
+  `README.md`, `DESIGN-WORKFLOW.md`; `AGENTS.md`, `patterns/`, `examples/`,
+  `PRODUCT-*.md` and `APPLE-INSPIRED-PRODUCT-UX.md` updated to v2 tokens and
+  rules. WCAG target 2.1 to 2.2.
+- `package.json` 1.0.0: new `files` and `exports` (fonts, cluos.css, Tailwind
+  v4, shadcn, design.json, AGENT-BRIEF.md, cluos-v2.yaml).
+
+### Removed
+
+- From the published package: the A to G styles, the eight product variants,
+  Thermal Nocturne, `DESIGN-preview-legacy-v0.2.1.html`, the design gallery,
+  `tokens-experimental/`, `PRODUCT-THEME-VARIANTS.md`, `MIGRATION-AUDIT.md`,
+  `pal-*` classes and the gradient logos. All archived in `docs/legacy/`
+  (history preserved with `git mv`).
+
+### Deprecated
+
+- Teal, copper, oxblood and champagne as brand or status roles, and the names
+  `--cluos-teal*`, `--cluos-copper*`, `--cluos-oxblood*`, `--cluos-champagne*`,
+  `--cluos-operational-teal`, gradients and shadow tokens: kept as
+  compatibility aliases in `tokens/tokens.css` and removed in 2.0.0.
+- `data-cluos-style`, `data-cluos-palette`, `data-appearance`.
+  `tokens/mms-canonical.yaml` stays as a historical record.
+
+### Migration
+
+Products migrate in a separate wave: install v1.0.0, import `fonts.css`,
+`tokens.css` and `cluos.css`, delete the local token copy, and set
+`data-cluos-canonical="cluos-v2"` with `data-theme`. Full table in
+`docs/cluos-v2/migracao.md`.
+
 ## [Unreleased] — 2026-09-16 — Frontend routing v2
 
 ### Changed

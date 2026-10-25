@@ -28,23 +28,23 @@ module.exports = {
 interface PageHeaderProps {
   title: string;
   description?: string;
-  status?: { label: string; variant: "success" | "warn" | "error" | "info" };
+  status?: { label: string; variant: "success" | "warning" | "danger" | "info" };
   primaryAction?: React.ReactNode;
   secondaryAction?: React.ReactNode;
 }
 
 export function PageHeader({ title, description, status, primaryAction, secondaryAction }: PageHeaderProps) {
   const statusColors = {
-    success: "bg-cluos-status-success-bg text-cluos-status-success border border-cluos-status-success/20",
-    warn: "bg-cluos-status-warn-bg text-cluos-status-warn border border-cluos-status-warn/20",
-    error: "bg-cluos-status-error-bg text-cluos-status-error border border-cluos-status-error/20",
-    info: "bg-cluos-status-info-bg text-cluos-status-info border border-cluos-status-info/20",
+    success: "bg-cluos-success-bg text-cluos-success-text border border-cluos-success",
+    warning: "bg-cluos-warning-bg text-cluos-warning-text border border-cluos-warning",
+    danger: "bg-cluos-danger-bg text-cluos-danger-text border border-cluos-danger",
+    info: "bg-cluos-info-bg text-cluos-info-text border border-cluos-info",
   };
 
   return (
     <div className="flex items-start justify-between gap-4 mb-8">
       <div className="flex-1 min-w-0">
-        <h1 className="text-3xl font-semibold text-cluos-navy tracking-tight">{title}</h1>
+        <h1 className="text-3xl font-semibold text-cluos-fg tracking-tight">{title}</h1>
         {description && (
           <p className="mt-1 text-base text-cluos-text-muted">{description}</p>
         )}
@@ -77,7 +77,7 @@ export default function ContentPage() {
       <PageHeader
         title="Conteúdos gerados"
         description="3 conteúdos aguardando revisão"
-        status={{ label: "3 pendentes", variant: "warn" }}
+        status={{ label: "3 pendentes", variant: "warning" }}
         primaryAction={
           <button className="btn-primary">Revisar agora</button>
         }
@@ -95,17 +95,17 @@ export default function ContentPage() {
 
 ```tsx
 // Primary — one per region
-<button className="bg-cluos-teal text-white px-4 py-2.5 rounded-cluos-md text-sm font-medium hover:bg-cluos-teal-deep transition-colors duration-fast focus-visible:outline-none focus-visible:ring-cluos-focus">
+<button className="bg-cluos-action text-cluos-action-fg px-4 py-2.5 rounded-cluos-md text-sm font-medium hover:bg-cluos-action-hover transition-colors duration-cluos-fast focus-visible:outline-none focus-visible:shadow-cluos-ring">
   Publicar conteúdo
 </button>
 
 // Secondary
-<button className="bg-transparent text-cluos-navy border border-cluos-border-strong px-4 py-2.5 rounded-cluos-md text-sm font-medium hover:border-cluos-navy hover:bg-cluos-bg-subtle transition-colors duration-fast">
+<button className="bg-transparent text-cluos-fg border border-cluos-line-strong px-4 py-2.5 rounded-cluos-md text-sm font-medium hover:border-cluos-fg hover:bg-cluos-bg-subtle transition-colors duration-cluos-fast">
   Agendar
 </button>
 
 // Ghost
-<button className="bg-transparent text-cluos-teal-deep px-3 py-2 rounded-cluos-sm text-sm font-medium hover:bg-cluos-teal/8 transition-colors duration-fast">
+<button className="bg-transparent text-cluos-fg-2 underline px-3 py-2 rounded-cluos-sm text-sm font-medium hover:bg-cluos-action-soft transition-colors duration-cluos-fast">
   Ver detalhes
 </button>
 ```

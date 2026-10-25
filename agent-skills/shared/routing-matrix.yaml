@@ -6,7 +6,7 @@
 # checkout, see ../profiles/cluos/product-context.md for the CluOS surface
 # list; installed clients use the namespaced profile root.
 
-version: 2
+version: 3
 
 # Predicates are answered in order; the first true one sets the level.
 levels:
@@ -52,12 +52,12 @@ levels:
     predicate: "Cria ou redesenha uma tela, fluxo, dashboard, landing page ou área inteira."
     examples: [dashboard, landing page, onboarding, área administrativa, redesign de uma tela inteira]
     flow: [anti-ai-slop-frontend, ux-layout-architect, frontend-craftsman, design-critic, design-qa, verification-before-completion]
-    loads: [anti-slop-rubric.md, profile, "design-archetypes.yaml + palette-policy.md (somente com comparação ou opt-out registrado)"]
+    loads: [anti-slop-rubric.md, profile, "palette-policy.md + design-archetypes.yaml (somente com comparação ou opt-out registrado)"]
     artifacts: [routing.md, ux-layout-contract.md, "design-decision.md (somente com opt-out)", design-critic.md, design-qa.md]
     gallery_required: false
     selection_required: false
-    default_style: cluos-mms-v1
-    note: "Novas superfícies herdam cluos-mms-v1. design-gallery só para opt-out explícito ou comparação registrada."
+    default_style: cluos-v2
+    note: "Novas superfícies herdam cluos-v2. design-gallery só para opt-out explícito ou comparação registrada."
 
   N3:
     name: "Design system ou múltiplas superfícies"
@@ -68,8 +68,8 @@ levels:
     artifacts: [routing.md, "ux-layout-contract.md (quando telas/fluxos mudarem)", design-decision.md, design-critic.md, design-qa.md]
     gallery_required: false
     selection_required: false
-    default_style: cluos-mms-v1
-    note: "O contrato MMS é o alvo global. Qualquer direção alternativa precisa de decisão de supersessão."
+    default_style: cluos-v2
+    note: "O contrato cluos-v2 (tokens/cluos-v2.yaml, AGENT-BRIEF.md) é o alvo global. Qualquer direção alternativa precisa de decisão de supersessão."
 
 # Artifacts live in one directory per task inside the consuming repo:
 # docs/frontend-routing/<YYYY-MM-DD>-<slug>/. N-skip and N0 write nothing;
@@ -104,14 +104,14 @@ test_matrix:
     layout_contract: true
     gallery: "condicional (comparação ou opt-out explícito)"
     selection: false
-    note: "A tela herda cluos-mms-v1 por padrão."
+    note: "A tela herda cluos-v2 por padrão."
   - prompt: "Redesenhe o onboarding."
     level: N2
     skills: [anti-ai-slop-frontend, ux-layout-architect, frontend-craftsman, design-critic, design-qa]
     layout_contract: true
     gallery: "condicional (comparação ou opt-out explícito)"
     selection: false
-    note: "O fluxo herda cluos-mms-v1 por padrão."
+    note: "O fluxo herda cluos-v2 por padrão."
   - prompt: "Mude a paleta do produto."
     level: N3
     skills: [anti-ai-slop-frontend, design-system-refactor-director, design-gallery, writing-plans]
@@ -132,7 +132,7 @@ test_matrix:
     layout_contract: true
     gallery: "condicional (comparação ou opt-out explícito)"
     selection: false
-    note: "A estrutura herda cluos-mms-v1 por padrão; comparar alternativas só mediante registro."
+    note: "A estrutura herda cluos-v2 por padrão; comparar alternativas só mediante registro."
   - prompt: "Implemente esta imagem."
     level: N1
     skills: [anti-ai-slop-frontend, frontend-craftsman, design-critic, design-qa]
@@ -164,14 +164,14 @@ test_matrix:
     layout_contract: true
     gallery: "condicional (comparação ou opt-out explícito)"
     selection: false
-    note: "Superfícies de marketing também herdam cluos-mms-v1; só registrar comparação/opt-out quando houver uma direção alternativa necessária."
+    note: "Superfícies de marketing herdam cluos-v2 no registro público; aplicar o checklist de página pública e o teste cego de anti-slop-rubric.md; só registrar comparação/opt-out quando houver uma direção alternativa necessária."
   - prompt: "Otimize a disposição dos elementos na tela de laudo do Azigos."
     level: N2
     skills: [anti-ai-slop-frontend, ux-layout-architect, frontend-craftsman, design-critic, design-qa]
     layout_contract: true
     gallery: "condicional (comparação ou opt-out explícito)"
     selection: false
-    note: "Tela clínica complexa: o contrato de posicionamento continua obrigatório; a direção visual herda cluos-mms-v1."
+    note: "Tela clínica complexa: o contrato de posicionamento continua obrigatório; a direção visual herda cluos-v2."
   - prompt: "Ajuste a regra de calibre da crossa no mapa de varizes."
     level: N-skip
     skills: [anti-ai-slop-frontend]

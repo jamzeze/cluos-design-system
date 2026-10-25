@@ -13,7 +13,7 @@ paths:
 ---
 
 <!-- BEGIN CLUOS FRONTEND WORKFLOW -->
-# CluOS Frontend Workflow (canonical, revisado 2026-09-16)
+# CluOS Frontend Workflow (canonical, revisado 2026-10-25)
 
 Fonte: `cluos-design-system/agent-skills/`. Não edite cópias instaladas. Após
 mudar skills ou suporte, rode `cluos-design-system/scripts/sync-agent-skills.sh`;
@@ -37,11 +37,15 @@ tela, fluxo):
   design-qa → verification-before-completion`, com os dois revisores rodando
   como subagentes de contexto limpo quando instalados (`~/.claude/agents/`).
   `N3` é conduzido por `design-system-refactor-director`.
-- Direção visual: `cluos-mms-v1` (Swiss Ledger claro, Manrope + Instrument
-  Sans, deep navy/medium blue e tech green; decisão de Rafael, 2026-08-30).
-  `design-gallery` só para comparação registrada ou opt-out explícito; opt-out
-  exige registro em `design-decision.md` da tarefa e em
-  `palette-decisions.yaml` do profile.
+- Direção visual: `cluos-v2` (decisão de Rafael, 2026-10-24; substitui
+  `cluos-mms-v1`): claro por padrão com escuro de primeira classe, Manrope +
+  Instrument Sans (Orbitron só como destaque), paleta Azigos (azul profundo,
+  azul médio, verde tech como ação), raio 4/8 px, sem sombra. Valores em
+  `tokens/cluos-v2.yaml` e `AGENT-BRIEF.md`; componentes de referência em
+  `cluos.css`. `design-gallery` só para comparação registrada ou opt-out
+  explícito; opt-out exige registro em `design-decision.md` da tarefa e em
+  `palette-decisions.yaml` do profile. Página pública: checklist e teste cego
+  de `anti-slop-rubric.md`.
 - Artefatos da tarefa (`routing.md`, `ux-layout-contract.md`,
   `design-decision.md`, `design-critic.md`, `design-qa.md`) ficam em
   `docs/frontend-routing/<YYYY-MM-DD>-<slug>/` do repo consumidor.

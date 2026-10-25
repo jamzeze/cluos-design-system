@@ -17,9 +17,10 @@ ecosystem largely autonomously through Claude Code and Codex.
 - Isabel and a small number of other named users — operators/viewers inside
   `suporte`'s Authelia-gated access.
 - No general public-facing consumer surface exists yet inside the reference
-  used for design work (`suporte` admin). Marketing/landing surfaces are a
-  different, less-developed part of the product inventory — treat with
-  caution before applying operational archetypes (B/D/G) to them.
+  used for design work (`suporte` admin). Marketing/landing surfaces usam o
+  registro público do `cluos-v2` (segunda passada; primeira página
+  recomendada: azigos.com.br) com o checklist de página pública da rubrica
+  anti-slop; não aplique o registro de produto a elas por analogia.
 
 ## Core workflows the UI serves
 
@@ -29,14 +30,22 @@ ecosystem largely autonomously through Claude Code and Codex.
 3. **Grant access** — invite users, assign per-product roles, manage
    expiration, all backed by Authelia.
 4. **Report** — executive/consulting-facing summaries (hospital consulting
-   engagements are a real line of business — see Editorial Intelligence
-   archetype).
+   engagements are a real line of business); números de destaque podem usar a
+   fonte de destaque, uma por composição.
+
+## Identidade por produto (cluos-v2)
+
+Núcleo visual idêntico; cada produto recebe um matiz do arco-íris só para
+identificação (`product_hue` em `tokens/cluos-v2.yaml`): azigos hue-05, crm
+hue-11, sci hue-07, b3 hue-10, medframe hue-03, loteca hue-12, did hue-08, aeo
+hue-01. Nunca em ação, status ou navegação. Nenhum produto migrou ainda para
+o `cluos-v2`; a migração de MMS, azigos e suporte é uma onda separada.
 
 ## Non-negotiable functional constraints for any redesign
 
 - Supervised (L2) destructive-adjacent actions (restart, reinstate) must
   stay visually distinct from reversible actions (silence, export) in every
-  archetype — this is a safety property, not a style choice.
+  register and theme — this is a safety property, not a style choice.
 - Role-gated products (e.g. `did` requiring Administrador) must show the
   gate in the UI, not hide it silently.
 - Status must never depend on color alone (see anti-slop-rubric

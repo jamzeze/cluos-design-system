@@ -1,32 +1,41 @@
 # CluOS — Brand Context
 
-## Brand essence (from DESIGN.md)
+## Essência da marca
 
-CluOS is "quiet confidence." The current product identity is the MMS Swiss
-Ledger contract: Manrope display, Instrument Sans interface/data, hairlines,
-zero radius and zero elevation. The wordmark remains the shipped CluOS mark;
-`CluOS MMS Marketing Studio` is the canonical product lockup.
+CluOS é "confiança quieta": quieto por padrão, preciso onde importa. O
+contrato visual atual é o `cluos-v2` (Rafael, 2026-10-24): um sistema para
+todos os produtos, com a Azigos como referência de cor. Manrope (display) e
+Instrument Sans (interface e dados); Orbitron apenas como fonte de destaque
+(decisão de 2026-10-25). Tema claro por padrão no produto, escuro de primeira
+classe. A fonte de valores é `tokens/cluos-v2.yaml`; o resumo portátil é
+`AGENT-BRIEF.md`; componentes de referência em `cluos.css`.
 
-## Assets
+## Ativos
 
-`brand-assets/` in this repo — logo lockups (gradient, duo, black, white,
-navy, teal variants), symbol-only variants, favicon. Canonical source for
-re-export: the Google Drive folder referenced in `DESIGN.md` §2.
+`brand-assets/` neste repositório: variantes do logotipo CluOS (desenho
+preservado; apenas mono em navy, branco, preto e verde tech — as variantes
+gradiente e teal saem do pacote), símbolo, favicon e fontes WOFF2 em
+`brand-assets/fonts`.
 
-## Canonical palette and compatibility history
+## Paleta canônica
 
-1. **`cluos-mms-v1` (canonical, 2026-08-30)** — deep navy and medium blue
-   structure, tech green positive action, operational teal for progress,
-   copper for warning/review and oxblood for denial/error. See
-   `tokens/mms-canonical.yaml` for exact values.
-2. **Teal Classic and Thermal Nocturne** — compatibility history only. Their
-   aliases remain available for explicit legacy opt-outs during migration.
+1. **`cluos-v2` (canônica, 2026-10-24)** — azul profundo `#010D28`, azul médio
+   `#132952`, verde tech `#C4DB7B` (ação primária, texto navy), branco,
+   `#EAEAEA`, `#A5A5A5` e off-white `#F4EFED` (só registro público). Neutros
+   frios; status por ícone + texto (matizes 15/75/165/225°); 12 matizes
+   `hue-01..12` só para categorias, etiquetas, calendário, avatares e
+   identificação de produto. Raio 4 px em controles e 8 px em regiões, sem
+   sombra. Dois registros (produto e público) sobre os mesmos tokens.
+2. **`cluos-mms-v1`, Teal Classic, Thermal Nocturne e a biblioteca A–G** —
+   histórico em `docs/legacy/`. Teal, copper e oxblood sobrevivem só como
+   aliases de compatibilidade até 2.0.0.
 
-New products must not select a legacy style or palette as their global default.
+Produtos novos não escolhem outra direção ou paleta global por padrão.
 
-## What must never change without an explicit decision
+## O que não muda sem decisão explícita
 
-- The wordmark / symbol construction itself.
-- The oxblood-family error color (`#8A3A3A` / `#C46A6A` dark) — consistent
-  across every registered palette so error states pattern-match everywhere.
-- Copper and oxblood remain semantic states only; neither is a positive CTA.
+- A construção do logotipo e do símbolo.
+- A cor de ação (verde tech) não vira cor de estado, link ou gráfico.
+- Status sempre ícone + texto; o matiz de perigo (15°) é o mesmo em todas as
+  superfícies para o reconhecimento de padrão.
+- O arco-íris nunca é ação, status ou navegação.

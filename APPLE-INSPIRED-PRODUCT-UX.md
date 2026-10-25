@@ -62,7 +62,7 @@ Se uma tela não tem intenção clara, ela precisa ser redesenhada ou dividida.
 Não usar múltiplos botões primários competindo na mesma região visual.
 
 Cada tela deve ter:
-- **Uma ação primária** — clara, visível, teal.
+- **Uma ação primária** — clara, visível, verde tech (`--cluos-action`).
 - **Ações secundárias** — discretas, borda leve, fora do caminho.
 - **Ações destrutivas** — separadas, com confirmação, visual contido.
 - **Detalhes técnicos** — recolhidos em accordion ou drawer.
@@ -149,7 +149,7 @@ Se alguma dessas perguntas não tem resposta imediata na tela, a tela está inco
 
 ### Botão primário
 - Ação principal da tela.
-- Cor `--cluos-teal`.
+- Fundo `--cluos-action`, texto `--cluos-action-fg` (hover `--cluos-action-hover`).
 - Um por região visual.
 - Texto verbal e direto: "Publicar", "Gerar vídeo", "Salvar alterações".
 - Nunca: "OK", "Confirmar", "Enviar" sem contexto.
@@ -162,10 +162,10 @@ Se alguma dessas perguntas não tem resposta imediata na tela, a tela está inco
 ### Botão ghost
 - Ação leve: navegação secundária, "Ver detalhes", "Cancelar", "Voltar".
 - Sem borda, sem background padrão.
-- Cor `--cluos-teal-deep`.
+- Cor `--cluos-fg-2`; sem fundo, sem borda.
 
 ### Botão destrutivo
-- Visual contido — não usar vermelho brilhante.
+- Visual contido — `--cluos-status-danger` só dentro do diálogo de confirmação.
 - Sempre acompanhado de confirmação em modal.
 - Copy clara: "Excluir conta", não "Deletar".
 - Cor `--cluos-status-error` apenas no estado confirmado.
@@ -188,9 +188,9 @@ Todo componente com dados dinâmicos deve ter todos os estados abaixo definidos:
 | `loading` | Requisição em andamento | Skeleton ou spinner com contexto |
 | `skeleton` | Carregamento de estrutura | Placeholder com shape do conteúdo |
 | `empty` | Sem dados para exibir | Título + explicação + ação primária |
-| `success` | Operação concluída com sucesso | Toast ou callout green |
-| `warning` | Atenção necessária, mas não bloqueante | Callout copper/warn |
-| `error` | Operação falhou | Callout error + ação de recuperação |
+| `success` | Operação concluída com sucesso | Toast ou callout `--cluos-status-success` (nunca o verde tech de ação) |
+| `warning` | Atenção necessária, mas não bloqueante | Callout `--cluos-status-warning` com ícone + texto |
+| `error` | Operação falhou | Callout `--cluos-status-danger` + ação de recuperação |
 | `offline` | Sem conexão | Banner informativo + retry |
 | `unauthorized` | Usuário não autenticado | Redirecionar para login |
 | `forbidden` | Usuário sem permissão | Mensagem clara + ação disponível |
@@ -378,7 +378,7 @@ Proibido em qualquer tela CluOS:
 | Erro sem solução | Nunca "Ocorreu um erro" sem próximo passo |
 | Loading sem contexto | "Carregando..." é menos útil que "Gerando seu relatório..." |
 | Cores novas sem token | Toda cor tem token; sem token, não existe |
-| Interface genérica de SaaS colorido | CluOS tem identidade própria — teal + navy + muito espaço |
+| Interface genérica de SaaS colorido | CluOS tem identidade própria — navy, azul médio, um único verde de ação e muito espaço |
 | Poluição visual | Cada elemento deve ganhar o espaço ou não estar na tela |
 | Ícone decorativo sem função | Ícone funcional ou nenhum |
 | Texto de placeholder como label | Label permanente é obrigatório |

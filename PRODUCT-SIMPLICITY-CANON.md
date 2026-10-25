@@ -73,18 +73,18 @@ The agent must not start a broad UI refactor by changing colors or components fi
 
 Every CluOS interface must use the CluOS design system:
 
-- Typeface: Inter for UI and content.
+- Typeface: Instrument Sans for UI, data and content (`var(--cluos-font-sans)`); Manrope for display (`var(--cluos-font-display)`).
 - Monospace: JetBrains Mono only for code, logs, IDs, and technical snippets.
-- Accent: `var(--cluos-teal)` only.
-- Primary text: `var(--cluos-navy)` / `var(--cluos-text)`.
+- Action: `var(--cluos-action)` (tech green) only, one primary per region. Action color never signals status.
+- Primary text: `var(--cluos-fg)` / `var(--cluos-text)`.
 - Backgrounds: `var(--cluos-bg)`, `var(--cluos-bg-subtle)`, `var(--cluos-bg-muted)`.
-- Status: semantic tokens only: success, warn, error, info.
+- Status: semantic tokens only (`--cluos-status-success|warning|danger|info`), always icon + text.
 - Spacing: `var(--cluos-space-*)` only.
-- Radius: `var(--cluos-radius-*)` only.
-- Shadows: restrained, token-based, and secondary to borders.
+- Radius: `var(--cluos-radius-sm)` 4 px for controls, `var(--cluos-radius-md)` 8 px for regions.
+- Shadows: none in product UI; separate with grouping, spacing, hairlines and surface tone.
 - Motion: short, calm, state-driven, and compatible with `prefers-reduced-motion`.
 
-Do not hardcode raw hex colors, arbitrary pixel spacing, unapproved font stacks, heavy shadows, decorative gradients, or new accent colors.
+Do not hardcode raw hex colors, arbitrary pixel spacing, unapproved font stacks, shadows, decorative gradients, or new accent colors.
 
 ---
 

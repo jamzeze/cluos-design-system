@@ -26,7 +26,7 @@
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
-    a { color: var(--cluos-teal-deep); text-decoration: none; }
+    a { color: var(--cluos-action-hover); text-decoration: none; }
     a:hover { text-decoration: underline; }
     :focus-visible { outline: none; box-shadow: var(--cluos-ring-focus); border-radius: var(--cluos-radius-sm); }
   </style>
@@ -57,20 +57,20 @@
   .system-card {
     background: var(--cluos-bg);
     border: 1px solid var(--cluos-border);
-    border-radius: var(--cluos-radius-lg);
+    border-radius: var(--cluos-radius-md);
     padding: 1.25rem;
     max-width: 300px;
   }
   .system-card__status { display: flex; align-items: center; gap: 6px; margin-bottom: 0.5rem; }
   .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .status-dot--online  { background: var(--cluos-status-success); }
-  .status-dot--warn    { background: var(--cluos-status-warn); }
-  .status-dot--offline { background: var(--cluos-status-error); }
+  .status-dot--warn    { background: var(--cluos-status-warning); }
+  .status-dot--offline { background: var(--cluos-status-danger); }
   .status-label { font-size: 0.75rem; font-weight: 500; }
-  .status-label--online  { color: var(--cluos-status-success); }
-  .status-label--warn    { color: var(--cluos-status-warn); }
-  .status-label--offline { color: var(--cluos-status-error); }
-  .system-card__name { font-size: 1rem; font-weight: 600; color: var(--cluos-navy); margin-bottom: 0.25rem; }
+  .status-label--online  { color: var(--cluos-status-success-text); }
+  .status-label--warn    { color: var(--cluos-status-warning-text); }
+  .status-label--offline { color: var(--cluos-status-danger-text); }
+  .system-card__name { font-size: 1rem; font-weight: 650; color: var(--cluos-fg); margin-bottom: 0.25rem; }
   .system-card__url  { font-size: 0.8125rem; color: var(--cluos-text-subtle); margin-bottom: 1rem; }
   .system-card__actions { display: flex; gap: 0.5rem; }
 
@@ -87,10 +87,10 @@
     align-items: center;
     text-decoration: none;
   }
-  .btn--primary { background: var(--cluos-teal); color: var(--cluos-text-on-teal); }
-  .btn--primary:hover { background: var(--cluos-teal-deep); text-decoration: none; }
-  .btn--ghost { background: transparent; color: var(--cluos-teal-deep); }
-  .btn--ghost:hover { background: rgba(0,128,128,0.08); }
+  .btn--primary { background: var(--cluos-action); color: var(--cluos-action-fg); }
+  .btn--primary:hover { background: var(--cluos-action-hover); text-decoration: none; }
+  .btn--ghost { background: transparent; color: var(--cluos-action-hover); }
+  .btn--ghost:hover { background: var(--cluos-action-soft); }
 </style>
 ```
 
@@ -115,7 +115,7 @@
     padding: 4rem 1.5rem;
   }
   .empty-state__icon { font-size: 2.5rem; color: var(--cluos-text-subtle); margin-bottom: 1rem; }
-  .empty-state__title { font-size: 1.0625rem; font-weight: 600; color: var(--cluos-navy); margin-bottom: 0.5rem; }
+  .empty-state__title { font-size: 1.0625rem; font-weight: 650; color: var(--cluos-fg); margin-bottom: 0.5rem; }
   .empty-state__description { font-size: 0.875rem; color: var(--cluos-text-muted); max-width: 280px; margin-bottom: 1.5rem; }
 </style>
 ```
@@ -131,8 +131,8 @@
 
 <style>
   .field { display: flex; flex-direction: column; gap: 0.25rem; }
-  .field__label { font-size: 0.8125rem; font-weight: 500; color: var(--cluos-navy); }
-  .field__label span { color: var(--cluos-status-error); margin-left: 0.2em; }
+  .field__label { font-size: 0.8125rem; font-weight: 500; color: var(--cluos-fg); }
+  .field__label span { color: var(--cluos-status-danger-text); margin-left: 0.2em; }
   .field__input {
     font-family: var(--cluos-font-sans);
     font-size: 0.875rem;
@@ -143,8 +143,8 @@
     padding: 0.625rem 0.875rem;
     transition: border-color 120ms ease;
   }
-  .field__input:focus { outline: none; border-color: var(--cluos-teal); box-shadow: var(--cluos-ring-focus); }
+  .field__input:focus { outline: none; border-color: var(--cluos-action); box-shadow: var(--cluos-ring-focus); }
   .field__hint { font-size: 0.75rem; color: var(--cluos-text-subtle); }
-  .field__error { font-size: 0.75rem; color: var(--cluos-status-error); }
+  .field__error { font-size: 0.75rem; color: var(--cluos-status-danger-text); }
 </style>
 ```

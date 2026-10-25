@@ -3,7 +3,7 @@
 ## 1. Install
 
 ```bash
-npm install github:jamzeze/cluos-design-system
+npm install github:jamzeze/cluos-design-system#v1.0.0
 ```
 
 ## 2. Import tokens
@@ -13,26 +13,26 @@ npm install github:jamzeze/cluos-design-system
 @import "@cluos/design-system/tokens.css";
 ```
 
-## 3. Load fonts
+## 3. Fontes
 
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+As fontes (Manrope, Instrument Sans, JetBrains Mono, Orbitron) são embarcadas no pacote; não use CDN em tempo de execução.
+
+```css
+@import "@cluos/design-system/fonts.css";
 ```
 
 ## 4. Use CSS variables
 
 ```css
 .btn-primary {
-  background: var(--cluos-teal);
-  color: var(--cluos-text-on-teal);
+  background: var(--cluos-action);
+  color: var(--cluos-action-fg);
   padding: var(--cluos-space-3) var(--cluos-space-4);
   border-radius: var(--cluos-radius-md);
   font-family: var(--cluos-font-sans);
-  transition: background var(--cluos-dur-fast) var(--cluos-ease-out);
+  transition: background var(--cluos-motion-fast) var(--cluos-ease-out);
 }
-.btn-primary:hover { background: var(--cluos-teal-deep); }
+.btn-primary:hover { background: var(--cluos-action-hover); }
 .btn-primary:focus-visible {
   outline: none;
   box-shadow: var(--cluos-ring-focus);
@@ -42,7 +42,7 @@ npm install github:jamzeze/cluos-design-system
 ## 5. Use the logo
 
 ```html
-<img src="/path/to/node_modules/@cluos/design-system/brand-assets/cluos-logo-gradient.svg" alt="Cluos">
+<img src="/path/to/node_modules/@cluos/design-system/brand-assets/cluos-logo-navy.svg" alt="Cluos">
 ```
 
 ## 6. Point your LLM at the rules
