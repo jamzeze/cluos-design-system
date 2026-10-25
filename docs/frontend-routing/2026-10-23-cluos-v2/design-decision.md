@@ -124,3 +124,9 @@ Supersede: `cluos-mms-v1` (2026-08-30) como contrato visual global.
     Syncopate, Anta, Turret Road, Panchang, Nippo, Orbitron, Michroma, Oxanium,
     Chakra Petch, Tomorrow, Unbounded). As regras de uso do item 30 continuam
     valendo; Bruno Ace deixa de ser a escolha.
+    Revisão de 2026-10-25, depois da implementação: Rafael viu a Orbitron nos
+    seis pesos e comparou de novo com Unbounded, Panchang e Virtual (a fonte do
+    logotipo da Azigos) no espécime. Decidiu manter a Orbitron, peso 500. A
+    Virtual tem um peso só e a cópia disponível é demo para uso pessoal
+    (Sensatype Studio); só volta à mesa com licença comercial que cubra web e
+    distribuição no pacote. A Panchang (ITF FFL) não é redistribuível no pacote.
