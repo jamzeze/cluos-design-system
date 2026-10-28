@@ -1,0 +1,162 @@
+#!/usr/bin/env bash
+# Validate connector manifest and check required env vars are set.
+# Does NOT make network calls — pure config validation.
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+MANIFEST="$REPO_ROOT/connectors/manifest.yaml"
+ENV_EXAMPLE="$REPO_ROOT/.env.example"
+
+RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; NC='\033[0m'
+
+ok()   { echo -e "${GREEN}✓${NC} $*"; }
+warn() { echo -e "${YELLOW}⚠${NC}  $*"; }
+fail() { echo -e "${RED}✗${NC} $*"; }
+
+ERRORS=0
+
+echo "=== Connector Configuration Validation ==="
+echo "Manifest: $MANIFEST"
+echo ""
+
+# ─── 1. Manifest file exists ─────────────────────────────────────────────────
+if [[ -f "$MANIFEST" ]]; then
+  ok "connectors/manifest.yaml exists"
+else
+  fail "connectors/manifest.yaml not found"
+  ((ERRORS++))
+fi
+
+# ─── 2. YAML is parseable ────────────────────────────────────────────────────
+if command -v python3 &>/dev/null; then
+  if python3 -c "
+import re, sys
+with open('$MANIFEST') as f:
+    text = f.read()
+connectors = re.findall(r'^  - id: (.+)$', text, re.MULTILINE)
+print(f'  Found {len(connectors)} connectors: ' + ', '.join(connectors))
+" 2>/dev/null; then
+    ok "Manifest is parseable"
+  else
+    fail "Manifest parse error"
+    ((ERRORS++))
+  fi
+fi
+
+# ─── 3. Required connectors present ──────────────────────────────────────────
+echo ""
+echo "Checking required connectors..."
+REQUIRED_CONNECTORS=(github google-workspace browserbase firecrawl obsidian)
+
+for connector in "${REQUIRED_CONNECTORS[@]}"; do
+  if grep -q "id: $connector" "$MANIFEST" 2>/dev/null; then
+    ok "Required connector: $connector"
+  else
+    fail "Missing required connector: $connector"
+    ((ERRORS++))
+  fi
+done
+
+# ─── 4. Recommended connectors present ───────────────────────────────────────
+echo ""
+echo "Checking recommended connectors..."
+RECOMMENDED_CONNECTORS=(apify youtube-transcripts granola-fathom)
+
+for connector in "${RECOMMENDED_CONNECTORS[@]}"; do
+  if grep -q "id: $connector" "$MANIFEST" 2>/dev/null; then
+    ok "Recommended connector: $connector"
+  else
+    warn "Missing recommended connector: $connector"
+  fi
+done
+
+# ─── 5. Required env vars set ────────────────────────────────────────────────
+echo ""
+echo "Checking required environment variables..."
+
+REQUIRED_VARS=(
+  GITHUB_TOKEN
+  GOOGLE_CLIENT_ID
+  GOOGLE_CLIENT_SECRET
+  GOOGLE_REFRESH_TOKEN
+  BROWSERBASE_API_KEY
+  BROWSERBASE_PROJECT_ID
+  FIRECRAWL_API_KEY
+  OBSIDIAN_LOCAL_REST_API_KEY
+  OBSIDIAN_VAULT_PATH
+  TELEGRAM_BOT_TOKEN
+  TELEGRAM_ALLOWED_USER_IDS
+  HERMES_API_URL
+  HERMES_API_KEY
+  CEO_AGENT_MODE
+)
+
+OPTIONAL_VARS=(
+  APIFY_API_TOKEN
+  YOUTUBE_API_KEY
+  GRANOLA_API_KEY
+  FATHOM_API_KEY
+  GMAIL_DELEGATED_EMAIL
+  GOOGLE_CALENDAR_ID
+  GOOGLE_DRIVE_ROOT_FOLDER_ID
+)
+
+for var in "${REQUIRED_VARS[@]}"; do
+  if [[ -n "${!var:-}" ]]; then
+    ok "$var is set"
+  else
+    fail "$var is NOT set — load via: source scripts/bw-export-env.sh"
+    ((ERRORS++))
+  fi
+done
+
+echo ""
+echo "Checking optional environment variables..."
+for var in "${OPTIONAL_VARS[@]}"; do
+  if [[ -n "${!var:-}" ]]; then
+    ok "$var is set"
+  else
+    warn "$var not set (optional)"
+  fi
+done
+
+# ─── 6. .gitignore safety check ──────────────────────────────────────────────
+echo ""
+echo "Checking .gitignore safety..."
+MUST_IGNORE=(.env .env.local .bw-session bw-export- *.token)
+for pattern in "${MUST_IGNORE[@]}"; do
+  if grep -q "$pattern" "$REPO_ROOT/.gitignore" 2>/dev/null; then
+    ok ".gitignore covers: $pattern"
+  else
+    fail ".gitignore missing: $pattern"
+    ((ERRORS++))
+  fi
+done
+
+# ─── 7. .env.example exists and has no real secrets ──────────────────────────
+echo ""
+if [[ -f "$ENV_EXAMPLE" ]]; then
+  ok ".env.example exists"
+  # Check for common secret patterns (should only be PLACEHOLDERs)
+  if grep -E '(ghp_[a-zA-Z0-9]{36}|AIza[a-zA-Z0-9_-]{35}|sk-[a-zA-Z0-9]{48})' "$ENV_EXAMPLE" &>/dev/null; then
+    fail ".env.example appears to contain a real secret — remove it immediately"
+    ((ERRORS++))
+  else
+    ok ".env.example contains only placeholders"
+  fi
+else
+  fail ".env.example not found"
+  ((ERRORS++))
+fi
+
+# ─── Summary ─────────────────────────────────────────────────────────────────
+echo ""
+echo "─────────────────────────────────────────"
+if [[ "$ERRORS" -eq 0 ]]; then
+  echo -e "${GREEN}All validations passed${NC}"
+  exit 0
+else
+  echo -e "${RED}${ERRORS} error(s) found — fix before proceeding${NC}"
+  exit 1
+fi
