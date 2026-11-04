@@ -19,7 +19,7 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORKSPACE="${CLUOS_WORKSPACE:-$(cd "$REPO_ROOT/.." && pwd)}"
-BLOCK_SRC="$REPO_ROOT/agent-skills/global-config-block.md"
+BLOCK_SRC="$REPO_ROOT/agent-skills/frontend-workflow.md"  # full workflow; the Codex global file carries only the pointer block
 OPS_SRC="$WORKSPACE/global-copilot-os/claude-global/rules/cluos-ops.md"
 RUN_ID="$(date +%Y%m%d-%H%M%S)-$$"
 BACKUP_ROOT="$REPO_ROOT/.skill-sync-backups/$RUN_ID/rules"
