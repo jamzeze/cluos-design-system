@@ -13,6 +13,10 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BLOCK_SRC="$REPO_ROOT/agent-skills/global-config-block.md"
+# Since 2026-11-04 the block in ~/.codex/AGENTS.md is a three-line pointer; the full workflow is
+# installed on demand at ~/.codex/.cluos/frontend-workflow.md (always-on diet, spec de convergência §11).
+FULL_SRC="$REPO_ROOT/agent-skills/frontend-workflow.md"
+FULL_DEST="$HOME/.codex/.cluos/frontend-workflow.md"
 RUN_ID="$(date +%Y%m%d-%H%M%S)-$$"
 BACKUP_DIR="$HOME/.claude/config-backups/$RUN_ID"
 CHECK_ONLY=false
@@ -179,6 +183,26 @@ PYEOF
     echo "APPENDED $target (backup: $BACKUP_DIR/$backup_name)"
   fi
 done
+
+# Full workflow file, loaded on demand by the Codex pointer block.
+if [ ! -f "$FULL_SRC" ]; then
+  echo "canonical full workflow not found: $FULL_SRC" >&2
+  exit 1
+fi
+if [ -f "$FULL_DEST" ] && cmp -s "$FULL_SRC" "$FULL_DEST"; then
+  echo "OK   $FULL_DEST (full workflow up to date)"
+elif [ "$CHECK_ONLY" = true ]; then
+  echo "DRIFT $FULL_DEST (full workflow differs or is absent)"
+  DRIFT=$((DRIFT + 1))
+else
+  mkdir -p "$(dirname "$FULL_DEST")"
+  if [ -f "$FULL_DEST" ]; then
+    mkdir -p "$BACKUP_DIR"
+    cp "$FULL_DEST" "$BACKUP_DIR/codex-frontend-workflow.md"
+  fi
+  cp "$FULL_SRC" "$FULL_DEST"
+  echo "UPDATED $FULL_DEST"
+fi
 
 if [ "$CHECK_ONLY" = true ] && [ "$DRIFT" -gt 0 ]; then
   echo "global config drift detected: $DRIFT target(s)"
