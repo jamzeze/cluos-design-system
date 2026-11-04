@@ -1,0 +1,54 @@
+# Workflow: Daily CEO Briefing
+# Trigger: manual (/briefing) or scheduled (08:00 BRT)
+# Risk: read (all steps are read-only)
+
+id: daily-briefing
+name: "Daily CEO Briefing"
+trigger:
+  - command: /briefing
+  - schedule: "0 11 * * 1-5"  # 08:00 BRT = 11:00 UTC, weekdays
+
+steps:
+  - id: inbox-summary
+    connector: gmail
+    action: list-messages
+    params:
+      max: 10
+      unread_only: true
+      summarize: true
+
+  - id: calendar-today
+    connector: google-calendar
+    action: list-events
+    params:
+      date: today
+      calendar_id: "${GOOGLE_CALENDAR_ID:-primary}"
+
+  - id: github-pending
+    connector: github
+    action: list-issues
+    params:
+      org: "${GITHUB_ORG}"
+      state: open
+      assigned_to: me
+      limit: 10
+
+  - id: compile-briefing
+    action: compile
+    template: |
+      📋 *Briefing — {{ date }}*
+
+      *📧 Inbox ({{ inbox-summary.count }} não lidos)*
+      {{ inbox-summary.summary }}
+
+      *📅 Agenda de hoje*
+      {{ calendar-today.formatted }}
+
+      *🔧 Issues pendentes ({{ github-pending.count }})*
+      {{ github-pending.formatted }}
+
+output:
+  channel: telegram
+  format: markdown
+  log_to_obsidian: true
+  obsidian_note: "Hermes/Briefings/{{ date }}.md"

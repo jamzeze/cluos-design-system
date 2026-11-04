@@ -1,0 +1,87 @@
+# =============================================================================
+# CEO Agent — CluOS Hermes
+# Conversational AI layer for the CEO, operating via Telegram
+# =============================================================================
+
+agent:
+  id: ceo-agent
+  name: "CluOS CEO Agent"
+  version: "1.0.0"
+  description: >
+    Natural language interface for the CEO. Receives messages via Telegram,
+    classifies intent and risk, routes to Hermes connectors, and enforces
+    approval gates for high-impact actions.
+
+runtime:
+  mode: "${CEO_AGENT_MODE:-approval}"         # approval | auto | dry-run
+  approval_required: "${CEO_AGENT_APPROVAL_REQUIRED:-true}"
+  language: "pt-BR"                            # primary response language
+  max_response_tokens: 1500
+  audit_log: true
+
+access_control:
+  telegram_allowed_user_ids: "${TELEGRAM_ALLOWED_USER_IDS}"
+  reject_unknown_senders: true                 # silently ignore unknown senders
+  log_rejected_attempts: false                 # privacy: don't log attacker IDs
+
+connectors:
+  required:
+    - id: github
+      env_var: GITHUB_TOKEN
+    - id: google-workspace
+      env_vars: [GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN]
+    - id: browserbase
+      env_vars: [BROWSERBASE_API_KEY, BROWSERBASE_PROJECT_ID]
+    - id: firecrawl
+      env_var: FIRECRAWL_API_KEY
+    - id: obsidian
+      env_vars: [OBSIDIAN_VAULT_PATH, OBSIDIAN_LOCAL_REST_API_KEY]
+  recommended:
+    - id: apify
+      env_var: APIFY_API_TOKEN
+    - id: youtube-transcripts
+      env_var: YOUTUBE_API_KEY
+    - id: granola-fathom
+      env_vars: [GRANOLA_API_KEY, FATHOM_API_KEY]
+      optional: true
+
+prompts:
+  system: prompts/system.md
+  router: prompts/router.md
+  approval: prompts/approval.md
+  risk_policy: prompts/risk-policy.md
+
+commands:
+  - name: /status
+    description: Show system health and pending approvals
+    permission: read
+  - name: /pending
+    description: List all queued actions awaiting CEO approval
+    permission: read
+  - name: /approve
+    description: Approve a queued action by ID
+    args: ["<action-id>"]
+    permission: execute
+  - name: /reject
+    description: Reject and cancel a queued action by ID
+    args: ["<action-id>"]
+    permission: execute
+
+audit:
+  obsidian_path: "Hermes/Decisions"
+  file_pattern: "YYYY-MM-DD.md"
+  include_levels: [execute-low-risk, execute-high-risk, require-approval]
+
+approval_message_template: prompts/approval.md
+
+blocked_actions:
+  - pattern: "push.*main|push.*master"
+    reason: "Branch protection — use PRs"
+  - pattern: "delete.*repo|delete.*organization"
+    reason: "Destructive — requires offline process"
+  - pattern: "bulk.*email|send.*>5.*recipients"
+    reason: "Bulk communication requires manual review"
+  - pattern: "payment|purchase|billing|charge"
+    reason: "Financial actions blocked in agent"
+  - pattern: "print.*secret|log.*token|expose.*key"
+    reason: "Secret exposure prevention"
